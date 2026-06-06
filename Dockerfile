@@ -1,39 +1,35 @@
-FROM oven/bun:1.1 AS base
+FROM oven/bun:1.1 AS build
 WORKDIR /app
 
-# Step 1: Install dependencies
-FROM base AS install
+# Install dependencies and build the client bundle
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
-
-# Step 2: Build the application
-FROM base AS build
-COPY --from=install /app/node_modules ./node_modules
 COPY . .
+RUN bun run build
 
-# Set environment to production
-ENV NODE_ENV=production
+# Generate a static SPA entrypoint from the client build output
+RUN set -e \
+  && jsFile=$(basename "$(ls dist/client/assets/index-*.js | head -n 1)") \
+  && cssFile=$(basename "$(ls dist/client/assets/styles-*.css | head -n 1)") \
+  && mkdir -p dist/client \
+  && cat > dist/client/index.html <<EOF
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spares Automation</title>
+    <link rel="stylesheet" href="/assets/${cssFile}" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/assets/${jsFile}"></script>
+  </body>
+</html>
+EOF
 
-# Build the app using node-server preset for Docker compatibility
-# This generates the .output directory
-RUN NITRO_PRESET=node-server bun run build
-
-# Step 3: Production runtime
-FROM base AS runtime
-WORKDIR /app
-
-# Copy the built output from the build stage
-COPY --from=build /app/.output ./.output
-# Copy package.json to help with any runtime checks (optional but good practice)
-COPY --from=build /app/package.json ./package.json
-
-# Standard environment variables for Nitro/TanStack Start
-ENV PORT=3000
-ENV HOST=0.0.0.0
-ENV NODE_ENV=production
-
-# Expose the port Coolify will look for
-EXPOSE 3000
-
-# Start the server using the built index
-CMD ["bun", "./.output/server/index.mjs"]
+FROM nginx:stable-alpine AS runtime
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist/client /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
