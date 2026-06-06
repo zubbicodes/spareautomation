@@ -41,21 +41,21 @@ export const Route = createFileRoute("/")({
 });
 
 const asphaltSubs = [
-  "Feeders & Conveyors",
-  "Silos & Storage",
-  "Burner Systems",
-  "Drum Mixers",
-  "Sensors & Probes",
-  "Control Cabinets",
+  { code: "AS-01", t: "Feeders & Conveyors", c: "Belts · Idlers · Drives", skus: "4,210" },
+  { code: "AS-02", t: "Silos & Storage", c: "Hot bins · Filler silos", skus: "1,860" },
+  { code: "AS-03", t: "Burner Systems", c: "Nozzles · Fuel pumps", skus: "920" },
+  { code: "AS-04", t: "Drum Mixers", c: "Flights · Liners · Seals", skus: "2,540" },
+  { code: "AS-05", t: "Sensors & Probes", c: "Thermocouples · RTDs", skus: "3,120" },
+  { code: "AS-06", t: "Control Cabinets", c: "PLCs · Contactors · MCBs", skus: "5,470" },
 ];
 
 const concreteSubs = [
-  "Batching Plants",
-  "Twin-Shaft Mixers",
-  "Cement Silos",
-  "Weighing Systems",
-  "Pneumatic Valves",
-  "PLC Controllers",
+  { code: "CN-01", t: "Batching Plants", c: "Skips · Hoppers · Weighers", skus: "3,840" },
+  { code: "CN-02", t: "Twin-Shaft Mixers", c: "Paddles · Liners · Shafts", skus: "2,160" },
+  { code: "CN-03", t: "Cement Silos", c: "Filters · Aerators · Valves", skus: "1,420" },
+  { code: "CN-04", t: "Weighing Systems", c: "Load cells · Indicators", skus: "980" },
+  { code: "CN-05", t: "Pneumatic Valves", c: "Butterfly · Pinch · Knife", skus: "2,610" },
+  { code: "CN-06", t: "PLC Controllers", c: "Siemens · Allen-Bradley", skus: "1,750" },
 ];
 
 const categories = [
