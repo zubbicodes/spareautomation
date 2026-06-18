@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, CheckCircle2, Loader2, UserPlus } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Eye, EyeOff, Loader2, UserPlus } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
 import { SiteHeader } from "@/components/shopify/SiteHeader";
@@ -73,7 +73,7 @@ function RegisterPage() {
       setResult({
         status: "success",
         message:
-          "Your account has been created in Shopify. Check your email if Shopify asks you to verify the account before signing in.",
+          "Your account has been created! Check your email to verify your account before signing in.",
       });
       formElement.reset();
     } catch (error) {
@@ -82,7 +82,7 @@ function RegisterPage() {
         message:
           error instanceof Error
             ? error.message
-            : "Shopify could not create this customer account.",
+            : "We could not create your account.",
       });
     } finally {
       setBusy(false);
@@ -109,8 +109,8 @@ function RegisterPage() {
               Create Your Account
             </h1>
             <p className="mt-6 max-w-md text-sm leading-7 text-white/55">
-              Register directly with Spares Automation. The account is created in Shopify, so
-              customer data, checkout and future order history stay connected to the store.
+              Create your Spares Automation account to unlock exclusive trade pricing, 
+              faster checkout, and full visibility of your order history.
             </p>
           </div>
 
@@ -125,7 +125,7 @@ function RegisterPage() {
             <UserPlus className="h-5 w-5" />
           </div>
           <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
-            Shopify Registration
+            Registration
           </div>
           <h2 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight">
             New Customer
@@ -138,12 +138,12 @@ function RegisterPage() {
             </div>
             <Field label="Email address" name="email" type="email" autoComplete="email" required />
             <PhoneField />
-            <Field
+            <PasswordField
               label="Password"
               name="password"
-              type="password"
               autoComplete="new-password"
               minLength={8}
+              showStrength={true}
               required
             />
 
@@ -182,7 +182,7 @@ function RegisterPage() {
             <p className="text-sm text-ink-muted">
               Already registered?{" "}
               <Link to="/login" className="font-semibold text-ink transition-colors hover:text-accent">
-                Sign in securely
+                Sign in
               </Link>
             </p>
           </form>
@@ -193,13 +193,13 @@ function RegisterPage() {
 }
 
 const COUNTRIES = [
-  { code: "+44", name: "United Kingdom" },
+  { code: "+44", name: "UK" },
   { code: "+93", name: "Afghanistan" },
   { code: "+355", name: "Albania" },
   { code: "+213", name: "Algeria" },
   { code: "+376", name: "Andorra" },
   { code: "+244", name: "Angola" },
-  { code: "+1-268", name: "Antigua and Barbuda" },
+  { code: "+1-268", name: "Antigua" },
   { code: "+54", name: "Argentina" },
   { code: "+374", name: "Armenia" },
   { code: "+61", name: "Australia" },
@@ -215,39 +215,39 @@ const COUNTRIES = [
   { code: "+229", name: "Benin" },
   { code: "+975", name: "Bhutan" },
   { code: "+591", name: "Bolivia" },
-  { code: "+387", name: "Bosnia and Herzegovina" },
+  { code: "+387", name: "Bosnia" },
   { code: "+267", name: "Botswana" },
   { code: "+55", name: "Brazil" },
   { code: "+673", name: "Brunei" },
   { code: "+359", name: "Bulgaria" },
-  { code: "+226", name: "Burkina Faso" },
+  { code: "+226", name: "Burkina" },
   { code: "+257", name: "Burundi" },
   { code: "+855", name: "Cambodia" },
   { code: "+237", name: "Cameroon" },
   { code: "+1", name: "Canada" },
   { code: "+238", name: "Cape Verde" },
-  { code: "+236", name: "Central African Republic" },
+  { code: "+236", name: "CAR" },
   { code: "+235", name: "Chad" },
   { code: "+56", name: "Chile" },
   { code: "+86", name: "China" },
   { code: "+57", name: "Colombia" },
   { code: "+269", name: "Comoros" },
-  { code: "+242", name: "Congo (Brazzaville)" },
-  { code: "+243", name: "Congo (Kinshasa)" },
+  { code: "+242", name: "Congo" },
+  { code: "+243", name: "DR Congo" },
   { code: "+506", name: "Costa Rica" },
-  { code: "+225", name: "Côte d'Ivoire" },
+  { code: "+225", name: "Ivory Coast" },
   { code: "+385", name: "Croatia" },
   { code: "+53", name: "Cuba" },
   { code: "+357", name: "Cyprus" },
-  { code: "+420", name: "Czech Republic" },
+  { code: "+420", name: "Czechia" },
   { code: "+45", name: "Denmark" },
   { code: "+253", name: "Djibouti" },
   { code: "+1-767", name: "Dominica" },
-  { code: "+1-809, +1-829, +1-849", name: "Dominican Republic" },
+  { code: "+1-809", name: "Dominican Rep" },
   { code: "+593", name: "Ecuador" },
   { code: "+20", name: "Egypt" },
   { code: "+503", name: "El Salvador" },
-  { code: "+240", name: "Equatorial Guinea" },
+  { code: "+240", name: "Eq. Guinea" },
   { code: "+291", name: "Eritrea" },
   { code: "+372", name: "Estonia" },
   { code: "+268", name: "Eswatini" },
@@ -302,7 +302,7 @@ const COUNTRIES = [
   { code: "+960", name: "Maldives" },
   { code: "+223", name: "Mali" },
   { code: "+356", name: "Malta" },
-  { code: "+692", name: "Marshall Islands" },
+  { code: "+692", name: "Marshall Is" },
   { code: "+222", name: "Mauritania" },
   { code: "+230", name: "Mauritius" },
   { code: "+52", name: "Mexico" },
@@ -322,14 +322,14 @@ const COUNTRIES = [
   { code: "+505", name: "Nicaragua" },
   { code: "+227", name: "Niger" },
   { code: "+234", name: "Nigeria" },
-  { code: "+850", name: "North Korea" },
-  { code: "+389", name: "North Macedonia" },
+  { code: "+850", name: "N. Korea" },
+  { code: "+389", name: "N. Macedonia" },
   { code: "+47", name: "Norway" },
   { code: "+968", name: "Oman" },
   { code: "+92", name: "Pakistan" },
   { code: "+680", name: "Palau" },
   { code: "+507", name: "Panama" },
-  { code: "+675", name: "Papua New Guinea" },
+  { code: "+675", name: "Papua NG" },
   { code: "+595", name: "Paraguay" },
   { code: "+51", name: "Peru" },
   { code: "+63", name: "Philippines" },
@@ -339,13 +339,13 @@ const COUNTRIES = [
   { code: "+40", name: "Romania" },
   { code: "+7", name: "Russia" },
   { code: "+250", name: "Rwanda" },
-  { code: "+1-869", name: "Saint Kitts and Nevis" },
-  { code: "+1-758", name: "Saint Lucia" },
-  { code: "+1-784", name: "Saint Vincent and the Grenadines" },
+  { code: "+1-869", name: "St Kitts" },
+  { code: "+1-758", name: "St Lucia" },
+  { code: "+1-784", name: "St Vincent" },
   { code: "+685", name: "Samoa" },
   { code: "+378", name: "San Marino" },
-  { code: "+239", name: "São Tomé and Príncipe" },
-  { code: "+966", name: "Saudi Arabia" },
+  { code: "+239", name: "São Tomé" },
+  { code: "+966", name: "Saudi" },
   { code: "+221", name: "Senegal" },
   { code: "+381", name: "Serbia" },
   { code: "+248", name: "Seychelles" },
@@ -353,7 +353,7 @@ const COUNTRIES = [
   { code: "+65", name: "Singapore" },
   { code: "+421", name: "Slovakia" },
   { code: "+386", name: "Slovenia" },
-  { code: "+677", name: "Solomon Islands" },
+  { code: "+677", name: "Solomon Is" },
   { code: "+252", name: "Somalia" },
   { code: "+27", name: "South Africa" },
   { code: "+82", name: "South Korea" },
@@ -372,15 +372,15 @@ const COUNTRIES = [
   { code: "+670", name: "Timor-Leste" },
   { code: "+228", name: "Togo" },
   { code: "+676", name: "Tonga" },
-  { code: "+1-868", name: "Trinidad and Tobago" },
+  { code: "+1-868", name: "Trinidad" },
   { code: "+216", name: "Tunisia" },
   { code: "+90", name: "Turkey" },
   { code: "+993", name: "Turkmenistan" },
   { code: "+688", name: "Tuvalu" },
   { code: "+256", name: "Uganda" },
   { code: "+380", name: "Ukraine" },
-  { code: "+971", name: "United Arab Emirates" },
-  { code: "+1", name: "United States" },
+  { code: "+971", name: "UAE" },
+  { code: "+1", name: "USA" },
   { code: "+598", name: "Uruguay" },
   { code: "+998", name: "Uzbekistan" },
   { code: "+678", name: "Vanuatu" },
@@ -397,7 +397,7 @@ function PhoneField() {
       <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted">
         Phone number
       </span>
-      <div className="grid grid-cols-[160px_1fr] border border-rule bg-background focus-within:border-accent">
+      <div className="grid grid-cols-[220px_1fr] border border-rule bg-background focus-within:border-accent">
         <select
           name="countryCode"
           defaultValue="+44"
@@ -420,7 +420,7 @@ function PhoneField() {
         />
       </div>
       <span className="text-xs leading-5 text-ink-muted">
-        Shopify receives this in international format, for example +447911123456.
+        We receive this in international format, for example +447911123456.
       </span>
     </label>
   );
@@ -454,6 +454,94 @@ function Field({
         required={required}
         className="h-12 border border-rule bg-background px-4 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent"
       />
+    </label>
+  );
+}
+
+function PasswordField({
+  label,
+  name,
+  autoComplete,
+  minLength,
+  showStrength = true,
+  required,
+}: {
+  label: string;
+  name: string;
+  autoComplete?: string;
+  minLength?: number;
+  showStrength?: boolean;
+  required?: boolean;
+}) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+
+  const calculateStrength = (pwd: string) => {
+    let strength = 0;
+    if (pwd.length >= 8) strength++;
+    if (/[A-Z]/.test(pwd)) strength++;
+    if (/[0-9]/.test(pwd)) strength++;
+    if (/[^A-Za-z0-9]/.test(pwd)) strength++;
+    return strength;
+  };
+
+  const strength = calculateStrength(password);
+
+  const getStrengthColor = (s: number) => {
+    if (s === 0) return "bg-gray-300";
+    if (s === 1) return "bg-red-500";
+    if (s === 2) return "bg-orange-500";
+    if (s === 3) return "bg-yellow-500";
+    return "bg-green-500";
+  };
+
+  const getStrengthLabel = (s: number) => {
+    if (s === 0) return "";
+    if (s === 1) return "Weak";
+    if (s === 2) return "Fair";
+    if (s === 3) return "Good";
+    return "Strong";
+  };
+
+  return (
+    <label className="grid gap-2">
+      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted">
+        {label}
+      </span>
+      <div className="relative border border-rule bg-background focus-within:border-accent">
+        <input
+          name={name}
+          type={showPassword ? "text" : "password"}
+          autoComplete={autoComplete}
+          minLength={minLength}
+          required={required}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="h-12 w-full bg-transparent px-4 pr-12 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted"
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink"
+        >
+          {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+        </button>
+      </div>
+      {showStrength && (
+        <div className="mt-1">
+          <div className="flex gap-1 h-1.5">
+            {[0, 1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className={`flex-1 rounded-sm ${i < strength ? getStrengthColor(strength) : "bg-gray-200"}`}
+              />
+            ))}
+          </div>
+          <div className="text-xs text-ink-muted mt-1">
+            {getStrengthLabel(strength)}
+          </div>
+        </div>
+      )}
     </label>
   );
 }

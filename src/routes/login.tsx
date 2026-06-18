@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, CheckCircle2, Loader2, User } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Eye, EyeOff, Loader2, User } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
 import { SiteHeader } from "@/components/shopify/SiteHeader";
@@ -100,11 +100,11 @@ function LoginPage() {
 
           <form onSubmit={handleSubmit} className="mt-8 grid gap-5">
             <Field label="Email address" name="email" type="email" autoComplete="email" required />
-            <Field
+            <PasswordField
               label="Password"
               name="password"
-              type="password"
               autoComplete="current-password"
+              showStrength={false}
               required
             />
 
@@ -149,12 +149,14 @@ function Field({
   name,
   type = "text",
   autoComplete,
+  minLength,
   required,
 }: {
   label: string;
   name: string;
   type?: string;
   autoComplete?: string;
+  minLength?: number;
   required?: boolean;
 }) {
   return (
@@ -166,9 +168,98 @@ function Field({
         name={name}
         type={type}
         autoComplete={autoComplete}
+        minLength={minLength}
         required={required}
         className="h-12 border border-rule bg-background px-4 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent"
       />
+    </label>
+  );
+}
+
+function PasswordField({
+  label,
+  name,
+  autoComplete,
+  minLength,
+  showStrength = true,
+  required,
+}: {
+  label: string;
+  name: string;
+  autoComplete?: string;
+  minLength?: number;
+  showStrength?: boolean;
+  required?: boolean;
+}) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+
+  const calculateStrength = (pwd: string) => {
+    let strength = 0;
+    if (pwd.length >= 8) strength++;
+    if (/[A-Z]/.test(pwd)) strength++;
+    if (/[0-9]/.test(pwd)) strength++;
+    if (/[^A-Za-z0-9]/.test(pwd)) strength++;
+    return strength;
+  };
+
+  const strength = calculateStrength(password);
+
+  const getStrengthColor = (s: number) => {
+    if (s === 0) return "bg-gray-300";
+    if (s === 1) return "bg-red-500";
+    if (s === 2) return "bg-orange-500";
+    if (s === 3) return "bg-yellow-500";
+    return "bg-green-500";
+  };
+
+  const getStrengthLabel = (s: number) => {
+    if (s === 0) return "";
+    if (s === 1) return "Weak";
+    if (s === 2) return "Fair";
+    if (s === 3) return "Good";
+    return "Strong";
+  };
+
+  return (
+    <label className="grid gap-2">
+      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted">
+        {label}
+      </span>
+      <div className="relative border border-rule bg-background focus-within:border-accent">
+        <input
+          name={name}
+          type={showPassword ? "text" : "password"}
+          autoComplete={autoComplete}
+          minLength={minLength}
+          required={required}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="h-12 w-full bg-transparent px-4 pr-12 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted"
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink"
+        >
+          {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+        </button>
+      </div>
+      {showStrength && (
+        <div className="mt-1">
+          <div className="flex gap-1 h-1.5">
+            {[0, 1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className={`flex-1 rounded-sm ${i < strength ? getStrengthColor(strength) : "bg-gray-200"}`}
+              />
+            ))}
+          </div>
+          <div className="text-xs text-ink-muted mt-1">
+            {getStrengthLabel(strength)}
+          </div>
+        </div>
+      )}
     </label>
   );
 }

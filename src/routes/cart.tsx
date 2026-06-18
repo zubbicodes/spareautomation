@@ -210,7 +210,7 @@ function CartPage() {
                 href={cart.checkoutUrl}
                 className="mt-8 inline-flex h-12 w-full items-center justify-center bg-accent px-6 font-mono text-[11px] uppercase tracking-[0.22em] text-accent-foreground transition-colors hover:bg-accent/90"
               >
-                Checkout with Shopify
+                Checkout
               </a>
               <p className="mt-4 text-xs leading-relaxed text-ink-muted">
                 Shipping, taxes, discounts, payments, and order creation are handled securely by
