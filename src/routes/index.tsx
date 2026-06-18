@@ -37,12 +37,12 @@ export const Route = createFileRoute("/")({
 });
 
 const asphaltSubs = [
-  { code: "AS-01", t: "Feeders & Conveyors", c: "Belts · Idlers · Drives", skus: "4,210" },
-  { code: "AS-02", t: "Silos & Storage", c: "Hot bins · Filler silos", skus: "1,860" },
-  { code: "AS-03", t: "Burner Systems", c: "Nozzles · Fuel pumps", skus: "920" },
-  { code: "AS-04", t: "Drum Mixers", c: "Flights · Liners · Seals", skus: "2,540" },
-  { code: "AS-05", t: "Sensors & Probes", c: "Thermocouples · RTDs", skus: "3,120" },
-  { code: "AS-06", t: "Control Cabinets", c: "PLCs · Contactors · MCBs", skus: "5,470" },
+  { code: "AS-01", t: "Feeder System", c: "Belts · Idlers · Drives", skus: "4,210" },
+  { code: "AS-02", t: "Burner / Dryer", c: "Nozzles · Fuel pumps", skus: "1,860" },
+  { code: "AS-03", t: "Mixing Tower", c: "Paddles · Liners · Seals", skus: "920" },
+  { code: "AS-04", t: "Baghouse", c: "Filters · Bags · Cages", skus: "2,540" },
+  { code: "AS-05", t: "Bitumen", c: "Pumps · Valves · Hoses", skus: "3,120" },
+  { code: "AS-06", t: "Hot Storage / Silo Systems", c: "Hot bins · Gates · Insulation", skus: "5,470" },
 ];
 
 const concreteSubs = [
