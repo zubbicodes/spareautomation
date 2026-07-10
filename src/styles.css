@@ -1,5 +1,7 @@
 @import "tailwindcss" source(none);
-@source "../src";
+@source "../src/routes";
+@source "../src/components/shopify";
+@source "../src/lib";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -29,12 +31,25 @@
   --rule: oklch(0.9 0.005 250);
   --charcoal: oklch(0.245 0.012 250);     /* #1E2229 ish */
   --charcoal-deep: oklch(0.18 0.012 250);
-  --accent: oklch(0.62 0.18 245);          /* automation blue */
+  --accent: oklch(0.52 0.18 245);          /* accessible automation blue */
   --accent-foreground: oklch(0.99 0 0);
   --amber: oklch(0.78 0.17 75);            /* safety amber */
 }
 
 @layer base {
   * { border-color: var(--color-rule); }
-  html, body { background: var(--color-background); color: var(--color-foreground); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
+  html { overflow-x: clip; scroll-behavior: smooth; }
+  body { min-width: 0; overflow-x: clip; background: var(--color-background); color: var(--color-foreground); font-family: var(--font-display); -webkit-font-smoothing: antialiased; }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+  :target, :focus { scroll-margin-top: 10rem; }
+  button, [role="button"], select { min-height: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

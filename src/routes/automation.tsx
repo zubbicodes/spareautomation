@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CollectionPage } from "@/components/shopify/CollectionPage";
 import { getCollection, getLatestProducts } from "@/lib/api/shopify.functions";
 import automation from "@/assets/cat-automation.jpg";
+import { SITE } from "@/lib/site";
 
 const collectionHandle = "automation";
 const productLines = [
@@ -24,6 +25,7 @@ export const Route = createFileRoute("/automation")({
         content: "Product range for automation, drives, and controls.",
       },
     ],
+    links: [{ rel: "canonical", href: `${SITE.url}/automation` }],
   }),
   loader: async () => {
     const collection = await getCollection({ data: { handle: collectionHandle, first: 48 } });

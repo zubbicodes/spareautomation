@@ -1,0 +1,8 @@
+{
+  "name": "Spares Automation",
+  "short_name": "Spares Automation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f8f9",
+  "theme_color": "#1e2229"
+}

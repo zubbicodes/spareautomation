@@ -6,6 +6,8 @@ type Connection<T> = {
   nodes: T[];
 };
 
+type PageInfo = { hasNextPage: boolean; endCursor: string | null };
+
 type ProductConnectionShape = Omit<ShopifyProduct, "variants" | "images" | "technicalDetails"> & {
   variants: Connection<ShopifyProduct["variants"][number]>;
   images?: Connection<ShopifyProduct["images"][number]>;
@@ -60,6 +62,16 @@ function assertCartMutation(cart: ShopifyCart | null, errors: CartUserError[] = 
   return cart;
 }
 
+function safeExternalUrl(value?: string | null) {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
 function parseResourceLinks(value?: string | null) {
   if (!value) return [];
 
@@ -69,7 +81,8 @@ function parseResourceLinks(value?: string | null) {
     return values
       .map((item, index) => {
         if (typeof item === "string") {
-          return { label: `Resource ${index + 1}`, url: item };
+          const url = safeExternalUrl(item);
+          return url ? { label: `Resource ${index + 1}`, url } : null;
         }
         if (item && typeof item === "object") {
           const record = item as Record<string, unknown>;
@@ -80,13 +93,15 @@ function parseResourceLinks(value?: string | null) {
               : typeof record.name === "string"
                 ? record.name
                 : `Resource ${index + 1}`;
-          return url ? { label, url } : null;
+          const safeUrl = safeExternalUrl(url);
+          return safeUrl ? { label, url: safeUrl } : null;
         }
         return null;
       })
       .filter((link): link is { label: string; url: string } => Boolean(link?.url));
   } catch {
-    return [{ label: "Resource", url: value }];
+    const url = safeExternalUrl(value);
+    return url ? [{ label: "Resource", url }] : [];
   }
 }
 
@@ -94,11 +109,9 @@ function parseProductResource(value: string | null | undefined) {
   if (!value) return null;
   try {
     const parsed = JSON.parse(value);
-    if (parsed && typeof parsed === "object" && "url" in parsed && "text" in parsed) {
-      return {
-        text: parsed.text,
-        url: parsed.url,
-      };
+    if (parsed && typeof parsed === "object" && typeof parsed.url === "string" && typeof parsed.text === "string") {
+      const url = safeExternalUrl(parsed.url);
+      return url ? { text: parsed.text, url } : null;
     }
     return null;
   } catch {
@@ -116,7 +129,7 @@ function normalizeTechnicalDetails(product: ProductConnectionShape) {
   return {
     brand: metafields.get("brand") ?? product.vendor ?? null,
     mpnRange: metafields.get("mpn_range") ?? product.variants.nodes[0]?.sku ?? null,
-    setupVideoUrl: metafields.get("setup_video_url") ?? null,
+    setupVideoUrl: safeExternalUrl(metafields.get("setup_video_url")),
     videoGuide: parseProductResource(metafields.get("video_guide")),
     pdfGuide: parseProductResource(metafields.get("pdf_guide")),
     datasheets: parseResourceLinks(metafields.get("datasheets")),
@@ -207,6 +220,24 @@ export async function getProducts(first = 24, query?: string) {
   );
 
   return data.products.nodes.map(normalizeProduct);
+}
+
+export async function getProductsPage(first = 48, query?: string, after?: string) {
+  const data = await shopifyStorefront<{
+    products: Connection<ProductConnectionShape> & { pageInfo: PageInfo };
+  }>(
+    `#graphql
+      ${PRODUCT_CARD_FRAGMENT}
+      query ProductsPage($first: Int!, $query: String, $after: String) {
+        products(first: $first, query: $query, after: $after, sortKey: CREATED_AT, reverse: true) {
+          nodes { ...ProductCardFields }
+          pageInfo { hasNextPage endCursor }
+        }
+      }
+    `,
+    { first, query, after },
+  );
+  return { products: data.products.nodes.map(normalizeProduct), pageInfo: data.products.pageInfo };
 }
 
 export async function getProductByHandle(handle: string) {
@@ -407,6 +438,22 @@ export async function createCustomerAccessToken(input: CustomerAccessTokenCreate
   );
 
   return data.customerAccessTokenCreate;
+}
+
+export async function recoverCustomerPassword(email: string) {
+  const data = await shopifyStorefront<{
+    customerRecover: { customerUserErrors: CustomerUserError[] };
+  }>(
+    `#graphql
+      mutation CustomerRecover($email: String!) {
+        customerRecover(email: $email) {
+          customerUserErrors { code field message }
+        }
+      }
+    `,
+    { email },
+  );
+  return data.customerRecover;
 }
 
 export async function getCustomer(customerAccessToken: string) {

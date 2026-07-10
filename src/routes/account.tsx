@@ -3,41 +3,30 @@ import { LogOut, PackageSearch, ShieldCheck, User } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { SiteHeader } from "@/components/shopify/SiteHeader";
-import {
-  getCustomerAccountProfile,
-  getCustomerAuthStatus,
-  logoutCustomer,
-} from "@/lib/api/customer-account.functions";
+import { SiteFooter } from "@/components/shopify/SiteFooter";
 import {
   getShopifyCustomer,
   logoutShopifyCustomer,
 } from "@/lib/api/shopify.functions";
 
-type AuthStatus = Awaited<ReturnType<typeof getCustomerAuthStatus>>;
-type CustomerProfile = Awaited<ReturnType<typeof getCustomerAccountProfile>>;
 type StorefrontCustomer = Awaited<ReturnType<typeof getShopifyCustomer>>;
 
 export const Route = createFileRoute("/account")({
+  head: () => ({ meta: [{ title: "Customer Account | Spares Automation" }, { name: "robots", content: "noindex, nofollow" }] }),
   component: AccountPage,
 });
 
 function AccountPage() {
-  const [status, setStatus] = useState<AuthStatus | null>(null);
-  const [profile, setProfile] = useState<CustomerProfile | null>(null);
   const [storefrontCustomer, setStorefrontCustomer] = useState<StorefrontCustomer>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadAccount() {
       try {
-        const nextStatus = await getCustomerAuthStatus();
-        setStatus(nextStatus);
-        if (nextStatus.loggedIn) {
-          setProfile(await getCustomerAccountProfile());
-        }
-        
-        const sfCustomer = await getShopifyCustomer();
-        setStorefrontCustomer(sfCustomer);
+        setStorefrontCustomer(await getShopifyCustomer());
+      } catch {
+        setError("We could not load your account. Please refresh and try again.");
       } finally {
         setLoading(false);
       }
@@ -47,7 +36,6 @@ function AccountPage() {
   }, []);
 
   async function handleLogout() {
-    await logoutCustomer();
     await logoutShopifyCustomer();
     window.location.href = "/";
   }
@@ -55,17 +43,15 @@ function AccountPage() {
   const displayName =
     storefrontCustomer?.displayName ||
     storefrontCustomer?.firstName ||
-    profile?.displayName ||
-    [profile?.firstName, profile?.lastName].filter(Boolean).join(" ") ||
     "Customer Account";
-  const email = storefrontCustomer?.email || profile?.email;
+  const email = storefrontCustomer?.email;
 
-  const isLoggedIn = storefrontCustomer || status?.loggedIn;
+  const isLoggedIn = Boolean(storefrontCustomer);
 
   return (
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
-      <main className="mx-auto max-w-[1200px] px-4 py-8 md:px-6 md:py-12">
+      <main id="main-content" className="mx-auto max-w-[1200px] px-4 py-8 md:px-6 md:py-12">
         <div className="mb-6 md:mb-8">
           <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
             Customer Account
@@ -75,6 +61,7 @@ function AccountPage() {
           </h1>
         </div>
 
+        {error ? <div role="alert" className="mb-5 border border-red-300 bg-red-50 p-4 text-sm text-red-800">{error}</div> : null}
         {loading ? (
           <div className="border border-rule bg-surface px-4 py-12 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted md:px-8 md:py-16">
             Loading account
@@ -86,7 +73,7 @@ function AccountPage() {
               Sign in to view your trade account
             </h2>
             <p className="mt-3 md:mt-4 max-w-2xl text-sm leading-relaxed text-ink-muted">
-              Sign in securely to view your account details, catalogue access, and order history.
+              Sign in securely to view your account details and continue to the catalogue.
             </p>
             <Link
               to="/login"
@@ -119,6 +106,7 @@ function AccountPage() {
             <aside className="space-y-3 md:space-y-4">
               <Link
                 to="/products"
+                search={{ category: "all", q: "", availability: "all", sort: "newest" }}
                 className="flex items-center justify-between border border-rule bg-surface p-4 md:p-5 text-sm font-semibold uppercase tracking-[0.08em] transition-colors hover:border-accent hover:text-accent"
               >
                 Browse catalogue <PackageSearch className="h-3 w-3 md:h-4 md:w-4" />
@@ -133,6 +121,7 @@ function AccountPage() {
           </div>
         )}
       </main>
+      <SiteFooter />
     </div>
   );
 }

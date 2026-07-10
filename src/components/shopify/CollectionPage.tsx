@@ -49,7 +49,7 @@ export function CollectionPage({
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
 
-      <section className="relative flex h-[45vh] md:h-[52vh] lg:h-[58vh] min-h-[300px] md:min-h-[360px] lg:min-h-[420px] w-full items-end overflow-hidden">
+      <section id="main-content" className="relative flex h-[45vh] min-h-[300px] w-full min-w-0 items-end overflow-hidden md:h-[52vh] md:min-h-[360px] lg:h-[58vh] lg:min-h-[420px]">
         <img
           src={collection?.image?.url ?? image}
           alt={collection?.image?.altText ?? imageAlt}
@@ -61,7 +61,7 @@ export function CollectionPage({
             <span className={`h-px w-6 md:w-8 ${bgAccentClass}`} />
             {eyebrow}
           </div>
-          <h1 className="font-display text-[1.75rem] md:text-[2.5rem] lg:text-[clamp(2.5rem,6vw,5rem)] font-extrabold uppercase leading-[0.9] tracking-tight text-white">
+          <h1 className="break-words font-display text-[clamp(1.65rem,8vw,5rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white lg:leading-[0.9]">
             {title}{" "}
             <span className={accentClass}>{collection?.title ? "CATALOGUE" : "SPARES"}</span>
           </h1>
@@ -142,10 +142,10 @@ export function CollectionPage({
                 <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
               </div>
               <h3 className="font-display text-xl md:text-2xl font-bold uppercase tracking-tight">
-                No products in this category
+                {selectedLine ? `No products found in ${selectedLine.label}` : "Catalogue products are being updated"}
               </h3>
               <p className="mx-auto mt-3 md:mt-4 max-w-2xl text-sm leading-relaxed text-ink-muted">
-                Browse our other categories for available products.
+                {selectedLine ? "Choose another product line or contact sales with a part number or equipment photo." : "Contact sales for availability, product identification, or a quotation while this range is updated."}
               </p>
             </div>
           )}

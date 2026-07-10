@@ -13,7 +13,7 @@ ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=80
 
-COPY --from=build /app/.output ./.output
+COPY --from=build /app/dist ./dist
 
 EXPOSE 80
-CMD ["node", ".output/server/index.mjs"]
+CMD ["node", "dist/server/index.mjs"]

@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { loginShopifyCustomer } from "@/lib/api/shopify.functions";
 
 export const Route = createFileRoute("/login")({
+  head: () => ({ meta: [{ title: "Sign In | Spares Automation" }, { name: "robots", content: "noindex, follow" }] }),
   component: LoginPage,
 });
 
@@ -66,7 +67,7 @@ function LoginPage() {
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
 
-      <main className="mx-auto grid max-w-[1180px] gap-6 px-4 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:px-6 lg:py-12">
+      <main id="main-content" className="mx-auto grid max-w-[1180px] gap-6 px-4 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:px-6 lg:py-12">
         <section className="flex min-h-[400px] md:min-h-[520px] flex-col justify-between border border-rule bg-charcoal p-6 text-white md:p-8 lg:p-10">
           <div>
             <Link
@@ -110,6 +111,8 @@ function LoginPage() {
 
             {result.message ? (
               <div
+                role={result.status === "error" ? "alert" : "status"}
+                aria-live="polite"
                 className={`border p-4 text-sm leading-6 ${
                   result.status === "success"
                     ? "border-accent/40 bg-accent/10 text-ink"
@@ -131,6 +134,9 @@ function LoginPage() {
               Sign In
             </button>
 
+            <p className="text-sm text-ink-muted">
+              <Link to="/forgot-password" className="font-semibold text-ink transition-colors hover:text-accent">Forgot your password?</Link>
+            </p>
             <p className="text-sm text-ink-muted">
               Don't have an account?{" "}
               <Link to="/register" className="font-semibold text-ink transition-colors hover:text-accent">
@@ -240,6 +246,8 @@ function PasswordField({
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
+          aria-label={showPassword ? "Hide password" : "Show password"}
+          aria-pressed={showPassword}
           className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink"
         >
           {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}

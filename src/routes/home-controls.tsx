@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CollectionPage } from "@/components/shopify/CollectionPage";
 import { getCollection, getLatestProducts } from "@/lib/api/shopify.functions";
 import homeImg from "@/assets/cat-home.jpg";
+import { SITE } from "@/lib/site";
 
 const collectionHandle = "home-controls";
 const productLines = [
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/home-controls")({
         content: "Product range for home controls and automation products.",
       },
     ],
+    links: [{ rel: "canonical", href: `${SITE.url}/home-controls` }],
   }),
   loader: async () => {
     const collection = await getCollection({ data: { handle: collectionHandle, first: 48 } });

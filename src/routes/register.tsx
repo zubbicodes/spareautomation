@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { createShopifyCustomer } from "@/lib/api/shopify.functions";
 
 export const Route = createFileRoute("/register")({
+  head: () => ({ meta: [{ title: "Create Account | Spares Automation" }, { name: "robots", content: "noindex, follow" }] }),
   component: RegisterPage,
 });
 
@@ -73,7 +74,7 @@ function RegisterPage() {
       setResult({
         status: "success",
         message:
-          "Your account has been created! Check your email to verify your account before signing in.",
+          "Your account has been created. You can now sign in; follow any activation instructions Shopify sends by email.",
       });
       formElement.reset();
     } catch (error) {
@@ -93,7 +94,7 @@ function RegisterPage() {
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
 
-      <main className="mx-auto grid max-w-[1180px] gap-6 px-4 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:px-6 lg:py-12">
+      <main id="main-content" className="mx-auto grid max-w-[1180px] gap-6 px-4 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:px-6 lg:py-12">
         <section className="flex min-h-[400px] md:min-h-[520px] flex-col justify-between border border-rule bg-charcoal p-6 text-white md:p-8 lg:p-10">
           <div>
             <Link
@@ -103,20 +104,20 @@ function RegisterPage() {
               <ArrowLeft className="h-4 w-4" /> Back to home
             </Link>
             <div className="mt-12 md:mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
-              Trade Customer Access
+          Customer Access
             </div>
             <h1 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase leading-none tracking-tight">
               Create Your Account
             </h1>
             <p className="mt-4 md:mt-6 max-w-md text-sm leading-7 text-white/55">
-              Create your Spares Automation account to unlock exclusive trade pricing, 
-              faster checkout, and full visibility of your order history.
+              Create your Spares Automation account for faster checkout and access to your
+              Shopify customer details.
             </p>
           </div>
 
           <div className="grid gap-4 border-t border-white/10 pt-6 text-sm text-white/55">
-            <div>Trade pricing and order access after approval</div>
-            <div>Secure account details and saved order history</div>
+            <div>Trade terms and pricing are confirmed by the sales desk</div>
+            <div>Secure customer details for future purchases</div>
           </div>
         </section>
 
@@ -158,6 +159,8 @@ function RegisterPage() {
 
             {result.message ? (
               <div
+                role={result.status === "error" ? "alert" : "status"}
+                aria-live="polite"
                 className={`border p-4 text-sm leading-6 ${
                   result.status === "success"
                     ? "border-accent/40 bg-accent/10 text-ink"
@@ -522,6 +525,8 @@ function PasswordField({
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
+          aria-label={showPassword ? "Hide password" : "Show password"}
+          aria-pressed={showPassword}
           className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink"
         >
           {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
