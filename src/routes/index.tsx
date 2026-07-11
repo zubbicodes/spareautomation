@@ -34,12 +34,12 @@ const primaryRanges = [
     to: "/asphalt",
     accent: "accent",
     lines: [
-      { label: "Feeders", href: "/asphalt?line=feeders" },
-      { label: "Burner / Drying", href: "/asphalt?line=burner-drying" },
-      { label: "Bitumen", href: "/asphalt?line=bitumen" },
-      { label: "Hot Stone / Silos", href: "/asphalt?line=hot-stone-silos" },
-      { label: "Baghouse", href: "/asphalt?line=baghouse" },
-      { label: "Mixing Tower", href: "/asphalt?line=mixing-tower" },
+      { label: "Feeders & Conveyors", meta: "Belts / Idlers / Drives", href: "/asphalt?line=feeders" },
+      { label: "Silos & Storage", meta: "Hot bins / Filler silos", href: "/asphalt?line=hot-stone-silos" },
+      { label: "Burner Systems", meta: "Nozzles / Fuel pumps", href: "/asphalt?line=burner-drying" },
+      { label: "Drum Mixers", meta: "Flights / Liners / Seals", href: "/asphalt?line=mixing-tower" },
+      { label: "Sensors & Probes", meta: "Thermocouples / RTDs", href: "/asphalt?line=bitumen" },
+      { label: "Control Cabinets", meta: "PLCs / Contactors / MCBs", href: "/asphalt?line=baghouse" },
     ],
   },
   {
@@ -48,12 +48,12 @@ const primaryRanges = [
     to: "/concrete",
     accent: "amber",
     lines: [
-      { label: "Aggregate Feeding", href: "/concrete?line=aggregate-feeding" },
-      { label: "Cement / Material silos", href: "/concrete?line=cement-material-silos" },
-      { label: "Additive system", href: "/concrete?line=additive-system" },
-      { label: "Water controls", href: "/concrete?line=water-controls" },
-      { label: "Air controls", href: "/concrete?line=air-controls" },
-      { label: "Automation controls", href: "/concrete?line=automation-controls" },
+      { label: "Batching Plants", meta: "Skips / Hoppers / Weighers", href: "/concrete?line=aggregate-feeding" },
+      { label: "Twin-Shaft Mixers", meta: "Paddles / Liners / Shafts", href: "/concrete?line=cement-material-silos" },
+      { label: "Cement Silos", meta: "Filters / Aerators / Valves", href: "/concrete?line=additive-system" },
+      { label: "Weighing Systems", meta: "Load cells / Indicators", href: "/concrete?line=water-controls" },
+      { label: "Pneumatic Valves", meta: "Butterfly / Pinch / Knife", href: "/concrete?line=air-controls" },
+      { label: "PLC Controllers", meta: "Siemens / Allen-Bradley", href: "/concrete?line=automation-controls" },
     ],
   },
 ];
@@ -65,6 +65,17 @@ const categories = [
   { title: "Home Controls", img: catHome, to: "/home-controls" },
   { title: "New Arrivals", img: catAutomation, to: "/new-arrivals" },
 ];
+
+function HeroTitle({ title, accent }: { title: string; accent: "accent" | "amber" }) {
+  const baseTitle = title.replace(/ Spares$/, "");
+
+  return (
+    <>
+      {baseTitle}{" "}
+      <span className={accent === "amber" ? "text-amber" : "text-accent"}>Spares</span>
+    </>
+  );
+}
 
 function Home() {
   const [partNumber, setPartNumber] = useState("");
@@ -79,7 +90,7 @@ function Home() {
         {primaryRanges.map((range, index) => (
           <article
             key={range.title}
-            className="group relative flex min-h-[390px] items-end overflow-hidden border-b border-rule md:min-h-[560px]"
+            className="hero-range group relative flex min-h-[440px] items-stretch overflow-hidden border-b border-rule md:min-h-[560px]"
           >
             <img
               src={range.img}
@@ -90,33 +101,64 @@ function Home() {
               fetchPriority={index === 0 ? "high" : "auto"}
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/70 to-charcoal-deep/20" />
+            <div className="absolute inset-0 bg-charcoal-deep/45" />
+            <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/55 to-charcoal-deep/10" />
 
-            <div className="relative z-10 flex min-h-[390px] min-w-0 w-full flex-col justify-end p-6 transition-all duration-500 md:min-h-[560px] md:p-10">
-              <Link to={range.to} className="block max-w-2xl focus-visible:outline-white">
-                <h2 className="break-words font-display text-[clamp(1.75rem,7.7vw,4.3rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white">
-                  {range.title}
-                </h2>
-              </Link>
-              <div className="mt-7 grid max-w-2xl grid-cols-1 gap-2 sm:grid-cols-2">
-                {range.lines.map((line) => (
-                  <a
-                    key={line.label}
-                    href={line.href}
-                    className={`flex min-h-10 items-center justify-between border bg-charcoal-deep/70 px-3 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-colors ${
-                      range.accent === "amber"
-                        ? "border-white/10 hover:border-amber"
-                        : "border-white/10 hover:border-accent"
+            <div className="relative z-10 flex min-h-[440px] min-w-0 w-full flex-col justify-end gap-7 p-6 md:min-h-[560px] md:p-8 lg:p-10">
+              <div className="hero-range-title flex min-w-0 flex-col justify-end transition-all duration-500">
+                <div className="mb-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-white/70">
+                  <span
+                    className={`h-px w-8 ${
+                      range.accent === "amber" ? "bg-amber" : "bg-accent"
                     }`}
-                  >
-                    <span className="truncate">{line.label}</span>
-                    <ChevronRight
-                      className={`ml-3 h-3.5 w-3.5 shrink-0 ${
-                        range.accent === "amber" ? "text-amber" : "text-accent"
+                  />
+                  <span>Browse sub-categories</span>
+                </div>
+                <Link to={range.to} className="block max-w-xl focus-visible:outline-white">
+                  <h2 className="break-words font-display text-[clamp(2rem,4.2vw,3.4rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white">
+                    <HeroTitle title={range.title} accent={range.accent as "accent" | "amber"} />
+                  </h2>
+                </Link>
+              </div>
+
+              <div className="hero-range-panel z-20 grid gap-0 overflow-hidden border border-white/25 bg-charcoal-deep/92 shadow-2xl shadow-black/40 backdrop-blur-md transition-all duration-500 md:absolute md:inset-x-8 md:top-10 md:bg-charcoal-deep/50 md:shadow-none md:backdrop-blur-sm lg:inset-x-10">
+                <div
+                  className={`flex items-center border-b border-white/15 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.24em] md:border-white/20 md:px-5 md:py-3 ${
+                    range.accent === "amber" ? "text-amber" : "text-accent"
+                  }`}
+                >
+                  <span>Sub-categories - {String(range.lines.length).padStart(2, "0")}</span>
+                </div>
+                <div className="grid flex-1 grid-cols-1 gap-1 p-2 sm:grid-cols-2 md:gap-1.5 md:p-2.5">
+                  {range.lines.map((line, lineIndex) => (
+                    <a
+                      key={line.label}
+                      href={line.href}
+                      className={`group/item grid min-h-[70px] grid-cols-[1fr_auto] items-center border border-white/12 bg-charcoal-deep/72 px-3.5 py-3 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-sm transition-colors md:min-h-[64px] md:px-4 md:py-2.5 ${
+                        range.accent === "amber"
+                          ? "hover:border-amber hover:bg-amber/10 focus-visible:border-amber"
+                          : "hover:border-accent hover:bg-accent/15 focus-visible:border-accent"
                       }`}
-                    />
-                  </a>
-                ))}
+                    >
+                      <span className="min-w-0">
+                        <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.18em] text-white/45">
+                          {range.accent === "amber" ? "CN" : "AS"}-{String(lineIndex + 1).padStart(2, "0")}
+                        </span>
+                        <span className="block break-words text-sm font-bold leading-tight text-white">
+                          {line.label}
+                        </span>
+                        <span className="mt-1 block truncate font-mono text-[9px] uppercase tracking-[0.12em] text-white/50">
+                          {line.meta}
+                        </span>
+                      </span>
+                      <ChevronRight
+                        className={`ml-3 h-3 w-3 shrink-0 transition-transform group-hover/item:translate-x-0.5 ${
+                          range.accent === "amber" ? "text-amber" : "text-accent"
+                        }`}
+                      />
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           </article>

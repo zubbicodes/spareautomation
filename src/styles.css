@@ -45,6 +45,38 @@
   button, [role="button"], select { min-height: 24px; }
 }
 
+@layer components {
+  @media (min-width: 48rem) {
+    .hero-range-panel {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(var(--hero-panel-offset, 1.25rem));
+      max-height: calc(100% - 5rem);
+    }
+
+    .hero-range:nth-child(odd) .hero-range-panel {
+      --hero-panel-offset: 1.25rem;
+    }
+
+    .hero-range:nth-child(even) .hero-range-panel {
+      --hero-panel-offset: -1.25rem;
+    }
+
+    .hero-range:hover .hero-range-panel,
+    .hero-range:focus-within .hero-range-panel {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    .hero-range:hover .hero-range-title,
+    .hero-range:focus-within .hero-range-title {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
