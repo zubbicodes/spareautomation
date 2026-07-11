@@ -11,7 +11,9 @@ import {
   getCustomer,
   getProductByHandle,
   getProducts,
+  getProductsPage,
   removeCartLine,
+  recoverCustomerPassword,
   updateCartLine,
 } from "../shopify/queries.server";
 import {
@@ -38,6 +40,10 @@ export const getLatestProducts = createServerFn({ method: "GET" })
     }),
   )
   .handler(async ({ data }) => getProducts(data.first, data.query));
+
+export const getPaginatedProducts = createServerFn({ method: "GET" })
+  .inputValidator(z.object({ first: z.number().int().min(1).max(100).default(48), query: z.string().optional(), after: z.string().optional() }))
+  .handler(async ({ data }) => getProductsPage(data.first, data.query, data.after));
 
 export const getProduct = createServerFn({ method: "GET" })
   .inputValidator(z.object({ handle: z.string().min(1) }))
@@ -156,7 +162,7 @@ export const loginShopifyCustomer = createServerFn({ method: "POST" })
     }
 
     return {
-      customerAccessToken: result.customerAccessToken?.accessToken ?? null,
+      authenticated: Boolean(result.customerAccessToken),
       errors: result.customerUserErrors.map((error) => ({
         code: error.code,
         message: error.message,
@@ -175,6 +181,13 @@ export const logoutShopifyCustomer = createServerFn({ method: "POST" }).handler(
   await clearCustomerAccessTokenSession();
   return { ok: true };
 });
+
+export const requestShopifyPasswordReset = createServerFn({ method: "POST" })
+  .inputValidator(z.object({ email: z.string().trim().email("Enter a valid email address") }))
+  .handler(async ({ data }) => {
+    const result = await recoverCustomerPassword(data.email);
+    return { errors: result.customerUserErrors.map((error) => ({ code: error.code, message: error.message, field: error.field })) };
+  });
 
 export const createShopifyCustomer = createServerFn({ method: "POST" })
   .inputValidator(

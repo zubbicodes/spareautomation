@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CollectionPage } from "@/components/shopify/CollectionPage";
 import { getCollection, getLatestProducts } from "@/lib/api/shopify.functions";
 import asphalt from "@/assets/asphalt-plant.jpg";
+import { SITE } from "@/lib/site";
 
 const collectionHandle = "asphalt";
 const productLines = [
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/asphalt")({
         content: "Product range for asphalt and blacktop plant spares.",
       },
     ],
+    links: [{ rel: "canonical", href: `${SITE.url}/asphalt` }],
   }),
   loader: async () => {
     const collection = await getCollection({ data: { handle: collectionHandle, first: 48 } });

@@ -1,0 +1,146 @@
+# Spares Automation Client Feedback Changes
+
+## UX, Accessibility, Commerce, And Platform Hardening
+
+The July UX audit remediation is now implemented while retaining the existing industrial visual direction.
+
+- Rebuilt the shared header with valid responsive navigation, separate mobile menu/cart controls, an accessible search, and no horizontal mobile overflow.
+- Centralized the public phone, email, WhatsApp number, URL, location, and opening hours in `src/lib/site.ts`.
+- Made homepage product-line choices open their intended filtered category URLs and restored a single page-level heading.
+- Added WCAG-oriented focus styles, reduced-motion behavior, skip navigation, accessible control names, live form errors, improved target sizes, and AA contrast.
+- Added Shopify cursor pagination to the products catalogue and persisted catalogue filters in the URL.
+- Added honest catalogue-empty and mutation-failure states instead of presenting integration failures as ordinary filter results.
+- Removed the unused second customer-account/OAuth implementation and kept the Storefront customer flow used by the visible login, registration, and account pages.
+- Added Shopify password recovery at `/forgot-password` and stopped returning customer access tokens to browser JavaScript.
+- Removed hardcoded delivery/lead-time promises and renamed mail-based quote actions so their behavior is explicit.
+- Added accessible request forms for tracking, resources, product questions, and unsubscribe requests.
+- Added responsive Shopify images, deferred third-party video loading, HTTPS-only resource links, and Product/Organization structured data.
+- Added route-specific metadata, canonical URLs, noindex rules, `robots.txt`, `sitemap.xml`, and a web manifest.
+- Added security headers in the Node response wrapper and corrected Docker output/env configuration for the current Nitro build.
+- Removed unused React Query runtime code and limited Tailwind scanning to used storefront sources, reducing built CSS from about 90 KB to about 49 KB and the shared JS entry by about 25 KB.
+- Added Playwright desktop/mobile regression tests and a GitHub Actions quality workflow.
+
+### Verification
+
+- `bun run lint` passes with six pre-existing Fast Refresh warnings in unused UI primitive files and no errors.
+- `bun run typecheck` passes.
+- `bun run test` passes: 9 browser tests passed and one intentionally skipped desktop-only duplicate.
+- `bun run build` passes.
+- Production route smoke tests pass with configured Shopify environment variables; missing products now return HTTP 404.
+- Mobile Lighthouse: Accessibility 100, Best Practices 100, SEO 100.
+
+### Required Business Inputs Before Public Launch
+
+- Confirm the production domain used in `src/lib/site.ts`, `public/robots.txt`, and `public/sitemap.xml`.
+- Have qualified UK counsel approve the trading, privacy, returns, delivery, and cookie wording and add the legal entity name, registered address, company number, VAT number, retention periods, and any international-transfer details that apply.
+- Confirm the published Shopify catalogue, markets, shipping, tax, checkout, customer email, and payment settings using real staging orders.
+- Replace email-client request handoffs with an email/CRM provider only when service credentials, spam protection, retention rules, and ownership are supplied.
+
+This document records the website changes implemented from the client feedback in `spares automation snags 10 July 2026.docx`.
+
+## Summary
+
+- Cleaned the homepage, header, category cards, products page, footer links, support pages, resources access, and cart quote flow.
+- Kept the existing TanStack Start, Shopify, cart, search, login/register, and product-detail foundations.
+- Used the 10 July feedback as the source of truth. Earlier emails mentioned by the client were not available in the repo.
+
+## Homepage And Header
+
+- Removed the right-side header search helper text: `Part / product no.`
+- Changed the search placeholder to `Search products or part number`.
+- Removed the small `Product catalogue` text under the Spares Automation logo.
+- Removed homepage hero eyebrow labels such as `Heavy plant / bituminous` and `Heavy plant / ready-mix`.
+- Removed AS/CN product-line codes from homepage cards.
+- Removed `Range / 01` style labels from category image cards.
+- Removed `Browse range` text from the main homepage range cards.
+- Removed extra marketing copy under the Asphalt/Blacktop and Ready-Mix/Concrete homepage cards.
+- Simplified the image overlays so category options sit cleanly over the full image.
+- Added homepage links for `PDFs & Manuals` and `Videos`, both pointing to `/resources`.
+- Reduced the homepage help section heading size so it is less oversized.
+- Documented replacement image guidance in code: Packing/Home category photos should be landscape, `4:3` or `16:10`, minimum `1200px` wide.
+
+## Category And Product Pages
+
+- Updated Ready-Mix / Concrete subcategories to:
+  - `Aggregate Feeding`
+  - `Cement / Material silos`
+  - `Additive system`
+  - `Water controls`
+  - `Air controls`
+  - `Automation controls`
+- Updated Concrete category filtering keywords to match those new subcategories.
+- Reduced the `/products` hero height so products and filters appear sooner.
+- Changed the products-page local search label to `Filter current results` so it does not feel like a second global search bar.
+- Kept category filtering, availability filtering, sorting, and product search.
+- Removed dummy PDF/video cards and `#` links from `/products`.
+
+## Footer, Information, And Help Pages
+
+- Updated footer copy from the old industrial-spares sentence to:
+  `Trade catalogue, quote support, and parts help for machinery teams.`
+- Added a reusable `InfoPage` layout for lightweight support/information pages.
+- Rewired footer links to real dedicated routes instead of unrelated placeholder destinations.
+- Added these new routes:
+  - `/resources`
+  - `/trade-account`
+  - `/track-order`
+  - `/got-a-question`
+  - `/terms-and-conditions`
+  - `/returns-policy`
+  - `/delivery-information`
+  - `/privacy-policy`
+  - `/cookies`
+  - `/disclaimer`
+  - `/unsubscribe`
+- Each new support page has a complete heading, explanatory sections, contact details, and a clear CTA.
+
+## Cart And Quote Flow
+
+- Added `Send cart details` to the cart page when the cart has items.
+- Wired `Send cart details` to the existing `quoteRequestMailto(cart)` helper.
+- The generated email includes cart lines, quantities, subtotal, and contact fields.
+- Clarified cart copy:
+  - `Checkout` completes an online order.
+  - `Send cart details` emails the cart to the sales desk for quote support, product checks, or account pricing.
+
+## Files Changed
+
+- `src/components/shopify/SiteHeader.tsx`
+- `src/components/shopify/SiteFooter.tsx`
+- `src/components/shopify/InfoPage.tsx`
+- `src/routes/index.tsx`
+- `src/routes/products/index.tsx`
+- `src/routes/concrete.tsx`
+- `src/routes/cart.tsx`
+- `src/routes/resources.tsx`
+- `src/routes/trade-account.tsx`
+- `src/routes/track-order.tsx`
+- `src/routes/got-a-question.tsx`
+- `src/routes/terms-and-conditions.tsx`
+- `src/routes/returns-policy.tsx`
+- `src/routes/delivery-information.tsx`
+- `src/routes/privacy-policy.tsx`
+- `src/routes/cookies.tsx`
+- `src/routes/disclaimer.tsx`
+- `src/routes/unsubscribe.tsx`
+- `src/routeTree.gen.ts`
+
+## Verification
+
+- `bun run build` passed.
+- `npm run build` passed.
+- Smoke-checked the following local routes and all returned `200`:
+  - `/`
+  - `/products`
+  - `/concrete`
+  - `/cart`
+  - `/resources`
+  - `/trade-account`
+  - `/track-order`
+  - `/terms-and-conditions`
+
+## Notes
+
+- Browser screenshot capture was not completed because Playwright/browser screenshot tooling is not installed in this repo.
+- Final legal/policy/support wording should be replaced when the client supplies approved copy.
+- Any missing category details from the referenced 22 June email still need to be supplied separately if they differ from the 10 July document.

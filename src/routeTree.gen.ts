@@ -9,12 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
+import { Route as TradeAccountRouteImport } from './routes/trade-account'
+import { Route as TrackOrderRouteImport } from './routes/track-order'
+import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as ReturnsPolicyRouteImport } from './routes/returns-policy'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PackingRouteImport } from './routes/packing'
 import { Route as NewArrivalsRouteImport } from './routes/new-arrivals'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HomeControlsRouteImport } from './routes/home-controls'
+import { Route as GotAQuestionRouteImport } from './routes/got-a-question'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as DeliveryInformationRouteImport } from './routes/delivery-information'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as ConcreteRouteImport } from './routes/concrete'
 import { Route as CartRouteImport } from './routes/cart'
@@ -25,16 +37,50 @@ import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as ProductsHandleRouteImport } from './routes/products/$handle'
-import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 
+const UnsubscribeRoute = UnsubscribeRouteImport.update({
+  id: '/unsubscribe',
+  path: '/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TradeAccountRoute = TradeAccountRouteImport.update({
+  id: '/trade-account',
+  path: '/trade-account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackOrderRoute = TrackOrderRouteImport.update({
+  id: '/track-order',
+  path: '/track-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
+  id: '/terms-and-conditions',
+  path: '/terms-and-conditions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReturnsPolicyRoute = ReturnsPolicyRouteImport.update({
+  id: '/returns-policy',
+  path: '/returns-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PackingRoute = PackingRouteImport.update({
@@ -55,6 +101,31 @@ const LoginRoute = LoginRouteImport.update({
 const HomeControlsRoute = HomeControlsRouteImport.update({
   id: '/home-controls',
   path: '/home-controls',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GotAQuestionRoute = GotAQuestionRouteImport.update({
+  id: '/got-a-question',
+  path: '/got-a-question',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DisclaimerRoute = DisclaimerRouteImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeliveryInformationRoute = DeliveryInformationRouteImport.update({
+  id: '/delivery-information',
+  path: '/delivery-information',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactUsRoute = ContactUsRouteImport.update({
@@ -107,11 +178,6 @@ const ProductsHandleRoute = ProductsHandleRouteImport.update({
   path: '/products/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthCallbackRoute = AuthCallbackRouteImport.update({
-  id: '/auth/callback',
-  path: '/auth/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -122,13 +188,24 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRoute
   '/concrete': typeof ConcreteRoute
   '/contact-us': typeof ContactUsRoute
+  '/cookies': typeof CookiesRoute
+  '/delivery-information': typeof DeliveryInformationRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/got-a-question': typeof GotAQuestionRoute
   '/home-controls': typeof HomeControlsRoute
   '/login': typeof LoginRoute
   '/new-arrivals': typeof NewArrivalsRoute
   '/packing': typeof PackingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/register': typeof RegisterRoute
+  '/resources': typeof ResourcesRoute
+  '/returns-policy': typeof ReturnsPolicyRoute
   '/search': typeof SearchRoute
-  '/auth/callback': typeof AuthCallbackRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/track-order': typeof TrackOrderRoute
+  '/trade-account': typeof TradeAccountRoute
+  '/unsubscribe': typeof UnsubscribeRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/products/': typeof ProductsIndexRoute
 }
@@ -141,13 +218,24 @@ export interface FileRoutesByTo {
   '/cart': typeof CartRoute
   '/concrete': typeof ConcreteRoute
   '/contact-us': typeof ContactUsRoute
+  '/cookies': typeof CookiesRoute
+  '/delivery-information': typeof DeliveryInformationRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/got-a-question': typeof GotAQuestionRoute
   '/home-controls': typeof HomeControlsRoute
   '/login': typeof LoginRoute
   '/new-arrivals': typeof NewArrivalsRoute
   '/packing': typeof PackingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/register': typeof RegisterRoute
+  '/resources': typeof ResourcesRoute
+  '/returns-policy': typeof ReturnsPolicyRoute
   '/search': typeof SearchRoute
-  '/auth/callback': typeof AuthCallbackRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/track-order': typeof TrackOrderRoute
+  '/trade-account': typeof TradeAccountRoute
+  '/unsubscribe': typeof UnsubscribeRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/products': typeof ProductsIndexRoute
 }
@@ -161,13 +249,24 @@ export interface FileRoutesById {
   '/cart': typeof CartRoute
   '/concrete': typeof ConcreteRoute
   '/contact-us': typeof ContactUsRoute
+  '/cookies': typeof CookiesRoute
+  '/delivery-information': typeof DeliveryInformationRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/got-a-question': typeof GotAQuestionRoute
   '/home-controls': typeof HomeControlsRoute
   '/login': typeof LoginRoute
   '/new-arrivals': typeof NewArrivalsRoute
   '/packing': typeof PackingRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/register': typeof RegisterRoute
+  '/resources': typeof ResourcesRoute
+  '/returns-policy': typeof ReturnsPolicyRoute
   '/search': typeof SearchRoute
-  '/auth/callback': typeof AuthCallbackRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/track-order': typeof TrackOrderRoute
+  '/trade-account': typeof TradeAccountRoute
+  '/unsubscribe': typeof UnsubscribeRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/products/': typeof ProductsIndexRoute
 }
@@ -182,13 +281,24 @@ export interface FileRouteTypes {
     | '/cart'
     | '/concrete'
     | '/contact-us'
+    | '/cookies'
+    | '/delivery-information'
+    | '/disclaimer'
+    | '/forgot-password'
+    | '/got-a-question'
     | '/home-controls'
     | '/login'
     | '/new-arrivals'
     | '/packing'
+    | '/privacy-policy'
     | '/register'
+    | '/resources'
+    | '/returns-policy'
     | '/search'
-    | '/auth/callback'
+    | '/terms-and-conditions'
+    | '/track-order'
+    | '/trade-account'
+    | '/unsubscribe'
     | '/products/$handle'
     | '/products/'
   fileRoutesByTo: FileRoutesByTo
@@ -201,13 +311,24 @@ export interface FileRouteTypes {
     | '/cart'
     | '/concrete'
     | '/contact-us'
+    | '/cookies'
+    | '/delivery-information'
+    | '/disclaimer'
+    | '/forgot-password'
+    | '/got-a-question'
     | '/home-controls'
     | '/login'
     | '/new-arrivals'
     | '/packing'
+    | '/privacy-policy'
     | '/register'
+    | '/resources'
+    | '/returns-policy'
     | '/search'
-    | '/auth/callback'
+    | '/terms-and-conditions'
+    | '/track-order'
+    | '/trade-account'
+    | '/unsubscribe'
     | '/products/$handle'
     | '/products'
   id:
@@ -220,13 +341,24 @@ export interface FileRouteTypes {
     | '/cart'
     | '/concrete'
     | '/contact-us'
+    | '/cookies'
+    | '/delivery-information'
+    | '/disclaimer'
+    | '/forgot-password'
+    | '/got-a-question'
     | '/home-controls'
     | '/login'
     | '/new-arrivals'
     | '/packing'
+    | '/privacy-policy'
     | '/register'
+    | '/resources'
+    | '/returns-policy'
     | '/search'
-    | '/auth/callback'
+    | '/terms-and-conditions'
+    | '/track-order'
+    | '/trade-account'
+    | '/unsubscribe'
     | '/products/$handle'
     | '/products/'
   fileRoutesById: FileRoutesById
@@ -240,19 +372,58 @@ export interface RootRouteChildren {
   CartRoute: typeof CartRoute
   ConcreteRoute: typeof ConcreteRoute
   ContactUsRoute: typeof ContactUsRoute
+  CookiesRoute: typeof CookiesRoute
+  DeliveryInformationRoute: typeof DeliveryInformationRoute
+  DisclaimerRoute: typeof DisclaimerRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  GotAQuestionRoute: typeof GotAQuestionRoute
   HomeControlsRoute: typeof HomeControlsRoute
   LoginRoute: typeof LoginRoute
   NewArrivalsRoute: typeof NewArrivalsRoute
   PackingRoute: typeof PackingRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   RegisterRoute: typeof RegisterRoute
+  ResourcesRoute: typeof ResourcesRoute
+  ReturnsPolicyRoute: typeof ReturnsPolicyRoute
   SearchRoute: typeof SearchRoute
-  AuthCallbackRoute: typeof AuthCallbackRoute
+  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
+  TrackOrderRoute: typeof TrackOrderRoute
+  TradeAccountRoute: typeof TradeAccountRoute
+  UnsubscribeRoute: typeof UnsubscribeRoute
   ProductsHandleRoute: typeof ProductsHandleRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/unsubscribe': {
+      id: '/unsubscribe'
+      path: '/unsubscribe'
+      fullPath: '/unsubscribe'
+      preLoaderRoute: typeof UnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trade-account': {
+      id: '/trade-account'
+      path: '/trade-account'
+      fullPath: '/trade-account'
+      preLoaderRoute: typeof TradeAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/track-order': {
+      id: '/track-order'
+      path: '/track-order'
+      fullPath: '/track-order'
+      preLoaderRoute: typeof TrackOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-and-conditions': {
+      id: '/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof TermsAndConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search': {
       id: '/search'
       path: '/search'
@@ -260,11 +431,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/returns-policy': {
+      id: '/returns-policy'
+      path: '/returns-policy'
+      fullPath: '/returns-policy'
+      preLoaderRoute: typeof ReturnsPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/packing': {
@@ -293,6 +485,41 @@ declare module '@tanstack/react-router' {
       path: '/home-controls'
       fullPath: '/home-controls'
       preLoaderRoute: typeof HomeControlsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/got-a-question': {
+      id: '/got-a-question'
+      path: '/got-a-question'
+      fullPath: '/got-a-question'
+      preLoaderRoute: typeof GotAQuestionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/delivery-information': {
+      id: '/delivery-information'
+      path: '/delivery-information'
+      fullPath: '/delivery-information'
+      preLoaderRoute: typeof DeliveryInformationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact-us': {
@@ -365,13 +592,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/callback': {
-      id: '/auth/callback'
-      path: '/auth/callback'
-      fullPath: '/auth/callback'
-      preLoaderRoute: typeof AuthCallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -384,13 +604,24 @@ const rootRouteChildren: RootRouteChildren = {
   CartRoute: CartRoute,
   ConcreteRoute: ConcreteRoute,
   ContactUsRoute: ContactUsRoute,
+  CookiesRoute: CookiesRoute,
+  DeliveryInformationRoute: DeliveryInformationRoute,
+  DisclaimerRoute: DisclaimerRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  GotAQuestionRoute: GotAQuestionRoute,
   HomeControlsRoute: HomeControlsRoute,
   LoginRoute: LoginRoute,
   NewArrivalsRoute: NewArrivalsRoute,
   PackingRoute: PackingRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   RegisterRoute: RegisterRoute,
+  ResourcesRoute: ResourcesRoute,
+  ReturnsPolicyRoute: ReturnsPolicyRoute,
   SearchRoute: SearchRoute,
-  AuthCallbackRoute: AuthCallbackRoute,
+  TermsAndConditionsRoute: TermsAndConditionsRoute,
+  TrackOrderRoute: TrackOrderRoute,
+  TradeAccountRoute: TradeAccountRoute,
+  UnsubscribeRoute: UnsubscribeRoute,
   ProductsHandleRoute: ProductsHandleRoute,
   ProductsIndexRoute: ProductsIndexRoute,
 }

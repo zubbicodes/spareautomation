@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CollectionPage } from "@/components/shopify/CollectionPage";
 import { getCollection, getLatestProducts } from "@/lib/api/shopify.functions";
 import arrivals from "@/assets/cat-home.jpg";
+import { SITE } from "@/lib/site";
 
 const collectionHandle = "new-arrivals";
 
@@ -15,6 +16,7 @@ export const Route = createFileRoute("/new-arrivals")({
         content: "Latest industrial spare updates and new product arrivals.",
       },
     ],
+    links: [{ rel: "canonical", href: `${SITE.url}/new-arrivals` }],
   }),
   loader: async () => {
     const collection = await getCollection({ data: { handle: collectionHandle, first: 48 } });

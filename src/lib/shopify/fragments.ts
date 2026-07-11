@@ -67,6 +67,8 @@ export const PRODUCT_DETAIL_FRAGMENT = `#graphql
       { namespace: "custom", key: "setup_video_url" }
       { namespace: "custom", key: "datasheets" }
       { namespace: "custom", key: "manuals" }
+      { namespace: "custom", key: "video_guide" }
+      { namespace: "custom", key: "pdf_guide" }
     ]) {
       namespace
       key

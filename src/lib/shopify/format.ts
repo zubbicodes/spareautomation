@@ -17,3 +17,14 @@ export function formatProductPrice(product: Pick<ShopifyProduct, "priceRange">) 
 
   return `From ${formatMoney(min)}`;
 }
+
+export function shopifyImageUrl(url: string, width: number) {
+  try {
+    const parsed = new URL(url);
+    if (!parsed.hostname.endsWith("shopify.com")) return url;
+    parsed.searchParams.set("width", String(width));
+    return parsed.toString();
+  } catch {
+    return url;
+  }
+}

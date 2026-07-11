@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
+import { FileText, Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { SiteHeader } from "@/components/shopify/SiteHeader";
@@ -12,8 +12,10 @@ import {
 import { clearStoredCartId, getStoredCartId, setStoredCartId } from "@/lib/shopify/cart";
 import { formatMoney } from "@/lib/shopify/format";
 import type { ShopifyCart } from "@/lib/shopify/types";
+import { quoteRequestMailto } from "@/lib/quote";
 
 export const Route = createFileRoute("/cart")({
+  head: () => ({ meta: [{ title: "Cart | Spares Automation" }, { name: "description", content: "Review selected industrial parts, continue to secure Shopify checkout, or request a quote by email." }, { name: "robots", content: "noindex, nofollow" }] }),
   component: CartPage,
 });
 
@@ -21,6 +23,7 @@ function CartPage() {
   const [cart, setCart] = useState<ShopifyCart | null>(null);
   const [loading, setLoading] = useState(true);
   const [busyLineId, setBusyLineId] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadCart() {
@@ -33,6 +36,8 @@ function CartPage() {
         const nextCart = await getShopifyCart({ data: { cartId } });
         setCart(nextCart);
         if (!nextCart) clearStoredCartId();
+      } catch {
+        setError("Your cart could not be loaded. Check your connection and try again.");
       } finally {
         setLoading(false);
       }
@@ -45,10 +50,13 @@ function CartPage() {
     const cartId = getStoredCartId();
     if (!cartId) return;
     setBusyLineId(lineId);
+    setError("");
     try {
       const nextCart = await updateShopifyCartLine({ data: { cartId, lineId, quantity } });
       setCart(nextCart);
       setStoredCartId(nextCart.id);
+    } catch {
+      setError("We could not update this item. Your previous quantity is unchanged.");
     } finally {
       setBusyLineId(null);
     }
@@ -58,10 +66,13 @@ function CartPage() {
     const cartId = getStoredCartId();
     if (!cartId) return;
     setBusyLineId(lineId);
+    setError("");
     try {
       const nextCart = await removeShopifyCartLine({ data: { cartId, lineId } });
       setCart(nextCart);
       setStoredCartId(nextCart.id);
+    } catch {
+      setError("We could not remove this item. Please try again.");
     } finally {
       setBusyLineId(null);
     }
@@ -73,7 +84,7 @@ function CartPage() {
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
 
-      <main className="mx-auto max-w-[1600px] px-4 py-8 md:px-6 md:py-12">
+      <main id="main-content" className="mx-auto max-w-[1600px] px-4 py-8 md:px-6 md:py-12">
         <div className="mb-6 md:mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
@@ -91,6 +102,7 @@ function CartPage() {
           </Link>
         </div>
 
+        {error ? <div role="alert" className="mb-5 border border-red-300 bg-red-50 p-4 text-sm text-red-800">{error}</div> : null}
         {loading ? (
           <div className="border border-rule bg-surface px-4 py-12 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted md:px-8 md:py-16">
             Loading cart
@@ -148,6 +160,7 @@ function CartPage() {
                         type="button"
                         disabled={busyLineId === line.id || line.quantity <= 1}
                         onClick={() => updateLine(line.id, line.quantity - 1)}
+                        aria-label={`Decrease quantity of ${line.merchandise.product.title}`}
                         className="flex h-8 w-8 md:h-9 md:w-9 items-center justify-center border border-rule text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         <Minus className="h-3 w-3 md:h-4 md:w-4" />
@@ -157,8 +170,9 @@ function CartPage() {
                       </span>
                       <button
                         type="button"
-                        disabled={busyLineId === line.id}
+                        disabled={busyLineId === line.id || line.quantity >= 99}
                         onClick={() => updateLine(line.id, line.quantity + 1)}
+                        aria-label={`Increase quantity of ${line.merchandise.product.title}`}
                         className="flex h-8 w-8 md:h-9 md:w-9 items-center justify-center border border-rule text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         <Plus className="h-3 w-3 md:h-4 md:w-4" />
@@ -167,6 +181,7 @@ function CartPage() {
                         type="button"
                         disabled={busyLineId === line.id}
                         onClick={() => removeLine(line.id)}
+                        aria-label={`Remove ${line.merchandise.product.title} from cart`}
                         className="ml-2 flex h-8 w-8 md:h-9 md:w-9 items-center justify-center border border-rule text-ink-muted transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
@@ -211,11 +226,18 @@ function CartPage() {
                 href={cart.checkoutUrl}
                 className="mt-8 inline-flex h-12 w-full items-center justify-center bg-accent px-6 font-mono text-[11px] uppercase tracking-[0.22em] text-accent-foreground transition-colors hover:bg-accent/90"
               >
-                Checkout
+                Continue to secure checkout
+              </a>
+              <a
+                href={quoteRequestMailto(cart)}
+                className="mt-3 inline-flex h-12 w-full items-center justify-center gap-2 border border-rule bg-background px-6 font-mono text-[11px] uppercase tracking-[0.18em] text-ink transition-colors hover:border-accent hover:text-accent"
+              >
+                <FileText className="h-4 w-4" />
+                Request quote by email
               </a>
               <p className="mt-4 text-xs leading-relaxed text-ink-muted">
-                Shipping, taxes, discounts, payments, and order creation are handled securely at
-                checkout.
+                Checkout completes an online order. Send cart details emails this cart to the
+                sales desk for quote support, product checks, or account pricing.
               </p>
             </aside>
           </div>

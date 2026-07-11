@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 
-import { formatProductPrice } from "@/lib/shopify/format";
+import { formatProductPrice, shopifyImageUrl } from "@/lib/shopify/format";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 
 import { AddToCartButton } from "./AddToCartButton";
@@ -20,7 +20,11 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="relative aspect-square overflow-hidden bg-[oklch(0.96_0.005_250)]">
           {product.featuredImage ? (
             <img
-              src={product.featuredImage.url}
+              src={shopifyImageUrl(product.featuredImage.url, 640)}
+              srcSet={`${shopifyImageUrl(product.featuredImage.url, 360)} 360w, ${shopifyImageUrl(product.featuredImage.url, 640)} 640w, ${shopifyImageUrl(product.featuredImage.url, 900)} 900w`}
+              sizes="(min-width: 1280px) 30vw, (min-width: 640px) 50vw, 100vw"
+              width={product.featuredImage.width ?? 640}
+              height={product.featuredImage.height ?? 640}
               alt={product.featuredImage.altText ?? product.title}
               loading="lazy"
               className="h-full w-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-105"
@@ -33,7 +37,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="absolute left-3 top-3 md:left-4 md:top-4 bg-charcoal-deep px-2 md:px-3 py-1 font-mono text-[8px] md:text-[9px] uppercase tracking-[0.22em] text-white/70">
             {product.productType || product.vendor || "Spares"}
           </div>
-          <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 flex h-8 w-8 md:h-9 md:w-9 items-center justify-center bg-charcoal-deep text-accent opacity-0 transition-opacity group-hover:opacity-100">
+          <div aria-hidden="true" className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center bg-charcoal-deep text-accent opacity-0 transition-opacity group-hover:opacity-100 md:bottom-4 md:right-4 md:h-9 md:w-9">
             <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4" />
           </div>
         </div>

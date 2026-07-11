@@ -1,11 +1,9 @@
 import type { ShopifyCart, ShopifyMoney, ShopifyProduct, ShopifyVariant } from "@/lib/shopify/types";
 import { formatMoney } from "@/lib/shopify/format";
-
-const SALES_EMAIL = "trade@spares-automation.co.uk";
-const WHATSAPP_NUMBER = "441618187420";
+import { SITE } from "@/lib/site";
 
 function encodeMailto(subject: string, body: string) {
-  return `mailto:${SALES_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 export function productQuestionMailto(product: ShopifyProduct, variant?: ShopifyVariant | null) {
@@ -33,7 +31,7 @@ export function productQuestionWhatsApp(product: ShopifyProduct, variant?: Shopi
     .filter(Boolean)
     .join("\n");
 
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(message)}`;
 }
 
 export function productQuoteMailto(

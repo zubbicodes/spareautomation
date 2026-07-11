@@ -3,8 +3,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import aboutImg from "@/assets/asphalt-plant.jpg";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/about-us")({
+  head: () => pageHead("About Us", "Learn how Spares Automation helps machinery teams identify, source, and order industrial parts and automation spares.", "/about-us"),
   component: AboutUsPage,
 });
 
@@ -31,7 +33,7 @@ function AboutUsPage() {
         </div>
       </section>
 
-      <main className="bg-surface py-12 md:py-16">
+      <main id="main-content" className="bg-surface py-12 md:py-16">
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 px-4 md:grid-cols-2 md:px-6">
           <article className="border border-rule bg-background p-6 md:p-8">
             <h2 className="font-display text-xl font-bold uppercase tracking-tight">What we do</h2>

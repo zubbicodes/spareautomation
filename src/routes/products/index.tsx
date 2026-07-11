@@ -1,13 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronRight, Filter, Search, SlidersHorizontal, FileText, PlayCircle } from "lucide-react";
+import { ChevronRight, Filter, Search, SlidersHorizontal } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import automation from "@/assets/cat-automation.jpg";
 import { ProductCard } from "@/components/shopify/ProductCard";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
-import { getLatestProducts } from "@/lib/api/shopify.functions";
+import { getPaginatedProducts } from "@/lib/api/shopify.functions";
 import type { ShopifyProduct } from "@/lib/shopify/types";
-import automation from "@/assets/cat-automation.jpg";
+import { SITE } from "@/lib/site";
 
 type CategoryFilter = {
   label: string;
@@ -24,7 +25,7 @@ const categoryFilters: CategoryFilter[] = [
   {
     label: "Concrete Spares",
     handle: "concrete",
-    description: "Batching, weighing, mixers, silo parts",
+    description: "Aggregate, silos, additives, water, air controls",
   },
   {
     label: "Packing Machinery",
@@ -48,46 +49,13 @@ const categoryFilters: CategoryFilter[] = [
   },
 ];
 
-const pdfResources = [
-  {
-    title: "Asphalt Plant Parts Catalogue",
-    description: "Complete parts list and technical specifications for asphalt plant components",
-    url: "#",
-  },
-  {
-    title: "Concrete Mixer Maintenance Guide",
-    description: "Step-by-step maintenance and troubleshooting guide for concrete mixers",
-    url: "#",
-  },
-  {
-    title: "VFD Installation Manual",
-    description: "Installation and configuration guide for variable frequency drives",
-    url: "#",
-  },
-];
-
-const videoGuides = [
-  {
-    title: "How to Replace Burner Nozzles",
-    description: "Step-by-step video tutorial for replacing asphalt plant burner nozzles",
-    thumbnail: automation,
-    url: "#",
-  },
-  {
-    title: "VFD Programming Basics",
-    description: "Introduction to programming and configuring variable frequency drives",
-    thumbnail: automation,
-    url: "#",
-  },
-  {
-    title: "Concrete Mixer Lubrication Guide",
-    description: "Proper lubrication procedures for concrete mixer components",
-    thumbnail: automation,
-    url: "#",
-  },
-];
-
 export const Route = createFileRoute("/products/")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    category: typeof search.category === "string" ? search.category : "all",
+    q: typeof search.q === "string" ? search.q : "",
+    availability: search.availability === "available" ? "available" as const : "all" as const,
+    sort: ["price-asc", "price-desc", "title"].includes(String(search.sort)) ? search.sort as "price-asc" | "price-desc" | "title" : "newest" as const,
+  }),
   head: () => ({
     meta: [
       { title: "All Products | Spares Automation" },
@@ -97,9 +65,10 @@ export const Route = createFileRoute("/products/")({
           "Browse all products across asphalt, concrete, packing, automation and control categories.",
       },
     ],
+    links: [{ rel: "canonical", href: `${SITE.url}/products` }],
   }),
   loader: async () => ({
-    products: await getLatestProducts({ data: { first: 100, query: undefined } }),
+    initialPage: await getPaginatedProducts({ data: { first: 48 } }),
   }),
   component: ProductsCataloguePage,
 });
@@ -112,11 +81,18 @@ function productMatchesCategory(product: ShopifyProduct, handle: string) {
 }
 
 function ProductsCataloguePage() {
-  const { products } = Route.useLoaderData();
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [availability, setAvailability] = useState<"all" | "available">("all");
-  const [sort, setSort] = useState<"newest" | "price-asc" | "price-desc" | "title">("newest");
+  const { initialPage } = Route.useLoaderData();
+  const search = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const [products, setProducts] = useState(initialPage.products);
+  const [pageInfo, setPageInfo] = useState(initialPage.pageInfo);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [loadError, setLoadError] = useState("");
+  const activeCategory = search.category;
+  const searchTerm = search.q;
+  const availability = search.availability;
+  const sort = search.sort;
+  const updateSearch = (updates: Partial<typeof search>) => void navigate({ search: (previous) => ({ ...previous, ...updates }), replace: true });
 
   const filteredProducts = useMemo(() => {
     const needle = searchTerm.trim().toLowerCase();
@@ -161,30 +137,29 @@ function ProductsCataloguePage() {
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
 
-      <section className="relative flex min-h-[420px] items-end overflow-hidden">
+      <section className="relative flex min-h-[220px] min-w-0 items-end overflow-hidden md:min-h-[280px]">
         <img
           src={automation}
           alt="Industrial automation catalogue"
           className="absolute inset-0 h-full w-full scale-105 object-cover blur-[2px]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/70 to-charcoal-deep/10" />
-        <div className="relative mx-auto w-full max-w-[1600px] px-6 py-20">
-          <div className="mb-6 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
+        <div className="relative mx-auto w-full max-w-[1600px] px-4 py-10 md:px-6 md:py-12">
+          <div className="mb-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-white/60">
             <span className="h-px w-8 bg-accent" />
             Product Catalogue / Cart
           </div>
-          <h1 className="font-display text-[clamp(2.5rem,6vw,5rem)] font-extrabold uppercase leading-[0.9] tracking-tight text-white">
+          <h1 className="break-words font-display text-[clamp(1.85rem,8vw,3.5rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white">
             ALL PRODUCTS <span className="text-accent">CATALOGUE</span>
           </h1>
-          <p className="mt-8 max-w-2xl text-[16px] leading-relaxed text-white/60">
-            Browse the product catalogue. Filter by category, availability, search terms, or sort
-            by price.
+          <p className="mt-4 max-w-2xl pr-2 text-sm leading-relaxed text-white/70 md:pr-0 md:text-[15px]">
+            Browse the catalogue and narrow the visible products with the filters below.
           </p>
         </div>
       </section>
 
-      <main className="mx-auto grid max-w-[1600px] grid-cols-1 gap-8 px-6 py-10 lg:grid-cols-[320px_1fr]">
-        <aside className="h-fit border border-rule bg-surface">
+      <main id="main-content" className="mx-auto grid min-w-0 max-w-[1600px] grid-cols-1 gap-6 px-4 py-8 md:px-6 lg:grid-cols-[300px_minmax(0,1fr)]">
+        <aside className="h-fit min-w-0 overflow-hidden border border-rule bg-surface">
           <div className="border-b border-rule p-5">
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
               <Filter className="h-4 w-4 text-accent" />
@@ -195,7 +170,7 @@ function ProductsCataloguePage() {
           <div className="p-3">
             <button
               type="button"
-              onClick={() => setActiveCategory("all")}
+              onClick={() => updateSearch({ category: "all" })}
               className={`flex w-full items-center justify-between border px-4 py-4 text-left transition-colors ${
                 activeCategory === "all"
                   ? "border-accent bg-accent/10"
@@ -207,7 +182,7 @@ function ProductsCataloguePage() {
                   All Products
                 </span>
                 <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
-                Complete catalogue
+                  Complete catalogue
                 </span>
               </span>
               <ChevronRight className="h-4 w-4 text-accent" />
@@ -217,7 +192,7 @@ function ProductsCataloguePage() {
               <button
                 key={category.handle}
                 type="button"
-                onClick={() => setActiveCategory(category.handle)}
+                onClick={() => updateSearch({ category: category.handle })}
                 className={`mt-2 flex w-full items-center justify-between border px-4 py-4 text-left transition-colors ${
                   activeCategory === category.handle
                     ? "border-accent bg-accent/10"
@@ -239,25 +214,30 @@ function ProductsCataloguePage() {
         </aside>
 
         <section>
-          <div className="border border-rule bg-surface p-4">
+          <div className="border border-rule bg-surface p-3 md:p-4">
+            <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.28em] text-ink-muted">
+              Filter current results
+            </div>
             <div className="grid grid-cols-1 gap-3 xl:grid-cols-[1fr_180px_180px]">
-              <label className="flex h-12 items-center gap-3 border border-rule bg-background px-4 transition-colors focus-within:border-accent">
+              <label className="flex h-10 items-center gap-3 border border-rule bg-background px-3 transition-colors focus-within:border-accent md:h-11">
                 <Search className="h-4 w-4 text-ink-muted" />
                 <input
+                  aria-label="Filter current product results"
                   value={searchTerm}
-                  onChange={(event) => setSearchTerm(event.target.value)}
+                  onChange={(event) => updateSearch({ q: event.target.value })}
                   type="search"
-                  placeholder="Search products, vendors, tags, part names..."
+                  placeholder="Search within results..."
                   className="min-w-0 flex-1 bg-transparent font-mono text-[12px] text-ink placeholder:text-ink-muted focus:outline-none"
                 />
               </label>
 
-              <label className="flex h-12 items-center gap-3 border border-rule bg-background px-4">
+              <label className="flex h-10 items-center gap-3 border border-rule bg-background px-3 md:h-11">
                 <SlidersHorizontal className="h-4 w-4 text-ink-muted" />
                 <select
+                  aria-label="Filter by availability"
                   value={availability}
                   onChange={(event) =>
-                    setAvailability(event.target.value as "all" | "available")
+                    updateSearch({ availability: event.target.value as "all" | "available" })
                   }
                   className="min-w-0 flex-1 bg-transparent font-mono text-[11px] uppercase tracking-[0.16em] text-ink focus:outline-none"
                 >
@@ -266,10 +246,11 @@ function ProductsCataloguePage() {
                 </select>
               </label>
 
-              <label className="flex h-12 items-center gap-3 border border-rule bg-background px-4">
+              <label className="flex h-10 items-center gap-3 border border-rule bg-background px-3 md:h-11">
                 <select
+                  aria-label="Sort products"
                   value={sort}
-                  onChange={(event) => setSort(event.target.value as typeof sort)}
+                  onChange={(event) => updateSearch({ sort: event.target.value as typeof sort })}
                   className="min-w-0 flex-1 bg-transparent font-mono text-[11px] uppercase tracking-[0.16em] text-ink focus:outline-none"
                 >
                   <option value="newest">Newest</option>
@@ -282,7 +263,7 @@ function ProductsCataloguePage() {
 
             <div className="mt-4 flex flex-col gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-ink-muted sm:flex-row sm:items-center sm:justify-between">
               <span>
-                Showing {filteredProducts.length} of {products.length} products
+                Showing {filteredProducts.length} from {products.length} loaded products
               </span>
               <span>
                 Active filter:{" "}
@@ -300,27 +281,50 @@ function ProductsCataloguePage() {
               ))}
             </div>
           ) : (
-            <div className="mt-6 border border-dashed border-rule bg-surface px-4 py-10 md:px-8 md:py-16 text-center">
-              <h2 className="font-display text-xl md:text-2xl font-bold uppercase tracking-tight">
-                No products match these filters
+            <div className="mt-6 border border-dashed border-rule bg-surface px-4 py-10 text-center md:px-8 md:py-16">
+              <h2 className="font-display text-xl font-bold uppercase tracking-tight md:text-2xl">
+                {products.length === 0 ? "Catalogue products are being updated" : "No products match these filters"}
               </h2>
-              <p className="mx-auto mt-3 md:mt-4 max-w-xl text-sm leading-relaxed text-ink-muted">
-                Clear the search term, adjust filters, or browse other categories.
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ink-muted md:mt-4">
+                {products.length === 0 ? "Contact our sales desk for availability, product identification, or a quotation while the online catalogue is updated." : "Clear the search term, adjust filters, or browse other categories."}
               </p>
               <button
                 type="button"
                 onClick={() => {
-                  setActiveCategory("all");
-                  setSearchTerm("");
-                  setAvailability("all");
-                  setSort("newest");
+                  void navigate({ search: { category: "all", q: "", availability: "all", sort: "newest" }, replace: true });
                 }}
-                className="mt-6 md:mt-8 inline-flex h-11 items-center justify-center bg-accent px-6 font-mono text-[10px] uppercase tracking-[0.22em] text-accent-foreground"
+                className="mt-6 inline-flex h-11 items-center justify-center bg-accent px-6 font-mono text-[10px] uppercase tracking-[0.22em] text-accent-foreground md:mt-8"
               >
                 Reset Filters
               </button>
             </div>
           )}
+
+          {pageInfo.hasNextPage ? (
+            <div className="mt-6 text-center">
+              {loadError ? <p role="alert" className="mb-3 text-sm text-red-700">{loadError}</p> : null}
+              <button
+                type="button"
+                disabled={loadingMore}
+                onClick={async () => {
+                  setLoadingMore(true);
+                  setLoadError("");
+                  try {
+                    const next = await getPaginatedProducts({ data: { first: 48, after: pageInfo.endCursor ?? undefined } });
+                    setProducts((current) => [...current, ...next.products.filter((product) => !current.some((item) => item.id === product.id))]);
+                    setPageInfo(next.pageInfo);
+                  } catch {
+                    setLoadError("More products could not be loaded. Please try again.");
+                  } finally {
+                    setLoadingMore(false);
+                  }
+                }}
+                className="inline-flex h-12 items-center justify-center border border-accent bg-surface px-7 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-accent hover:bg-accent hover:text-white disabled:opacity-60"
+              >
+                {loadingMore ? "Loading products" : "Load more products"}
+              </button>
+            </div>
+          ) : null}
 
           <div className="mt-10 border border-rule bg-charcoal-deep p-6 text-white/70">
             <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">
@@ -341,89 +345,6 @@ function ProductsCataloguePage() {
           </div>
         </section>
       </main>
-
-      <section className="border-t border-rule bg-surface py-16">
-        <div className="mx-auto max-w-[1600px] px-6">
-          {/* PDF Attachments Section */}
-          <div className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
-                Resources
-              </div>
-              <div className="flex-1 h-px bg-rule"></div>
-            </div>
-            <h2 className="font-display text-3xl md:text-4xl font-extrabold uppercase tracking-tight mb-10">
-              PDF Attachments & Manuals
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {pdfResources.map((pdf, index) => (
-                <a
-                  key={index}
-                  href={pdf.url}
-                  className="flex flex-col gap-4 p-6 border border-rule bg-white hover:border-accent hover:shadow-lg transition-all"
-                >
-                  <FileText className="h-10 w-10 text-accent" />
-                  <div>
-                    <h3 className="font-display text-lg font-bold uppercase tracking-tight">
-                      {pdf.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-ink-muted leading-relaxed">
-                      {pdf.description}
-                    </p>
-                  </div>
-                  <div className="mt-auto font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
-                    Download PDF →
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Video Guides Section */}
-          <div>
-            <div className="flex items-center gap-3 mb-8">
-              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
-                Tutorials
-              </div>
-              <div className="flex-1 h-px bg-rule"></div>
-            </div>
-            <h2 className="font-display text-3xl md:text-4xl font-extrabold uppercase tracking-tight mb-10">
-              Video Guides
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {videoGuides.map((video, index) => (
-                <a
-                  key={index}
-                  href={video.url}
-                  className="group flex flex-col gap-4 border border-rule bg-white hover:border-accent hover:shadow-lg transition-all"
-                >
-                  <div className="relative overflow-hidden aspect-video">
-                    <img
-                      src={video.thumbnail}
-                      alt={video.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-300 group-hover:bg-black/40">
-                      <PlayCircle className="h-14 w-14 text-white" />
-                    </div>
-                  </div>
-                  <div className="p-6 flex-1">
-                    <h3 className="font-display text-lg font-bold uppercase tracking-tight">
-                      {video.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-ink-muted leading-relaxed">
-                      {video.description}
-                    </p>
-                  </div>
-                  <div className="px-6 pb-6 font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
-                    Watch Video →
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       <SiteFooter />
     </div>

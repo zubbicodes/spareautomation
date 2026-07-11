@@ -3,14 +3,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CollectionPage } from "@/components/shopify/CollectionPage";
 import { getCollection, getLatestProducts } from "@/lib/api/shopify.functions";
 import concrete from "@/assets/concrete-plant.jpg";
+import { SITE } from "@/lib/site";
 
 const collectionHandle = "concrete";
 const productLines = [
-  { slug: "batching", label: "Batching", keywords: ["batch", "hopper", "aggregate"] },
-  { slug: "mixers", label: "Mixers", keywords: ["mixer", "paddle", "shaft", "liner"] },
-  { slug: "silos", label: "Silos", keywords: ["silo", "filter", "aerator"] },
-  { slug: "weighing", label: "Weighing", keywords: ["weigh", "load cell", "scale"] },
-  { slug: "valves", label: "Valves", keywords: ["valve", "butterfly", "pneumatic"] },
+  { slug: "aggregate-feeding", label: "Aggregate Feeding", keywords: ["aggregate", "feeder", "feed", "hopper", "belt", "conveyor"] },
+  { slug: "cement-material-silos", label: "Cement / Material silos", keywords: ["cement", "material", "silo", "filter", "aerator"] },
+  { slug: "additive-system", label: "Additive system", keywords: ["additive", "admixture", "chemical", "dosing"] },
+  { slug: "water-controls", label: "Water controls", keywords: ["water", "meter", "pump", "valve", "flow"] },
+  { slug: "air-controls", label: "Air controls", keywords: ["air", "pneumatic", "compressor", "valve", "actuator"] },
+  { slug: "automation-controls", label: "Automation controls", keywords: ["automation", "control", "plc", "sensor", "panel"] },
 ];
 
 export const Route = createFileRoute("/concrete")({
@@ -25,6 +27,7 @@ export const Route = createFileRoute("/concrete")({
         content: "Product range for ready-mix concrete plant spares.",
       },
     ],
+    links: [{ rel: "canonical", href: `${SITE.url}/concrete` }],
   }),
   loader: async () => {
     const collection = await getCollection({ data: { handle: collectionHandle, first: 48 } });
@@ -49,7 +52,7 @@ function ConcretePage() {
       accent="amber"
       image={concrete}
       imageAlt="Ready-mix concrete plant"
-      intro="Comprehensive parts support for ready-mix concrete plants, batching systems, mixers, silos, and valves."
+      intro="Comprehensive parts support for ready-mix concrete plants, aggregate feeding, silos, additives, water, air, and automation controls."
       collection={collection}
       fallbackProducts={products}
       expectedHandle={collectionHandle}

@@ -1,42 +1,30 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { ProductDetail } from "@/components/shopify/ProductDetail";
-import { SiteFooter } from "@/components/shopify/SiteFooter";
-import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { getProduct } from "@/lib/api/shopify.functions";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/products/$handle")({
-  loader: async ({ params }) => ({
-    product: await getProduct({ data: { handle: params.handle } }),
+  loader: async ({ params }) => {
+    const product = await getProduct({ data: { handle: params.handle } });
+    if (!product) throw notFound();
+    return { product };
+  },
+  head: ({ loaderData }) => ({
+    meta: [
+      { title: `${loaderData?.product.title ?? "Product"} | Spares Automation` },
+      { name: "description", content: loaderData?.product.description?.slice(0, 155) || "Industrial product details, pricing, availability, and quote support." },
+      { property: "og:title", content: loaderData?.product.title ?? "Product | Spares Automation" },
+      { property: "og:type", content: "product" },
+      ...(loaderData?.product.featuredImage ? [{ property: "og:image", content: loaderData.product.featuredImage.url }] : []),
+    ],
+    links: loaderData?.product ? [{ rel: "canonical", href: `${SITE.url}/products/${loaderData.product.handle}` }] : [],
   }),
   component: ProductPage,
 });
 
 function ProductPage() {
   const { product } = Route.useLoaderData();
-
-  if (!product) {
-    return (
-      <div className="min-h-screen bg-background text-ink">
-        <SiteHeader />
-        <div className="mx-auto max-w-[900px] px-6 py-24 text-center">
-          <h1 className="font-display text-4xl font-bold uppercase tracking-tight">
-            Product not found
-          </h1>
-          <p className="mt-4 text-ink-muted">
-            This product may be inactive, unpublished, or removed from the catalogue.
-          </p>
-          <Link
-            to="/"
-            className="mt-8 inline-flex h-11 items-center justify-center bg-accent px-6 font-mono text-[10px] uppercase tracking-[0.22em] text-accent-foreground"
-          >
-            Return to catalogue
-          </Link>
-        </div>
-        <SiteFooter />
-      </div>
-    );
-  }
 
   return <ProductDetail product={product} />;
 }

@@ -26,10 +26,17 @@ export type ShopifyProductResourceLink = {
   url: string;
 };
 
+export type ShopifyProductResource = {
+  text: string;
+  url: string;
+};
+
 export type ShopifyProductTechnicalDetails = {
   brand: string | null;
   mpnRange: string | null;
   setupVideoUrl: string | null;
+  videoGuide: ShopifyProductResource | null;
+  pdfGuide: ShopifyProductResource | null;
   datasheets: ShopifyProductResourceLink[];
   manuals: ShopifyProductResourceLink[];
 };

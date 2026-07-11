@@ -4,8 +4,11 @@ import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import contactImg from "@/assets/cat-automation.jpg";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
+import { SITE, whatsappHref } from "@/lib/site";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact-us")({
+  head: () => pageHead("Contact Industrial Parts Support", "Contact Spares Automation for product identification, quotations, availability, and industrial parts support.", "/contact-us"),
   component: ContactUsPage,
 });
 
@@ -32,11 +35,11 @@ function ContactUsPage() {
         </div>
       </section>
 
-      <main className="bg-surface py-12 md:py-16">
+      <main id="main-content" className="bg-surface py-12 md:py-16">
         <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-5 px-4 md:grid-cols-2 md:px-6 lg:grid-cols-4 lg:px-10">
-          <ContactCard icon={Phone} title="Technical Sales" copy="+44 (0)161 818 7420" detail="Mon-Fri 07:30-18:00 GMT" />
-          <ContactCard icon={Mail} title="Email Enquiries" copy="trade@spares-automation.co.uk" detail="Send product questions or cart details" />
-          <ContactCard icon={MessageCircle} title="WhatsApp" copy="+44 (0)161 818 7420" detail="Useful for photos and part numbers" />
+          <ContactCard icon={Phone} title="Technical Sales" copy={SITE.phoneDisplay} detail={SITE.hours} href={`tel:${SITE.phoneHref}`} />
+          <ContactCard icon={Mail} title="Email Enquiries" copy={SITE.email} detail="Send product questions or cart details" href={`mailto:${SITE.email}`} />
+          <ContactCard icon={MessageCircle} title="WhatsApp" copy={SITE.phoneDisplay} detail="Useful for photos and part numbers" href={whatsappHref("Hello Spares Automation, I need help identifying a part.")} external />
           <ContactCard icon={MapPin} title="UK Support" copy="Manchester" detail="Industrial parts and automation support" />
         </div>
       </main>
@@ -51,18 +54,21 @@ function ContactCard({
   title,
   copy,
   detail,
+  href,
+  external = false,
 }: {
   icon: typeof Phone;
   title: string;
   copy: string;
   detail: string;
+  href?: string;
+  external?: boolean;
 }) {
-  return (
-    <article className="border border-rule bg-background p-6">
+  const content = <>
       <Icon className="h-5 w-5 text-accent" />
       <h2 className="mt-5 font-display text-lg font-bold uppercase tracking-tight">{title}</h2>
       <p className="mt-3 text-sm font-semibold text-ink">{copy}</p>
       <p className="mt-2 text-sm leading-relaxed text-ink-muted">{detail}</p>
-    </article>
-  );
+    </>;
+  return href ? <a href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined} className="block border border-rule bg-background p-6 transition-colors hover:border-accent">{content}</a> : <article className="border border-rule bg-background p-6">{content}</article>;
 }

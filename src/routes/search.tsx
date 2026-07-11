@@ -18,6 +18,7 @@ export const Route = createFileRoute("/search")({
     }),
     q: deps.q,
   }),
+  head: ({ loaderData }) => ({ meta: [{ title: loaderData?.q ? `Search results for ${loaderData.q} | Spares Automation` : "Search Products | Spares Automation" }, { name: "description", content: "Search the Spares Automation industrial parts catalogue by product name, part number, brand, or equipment reference." }, { name: "robots", content: "noindex, follow" }] }),
   component: SearchPage,
 });
 

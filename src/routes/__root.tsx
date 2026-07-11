@@ -1,8 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
-  createRootRouteWithContext,
+  createRootRoute,
   useRouter,
   HeadContent,
   Scripts,
@@ -11,6 +10,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SITE } from "../lib/site";
 
 function NotFoundComponent() {
   return (
@@ -79,28 +79,55 @@ const FAVICON_SVG = `
 </svg>
 `;
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Spares Automation" },
-      { name: "description", content: "Industrial Procurement Platform" },
+      { name: "description", content: "Industrial parts, automation spares, trade quotes, and product support." },
       { name: "author", content: "Spares Automation" },
       { property: "og:title", content: "Spares Automation" },
-      { property: "og:description", content: "Industrial Procurement Platform" },
+      { property: "og:description", content: "Industrial parts, automation spares, trade quotes, and product support." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE.url },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@SparesAutomation" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/svg+xml", href: `data:image/svg+xml;utf8,${encodeURIComponent(FAVICON_SVG)}` },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: SITE.name,
+          url: SITE.url,
+          email: SITE.email,
+          telephone: SITE.phoneHref,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Manchester",
+            addressCountry: "GB",
+          },
+          contactPoint: {
+            "@type": "ContactPoint",
+            telephone: SITE.phoneHref,
+            email: SITE.email,
+            contactType: "sales",
+            availableLanguage: "English",
+          },
+        }),
       },
     ],
   }),
@@ -125,12 +152,5 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
-    </QueryClientProvider>
-  );
+  return <Outlet />;
 }

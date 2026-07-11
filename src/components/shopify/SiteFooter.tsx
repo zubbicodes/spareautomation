@@ -1,25 +1,26 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Mail, PackageSearch, Phone } from "lucide-react";
+import { SITE } from "@/lib/site";
 
 const informationLinks = [
   { label: "All Products", to: "/products" },
   { label: "Contact us", to: "/contact-us" },
   { label: "About us", to: "/about-us" },
   { label: "View Cart", to: "/cart" },
-  { label: "Open trade account", to: "/register" },
-  { label: "Track order", to: "/contact-us" },
+  { label: "Open trade account", to: "/trade-account" },
+  { label: "Track order", to: "/track-order" },
   { label: "My order history", to: "/account" },
-  { label: "Got a question", to: "/contact-us" },
+  { label: "Got a question", to: "/got-a-question" },
 ];
 
 const helpLinks = [
-  { label: "Terms & Conditions", to: "/about-us" },
-  { label: "Returns Policy", to: "/contact-us" },
-  { label: "Delivery Information", to: "/contact-us" },
-  { label: "Privacy Policy", to: "/about-us" },
-  { label: "Use of Cookies", to: "/about-us" },
-  { label: "Disclaimer", to: "/about-us" },
-  { label: "Unsubscribe", to: "/contact-us" },
+  { label: "Terms & Conditions", to: "/terms-and-conditions" },
+  { label: "Returns Policy", to: "/returns-policy" },
+  { label: "Delivery Information", to: "/delivery-information" },
+  { label: "Privacy Policy", to: "/privacy-policy" },
+  { label: "Use of Cookies", to: "/cookies" },
+  { label: "Disclaimer", to: "/disclaimer" },
+  { label: "Unsubscribe", to: "/unsubscribe" },
 ];
 
 export function SiteFooter() {
@@ -36,11 +37,12 @@ export function SiteFooter() {
               SPARES<span className="text-accent">.</span>AUTOMATION
             </div>
           </Link>
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/50">
-            Industrial spares, automation parts, and product support for plant operators.
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/70">
+            Trade catalogue, quote support, and parts help for machinery teams.
           </p>
           <Link
             to="/products"
+            search={{ category: "all", q: "", availability: "all", sort: "newest" }}
             className="group mt-6 flex max-w-sm items-center justify-between border border-accent/35 bg-accent/10 p-4 text-white transition-colors hover:border-accent hover:bg-accent/15"
           >
             <span className="flex items-center gap-3">
@@ -51,24 +53,24 @@ export function SiteFooter() {
                 <span className="block font-display text-sm font-bold uppercase tracking-tight">
                   All Products
                 </span>
-                <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.18em] text-white/45">
+                <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-white/70">
                   Browse full catalogue
                 </span>
               </span>
             </span>
             <ChevronRight className="h-4 w-4 text-accent transition-transform group-hover:translate-x-1" />
           </Link>
-          <div className="mt-6 space-y-3 text-sm text-white/55">
-            <a href="tel:+441618187420" className="flex items-center gap-3 hover:text-accent">
+          <div className="mt-6 space-y-3 text-sm text-white/70">
+            <a href={`tel:${SITE.phoneHref}`} className="flex min-h-8 items-center gap-3 hover:text-white">
               <Phone className="h-4 w-4" />
-              +44 (0)161 818 7420
+              {SITE.phoneDisplay}
             </a>
             <a
-              href="mailto:trade@spares-automation.co.uk"
-              className="flex items-center gap-3 hover:text-accent"
+              href={`mailto:${SITE.email}`}
+              className="flex min-h-8 items-center gap-3 hover:text-white"
             >
               <Mail className="h-4 w-4" />
-              trade@spares-automation.co.uk
+              {SITE.email}
             </a>
           </div>
         </div>
@@ -76,7 +78,7 @@ export function SiteFooter() {
         <FooterColumn title="Information" links={informationLinks} />
         <FooterColumn title="Help" links={helpLinks} />
       </div>
-      <div className="border-t border-white/10 px-4 py-5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-white/35">
+      <div className="border-t border-white/10 px-4 py-5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">
         Spares Automation
       </div>
     </footer>
@@ -86,11 +88,11 @@ export function SiteFooter() {
 function FooterColumn({ title, links }: { title: string; links: Array<{ label: string; to: string }> }) {
   return (
     <div>
-      <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/35">{title}</h2>
+      <h2 className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/70">{title}</h2>
       <ul className="mt-5 space-y-3">
         {links.map((link) => (
           <li key={link.label}>
-            <Link to={link.to} className="text-sm text-white/55 transition-colors hover:text-accent">
+            <Link to={link.to} className="inline-flex min-h-8 items-center text-sm text-white/70 transition-colors hover:text-white">
               {link.label}
             </Link>
           </li>
