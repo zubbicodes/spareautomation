@@ -484,3 +484,62 @@ export async function getCustomer(customerAccessToken: string) {
 
   return data.customer;
 }
+
+export async function getCustomerOrders(customerAccessToken: string) {
+  const data = await shopifyStorefront<{
+    customer?: {
+      orders: Connection<{
+        id: string;
+        name: string;
+        orderNumber: number;
+        processedAt: string;
+        financialStatus?: string | null;
+        fulfillmentStatus: string;
+        statusUrl: string;
+        totalPrice: { amount: string; currencyCode: string };
+        lineItems: Connection<{
+          title: string;
+          quantity: number;
+          variant?: { title: string } | null;
+        }>;
+      }>;
+    } | null;
+  }>(
+    `#graphql
+      query CustomerOrders($customerAccessToken: String!) {
+        customer(customerAccessToken: $customerAccessToken) {
+          orders(first: 20, reverse: true) {
+            nodes {
+              id
+              name
+              orderNumber
+              processedAt
+              financialStatus
+              fulfillmentStatus
+              statusUrl
+              totalPrice {
+                amount
+                currencyCode
+              }
+              lineItems(first: 20) {
+                nodes {
+                  title
+                  quantity
+                  variant {
+                    title
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    { customerAccessToken },
+  );
+
+  return (data.customer?.orders.nodes ?? []).map((order) => ({
+    ...order,
+    lineItems: order.lineItems.nodes,
+  }));
+}

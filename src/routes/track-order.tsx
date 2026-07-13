@@ -25,7 +25,8 @@ function TrackOrderPage() {
           copy: "We will confirm current status, courier details where available, and any expected delivery or back-order dates.",
         },
       ]}
-      ctaLabel="Ask for tracking"
+      ctaLabel="View account orders"
+      ctaTo="/account"
     ><SupportRequestForm kind="tracking" /></InfoPage>
   );
 }

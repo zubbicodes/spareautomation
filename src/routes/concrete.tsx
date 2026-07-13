@@ -8,11 +8,11 @@ import { SITE } from "@/lib/site";
 const collectionHandle = "concrete";
 const productLines = [
   { slug: "aggregate-feeding", label: "Aggregate Feeding", keywords: ["aggregate", "feeder", "feed", "hopper", "belt", "conveyor"] },
-  { slug: "cement-material-silos", label: "Cement / Material silos", keywords: ["cement", "material", "silo", "filter", "aerator"] },
-  { slug: "additive-system", label: "Additive system", keywords: ["additive", "admixture", "chemical", "dosing"] },
-  { slug: "water-controls", label: "Water controls", keywords: ["water", "meter", "pump", "valve", "flow"] },
-  { slug: "air-controls", label: "Air controls", keywords: ["air", "pneumatic", "compressor", "valve", "actuator"] },
-  { slug: "automation-controls", label: "Automation controls", keywords: ["automation", "control", "plc", "sensor", "panel"] },
+  { slug: "cement-material-silos", label: "Cement / Material Silos", keywords: ["cement", "material", "silo", "filter", "aerator"] },
+  { slug: "additive-system", label: "Additive System", keywords: ["additive", "admixture", "chemical", "dosing"] },
+  { slug: "water-controls", label: "Water Controls", keywords: ["water", "meter", "pump", "valve", "flow"] },
+  { slug: "air-controls", label: "Air Controls", keywords: ["air", "pneumatic", "compressor", "valve", "actuator"] },
+  { slug: "automation-controls", label: "Automation Controls", keywords: ["automation", "control", "plc", "sensor", "panel"] },
 ];
 
 export const Route = createFileRoute("/concrete")({

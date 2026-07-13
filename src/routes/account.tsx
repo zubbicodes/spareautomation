@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { LogOut, PackageSearch, ShieldCheck, User } from "lucide-react";
+import { ExternalLink, LogOut, PackageSearch, User } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { SiteHeader } from "@/components/shopify/SiteHeader";
@@ -8,6 +8,7 @@ import {
   getShopifyCustomer,
   logoutShopifyCustomer,
 } from "@/lib/api/shopify.functions";
+import { formatMoney } from "@/lib/shopify/format";
 
 type StorefrontCustomer = Awaited<ReturnType<typeof getShopifyCustomer>>;
 
@@ -45,6 +46,8 @@ function AccountPage() {
     storefrontCustomer?.firstName ||
     "Customer Account";
   const email = storefrontCustomer?.email;
+  const orders = storefrontCustomer?.orders ?? [];
+  const orderHistoryAvailable = storefrontCustomer?.orderHistoryAvailable ?? false;
 
   const isLoggedIn = Boolean(storefrontCustomer);
 
@@ -83,8 +86,9 @@ function AccountPage() {
             </Link>
           </section>
         ) : (
-          <div className="grid gap-4 md:gap-6 lg:grid-cols-[1fr_360px]">
-            <section className="border border-rule bg-surface p-5 md:p-8">
+          <div className="space-y-6">
+            <div className="grid gap-4 md:gap-6 lg:grid-cols-[1fr_360px]">
+              <section className="border border-rule bg-surface p-5 md:p-8">
               <div className="mb-4 md:mb-6 flex h-11 w-11 md:h-12 md:w-12 items-center justify-center bg-accent text-accent-foreground">
                 <User className="h-4 w-4 md:h-5 md:w-5" />
               </div>
@@ -101,12 +105,12 @@ function AccountPage() {
                   {storefrontCustomer.phone}
                 </p>
               )}
-            </section>
+              </section>
 
-            <aside className="space-y-3 md:space-y-4">
+              <aside className="space-y-3 md:space-y-4">
               <Link
                 to="/products"
-                search={{ category: "all", q: "", availability: "all", sort: "newest" }}
+                search={{ category: "all", availability: "all", sort: "newest" }}
                 className="flex items-center justify-between border border-rule bg-surface p-4 md:p-5 text-sm font-semibold uppercase tracking-[0.08em] transition-colors hover:border-accent hover:text-accent"
               >
                 Browse catalogue <PackageSearch className="h-3 w-3 md:h-4 md:w-4" />
@@ -117,11 +121,72 @@ function AccountPage() {
               >
                 Sign out <LogOut className="h-3 w-3 md:h-4 md:w-4" />
               </button>
-            </aside>
+              </aside>
+            </div>
+
+            <section aria-labelledby="order-history-title" className="border border-rule bg-surface p-5 md:p-8">
+              <div className="flex flex-col gap-2 border-b border-rule pb-5 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-muted">Purchases</div>
+                  <h2 id="order-history-title" className="mt-2 font-display text-xl font-bold uppercase tracking-tight md:text-2xl">Order history</h2>
+                </div>
+                {orderHistoryAvailable ? (
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
+                    {orders.length} recent {orders.length === 1 ? "order" : "orders"}
+                  </span>
+                ) : null}
+              </div>
+
+              {!orderHistoryAvailable ? (
+                <div className="py-8">
+                  <p className="max-w-2xl text-sm leading-6 text-ink-muted">Order history is not available through this store account yet. Use the tracking request page with your order number for an update.</p>
+                  <Link to="/track-order" className="mt-5 inline-flex h-11 items-center justify-center bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white">Request an order update</Link>
+                </div>
+              ) : orders.length === 0 ? (
+                <div className="py-8">
+                  <p className="text-sm leading-6 text-ink-muted">No completed Shopify orders are linked to this customer account.</p>
+                  <Link to="/products" search={{ category: "all", availability: "all", sort: "newest" }} className="mt-5 inline-flex h-11 items-center justify-center border border-rule px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-ink hover:border-accent hover:text-accent">Browse products</Link>
+                </div>
+              ) : (
+                <div className="divide-y divide-rule">
+                  {orders.map((order) => (
+                    <article key={order.id} className="grid gap-4 py-5 lg:grid-cols-[180px_1fr_auto] lg:items-center">
+                      <div>
+                        <h3 className="font-display text-lg font-bold uppercase tracking-tight">{order.name || `Order #${order.orderNumber}`}</h3>
+                        <p className="mt-1 text-sm text-ink-muted">{new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(order.processedAt))}</p>
+                      </div>
+                      <div>
+                        <div className="flex flex-wrap gap-2">
+                          {order.financialStatus ? <OrderStatus>{formatStatus(order.financialStatus)}</OrderStatus> : null}
+                          <OrderStatus>{formatStatus(order.fulfillmentStatus)}</OrderStatus>
+                        </div>
+                        <p className="mt-2 line-clamp-2 text-sm text-ink-muted">
+                          {order.lineItems.map((item) => `${item.quantity}× ${item.title}${item.variant?.title && item.variant.title !== "Default Title" ? ` (${item.variant.title})` : ""}`).join(", ")}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between gap-4 lg:justify-end">
+                        <strong className="font-display text-lg text-ink">{formatMoney(order.totalPrice)}</strong>
+                        <a href={order.statusUrl} target="_blank" rel="noreferrer" className="inline-flex h-10 items-center justify-center gap-2 border border-accent px-4 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-accent hover:bg-accent hover:text-white">
+                          Order status <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
+                        </a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </section>
           </div>
         )}
       </main>
       <SiteFooter />
     </div>
   );
+}
+
+function OrderStatus({ children }: { children: string }) {
+  return <span className="border border-rule bg-background px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-ink-muted">{children}</span>;
+}
+
+function formatStatus(status: string) {
+  return status.toLowerCase().replaceAll("_", " ");
 }

@@ -23,6 +23,22 @@ function DeliveryPage() {
           title: "Sourced items",
           copy: "For non-stock or additional quantities, the sales desk will confirm expected lead time before processing the order.",
         },
+        {
+          title: "Delivery charges",
+          copy: "Delivery cost depends on item size, weight, supplier location, and destination. The applicable charge is shown at checkout or confirmed in a written quotation before the order is accepted.",
+        },
+        {
+          title: "Dispatch and tracking",
+          copy: "Where courier tracking is available, details are provided through the Shopify order-status page or by the sales desk after dispatch.",
+        },
+        {
+          title: "Damage or shortages",
+          copy: "Check deliveries promptly and report visible damage, missing items, or incorrect goods with the order number, packaging details, and supporting photos.",
+        },
+        {
+          title: "International delivery",
+          copy: "International availability, transport, duties, taxes, import requirements, and delivery responsibility must be confirmed before an overseas order is processed.",
+        },
       ]}
     />
   );

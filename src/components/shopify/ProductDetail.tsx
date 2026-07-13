@@ -49,7 +49,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
         <div className="border-b border-rule bg-surface px-4 py-4 md:px-6 lg:px-10">
           <Link
             to="/products"
-            search={{ category: "all", q: "", availability: "all", sort: "newest" }}
+            search={{ category: "all", availability: "all", sort: "newest" }}
             className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted transition-colors hover:text-accent"
           >
             <ArrowLeft className="h-3.5 w-3.5" />

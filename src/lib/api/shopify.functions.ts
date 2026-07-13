@@ -9,6 +9,7 @@ import {
   getCart,
   getCollectionByHandle,
   getCustomer,
+  getCustomerOrders,
   getProductByHandle,
   getProducts,
   getProductsPage,
@@ -174,7 +175,15 @@ export const loginShopifyCustomer = createServerFn({ method: "POST" })
 export const getShopifyCustomer = createServerFn({ method: "GET" }).handler(async () => {
   const sessionData = await getCustomerAccessTokenSession();
   if (!sessionData?.customerAccessToken) return null;
-  return getCustomer(sessionData.customerAccessToken);
+  const customer = await getCustomer(sessionData.customerAccessToken);
+  if (!customer) return null;
+
+  try {
+    const orders = await getCustomerOrders(sessionData.customerAccessToken);
+    return { ...customer, orders, orderHistoryAvailable: true as const };
+  } catch {
+    return { ...customer, orders: [], orderHistoryAvailable: false as const };
+  }
 });
 
 export const logoutShopifyCustomer = createServerFn({ method: "POST" }).handler(async () => {

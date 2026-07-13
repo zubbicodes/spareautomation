@@ -48,12 +48,12 @@ const primaryRanges = [
     to: "/concrete",
     accent: "amber",
     lines: [
-      { label: "Batching Plants", meta: "Skips / Hoppers / Weighers", href: "/concrete?line=aggregate-feeding" },
-      { label: "Twin-Shaft Mixers", meta: "Paddles / Liners / Shafts", href: "/concrete?line=cement-material-silos" },
-      { label: "Cement Silos", meta: "Filters / Aerators / Valves", href: "/concrete?line=additive-system" },
-      { label: "Weighing Systems", meta: "Load cells / Indicators", href: "/concrete?line=water-controls" },
-      { label: "Pneumatic Valves", meta: "Butterfly / Pinch / Knife", href: "/concrete?line=air-controls" },
-      { label: "PLC Controllers", meta: "Siemens / Allen-Bradley", href: "/concrete?line=automation-controls" },
+      { label: "Aggregate Feeding", meta: "Hoppers / Belts / Conveyors", href: "/concrete?line=aggregate-feeding" },
+      { label: "Cement / Material Silos", meta: "Filters / Aerators / Valves", href: "/concrete?line=cement-material-silos" },
+      { label: "Additive System", meta: "Admixture / Chemical / Dosing", href: "/concrete?line=additive-system" },
+      { label: "Water Controls", meta: "Meters / Pumps / Flow Valves", href: "/concrete?line=water-controls" },
+      { label: "Air Controls", meta: "Pneumatics / Compressors / Actuators", href: "/concrete?line=air-controls" },
+      { label: "Automation Controls", meta: "PLCs / Sensors / Panels", href: "/concrete?line=automation-controls" },
     ],
   },
 ];
@@ -130,7 +130,7 @@ function Home() {
                   <span>Sub-categories - {String(range.lines.length).padStart(2, "0")}</span>
                 </div>
                 <div className="grid flex-1 grid-cols-1 gap-1 p-2 sm:grid-cols-2 md:gap-1.5 md:p-2.5">
-                  {range.lines.map((line, lineIndex) => (
+                  {range.lines.map((line) => (
                     <a
                       key={line.label}
                       href={line.href}
@@ -141,9 +141,6 @@ function Home() {
                       }`}
                     >
                       <span className="min-w-0">
-                        <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.18em] text-white/45">
-                          {range.accent === "amber" ? "CN" : "AS"}-{String(lineIndex + 1).padStart(2, "0")}
-                        </span>
                         <span className="block break-words text-sm font-bold leading-tight text-white">
                           {line.label}
                         </span>

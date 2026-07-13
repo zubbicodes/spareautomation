@@ -41,6 +41,42 @@ test("contact methods are actionable and consistent", async ({ page }) => {
   await expect(page.getByRole("link", { name: /Email Enquiries/ })).toHaveAttribute("href", "mailto:trade@spares-automation.co.uk");
 });
 
+test("all products keeps one search and a compact catalogue hero", async ({ page }) => {
+  await page.goto("/products");
+  await expect(page.getByRole("searchbox")).toHaveCount(1);
+  await expect(page.getByPlaceholder("Search within results...")).toHaveCount(0);
+
+  const hero = page.getByRole("heading", { name: /all products catalogue/i }).locator("xpath=ancestor::section[1]");
+  const box = await hero.boundingBox();
+  expect(box).not.toBeNull();
+  expect(box!.height).toBeLessThanOrEqual(281);
+});
+
+test("information pages use completed compact content flows", async ({ page }) => {
+  await page.goto("/about-us");
+  await expect(page.getByRole("heading", { level: 1, name: "Industrial parts and automation support" })).toBeVisible();
+  await expect(page.locator("main").getByRole("heading", { level: 2 })).toHaveCount(4);
+  await expect(page.locator("main img")).toHaveCount(0);
+
+  await page.goto("/contact-us");
+  await expect(page.getByRole("heading", { level: 1, name: "Contact Spares Automation" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Prepare email request" })).toBeVisible();
+  await expect(page.locator("main img")).toHaveCount(0);
+});
+
+test("trade and tracking pages collect the required details", async ({ page }) => {
+  await page.goto("/trade-account");
+  await expect(page.getByRole("textbox", { name: "Registered company name" })).toBeVisible();
+  await expect(page.getByRole("textbox", { name: "Company registration number" })).toBeVisible();
+  await expect(page.getByRole("textbox", { name: "VAT number" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Prepare application email" })).toBeVisible();
+
+  await page.goto("/track-order");
+  await expect(page.getByRole("textbox", { name: "Order number" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Prepare email request" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /View account orders/ })).toHaveAttribute("href", "/account");
+});
+
 test("crawler files are available", async ({ request }) => {
   expect((await request.get("/robots.txt")).ok()).toBeTruthy();
   expect((await request.get("/sitemap.xml")).ok()).toBeTruthy();

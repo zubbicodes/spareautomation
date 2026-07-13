@@ -42,7 +42,7 @@ export function SiteFooter() {
           </p>
           <Link
             to="/products"
-            search={{ category: "all", q: "", availability: "all", sort: "newest" }}
+            search={{ category: "all", availability: "all", sort: "newest" }}
             className="group mt-6 flex max-w-sm items-center justify-between border border-accent/35 bg-accent/10 p-4 text-white transition-colors hover:border-accent hover:bg-accent/15"
           >
             <span className="flex items-center gap-3">

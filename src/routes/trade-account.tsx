@@ -1,10 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { InfoPage } from "@/components/shopify/InfoPage";
+import { TradeAccountApplicationForm } from "@/components/shopify/TradeAccountApplicationForm";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/trade-account")({
-  head: () => pageHead("Open a Trade Account", "Create a customer account and contact the sales desk to discuss trade pricing and account terms.", "/trade-account"),
+  head: () =>
+    pageHead(
+      "Open a Trade Account",
+      "Apply for a Spares Automation trade account using your company, purchasing, billing, and delivery details.",
+      "/trade-account",
+    ),
   component: TradeAccountPage,
 });
 
@@ -12,20 +18,22 @@ function TradeAccountPage() {
   return (
     <InfoPage
       eyebrow="Trade account"
-      title="Open a trade account"
-      intro="Create an account to keep your details ready for future orders and quote requests. Trade pricing and account terms are confirmed by the sales desk."
+      title="Apply for a trade account"
+      intro="Trade accounts are intended for businesses purchasing industrial parts regularly. Submit your company and purchasing details for review; pricing and payment terms are confirmed in writing by the sales desk."
       sections={[
         {
-          title: "Online registration",
-          copy: "Use the registration form to create your customer login with name, email, phone number, and password.",
+          title: "What you will need",
+          copy: "Provide the registered company name, main contact, billing and delivery details, company or VAT numbers where applicable, and expected purchasing requirements.",
         },
         {
-          title: "Trade approval",
-          copy: "For account terms or repeat purchasing requirements, contact sales with your company details and expected product ranges.",
+          title: "Review and approval",
+          copy: "Submitting an application does not automatically create credit terms. The sales desk may request references or further checks before confirming pricing, limits, and payment terms.",
         },
       ]}
-      ctaLabel="Create account"
-      ctaTo="/register"
-    />
+      ctaLabel="Existing customer sign in"
+      ctaTo="/login"
+    >
+      <TradeAccountApplicationForm />
+    </InfoPage>
   );
 }

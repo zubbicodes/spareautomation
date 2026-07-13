@@ -25,6 +25,8 @@ function GotAQuestionPage() {
           copy: "Add products to the cart and use request quote to email the current cart details to the sales desk.",
         },
       ]}
+      ctaLabel="View all contact options"
+      ctaTo="/contact-us"
     ><SupportRequestForm kind="question" /></InfoPage>
   );
 }
