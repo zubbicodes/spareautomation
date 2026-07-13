@@ -90,7 +90,7 @@ function Home() {
         {primaryRanges.map((range, index) => (
           <article
             key={range.title}
-            className="hero-range group relative flex min-h-[440px] items-stretch overflow-hidden border-b border-rule md:min-h-[560px]"
+            className="hero-range group relative flex min-h-[440px] items-stretch overflow-hidden border-b border-rule md:min-h-[520px]"
           >
             <img
               src={range.img}
@@ -104,7 +104,7 @@ function Home() {
             <div className="absolute inset-0 bg-charcoal-deep/45" />
             <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/55 to-charcoal-deep/10" />
 
-            <div className="relative z-10 flex min-h-[440px] min-w-0 w-full flex-col justify-end gap-7 p-6 md:min-h-[560px] md:p-8 lg:p-10">
+            <div className="relative z-10 flex min-h-[440px] min-w-0 w-full flex-col justify-end gap-7 p-6 md:min-h-[520px] md:p-8 lg:p-10">
               <div className="hero-range-title flex min-w-0 flex-col justify-end transition-all duration-500">
                 <div className="mb-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-white/70">
                   <span
@@ -121,7 +121,7 @@ function Home() {
                 </Link>
               </div>
 
-              <div className="hero-range-panel z-20 grid gap-0 overflow-hidden border border-white/25 bg-charcoal-deep/92 shadow-2xl shadow-black/40 backdrop-blur-md transition-all duration-500 md:absolute md:inset-x-8 md:top-10 md:bg-charcoal-deep/50 md:shadow-none md:backdrop-blur-sm lg:inset-x-10">
+              <div className="hero-range-panel z-20 grid gap-0 overflow-hidden border border-white/25 bg-charcoal-deep/92 shadow-2xl shadow-black/40 backdrop-blur-md transition-all duration-500 md:absolute md:inset-x-8 md:inset-y-10 md:grid-rows-[auto_minmax(0,1fr)] md:bg-charcoal-deep/50 md:shadow-none md:backdrop-blur-sm lg:inset-x-10">
                 <div
                   className={`flex items-center border-b border-white/15 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.24em] md:border-white/20 md:px-5 md:py-3 ${
                     range.accent === "amber" ? "text-amber" : "text-accent"
@@ -129,7 +129,7 @@ function Home() {
                 >
                   <span>Sub-categories - {String(range.lines.length).padStart(2, "0")}</span>
                 </div>
-                <div className="grid flex-1 grid-cols-1 gap-1 p-2 sm:grid-cols-2 md:gap-1.5 md:p-2.5">
+                <div className="grid min-h-0 grid-cols-1 gap-1 p-2 sm:grid-cols-2 md:grid-rows-3 md:gap-1.5 md:p-2.5">
                   {range.lines.map((line) => (
                     <a
                       key={line.label}
