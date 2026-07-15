@@ -43,9 +43,9 @@ const categoryFilters: CategoryFilter[] = [
     description: "Smart relays, sensors, DIN rail supplies",
   },
   {
-    label: "New Arrivals",
-    handle: "new-arrivals",
-    description: "Recently added catalogue items",
+    label: "Control Panels & Software",
+    handle: "control-panels-software",
+    description: "Control panels, PLC software and support",
   },
 ];
 

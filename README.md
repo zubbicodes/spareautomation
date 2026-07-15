@@ -56,6 +56,9 @@ This document records the website changes implemented from the client feedback i
 - Removed extra marketing copy under the Asphalt/Blacktop and Ready-Mix/Concrete homepage cards.
 - Simplified the image overlays so category options sit cleanly over the full image.
 - Added homepage links for `PDFs & Manuals` and `Videos`, both pointing to `/resources`.
+- Replaced `New Arrivals` with `Control Panels & Software`; the legacy URL redirects to the new catalogue route.
+- Aligned homepage asphalt labels with the approved product-line list and removed internal sub-category/vertical wording.
+- Clarified that photos are attached through email or WhatsApp and that cart details are emailed from a populated cart.
 - Reduced the homepage help section heading size so it is less oversized.
 - Documented replacement image guidance in code: Packing/Home category photos should be landscape, `4:3` or `16:10`, minimum `1200px` wide.
 

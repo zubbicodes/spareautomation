@@ -34,12 +34,12 @@ const primaryRanges = [
     to: "/asphalt",
     accent: "accent",
     lines: [
-      { label: "Feeders & Conveyors", meta: "Belts / Idlers / Drives", href: "/asphalt?line=feeders" },
-      { label: "Silos & Storage", meta: "Hot bins / Filler silos", href: "/asphalt?line=hot-stone-silos" },
-      { label: "Burner Systems", meta: "Nozzles / Fuel pumps", href: "/asphalt?line=burner-drying" },
-      { label: "Drum Mixers", meta: "Flights / Liners / Seals", href: "/asphalt?line=mixing-tower" },
-      { label: "Sensors & Probes", meta: "Thermocouples / RTDs", href: "/asphalt?line=bitumen" },
-      { label: "Control Cabinets", meta: "PLCs / Contactors / MCBs", href: "/asphalt?line=baghouse" },
+      { label: "Feeders", meta: "Belts / Idlers / Drives", href: "/asphalt?line=feeders" },
+      { label: "Burner / Drying", meta: "Nozzles / Fuel pumps", href: "/asphalt?line=burner-drying" },
+      { label: "Bitumen", meta: "Pumps / Valves / Hoses", href: "/asphalt?line=bitumen" },
+      { label: "Hot Stone / Silos", meta: "Hot bins / Storage", href: "/asphalt?line=hot-stone-silos" },
+      { label: "Baghouse", meta: "Filters / Bags / Dust", href: "/asphalt?line=baghouse" },
+      { label: "Mixing Tower", meta: "Flights / Liners / Seals", href: "/asphalt?line=mixing-tower" },
     ],
   },
   {
@@ -63,7 +63,7 @@ const categories = [
   { title: "Packing Machinery", img: catPacking, to: "/packing" },
   { title: "Automation & Drives", img: catAutomation, to: "/automation" },
   { title: "Home Controls", img: catHome, to: "/home-controls" },
-  { title: "New Arrivals", img: catAutomation, to: "/new-arrivals" },
+  { title: "Control Panels & Software", img: catAutomation, to: "/control-panels-software" },
 ];
 
 function HeroTitle({ title, accent }: { title: string; accent: "accent" | "amber" }) {
@@ -90,7 +90,7 @@ function Home() {
         {primaryRanges.map((range, index) => (
           <article
             key={range.title}
-            className="hero-range group relative flex min-h-[440px] items-stretch overflow-hidden border-b border-rule md:min-h-[520px]"
+            className="hero-range group relative flex min-h-[390px] items-stretch overflow-hidden border-b border-rule md:min-h-[460px]"
           >
             <img
               src={range.img}
@@ -104,16 +104,8 @@ function Home() {
             <div className="absolute inset-0 bg-charcoal-deep/45" />
             <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/55 to-charcoal-deep/10" />
 
-            <div className="relative z-10 flex min-h-[440px] min-w-0 w-full flex-col justify-end gap-7 p-6 md:min-h-[520px] md:p-8 lg:p-10">
+            <div className="relative z-10 flex min-h-[390px] min-w-0 w-full flex-col justify-end gap-4 p-4 md:min-h-[460px] md:gap-6 md:p-8 lg:p-10">
               <div className="hero-range-title flex min-w-0 flex-col justify-end transition-all duration-500">
-                <div className="mb-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-white/70">
-                  <span
-                    className={`h-px w-8 ${
-                      range.accent === "amber" ? "bg-amber" : "bg-accent"
-                    }`}
-                  />
-                  <span>Browse sub-categories</span>
-                </div>
                 <Link to={range.to} className="block max-w-xl focus-visible:outline-white">
                   <h2 className="break-words font-display text-[clamp(2rem,4.2vw,3.4rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white">
                     <HeroTitle title={range.title} accent={range.accent as "accent" | "amber"} />
@@ -121,20 +113,13 @@ function Home() {
                 </Link>
               </div>
 
-              <div className="hero-range-panel z-20 grid gap-0 overflow-hidden border border-white/25 bg-charcoal-deep/92 shadow-2xl shadow-black/40 backdrop-blur-md transition-all duration-500 md:absolute md:inset-x-8 md:inset-y-10 md:grid-rows-[auto_minmax(0,1fr)] md:bg-charcoal-deep/50 md:shadow-none md:backdrop-blur-sm lg:inset-x-10">
-                <div
-                  className={`flex items-center border-b border-white/15 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.24em] md:border-white/20 md:px-5 md:py-3 ${
-                    range.accent === "amber" ? "text-amber" : "text-accent"
-                  }`}
-                >
-                  <span>Sub-categories - {String(range.lines.length).padStart(2, "0")}</span>
-                </div>
-                <div className="grid min-h-0 grid-cols-1 gap-1 p-2 sm:grid-cols-2 md:grid-rows-3 md:gap-1.5 md:p-2.5">
+              <div className="hero-range-panel z-20 overflow-hidden border border-white/25 bg-charcoal-deep/92 shadow-2xl shadow-black/40 backdrop-blur-md transition-all duration-500 md:absolute md:inset-x-8 md:inset-y-8 md:flex md:flex-col md:bg-charcoal-deep/70 md:shadow-none md:backdrop-blur-sm lg:inset-x-10">
+                <div className="grid min-h-0 grid-cols-2 gap-1 p-2 md:grid-rows-3 md:gap-1.5 md:p-2.5">
                   {range.lines.map((line) => (
                     <a
                       key={line.label}
                       href={line.href}
-                      className={`group/item grid min-h-[70px] grid-cols-[1fr_auto] items-center border border-white/12 bg-charcoal-deep/72 px-3.5 py-3 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-sm transition-colors md:min-h-[64px] md:px-4 md:py-2.5 ${
+                      className={`group/item grid min-h-[62px] grid-cols-[1fr_auto] items-center border border-white/12 bg-charcoal-deep/72 px-3 py-2.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-sm transition-colors md:min-h-[64px] md:px-4 ${
                         range.accent === "amber"
                           ? "hover:border-amber hover:bg-amber/10 focus-visible:border-amber"
                           : "hover:border-accent hover:bg-accent/15 focus-visible:border-accent"
@@ -155,6 +140,15 @@ function Home() {
                       />
                     </a>
                   ))}
+                </div>
+                <div
+                  aria-hidden="true"
+                  data-testid={`hero-hover-title-${index}`}
+                  className="hidden flex-1 items-end border-t border-white/15 bg-gradient-to-t from-charcoal-deep/90 to-transparent px-6 py-6 md:flex lg:px-8 lg:py-7"
+                >
+                  <div className="max-w-xl font-display text-[clamp(2rem,3.2vw,3rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white">
+                    <HeroTitle title={range.title} accent={range.accent as "accent" | "amber"} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -238,12 +232,16 @@ function Home() {
       <section className="border-b border-rule bg-charcoal-deep py-14 md:py-16">
         <div className="mx-auto max-w-[1600px] px-4 md:px-6 lg:px-10">
           <div className="text-center mb-10">
-            <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/60">
+            <div className="font-mono text-[13px] uppercase tracking-[0.2em] text-white/75">
               Need help finding a part?
             </div>
             <h2 className="mx-auto mt-4 max-w-4xl font-display text-2xl font-extrabold uppercase tracking-tight text-white md:text-4xl">
-              Send a part number, product photo, or cart details.
+              Send a part number or product description.
             </h2>
+            <p className="mx-auto mt-4 max-w-3xl text-sm leading-6 text-white/75">
+              Use this form for text details. To send a product photo, attach it to an email or
+              send it by WhatsApp. Cart details can be emailed from the cart after adding an item.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

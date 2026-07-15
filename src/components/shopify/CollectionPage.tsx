@@ -18,7 +18,6 @@ type CollectionPageProps = {
   accent?: "accent" | "amber";
   image: string;
   imageAlt: string;
-  intro: string;
   collection: ShopifyCollection | null;
   fallbackProducts?: ShopifyProduct[];
   expectedHandle: string;
@@ -32,7 +31,6 @@ export function CollectionPage({
   accent = "accent",
   image,
   imageAlt,
-  intro,
   collection,
   fallbackProducts = [],
   expectedHandle,
@@ -65,9 +63,6 @@ export function CollectionPage({
             {title}{" "}
             <span className={accentClass}>{collection?.title ? "CATALOGUE" : "SPARES"}</span>
           </h1>
-          <p className="mt-4 md:mt-6 lg:mt-8 max-w-md md:max-w-xl lg:max-w-2xl text-sm md:text-[16px] leading-relaxed text-white/60">
-            {collection?.description || intro}
-          </p>
         </div>
       </section>
 

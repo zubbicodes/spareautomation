@@ -5,16 +5,16 @@ import { SupportRequestForm } from "@/components/shopify/SupportRequestForm";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/resources")({
-  head: () => pageHead("Product Resources", "Request product manuals, technical PDFs, datasheets, and setup videos for industrial parts and equipment.", "/resources"),
+  head: () => pageHead("PDFs, Manuals and Videos", "Request product manuals, technical PDFs, datasheets, and setup videos for industrial parts and equipment.", "/resources"),
   component: ResourcesPage,
 });
 
 function ResourcesPage() {
   return (
     <InfoPage
-      eyebrow="Resources"
-      title="PDFs, manuals, and videos"
-      intro="Product documents and support videos are supplied against the relevant part, machine, or enquiry so the sales desk can send the correct version."
+      eyebrow="PDFs & Videos"
+      title="Request PDFs, manuals, and videos"
+      intro="This is a request service rather than a public download library. Send the relevant part or machine details so the sales desk can supply the correct document or video version."
       sections={[
         {
           title: "PDFs and manuals",

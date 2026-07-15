@@ -45,11 +45,10 @@ function PackingPage() {
 
   return (
     <CollectionPage
-      eyebrow="Catalogue / Logistics / Vertical 03"
+      eyebrow="Packing Machinery"
       title="PACKING / MACHINERY"
       image={packing}
       imageAlt="Packing machinery"
-      intro="Specialist spares for industrial packing and bagging lines, including sealers, rollers, belts, and conveyor parts."
       collection={collection}
       fallbackProducts={products}
       expectedHandle={collectionHandle}

@@ -45,11 +45,10 @@ function AutomationPage() {
 
   return (
     <CollectionPage
-      eyebrow="Catalogue / Systems / Vertical 03"
+      eyebrow="Automation & Drives"
       title="AUTOMATION / DRIVES"
       image={automation}
       imageAlt="Automation and drives"
-      intro="VFDs, PLC modules, servo drives, relays, and control spares for plant and panel support."
       collection={collection}
       fallbackProducts={products}
       expectedHandle={collectionHandle}

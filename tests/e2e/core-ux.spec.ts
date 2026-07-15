@@ -4,6 +4,11 @@ test("homepage remains within the viewport and exposes working navigation", asyn
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Industrial parts and automation spares");
   await expect(page.getByRole("link", { name: "Feeders" })).toHaveAttribute("href", "/asphalt?line=feeders");
+  await expect(page.getByRole("link", { name: /Control Panels & Software/i })).toHaveAttribute("href", "/control-panels-software");
+  await expect(page.getByText("Browse sub-categories", { exact: true })).toHaveCount(0);
+  await expect(page.getByText(/Sub-categories -/i)).toHaveCount(0);
+  await expect(page.getByText("New Arrivals", { exact: true })).toHaveCount(0);
+  await expect(page.getByText(/attach it to an email or send it by WhatsApp/i)).toBeVisible();
   await expect(page.getByRole("link", { name: "Contact via WhatsApp" })).toHaveAttribute("href", /wa\.me\/441618187420/);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(1);
@@ -41,6 +46,15 @@ test("contact methods are actionable and consistent", async ({ page }) => {
   await expect(page.getByRole("link", { name: /Email Enquiries/ })).toHaveAttribute("href", "mailto:trade@spares-automation.co.uk");
 });
 
+test("desktop hero hover fills the category panel with the range title", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Desktop hover treatment");
+  await page.goto("/");
+  const firstRange = page.locator(".hero-range").first();
+  await firstRange.hover();
+  await expect(page.getByTestId("hero-hover-title-0")).toBeVisible();
+  await expect(page.getByTestId("hero-hover-title-0")).toContainText(/Asphalt \/ Blacktop Spares/i);
+});
+
 test("all products keeps one search and a compact catalogue hero", async ({ page }) => {
   await page.goto("/products");
   await expect(page.getByRole("searchbox")).toHaveCount(1);
@@ -50,6 +64,30 @@ test("all products keeps one search and a compact catalogue hero", async ({ page
   const box = await hero.boundingBox();
   expect(box).not.toBeNull();
   expect(box!.height).toBeLessThanOrEqual(281);
+
+  await expect(page.getByRole("button", { name: /Control Panels & Software/i })).toBeVisible();
+  await expect(page.getByText("New Arrivals", { exact: true })).toHaveCount(0);
+});
+
+test("category labels and legacy route match the approved catalogue wording", async ({ page }) => {
+  await page.goto("/asphalt");
+  for (const label of ["Feeders", "Burner / Drying", "Bitumen", "Hot Stone / Silos", "Baghouse", "Mixing Tower"]) {
+    await expect(page.getByRole("link", { name: label, exact: true })).toBeVisible();
+  }
+  await expect(page.getByText(/Heavy Plant|Vertical 01/i)).toHaveCount(0);
+  await expect(page.getByText(/Specialist procurement of bituminous/i)).toHaveCount(0);
+
+  await page.goto("/new-arrivals");
+  await expect(page).toHaveURL(/\/control-panels-software$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("CONTROL PANELS & SOFTWARE");
+});
+
+test("resource navigation accurately describes the request service", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator('header a[href="/resources"]', { hasText: "PDFs & Videos" })).toHaveAttribute("href", "/resources");
+  await page.goto("/resources");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Request PDFs, manuals, and videos");
+  await expect(page.getByText(/request service rather than a public download library/i)).toBeVisible();
 });
 
 test("information pages use completed compact content flows", async ({ page }) => {

@@ -47,11 +47,10 @@ function AsphaltPage() {
 
   return (
     <CollectionPage
-      eyebrow="Catalogue / Heavy Plant / Vertical 01"
+      eyebrow="Asphalt / Blacktop"
       title="ASPHALT / BLACKTOP"
       image={asphalt}
       imageAlt="Asphalt plant"
-      intro="Specialist procurement of bituminous mixing plant components, from burner systems to drum mixer seals."
       collection={collection}
       fallbackProducts={products}
       expectedHandle={collectionHandle}

@@ -27,11 +27,10 @@ function SearchPage() {
 
   return (
     <CollectionPage
-      eyebrow="Search / Catalogue"
+      eyebrow="Product Search"
       title={q ? `RESULTS / ${q}` : "CATALOGUE / SEARCH"}
       image={automation}
       imageAlt="Industrial automation search"
-      intro="Find the parts you need with our search tool."
       collection={null}
       fallbackProducts={products}
       expectedHandle="search"

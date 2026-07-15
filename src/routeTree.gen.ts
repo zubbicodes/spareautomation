@@ -27,6 +27,7 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as DeliveryInformationRouteImport } from './routes/delivery-information'
 import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as ControlPanelsSoftwareRouteImport } from './routes/control-panels-software'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as ConcreteRouteImport } from './routes/concrete'
 import { Route as CartRouteImport } from './routes/cart'
@@ -128,6 +129,11 @@ const CookiesRoute = CookiesRouteImport.update({
   path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ControlPanelsSoftwareRoute = ControlPanelsSoftwareRouteImport.update({
+  id: '/control-panels-software',
+  path: '/control-panels-software',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactUsRoute = ContactUsRouteImport.update({
   id: '/contact-us',
   path: '/contact-us',
@@ -188,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRoute
   '/concrete': typeof ConcreteRoute
   '/contact-us': typeof ContactUsRoute
+  '/control-panels-software': typeof ControlPanelsSoftwareRoute
   '/cookies': typeof CookiesRoute
   '/delivery-information': typeof DeliveryInformationRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -218,6 +225,7 @@ export interface FileRoutesByTo {
   '/cart': typeof CartRoute
   '/concrete': typeof ConcreteRoute
   '/contact-us': typeof ContactUsRoute
+  '/control-panels-software': typeof ControlPanelsSoftwareRoute
   '/cookies': typeof CookiesRoute
   '/delivery-information': typeof DeliveryInformationRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -249,6 +257,7 @@ export interface FileRoutesById {
   '/cart': typeof CartRoute
   '/concrete': typeof ConcreteRoute
   '/contact-us': typeof ContactUsRoute
+  '/control-panels-software': typeof ControlPanelsSoftwareRoute
   '/cookies': typeof CookiesRoute
   '/delivery-information': typeof DeliveryInformationRoute
   '/disclaimer': typeof DisclaimerRoute
@@ -281,6 +290,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/concrete'
     | '/contact-us'
+    | '/control-panels-software'
     | '/cookies'
     | '/delivery-information'
     | '/disclaimer'
@@ -311,6 +321,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/concrete'
     | '/contact-us'
+    | '/control-panels-software'
     | '/cookies'
     | '/delivery-information'
     | '/disclaimer'
@@ -341,6 +352,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/concrete'
     | '/contact-us'
+    | '/control-panels-software'
     | '/cookies'
     | '/delivery-information'
     | '/disclaimer'
@@ -372,6 +384,7 @@ export interface RootRouteChildren {
   CartRoute: typeof CartRoute
   ConcreteRoute: typeof ConcreteRoute
   ContactUsRoute: typeof ContactUsRoute
+  ControlPanelsSoftwareRoute: typeof ControlPanelsSoftwareRoute
   CookiesRoute: typeof CookiesRoute
   DeliveryInformationRoute: typeof DeliveryInformationRoute
   DisclaimerRoute: typeof DisclaimerRoute
@@ -522,6 +535,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/control-panels-software': {
+      id: '/control-panels-software'
+      path: '/control-panels-software'
+      fullPath: '/control-panels-software'
+      preLoaderRoute: typeof ControlPanelsSoftwareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact-us': {
       id: '/contact-us'
       path: '/contact-us'
@@ -604,6 +624,7 @@ const rootRouteChildren: RootRouteChildren = {
   CartRoute: CartRoute,
   ConcreteRoute: ConcreteRoute,
   ContactUsRoute: ContactUsRoute,
+  ControlPanelsSoftwareRoute: ControlPanelsSoftwareRoute,
   CookiesRoute: CookiesRoute,
   DeliveryInformationRoute: DeliveryInformationRoute,
   DisclaimerRoute: DisclaimerRoute,

@@ -12,7 +12,7 @@ const navigation = [
   { label: "Concrete", to: "/concrete" },
   { label: "Packing", to: "/packing" },
   { label: "Automation", to: "/automation" },
-  { label: "Resources", to: "/resources" },
+  { label: "PDFs & Videos", to: "/resources" },
   { label: "Contact", to: "/contact-us" },
 ] as const;
 

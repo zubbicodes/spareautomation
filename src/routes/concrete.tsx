@@ -47,12 +47,11 @@ function ConcretePage() {
 
   return (
     <CollectionPage
-      eyebrow="Catalogue / Heavy Plant / Vertical 02"
+      eyebrow="Ready-Mix / Concrete"
       title="READY-MIX / CONCRETE"
       accent="amber"
       image={concrete}
       imageAlt="Ready-mix concrete plant"
-      intro="Comprehensive parts support for ready-mix concrete plants, aggregate feeding, silos, additives, water, air, and automation controls."
       collection={collection}
       fallbackProducts={products}
       expectedHandle={collectionHandle}

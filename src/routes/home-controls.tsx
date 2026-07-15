@@ -44,11 +44,10 @@ function HomeControlsPage() {
 
   return (
     <CollectionPage
-      eyebrow="Catalogue / Systems / Vertical 04"
+      eyebrow="Home Controls"
       title="HOME / CONTROLS"
       image={homeImg}
       imageAlt="Home controls"
-      intro="Advanced automation for residential and light commercial environments."
       collection={collection}
       fallbackProducts={products}
       expectedHandle={collectionHandle}

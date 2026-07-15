@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowLeft,
   FileText,
-  HelpCircle,
   Mail,
   MessageCircle,
   Minus,
@@ -57,7 +56,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
           </Link>
         </div>
 
-        <section className="grid grid-cols-1 gap-px bg-rule lg:grid-rows-[auto_auto] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+        <section className="grid grid-cols-1 gap-px bg-rule lg:grid-rows-[auto_auto] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           {/* Row 1: Product Gallery and Product Info */}
           <ProductGallery
             productTitle={product.title}
@@ -66,26 +65,23 @@ export function ProductDetail({ product }: ProductDetailProps) {
             onSelectImage={setActiveImage}
           />
 
-          <section className="bg-surface p-4 md:p-8 lg:p-12 lg:row-span-2">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="border border-rule bg-background px-3 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted">
-                {brand}
-              </span>
+          <section className="bg-surface p-4 md:p-6 lg:row-span-2 lg:p-8">
+            <div className="flex flex-wrap items-center gap-2">
               <StockBadge variant={selectedVariant} product={product} />
             </div>
 
-            <h1 className="mt-4 max-w-3xl break-words font-display text-[1.55rem] font-extrabold uppercase leading-[1.08] tracking-normal text-ink sm:text-[1.85rem] md:mt-5 md:text-[2.45rem] lg:text-[3.15rem]">
+            <h1 className="mt-4 max-w-3xl break-words font-display text-[1.45rem] font-bold leading-[1.18] tracking-[-0.015em] text-ink sm:text-[1.7rem] md:mt-5 md:text-[2rem] lg:text-[2.35rem]">
               {product.title}
             </h1>
 
-            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
               <SpecBlock label="Brand" value={brand} />
               <SpecBlock label="MPN / Range" value={mpnRange} />
               <SpecBlock label="Product line" value={product.productType || "Industrial part"} />
             </div>
 
-            <div className="mt-8 flex flex-wrap items-end gap-x-5 gap-y-2">
-              <div className="font-display text-3xl font-bold text-ink">
+            <div className="mt-6 flex flex-wrap items-end gap-x-4 gap-y-2">
+              <div className="font-display text-2xl font-bold text-ink md:text-[1.75rem]">
                 {selectedVariant ? formatMoney(selectedVariant.price) : "Price on request"}
               </div>
               {selectedVariant?.compareAtPrice ? (
@@ -98,7 +94,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             <ProductDescription product={product} />
 
             {product.variants.length > 1 ? (
-              <div className="mt-8">
+              <div className="mt-6">
                 <label className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
                   Variant
                 </label>
@@ -117,7 +113,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
               </div>
             ) : null}
 
-            <div className="mt-8 space-y-3">
+            <div className="mt-6 space-y-3">
               <QuantityStepper
                 value={quantity}
                 onChange={setQuantity}
@@ -229,8 +225,8 @@ function ProductGallery({
   onSelectImage: (image: ShopifyProduct["images"][number]) => void;
 }) {
   return (
-    <section className="bg-surface p-4 md:p-8 lg:p-10">
-      <div className="aspect-square overflow-hidden bg-[oklch(0.96_0.005_250)]">
+    <section className="bg-surface p-4 md:p-6 lg:p-8">
+      <div className="aspect-[4/3] max-h-[620px] overflow-hidden bg-[oklch(0.96_0.005_250)]">
         {activeImage ? (
           <img
             src={shopifyImageUrl(activeImage.url, 1000)}
@@ -283,7 +279,7 @@ function StockBadge({ variant, product }: { variant?: ShopifyVariant; product: S
 
   if (!isAvailable) {
     return (
-      <span className="inline-flex items-center gap-2 border border-red-200 bg-red-50 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-red-700">
+      <span className="inline-flex min-h-10 items-center gap-2 border border-red-200 bg-red-50 px-3 text-sm font-semibold text-red-700">
         <PackageCheck className="h-3.5 w-3.5" />
         Out of stock
       </span>
@@ -291,31 +287,24 @@ function StockBadge({ variant, product }: { variant?: ShopifyVariant; product: S
   }
 
   return (
-    <div className="inline-flex max-w-full flex-col gap-1 border border-accent/45 bg-charcoal-deep px-4 py-3 text-white shadow-sm ring-1 ring-white/10">
-      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <span className="font-display text-2xl font-extrabold leading-none tracking-tight text-accent">
-          {hasExactStock ? quantity : "Available"}
-        </span>
-        <span className="font-display text-xl font-extrabold leading-none">
-          {hasExactStock ? "in stock" : "to order"}
-        </span>
-        <span className="text-sm font-bold leading-none text-white/80">Lead time confirmed at order</span>
-      </div>
-      <div className="flex items-center gap-1.5 border-l-2 border-accent pl-3 text-sm font-semibold leading-tight text-white/90">
-        Contact sales to confirm dispatch and delivery
-        <HelpCircle className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-      </div>
+    <div className="inline-flex min-h-10 max-w-full flex-wrap items-center gap-x-2 gap-y-1 border border-accent/30 bg-accent/5 px-3 text-sm text-ink">
+      <PackageCheck className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+      <span className="font-semibold">
+        {hasExactStock ? `${quantity} in stock` : "Available to order"}
+      </span>
+      <span aria-hidden="true" className="hidden h-4 w-px bg-rule sm:block" />
+      <span className="text-xs text-ink-muted">Lead time and dispatch confirmed at order</span>
     </div>
   );
 }
 
 function SpecBlock({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border border-rule bg-surface p-4 shadow-[inset_3px_0_0_var(--color-accent)] md:p-5">
-      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-ink">
+    <div className="border border-rule bg-surface p-3.5 shadow-[inset_3px_0_0_var(--color-accent)] md:p-4">
+      <div className="font-mono text-[9px] font-bold uppercase tracking-[0.12em] text-ink-muted">
         {label}
       </div>
-      <div className="mt-3 break-words font-display text-[15px] font-bold leading-tight text-ink md:text-[17px]">
+      <div className="mt-2 break-words font-display text-sm font-semibold leading-snug text-ink md:text-[15px]">
         {value}
       </div>
     </div>
@@ -326,14 +315,14 @@ function ProductDescription({ product }: { product: ShopifyProduct }) {
   if (product.descriptionHtml) {
     return (
       <div
-        className="mt-8 max-w-3xl space-y-4 text-[15px] leading-relaxed text-ink-muted [&_a]:text-accent [&_ul]:list-disc [&_ul]:pl-5"
+        className="mt-6 max-w-3xl space-y-4 text-sm leading-7 text-ink-muted [&_a]:text-accent [&_ul]:list-disc [&_ul]:pl-5"
         dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
       />
     );
   }
 
   return (
-    <p className="mt-8 max-w-3xl text-[15px] leading-relaxed text-ink-muted">
+    <p className="mt-6 max-w-3xl text-sm leading-7 text-ink-muted">
       {product.description || "Product details are being prepared. Contact us for specification help."}
     </p>
   );
