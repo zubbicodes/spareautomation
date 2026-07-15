@@ -47,7 +47,8 @@ export function CollectionPage({
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
 
-      <section id="main-content" className="relative flex h-[45vh] min-h-[300px] w-full min-w-0 items-end overflow-hidden md:h-[52vh] md:min-h-[360px] lg:h-[58vh] lg:min-h-[420px]">
+      <main id="main-content">
+      <section className="relative flex h-[45vh] min-h-[300px] w-full min-w-0 items-end overflow-hidden md:h-[52vh] md:min-h-[360px] lg:h-[58vh] lg:min-h-[420px]">
         <img
           src={collection?.image?.url ?? image}
           alt={collection?.image?.altText ?? imageAlt}
@@ -146,6 +147,7 @@ export function CollectionPage({
           )}
         </div>
       </section>
+      </main>
 
       <SiteFooter />
     </div>

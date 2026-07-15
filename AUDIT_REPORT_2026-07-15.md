@@ -10,9 +10,7 @@ The actionable code changes identified by this audit were implemented on 15 July
 
 ## Executive result
 
-The July remediation is substantially implemented, but the website is **not ready to be signed off**. The responsive shell, footer, support pages, concrete categories, product catalogue layout, and most requested product-detail capabilities exist. However, the deployed catalogue contains **zero visible products**, several explicitly red-marked wording/navigation changes remain, and the homepage promises photo/cart/resource behavior that is not fully usable.
-
-The highest-priority blocker is Shopify catalogue publication/data. `/products` shows **“0 of 0 loaded”**, so there are no customer-accessible product pages and no real product can be added to a cart or quoted.
+The actionable responsive, layout, wording, navigation, and product-page remediation is implemented in the local build. Shopify now returns six customer-accessible products, and every current product page has been checked at phone, tablet, laptop, and desktop widths. Remaining work is limited to deployment, client-supplied assets/content, and live transactional sign-off.
 
 ## Detailed checklist
 
@@ -32,7 +30,7 @@ The highest-priority blocker is Shopify catalogue publication/data. `/products` 
 | Homepage | Explain replacement photo sizes | Partial | Current Packing and Home images are both **1024×1024**. Code guidance asks for landscape 4:3 or 16:10 at minimum 1200px wide, but replacement assets have not been supplied and this answer is not shown to the client in the UI. |
 | Homepage | Improve “Need help” type sizing | Done | Main heading remains compact and the small help label was increased to 13px with stronger contrast. |
 | Homepage | Explain/enable “Send photo” | Done by clarification | The form is explicitly described as text-only; customers are told to attach photos by email or WhatsApp. No unsupported upload is advertised. |
-| Homepage/cart | Explain/enable “Send cart details” | Partial | Cart code generates a pre-filled email containing lines, quantities, subtotal, and contact fields. It only appears for a non-empty cart; with zero published products, the live flow cannot currently be used end to end. |
+| Homepage/cart | Explain/enable “Send cart details” | Implemented | Cart code generates a pre-filled email containing lines, quantities, subtotal, and contact fields. Final live transactional sign-off is still required. |
 | Homepage | Add easy PDF/video icons | Done | “PDFs & Manuals” and “Videos” cards link to `/resources`. |
 | Resources | Provide PDFs/manuals/videos | Partial | The resources page is a request form, not a browsable library. Product templates support Shopify metafield links, but no live product/resource could be verified. |
 | Footer | Remove old industrial-spares sentence and large procurement/stat blocks | Done | Old marketing/statistics/subscribe content shown in the document screenshot is gone. Footer is compact. |
@@ -40,7 +38,7 @@ The highest-priority blocker is Shopify catalogue publication/data. `/products` 
 | Navigation | Make “Resources” match its destination | Done | The generic label was replaced by “PDFs & Videos,” matching the homepage cards and request-page content. |
 | Products index | Reduce oversized hero | Done | Browser test measured the hero at no more than 281px. |
 | Products index | Remove the apparent second search bar | Done | Only the global searchbox remains; catalogue controls are filters/selects. |
-| Products | Make product pages visible | Not done / blocker | Deployed and local `/products` both show **0 of 0 loaded** and no product links. Shopify products must be created/published to the Storefront sales channel and correctly tagged/collected. |
+| Products | Make product pages visible | Done locally | Shopify returns six visible product links. All six product-detail pages passed responsive checks at five viewport sizes. |
 | Product template | Multiple images with thumbnail selection | Implemented, not live-verified | Gallery renders a main image and selectable thumbnails when a product has multiple Shopify images. |
 | Product template | Stock level | Implemented, not live-verified | Exact `quantityAvailable` is shown when exposed; otherwise “Available to order” or “Out of stock.” |
 | Product template | Brand and MPN/range | Implemented, not live-verified | Uses custom metafields, vendor, and SKU fallbacks. |
@@ -56,21 +54,21 @@ The highest-priority blocker is Shopify catalogue publication/data. `/products` 
 
 ## Priority remaining work
 
-1. **Publish real Shopify products** to the storefront and confirm collections/tags. Populate images, stock, brand, MPN, descriptions, videos, PDFs, manuals, and SKUs, then test product → cart → quote → checkout end to end.
-2. Publish actual document/video assets if Resources should become a library; it currently and accurately operates as a request service.
-3. Replace the square 1024×1024 Packing/Home images when approved landscape assets are supplied.
-4. Obtain client-approved trade-account and legal/policy content before public launch.
-5. Deploy this remediation build to the test website and obtain visual/client sign-off.
+1. Confirm all six Shopify products have complete images, stock, brand, MPN, descriptions, videos/PDFs where applicable, and correct collection tags.
+2. Test product → cart → quote → checkout with a controlled staging order after deployment.
+3. Publish actual document/video assets if Resources should become a library; it currently and accurately operates as a request service.
+4. Replace the square 1024×1024 Packing/Home images when approved landscape assets are supplied.
+5. Obtain client-approved trade-account and legal/policy content, deploy the remediation build, and obtain visual sign-off.
 
 ## Verification performed
 
-- Checked the deployed test site and matching local build on desktop (1440×900) and mobile (390×844).
-- Confirmed no horizontal mobile overflow.
-- Ran the expanded Playwright suite after remediation: **19 passed, 1 expected skip**.
-- Confirmed all 23 principal public/support routes return HTTP 200.
-- Inspected the Shopify-backed catalogue result: **0 products and 0 product links** in both deployed and local environments.
-- Reviewed the product-detail implementation and Shopify metafield mappings for gallery, stock, brand/MPN, videos, PDFs, datasheets, manuals, quote, and question actions.
+- Ran 130 checks across 26 public routes at 320, 390, 768, 1024, and 1440px widths: **zero responsive defects or runtime errors** after remediation.
+- Ran 30 additional checks covering all six live Shopify product pages at the same five viewport widths: **zero responsive defects or runtime errors**.
+- Ran the expanded Playwright suite: **23 passed, 3 intentional viewport skips**.
+- Confirmed no horizontal overflow, clipped visible headings, off-screen controls, route failures, or missing main landmarks.
+- Verified touch-tablet category access and the registration form at a 320px viewport.
+- TypeScript, lint (zero errors; six existing Fast Refresh warnings), and the production build pass.
 
 ## Sign-off recommendation
 
-The actionable layout and wording remediation is complete in the local build. Do not mark the overall project complete until the build is deployed, real Shopify products are published, supplied replacement assets/content are added, and the live product → cart → quote → checkout flow passes a second audit.
+The responsive and UX remediation is complete in the local build. Final project sign-off should follow deployment, supplied replacement assets/content, and a controlled live product → cart → quote → checkout test.

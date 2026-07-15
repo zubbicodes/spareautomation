@@ -229,9 +229,9 @@ function Home() {
         </div>
       </section>
 
-      <section className="border-b border-rule bg-charcoal-deep py-14 md:py-16">
+      <section className="border-b border-rule bg-charcoal-deep py-10 md:py-14">
         <div className="mx-auto max-w-[1600px] px-4 md:px-6 lg:px-10">
-          <div className="text-center mb-10">
+          <div className="mb-8 text-center">
             <div className="font-mono text-[13px] uppercase tracking-[0.2em] text-white/75">
               Need help finding a part?
             </div>
@@ -244,7 +244,7 @@ function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1.15fr_0.85fr]">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -252,7 +252,7 @@ function Home() {
                 const mailtoLink = `mailto:${SITE.email}?subject=Part Request: ${encodeURIComponent(partNumber)}&body=${encodeURIComponent(`Part Number: ${partNumber}\n\nDescription: ${description}`)}`;
                 window.location.href = mailtoLink;
               }}
-              className="space-y-6"
+              className="space-y-5 border border-white/10 bg-white/[0.035] p-4 sm:p-5 md:p-6"
             >
               <div className="space-y-4">
                 <div>
@@ -266,7 +266,7 @@ function Home() {
                     onChange={(e) => setPartNumber(e.target.value)}
                     required
                     placeholder="Enter part number here..."
-                    className="w-full h-14 px-5 border border-white/20 bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-accent transition-colors"
+                    className="h-12 w-full border border-white/20 bg-white/10 px-4 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                   />
                 </div>
                 <div>
@@ -275,48 +275,54 @@ function Home() {
                   </label>
                   <textarea
                     id="part-description"
-                    rows={4}
+                    rows={3}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Describe the part you need..."
-                    className="w-full px-5 py-4 border border-white/20 bg-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-accent transition-colors resize-none"
+                    className="w-full resize-y border border-white/20 bg-white/10 px-4 py-3 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                   />
                 </div>
               </div>
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-3 px-7 py-5 bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
+                className="flex h-11 w-full items-center justify-center gap-2 bg-accent px-5 text-accent-foreground transition-colors hover:bg-accent/90 sm:w-auto"
               >
-                <Send className="h-5 w-5" />
-                <span className="font-mono text-sm uppercase tracking-[0.2em] font-bold">
+                <Send className="h-4 w-4" />
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em]">
                   Submit Request
                 </span>
               </button>
             </form>
 
-            <div className="space-y-6">
-              <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-white">
-                Or contact us directly
+            <div className="border border-white/10 bg-white/[0.035] p-4 sm:p-5 md:p-6">
+              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
+                Other contact options
+              </div>
+              <h3 className="mt-2 font-display text-lg font-bold text-white">
+                Contact the sales desk directly
               </h3>
-              <div className="grid grid-cols-1 gap-4">
+              <p className="mt-2 text-sm leading-6 text-white/65">
+                Email for detailed enquiries or use WhatsApp when you need to send a product photo.
+              </p>
+              <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 <a
                   href={`mailto:${SITE.email}`}
-                  className="relative flex items-center justify-center px-16 py-5 bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
+                  className="flex h-11 items-center justify-center gap-2 border border-accent bg-accent px-4 text-accent-foreground transition-colors hover:bg-accent/90"
                 >
-                  <Mail className="absolute left-7 h-6 w-6" />
-                  <span className="text-center font-mono text-sm uppercase tracking-[0.2em] font-bold">
-                    Contact via Email
+                  <Mail className="h-4 w-4 shrink-0" />
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em]">
+                    Email sales
                   </span>
                 </a>
                 <a
                   href={whatsappHref("Hello Spares Automation, I need help identifying a part.")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative flex items-center justify-center bg-[#25D366] px-16 py-5 text-charcoal-deep transition-colors hover:bg-[#25D366]/85"
+                  className="flex h-11 items-center justify-center gap-2 border border-[#25D366] bg-[#25D366] px-4 text-charcoal-deep transition-colors hover:bg-[#25D366]/85"
                 >
-                  <MessageSquare className="absolute left-7 h-6 w-6" />
-                  <span className="text-center font-mono text-sm uppercase tracking-[0.2em] font-bold">
-                    Contact via WhatsApp
+                  <MessageSquare className="h-4 w-4 shrink-0" />
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em]">
+                    WhatsApp
                   </span>
                 </a>
               </div>

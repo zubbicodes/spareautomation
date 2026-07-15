@@ -46,7 +46,7 @@
 }
 
 @layer components {
-  @media (min-width: 48rem) {
+  @media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
     .hero-range-panel {
       opacity: 0;
       pointer-events: none;

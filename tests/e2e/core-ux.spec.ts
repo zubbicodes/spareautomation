@@ -9,7 +9,9 @@ test("homepage remains within the viewport and exposes working navigation", asyn
   await expect(page.getByText(/Sub-categories -/i)).toHaveCount(0);
   await expect(page.getByText("New Arrivals", { exact: true })).toHaveCount(0);
   await expect(page.getByText(/attach it to an email or send it by WhatsApp/i)).toBeVisible();
-  await expect(page.getByRole("link", { name: "Contact via WhatsApp" })).toHaveAttribute("href", /wa\.me\/441618187420/);
+  await expect(page.getByRole("link", { name: "WhatsApp" })).toHaveAttribute("href", /wa\.me\/441618187420/);
+  const supportControls = await page.getByRole("button", { name: "Submit Request" }).or(page.getByRole("link", { name: "Email sales" })).or(page.getByRole("link", { name: "WhatsApp" })).evaluateAll((controls) => controls.map((control) => control.getBoundingClientRect().height));
+  expect(supportControls.every((height) => height <= 46)).toBeTruthy();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   const clippedHeadings = await page.locator("main h2").evaluateAll((headings) =>
@@ -44,6 +46,31 @@ test("contact methods are actionable and consistent", async ({ page }) => {
   await page.goto("/contact-us");
   await expect(page.getByRole("link", { name: /Technical Sales/ })).toHaveAttribute("href", "tel:+441618187420");
   await expect(page.getByRole("link", { name: /Email Enquiries/ })).toHaveAttribute("href", "mailto:trade@spares-automation.co.uk");
+});
+
+test("registration form stays inside a 320px phone viewport", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.goto("/register");
+  const outsideControls = await page.locator("input, select, button").evaluateAll((controls) =>
+    controls
+      .filter((control) => {
+        const rect = control.getBoundingClientRect();
+        const style = getComputedStyle(control);
+        return style.display !== "none" && (rect.left < -1 || rect.right > window.innerWidth + 1);
+      })
+      .map((control) => control.getAttribute("name") || control.getAttribute("aria-label") || control.textContent),
+  );
+  expect(outsideControls).toEqual([]);
+});
+
+test("touch tablets keep homepage category choices visible", async ({ browser, isMobile }) => {
+  test.skip(isMobile, "Runs once with an explicit touch-tablet context");
+  const context = await browser.newContext({ viewport: { width: 1024, height: 768 }, hasTouch: true });
+  const page = await context.newPage();
+  await page.goto("/");
+  await expect(page.locator(".hero-range-panel").first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Feeders" })).toBeVisible();
+  await context.close();
 });
 
 test("desktop hero hover fills the category panel with the range title", async ({ page, isMobile }) => {

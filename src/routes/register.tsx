@@ -94,8 +94,8 @@ function RegisterPage() {
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
 
-      <main id="main-content" className="mx-auto grid max-w-[1180px] gap-6 px-4 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:px-6 lg:py-12">
-        <section className="flex min-h-[400px] md:min-h-[520px] flex-col justify-between border border-rule bg-charcoal p-6 text-white md:p-8 lg:p-10">
+      <main id="main-content" className="mx-auto grid min-w-0 max-w-[1180px] gap-6 px-3 py-6 sm:px-4 sm:py-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:px-6 lg:py-12">
+        <section className="flex min-h-[400px] min-w-0 flex-col justify-between border border-rule bg-charcoal p-5 text-white sm:p-6 md:min-h-[520px] md:p-8 lg:p-10">
           <div>
             <Link
               to="/"
@@ -121,7 +121,7 @@ function RegisterPage() {
           </div>
         </section>
 
-        <section className="border border-rule bg-surface p-5 md:p-6 lg:p-8">
+        <section className="min-w-0 border border-rule bg-surface p-4 sm:p-5 md:p-6 lg:p-8">
           <div className="mb-8 flex h-12 w-12 items-center justify-center bg-accent text-accent-foreground">
             <UserPlus className="h-5 w-5" />
           </div>
@@ -132,7 +132,7 @@ function RegisterPage() {
             New Customer
           </h2>
 
-          <form onSubmit={handleSubmit} className="mt-8 grid gap-5">
+          <form onSubmit={handleSubmit} className="mt-8 grid min-w-0 gap-5">
             <div className="grid gap-5 md:grid-cols-2">
               <Field label="First name" name="firstName" autoComplete="given-name" required />
               <Field label="Last name" name="lastName" autoComplete="family-name" required />
@@ -400,11 +400,11 @@ function PhoneField() {
       <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted">
         Phone number
       </span>
-      <div className="grid grid-cols-[140px_1fr] md:grid-cols-[200px_1fr] border border-rule bg-background focus-within:border-accent">
+      <div className="grid min-w-0 grid-cols-[minmax(0,110px)_minmax(0,1fr)] border border-rule bg-background focus-within:border-accent sm:grid-cols-[minmax(0,140px)_minmax(0,1fr)] md:grid-cols-[minmax(0,200px)_minmax(0,1fr)]">
         <select
           name="countryCode"
           defaultValue="+44"
-          className="h-12 border-r border-rule bg-background px-3 text-xs md:text-sm text-ink outline-none"
+          className="h-12 min-w-0 border-r border-rule bg-background px-2 text-xs text-ink outline-none sm:px-3 md:text-sm"
           aria-label="Phone country code"
         >
           {COUNTRIES.map((country) => (
@@ -419,7 +419,7 @@ function PhoneField() {
           autoComplete="tel-national"
           inputMode="tel"
           placeholder="07911 123456"
-          className="h-12 bg-transparent px-3 md:px-4 text-sm text-ink outline-none placeholder:text-ink-muted"
+          className="h-12 min-w-0 bg-transparent px-3 text-sm text-ink outline-none placeholder:text-ink-muted md:px-4"
         />
       </div>
       <span className="text-xs leading-5 text-ink-muted">
@@ -455,7 +455,7 @@ function Field({
         autoComplete={autoComplete}
         minLength={minLength}
         required={required}
-        className="h-12 border border-rule bg-background px-4 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent"
+        className="h-12 min-w-0 border border-rule bg-background px-4 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent"
       />
     </label>
   );
