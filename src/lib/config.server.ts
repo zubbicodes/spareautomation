@@ -23,6 +23,11 @@ export function getServerConfig() {
     shopifyStorefrontAccessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
     shopifyStorefrontPrivateAccessToken: process.env.SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN,
     shopifyStorefrontApiVersion: process.env.SHOPIFY_STOREFRONT_API_VERSION ?? "2026-01",
+    shopifyAdminAccessToken: process.env.SHOPIFY_ADMIN_ACCESS_TOKEN,
+    shopifyAdminApiVersion:
+      process.env.SHOPIFY_ADMIN_API_VERSION ??
+      process.env.SHOPIFY_STOREFRONT_API_VERSION ??
+      "2026-01",
     // Add server-only values here, e.g.:
     //   databaseUrl: process.env.DATABASE_URL,
     //   stripeSecretKey: process.env.STRIPE_SECRET_KEY,

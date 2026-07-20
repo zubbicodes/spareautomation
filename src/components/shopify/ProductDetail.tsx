@@ -14,13 +14,14 @@ import {
 import { useState } from "react";
 
 import { AddToCartButton } from "@/components/shopify/AddToCartButton";
+import { AddToQuoteButton } from "@/components/shopify/AddToQuoteButton";
 import { PayPalMark } from "@/components/shopify/PaymentMarks";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { formatMoney, shopifyImageUrl } from "@/lib/shopify/format";
 import type { ShopifyProduct, ShopifyVariant } from "@/lib/shopify/types";
 import { SITE } from "@/lib/site";
-import { productQuestionMailto, productQuestionWhatsApp, productQuoteMailto } from "@/lib/quote";
+import { productQuestionMailto, productQuestionWhatsApp } from "@/lib/quote";
 
 type ProductDetailProps = {
   product: ShopifyProduct;
@@ -129,13 +130,12 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 >
                   {selectedVariant?.availableForSale ? "Add to Cart" : "Sold out"}
                 </AddToCartButton>
-                <a
-                  href={productQuoteMailto(product, selectedVariant, quantity)}
+                <AddToQuoteButton
+                  product={product}
+                  variant={selectedVariant}
+                  quantity={quantity}
                   className="inline-flex h-13 items-center justify-center gap-2 border border-accent bg-accent/5 px-5 font-mono text-[11px] uppercase tracking-[0.16em] text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
-                >
-                  <FileText className="h-4 w-4" />
-                  Request quote by email
-                </a>
+                />
                 <Link
                   to="/cart"
                   className="inline-flex h-13 items-center justify-center border border-rule px-5 font-mono text-[11px] uppercase tracking-[0.16em] text-ink transition-colors hover:border-accent hover:text-accent"

@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { FileText, Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
+import { Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
+import { BuildQuoteFromCartButton } from "@/components/shopify/BuildQuoteFromCartButton";
 import {
   getShopifyCart,
   removeShopifyCartLine,
@@ -12,7 +13,6 @@ import {
 import { clearStoredCartId, getStoredCartId, setStoredCartId } from "@/lib/shopify/cart";
 import { formatMoney } from "@/lib/shopify/format";
 import type { ShopifyCart } from "@/lib/shopify/types";
-import { quoteRequestMailto } from "@/lib/quote";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({ meta: [{ title: "Cart | Spares Automation" }, { name: "description", content: "Review selected industrial parts, continue to secure Shopify checkout, or request a quote by email." }, { name: "robots", content: "noindex, nofollow" }] }),
@@ -228,16 +228,10 @@ function CartPage() {
               >
                 Continue to secure checkout
               </a>
-              <a
-                href={quoteRequestMailto(cart)}
-                className="mt-3 inline-flex h-12 w-full items-center justify-center gap-2 border border-rule bg-background px-6 font-mono text-[11px] uppercase tracking-[0.18em] text-ink transition-colors hover:border-accent hover:text-accent"
-              >
-                <FileText className="h-4 w-4" />
-                Request quote by email
-              </a>
+              <BuildQuoteFromCartButton cart={cart} />
               <p className="mt-4 text-xs leading-relaxed text-ink-muted">
-                Checkout completes an online order. Send cart details emails this cart to the
-                sales desk for quote support, product checks, or account pricing.
+                Checkout completes an online order. Build a quote to submit these products and
+                your details to the sales desk for review.
               </p>
             </aside>
           </div>

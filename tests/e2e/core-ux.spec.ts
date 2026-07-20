@@ -8,7 +8,7 @@ test("homepage remains within the viewport and exposes working navigation", asyn
   await expect(page.getByText("Browse sub-categories", { exact: true })).toHaveCount(0);
   await expect(page.getByText(/Sub-categories -/i)).toHaveCount(0);
   await expect(page.getByText("New Arrivals", { exact: true })).toHaveCount(0);
-  await expect(page.getByText(/attach it to an email or send it by WhatsApp/i)).toBeVisible();
+  await expect(page.getByText(/attach it to an email or send it by WhatsApp/i)).toHaveCount(0);
   await expect(page.getByRole("link", { name: "WhatsApp" })).toHaveAttribute("href", /wa\.me\/441618187420/);
   const supportControls = await page.getByRole("button", { name: "Submit Request" }).or(page.getByRole("link", { name: "Email sales" })).or(page.getByRole("link", { name: "WhatsApp" })).evaluateAll((controls) => controls.map((control) => control.getBoundingClientRect().height));
   expect(supportControls.every((height) => height <= 46)).toBeTruthy();
@@ -159,6 +159,22 @@ test("every product exposes tabbed support content and useful empty states", asy
   await descriptionTab.click();
   await expect(descriptionTab).toHaveAttribute("aria-selected", "true");
   await expect(page.getByRole("tabpanel")).not.toBeEmpty();
+});
+
+test("customers can build a quote from a product", async ({ page }) => {
+  await page.goto("/products");
+  await page.locator("article a").first().click();
+  await page.waitForLoadState("networkidle");
+
+  const productTitle = (await page.getByRole("heading", { level: 1 }).textContent())?.trim();
+  await page.getByRole("button", { name: "Build a quote" }).click();
+
+  await expect(page).toHaveURL(/\/quote$/);
+  await expect(page.getByRole("heading", { level: 1, name: "My Quote" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Quote summary" })).toBeVisible();
+  await expect(page.getByLabel("Email address")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Submit quote" })).toBeVisible();
+  if (productTitle) await expect(page.getByText(productTitle, { exact: true })).toBeVisible();
 });
 
 test("category labels and legacy route match the approved catalogue wording", async ({ page }) => {

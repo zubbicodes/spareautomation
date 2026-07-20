@@ -8,6 +8,7 @@ const informationLinks = [
   { label: "Contact us", to: "/contact-us" },
   { label: "About us", to: "/about-us" },
   { label: "View Cart", to: "/cart" },
+  { label: "Build a Quote", to: "/quote" },
   { label: "Open trade account", to: "/trade-account" },
   { label: "Track order", to: "/track-order" },
   { label: "My order history", to: "/account" },

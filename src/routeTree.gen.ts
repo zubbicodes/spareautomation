@@ -17,6 +17,7 @@ import { Route as SearchRouteImport } from './routes/search'
 import { Route as ReturnsPolicyRouteImport } from './routes/returns-policy'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PackingRouteImport } from './routes/packing'
 import { Route as NewArrivalsRouteImport } from './routes/new-arrivals'
@@ -77,6 +78,11 @@ const ResourcesRoute = ResourcesRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuoteRoute = QuoteRouteImport.update({
+  id: '/quote',
+  path: '/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -205,6 +211,7 @@ export interface FileRoutesByFullPath {
   '/new-arrivals': typeof NewArrivalsRoute
   '/packing': typeof PackingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/quote': typeof QuoteRoute
   '/register': typeof RegisterRoute
   '/resources': typeof ResourcesRoute
   '/returns-policy': typeof ReturnsPolicyRoute
@@ -236,6 +243,7 @@ export interface FileRoutesByTo {
   '/new-arrivals': typeof NewArrivalsRoute
   '/packing': typeof PackingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/quote': typeof QuoteRoute
   '/register': typeof RegisterRoute
   '/resources': typeof ResourcesRoute
   '/returns-policy': typeof ReturnsPolicyRoute
@@ -268,6 +276,7 @@ export interface FileRoutesById {
   '/new-arrivals': typeof NewArrivalsRoute
   '/packing': typeof PackingRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/quote': typeof QuoteRoute
   '/register': typeof RegisterRoute
   '/resources': typeof ResourcesRoute
   '/returns-policy': typeof ReturnsPolicyRoute
@@ -301,6 +310,7 @@ export interface FileRouteTypes {
     | '/new-arrivals'
     | '/packing'
     | '/privacy-policy'
+    | '/quote'
     | '/register'
     | '/resources'
     | '/returns-policy'
@@ -332,6 +342,7 @@ export interface FileRouteTypes {
     | '/new-arrivals'
     | '/packing'
     | '/privacy-policy'
+    | '/quote'
     | '/register'
     | '/resources'
     | '/returns-policy'
@@ -363,6 +374,7 @@ export interface FileRouteTypes {
     | '/new-arrivals'
     | '/packing'
     | '/privacy-policy'
+    | '/quote'
     | '/register'
     | '/resources'
     | '/returns-policy'
@@ -395,6 +407,7 @@ export interface RootRouteChildren {
   NewArrivalsRoute: typeof NewArrivalsRoute
   PackingRoute: typeof PackingRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  QuoteRoute: typeof QuoteRoute
   RegisterRoute: typeof RegisterRoute
   ResourcesRoute: typeof ResourcesRoute
   ReturnsPolicyRoute: typeof ReturnsPolicyRoute
@@ -463,6 +476,13 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quote': {
+      id: '/quote'
+      path: '/quote'
+      fullPath: '/quote'
+      preLoaderRoute: typeof QuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -635,6 +655,7 @@ const rootRouteChildren: RootRouteChildren = {
   NewArrivalsRoute: NewArrivalsRoute,
   PackingRoute: PackingRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  QuoteRoute: QuoteRoute,
   RegisterRoute: RegisterRoute,
   ResourcesRoute: ResourcesRoute,
   ReturnsPolicyRoute: ReturnsPolicyRoute,
