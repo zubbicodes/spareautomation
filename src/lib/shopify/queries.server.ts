@@ -222,6 +222,26 @@ export async function getProducts(first = 24, query?: string) {
   return data.products.nodes.map(normalizeProduct);
 }
 
+export async function getProductsWithResources(first = 100) {
+  const data = await shopifyStorefront<{
+    products: Connection<ProductConnectionShape>;
+  }>(
+    `#graphql
+      ${PRODUCT_DETAIL_FRAGMENT}
+      query ProductsWithResources($first: Int!) {
+        products(first: $first, sortKey: TITLE) {
+          nodes {
+            ...ProductDetailFields
+          }
+        }
+      }
+    `,
+    { first },
+  );
+
+  return data.products.nodes.map(normalizeProduct);
+}
+
 export async function getProductsPage(first = 48, query?: string, after?: string) {
   const data = await shopifyStorefront<{
     products: Connection<ProductConnectionShape> & { pageInfo: PageInfo };

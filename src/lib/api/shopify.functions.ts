@@ -13,6 +13,7 @@ import {
   getProductByHandle,
   getProducts,
   getProductsPage,
+  getProductsWithResources,
   removeCartLine,
   recoverCustomerPassword,
   updateCartLine,
@@ -41,6 +42,10 @@ export const getLatestProducts = createServerFn({ method: "GET" })
     }),
   )
   .handler(async ({ data }) => getProducts(data.first, data.query));
+
+export const getResourceProducts = createServerFn({ method: "GET" })
+  .inputValidator(z.object({ first: z.number().int().min(1).max(100).default(100) }))
+  .handler(async ({ data }) => getProductsWithResources(data.first));
 
 export const getPaginatedProducts = createServerFn({ method: "GET" })
   .inputValidator(z.object({ first: z.number().int().min(1).max(100).default(48), query: z.string().optional(), after: z.string().optional() }))

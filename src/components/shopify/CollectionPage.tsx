@@ -48,19 +48,19 @@ export function CollectionPage({
       <SiteHeader />
 
       <main id="main-content">
-      <section className="relative flex h-[45vh] min-h-[300px] w-full min-w-0 items-end overflow-hidden md:h-[52vh] md:min-h-[360px] lg:h-[58vh] lg:min-h-[420px]">
+      <section className="relative flex min-h-[150px] w-full min-w-0 items-center overflow-hidden md:min-h-[180px]">
         <img
           src={collection?.image?.url ?? image}
           alt={collection?.image?.altText ?? imageAlt}
           className="absolute inset-0 h-full w-full scale-105 object-cover blur-[2px]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/65 to-transparent" />
-        <div className="relative mx-auto w-full max-w-[1600px] px-4 md:px-6 lg:px-10 pb-12 md:pb-16 lg:pb-20">
-          <div className="mb-4 md:mb-6 flex items-center gap-3 font-mono text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-white/60">
+        <div className="relative mx-auto w-full max-w-[1600px] px-4 py-6 md:px-6 md:py-8 lg:px-10">
+          <div className="mb-2 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 md:text-[10px]">
             <span className={`h-px w-6 md:w-8 ${bgAccentClass}`} />
             {eyebrow}
           </div>
-          <h1 className="break-words font-display text-[clamp(1.65rem,8vw,5rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white lg:leading-[0.9]">
+          <h1 className="break-words font-display text-[clamp(1.45rem,5vw,2.5rem)] font-extrabold uppercase leading-none tracking-tight text-white">
             {title}{" "}
             <span className={accentClass}>{collection?.title ? "CATALOGUE" : "SPARES"}</span>
           </h1>

@@ -38,7 +38,7 @@ const categoryFilters: CategoryFilter[] = [
     description: "VFDs, PLC modules, relays, sensors",
   },
   {
-    label: "Home Controls",
+    label: "Home Automation and Controls",
     handle: "home-controls",
     description: "Smart relays, sensors, DIN rail supplies",
   },
@@ -122,22 +122,22 @@ function ProductsCataloguePage() {
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
 
-      <section className="relative flex min-h-[220px] min-w-0 items-end overflow-hidden md:min-h-[280px]">
+      <section className="relative flex min-h-[150px] min-w-0 items-center overflow-hidden md:min-h-[180px]">
         <img
           src={automation}
           alt="Industrial automation catalogue"
           className="absolute inset-0 h-full w-full scale-105 object-cover blur-[2px]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/70 to-charcoal-deep/10" />
-        <div className="relative mx-auto w-full max-w-[1600px] px-4 py-10 md:px-6 md:py-12">
-          <div className="mb-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-white/60">
+        <div className="relative mx-auto w-full max-w-[1600px] px-4 py-6 md:px-6 md:py-8">
+          <div className="mb-2 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 md:text-[10px]">
             <span className="h-px w-8 bg-accent" />
             Product Catalogue / Cart
           </div>
-          <h1 className="break-words font-display text-[clamp(1.85rem,8vw,3.5rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white">
+          <h1 className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white">
             ALL PRODUCTS <span className="text-accent">CATALOGUE</span>
           </h1>
-          <p className="mt-4 max-w-2xl pr-2 text-sm leading-relaxed text-white/70 md:pr-0 md:text-[15px]">
+          <p className="mt-2 max-w-2xl pr-2 text-xs leading-relaxed text-white/70 md:pr-0 md:text-sm">
             Browse the catalogue and narrow the visible products with the filters below.
           </p>
         </div>

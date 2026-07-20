@@ -32,7 +32,9 @@ test("mobile navigation uses separate named controls", async ({ page, isMobile }
   await menu.click();
   const navigation = page.getByRole("navigation", { name: "Mobile navigation" });
   await expect(navigation).toBeVisible();
-  await expect(navigation.getByRole("link", { name: "All products", exact: true })).toBeVisible();
+  await expect(navigation.getByRole("link", { name: "All Products", exact: true })).toBeVisible();
+  await expect(navigation.getByRole("link", { name: "Home Automation and Controls", exact: true })).toHaveAttribute("href", "/home-controls");
+  await expect(navigation.getByRole("link", { name: "Control Panels and Software", exact: true })).toHaveAttribute("href", "/control-panels-software");
 });
 
 test("authentication controls and metadata are accessible", async ({ page }) => {
@@ -46,6 +48,20 @@ test("contact methods are actionable and consistent", async ({ page }) => {
   await page.goto("/contact-us");
   await expect(page.getByRole("link", { name: /Technical Sales/ })).toHaveAttribute("href", "tel:+441618187420");
   await expect(page.getByRole("link", { name: /Email Enquiries/ })).toHaveAttribute("href", "mailto:trade@spares-automation.co.uk");
+});
+
+test("account application links precede sign in in the top bar", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Desktop top bar test");
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const credit = page.getByRole("link", { name: "Open Credit Account", exact: true });
+  const trade = page.getByRole("link", { name: "Open Trade Account", exact: true }).first();
+  const signIn = page.getByRole("link", { name: "Sign in", exact: true });
+  await expect(credit).toHaveAttribute("href", "/trade-account");
+  await expect(trade).toHaveAttribute("href", "/trade-account");
+  const order = await Promise.all([credit, trade, signIn].map((link) => link.evaluate((element) => element.getBoundingClientRect().left)));
+  expect(order[0]).toBeLessThan(order[1]);
+  expect(order[1]).toBeLessThan(order[2]);
 });
 
 test("registration form stays inside a 320px phone viewport", async ({ page }) => {
@@ -82,6 +98,29 @@ test("desktop hero hover fills the category panel with the range title", async (
   await expect(page.getByTestId("hero-hover-title-0")).toContainText(/Asphalt \/ Blacktop Spares/i);
 });
 
+test("homepage part finder uses the approved heading hierarchy and concise copy", async ({ page }) => {
+  await page.goto("/");
+  const heading = page.getByRole("heading", { name: "Need help finding a part?" });
+  const instruction = page.getByText("Send a part number or product description.", { exact: true });
+  await expect(heading).toBeVisible();
+  await expect(instruction).toBeVisible();
+  const sizes = await Promise.all([
+    heading.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
+    instruction.evaluate((element) => Number.parseFloat(getComputedStyle(element).fontSize)),
+  ]);
+  expect(sizes[0]).toBeGreaterThan(sizes[1]);
+  await expect(page.getByText(/Use this form for text details/i)).toHaveCount(0);
+});
+
+test("supported payment marks appear in the footer", async ({ page }) => {
+  await page.goto("/");
+  const footer = page.locator("footer");
+  await expect(footer.getByRole("heading", { name: "Payments we support" })).toBeVisible();
+  for (const method of ["Visa", "Mastercard", "Maestro", "Visa Electron", "PayPal"]) {
+    await expect(footer.getByRole("img", { name: method, exact: true })).toBeVisible();
+  }
+});
+
 test("all products keeps one search and a compact catalogue hero", async ({ page }) => {
   await page.goto("/products");
   await expect(page.getByRole("searchbox")).toHaveCount(1);
@@ -90,14 +129,45 @@ test("all products keeps one search and a compact catalogue hero", async ({ page
   const hero = page.getByRole("heading", { name: /all products catalogue/i }).locator("xpath=ancestor::section[1]");
   const box = await hero.boundingBox();
   expect(box).not.toBeNull();
-  expect(box!.height).toBeLessThanOrEqual(281);
+  expect(box!.height).toBeLessThanOrEqual(181);
 
   await expect(page.getByRole("button", { name: /Control Panels & Software/i })).toBeVisible();
   await expect(page.getByText("New Arrivals", { exact: true })).toHaveCount(0);
 });
 
+test("every product exposes tabbed support content and useful empty states", async ({ page }) => {
+  await page.goto("/products");
+  const firstProduct = page.locator("article a").first();
+  await expect(firstProduct).toBeVisible();
+  await firstProduct.click();
+  await page.waitForLoadState("networkidle");
+  await expect(page.getByText("PayPal accepted", { exact: true })).toBeVisible();
+  await expect(page.getByRole("img", { name: "PayPal", exact: true }).first()).toBeVisible();
+
+  const videoTab = page.getByRole("tab", { name: "Video Guide" });
+  const pdfTab = page.getByRole("tab", { name: "PDF Guide" });
+  const descriptionTab = page.getByRole("tab", { name: "Description" });
+  await expect(videoTab).toBeVisible();
+  await expect(pdfTab).toBeVisible();
+  await expect(descriptionTab).toBeVisible();
+  await expect(videoTab).toHaveAttribute("aria-selected", "true");
+
+  await pdfTab.click();
+  await expect(pdfTab).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByRole("tabpanel")).toContainText(/PDF|Datasheet|Manual/i);
+
+  await descriptionTab.click();
+  await expect(descriptionTab).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByRole("tabpanel")).not.toBeEmpty();
+});
+
 test("category labels and legacy route match the approved catalogue wording", async ({ page }) => {
   await page.goto("/asphalt");
+  const hero = page.getByRole("heading", { name: /asphalt.*(?:spares|catalogue)/i }).locator("xpath=ancestor::section[1]");
+  const box = await hero.boundingBox();
+  expect(box).not.toBeNull();
+  expect(box!.height).toBeLessThanOrEqual(181);
+
   for (const label of ["Feeders", "Burner / Drying", "Bitumen", "Hot Stone / Silos", "Baghouse", "Mixing Tower"]) {
     await expect(page.getByRole("link", { name: label, exact: true })).toBeVisible();
   }
@@ -111,10 +181,63 @@ test("category labels and legacy route match the approved catalogue wording", as
 
 test("resource navigation accurately describes the request service", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator('header a[href="/resources"]', { hasText: "PDFs & Videos" })).toHaveAttribute("href", "/resources");
+  await expect(page.locator('header a[href="/resources"]', { hasText: "PDF and Videos" })).toHaveAttribute("href", "/resources");
   await page.goto("/resources");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Request PDFs, manuals, and videos");
-  await expect(page.getByText(/request service rather than a public download library/i)).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("PDFs, manuals & videos");
+  await expect(page.getByText(/arranged by category/i)).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Resource library is being updated/i })).toHaveCount(0);
+  await expect(page.getByRole("heading", { level: 2, name: /PDFs & Videos/i }).first()).toBeVisible();
+  await expect(page.getByText("Product resources").first()).toBeVisible();
+});
+
+test("main navigation uses the approved labels and routes", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Desktop navigation test");
+  await page.setViewportSize({ width: 1900, height: 900 });
+  await page.goto("/");
+  const navigation = page.getByRole("navigation", { name: "Main navigation" });
+  const items = [
+    ["All Products", "/products"],
+    ["Asphalt / Blacktop Spares", "/asphalt"],
+    ["Readymix / Concrete Spares", "/concrete"],
+    ["Packing Machinery Spares", "/packing"],
+    ["Automation and Drives", "/automation"],
+    ["Home Automation and Controls", "/home-controls"],
+    ["Control Panels and Software", "/control-panels-software"],
+    ["PDF and Videos", "/resources"],
+    ["Contact", "/contact-us"],
+  ] as const;
+
+  for (const [label, href] of items) {
+    await expect(navigation.getByRole("link", { name: label, exact: true })).toHaveAttribute("href", href);
+  }
+
+  const overflow = await navigation.evaluate((element) => element.scrollWidth - element.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  const itemRows = await navigation.getByRole("link").evaluateAll((links) =>
+    new Set(links.map((link) => Math.round(link.getBoundingClientRect().top))).size,
+  );
+  expect(itemRows).toBe(1);
+  const edgeGaps = await navigation.getByRole("link").evaluateAll((links) => {
+    const first = links[0].getBoundingClientRect();
+    const last = links[links.length - 1].getBoundingClientRect();
+    return { left: first.left, right: window.innerWidth - last.right };
+  });
+  expect(edgeGaps.left).toBeLessThanOrEqual(40);
+  expect(edgeGaps.right).toBeLessThanOrEqual(40);
+  await expect(navigation.getByRole("link").first()).toHaveCSS("font-size", "10px");
+
+  await page.setViewportSize({ width: 1280, height: 900 });
+  const compactRows = await navigation.getByRole("link").evaluateAll((links) =>
+    new Set(links.map((link) => Math.round(link.getBoundingClientRect().top))).size,
+  );
+  expect(compactRows).toBe(1);
+
+  await page.setViewportSize({ width: 1100, height: 900 });
+  await expect(navigation).toBeHidden();
+  const menu = page.getByRole("button", { name: "Open navigation" });
+  await expect(menu).toBeVisible();
+  await menu.click();
+  await expect(page.getByRole("navigation", { name: "Mobile navigation" })).toBeVisible();
 });
 
 test("information pages use completed compact content flows", async ({ page }) => {
@@ -131,6 +254,9 @@ test("information pages use completed compact content flows", async ({ page }) =
 
 test("trade and tracking pages collect the required details", async ({ page }) => {
   await page.goto("/trade-account");
+  await expect(page.getByRole("heading", { name: "Apply for a trade account" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "What you will need" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Review and approval" })).toHaveCount(0);
   await expect(page.getByRole("textbox", { name: "Registered company name" })).toBeVisible();
   await expect(page.getByRole("textbox", { name: "Company registration number" })).toBeVisible();
   await expect(page.getByRole("textbox", { name: "VAT number" })).toBeVisible();

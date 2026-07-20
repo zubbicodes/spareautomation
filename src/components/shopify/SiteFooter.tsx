@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Mail, PackageSearch, Phone } from "lucide-react";
+import { PaymentMarks } from "@/components/shopify/PaymentMarks";
 import { SITE } from "@/lib/site";
 
 const informationLinks = [
@@ -77,6 +78,17 @@ export function SiteFooter() {
 
         <FooterColumn title="Information" links={informationLinks} />
         <FooterColumn title="Help" links={helpLinks} />
+      </div>
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-[1600px] flex-col gap-4 px-4 py-6 md:flex-row md:items-center md:justify-between md:px-6 lg:px-10">
+          <div>
+            <h2 className="font-display text-base font-bold uppercase tracking-tight text-white">
+              Payments we support
+            </h2>
+            <p className="mt-1 text-xs text-white/55">Available payment methods are confirmed at secure checkout.</p>
+          </div>
+          <PaymentMarks />
+        </div>
       </div>
       <div className="border-t border-white/10 px-4 py-5 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">
         Spares Automation

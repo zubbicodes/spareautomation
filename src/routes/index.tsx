@@ -62,7 +62,7 @@ const categories = [
   // Replacement photos should be landscape, 4:3 or 16:10, minimum 1200px wide.
   { title: "Packing Machinery", img: catPacking, to: "/packing" },
   { title: "Automation & Drives", img: catAutomation, to: "/automation" },
-  { title: "Home Controls", img: catHome, to: "/home-controls" },
+  { title: "Home Automation and Controls", img: catHome, to: "/home-controls" },
   { title: "Control Panels & Software", img: catAutomation, to: "/control-panels-software" },
 ];
 
@@ -232,15 +232,11 @@ function Home() {
       <section className="border-b border-rule bg-charcoal-deep py-10 md:py-14">
         <div className="mx-auto max-w-[1600px] px-4 md:px-6 lg:px-10">
           <div className="mb-8 text-center">
-            <div className="font-mono text-[13px] uppercase tracking-[0.2em] text-white/75">
+            <h2 className="font-display text-2xl font-extrabold uppercase tracking-tight text-white md:text-3xl">
               Need help finding a part?
-            </div>
-            <h2 className="mx-auto mt-4 max-w-4xl font-display text-2xl font-extrabold uppercase tracking-tight text-white md:text-4xl">
-              Send a part number or product description.
             </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-sm leading-6 text-white/75">
-              Use this form for text details. To send a product photo, attach it to an email or
-              send it by WhatsApp. Cart details can be emailed from the cart after adding an item.
+            <p className="mx-auto mt-2 max-w-4xl font-display text-lg font-bold uppercase tracking-tight text-white/85 md:text-2xl">
+              Send a part number or product description.
             </p>
           </div>
 

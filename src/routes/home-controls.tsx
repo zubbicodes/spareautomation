@@ -18,10 +18,10 @@ export const Route = createFileRoute("/home-controls")({
   }),
   head: () => ({
     meta: [
-      { title: "Home Controls | Spares Automation" },
+      { title: "Home Automation and Controls | Spares Automation" },
       {
         name: "description",
-        content: "Product range for home controls and automation products.",
+        content: "Product range for home automation and control products.",
       },
     ],
     links: [{ rel: "canonical", href: `${SITE.url}/home-controls` }],
@@ -44,10 +44,10 @@ function HomeControlsPage() {
 
   return (
     <CollectionPage
-      eyebrow="Home Controls"
-      title="HOME / CONTROLS"
+      eyebrow="Home Automation and Controls"
+      title="HOME AUTOMATION AND CONTROLS"
       image={homeImg}
-      imageAlt="Home controls"
+      imageAlt="Home automation and controls"
       collection={collection}
       fallbackProducts={products}
       expectedHandle={collectionHandle}

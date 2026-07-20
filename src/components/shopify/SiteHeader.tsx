@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Globe, Menu, Phone, Search, ShoppingCart, User, UserPlus, X } from "lucide-react";
+import { BriefcaseBusiness, CreditCard, Globe, Menu, Phone, Search, ShoppingCart, User, UserPlus, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { getShopifyCart, getShopifyCustomer } from "@/lib/api/shopify.functions";
@@ -7,12 +7,14 @@ import { getStoredCartId } from "@/lib/shopify/cart";
 import { SITE } from "@/lib/site";
 
 const navigation = [
-  { label: "All products", to: "/products" },
-  { label: "Asphalt", to: "/asphalt" },
-  { label: "Concrete", to: "/concrete" },
-  { label: "Packing", to: "/packing" },
-  { label: "Automation", to: "/automation" },
-  { label: "PDFs & Videos", to: "/resources" },
+  { label: "All Products", to: "/products" },
+  { label: "Asphalt / Blacktop Spares", to: "/asphalt" },
+  { label: "Readymix / Concrete Spares", to: "/concrete" },
+  { label: "Packing Machinery Spares", to: "/packing" },
+  { label: "Automation and Drives", to: "/automation" },
+  { label: "Home Automation and Controls", to: "/home-controls" },
+  { label: "Control Panels and Software", to: "/control-panels-software" },
+  { label: "PDF and Videos", to: "/resources" },
   { label: "Contact", to: "/contact-us" },
 ] as const;
 
@@ -73,12 +75,13 @@ export function SiteHeader() {
             </a>
           </div>
 
-          <div className="hidden items-center gap-5 md:flex">
+          <div className="hidden items-center gap-5 xl:flex">
+            <AccountApplicationLinks />
             <AccountLinks customer={customer} accountLabel={accountLabel} />
             <CartLink count={cartCount} />
           </div>
 
-          <div className="flex shrink-0 items-center gap-1 md:hidden">
+          <div className="flex shrink-0 items-center gap-1 xl:hidden">
             <CartLink count={cartCount} />
             <button
               type="button"
@@ -113,10 +116,10 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <nav aria-label="Main navigation" className="hidden border-b border-white/10 bg-charcoal-deep md:block">
-        <div className="mx-auto flex max-w-[1600px] items-center gap-1 px-4 md:px-6">
+      <nav aria-label="Main navigation" className="hidden border-b border-white/10 bg-charcoal-deep xl:block">
+        <div className="flex w-full flex-nowrap items-center justify-between px-4 2xl:px-6">
           {navigation.map((item) => (
-            <Link key={item.to} to={item.to} activeProps={{ "aria-current": "page", className: "text-white bg-white/10" }} className="inline-flex min-h-10 items-center px-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/65 transition-colors hover:bg-white/5 hover:text-white">
+            <Link key={item.to} to={item.to} activeProps={{ "aria-current": "page", className: "text-white bg-white/10" }} className="inline-flex min-h-10 shrink-0 items-center whitespace-nowrap px-1.5 font-mono text-[8px] uppercase tracking-[0.06em] text-white/65 transition-colors hover:bg-white/5 hover:text-white 2xl:px-2 2xl:text-[10px] 2xl:tracking-[0.08em]">
               {item.label}
             </Link>
           ))}
@@ -124,7 +127,7 @@ export function SiteHeader() {
       </nav>
 
       {mobileMenuOpen ? (
-        <nav id="mobile-navigation" aria-label="Mobile navigation" className="border-b border-white/10 bg-charcoal-deep px-4 py-4 md:hidden">
+        <nav id="mobile-navigation" aria-label="Mobile navigation" className="border-b border-white/10 bg-charcoal-deep px-4 py-4 xl:hidden">
           <div className="grid grid-cols-2 gap-2">
             {navigation.map((item) => (
               <Link key={item.to} to={item.to} onClick={() => setMobileMenuOpen(false)} className="flex min-h-11 items-center border border-white/10 px-3 font-mono text-[10px] uppercase tracking-[0.14em] text-white/75 hover:border-accent hover:text-white">
@@ -132,7 +135,10 @@ export function SiteHeader() {
               </Link>
             ))}
           </div>
-          <div className="mt-3 border-t border-white/10 pt-3"><AccountLinks customer={customer} accountLabel={accountLabel} mobile /></div>
+          <div className="mt-3 grid gap-3 border-t border-white/10 pt-3">
+            <AccountApplicationLinks mobile />
+            <AccountLinks customer={customer} accountLabel={accountLabel} mobile />
+          </div>
         </nav>
       ) : null}
     </header>
@@ -145,6 +151,25 @@ function BrandMark() {
 
 function CartLink({ count }: { count: number }) {
   return <Link to="/cart" aria-label={`Cart${count ? `, ${count} items` : ""}`} className="flex h-9 min-w-9 items-center justify-center gap-1 text-white/75 hover:text-white"><ShoppingCart aria-hidden="true" className="h-4 w-4" />{count > 0 ? <span className="inline-flex h-5 min-w-5 items-center justify-center bg-accent px-1 text-[9px] font-bold text-white">{count}</span> : null}</Link>;
+}
+
+function AccountApplicationLinks({ mobile = false }: { mobile?: boolean }) {
+  const className = mobile
+    ? "flex min-h-11 items-center border border-white/10 px-3 text-sm text-white/75 hover:border-accent hover:text-white"
+    : "flex min-h-7 items-center text-white/75 hover:text-white";
+
+  return (
+    <div className={mobile ? "grid grid-cols-1 gap-2 sm:grid-cols-2" : "flex items-center gap-5"}>
+      <Link to="/trade-account" className={`${className} gap-1.5`}>
+        <CreditCard aria-hidden="true" className="h-4 w-4 shrink-0" />
+        Open Credit Account
+      </Link>
+      <Link to="/trade-account" className={`${className} gap-1.5`}>
+        <BriefcaseBusiness aria-hidden="true" className="h-4 w-4 shrink-0" />
+        Open Trade Account
+      </Link>
+    </div>
+  );
 }
 
 function AccountLinks({ customer, accountLabel, mobile = false }: { customer: Awaited<ReturnType<typeof getShopifyCustomer>>; accountLabel: string; mobile?: boolean }) {
