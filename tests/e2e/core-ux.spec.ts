@@ -57,7 +57,7 @@ test("account application links precede sign in in the top bar", async ({ page, 
   const credit = page.getByRole("link", { name: "Open Credit Account", exact: true });
   const trade = page.getByRole("link", { name: "Open Trade Account", exact: true }).first();
   const signIn = page.getByRole("link", { name: "Sign in", exact: true });
-  await expect(credit).toHaveAttribute("href", "/trade-account");
+  await expect(credit).toHaveAttribute("href", "/credit-account");
   await expect(trade).toHaveAttribute("href", "/trade-account");
   const order = await Promise.all([credit, trade, signIn].map((link) => link.evaluate((element) => element.getBoundingClientRect().left)));
   expect(order[0]).toBeLessThan(order[1]);
@@ -264,7 +264,7 @@ test("information pages use completed compact content flows", async ({ page }) =
 
   await page.goto("/contact-us");
   await expect(page.getByRole("heading", { level: 1, name: "Contact Spares Automation" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Prepare email request" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Send request" })).toBeVisible();
   await expect(page.locator("main img")).toHaveCount(0);
 });
 
@@ -276,11 +276,11 @@ test("trade and tracking pages collect the required details", async ({ page }) =
   await expect(page.getByRole("textbox", { name: "Registered company name" })).toBeVisible();
   await expect(page.getByRole("textbox", { name: "Company registration number" })).toBeVisible();
   await expect(page.getByRole("textbox", { name: "VAT number" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Prepare application email" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Submit application" })).toBeVisible();
 
   await page.goto("/track-order");
   await expect(page.getByRole("textbox", { name: "Order number" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Prepare email request" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Send request" })).toBeVisible();
   await expect(page.getByRole("link", { name: /View account orders/ })).toHaveAttribute("href", "/account");
 });
 

@@ -1,0 +1,1 @@
+Vite's `.server.ts` file convention for server-only code; `clsx` + `tailwind-merge` for class composition; React hooks with `matchMedia` for responsive detection.

@@ -1,0 +1,4 @@
+- All source imports use the `@/` path alias defined in tsconfig instead of relative paths.
+- Server-side-only code lives under `src/server*` and is reached exclusively through the Nitro server entry configured in vite.config.ts.
+- UI primitives are added via shadcn/cli and imported from `@/components/ui` rather than hand-written Radix wrappers.
+- Tailwind classes are merged through `tailwind-merge` / `clsx` via the shared utils helper rather than string concatenation.

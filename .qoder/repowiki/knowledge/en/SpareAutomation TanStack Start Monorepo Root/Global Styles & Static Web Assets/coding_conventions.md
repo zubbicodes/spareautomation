@@ -1,0 +1,3 @@
+- Design tokens are declared as CSS custom properties in `:root` using OKLCH values and then re-exported into Tailwind's `@theme inline` under `--color-*` / `--font-*` keys so they become usable as utility classes.
+- CSS is organized with Tailwind layers — global resets in `@layer base`, component-specific rules in `@layer components` — rather than ad-hoc selectors.
+- Dark mode is implemented via a single `@custom-variant dark (&:is(.dark *))` declaration, requiring consumers to opt-in with a `.dark` ancestor instead of a media query.

@@ -1,0 +1,1 @@
+TanStack Start (React Router) + Nitro (`node-server` preset) on Vite 7, React 19, TypeScript ESNext/Bundler mode, Tailwind v4, shadcn/ui (New York style, slate base, CSS variables), Zod + react-hook-form for validation, Recharts for dashboards, Playwright for E2E, Docker + Nginx for containerised deployment.

@@ -1,0 +1,1 @@
+Top-level orchestration for a TanStack Start + Nitro SSR app, wiring Vite/TanStack build, shadcn/ui components, Tailwind theme, Playwright E2E, and Docker/Nginx deployment.

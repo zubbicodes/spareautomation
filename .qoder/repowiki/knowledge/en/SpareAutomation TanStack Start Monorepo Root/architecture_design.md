@@ -1,0 +1,6 @@
+The root is a single-package TanStack Start application whose runtime entry is `server.ts` (configured via `vite.config.ts` → `tanstackStart.server.entry`) and which builds to `.output/server/index.mjs` through Nitro with the `node-server` preset. Cross-child wiring points:
+- `tsconfig.json` declares the `@/*` path alias that both `shared_libs` (`@/lib/utils`, `@/hooks`) and `assets_and_styles` (`src/styles.css`) consume.
+- `components.json` configures shadcn/ui so generated UI primitives land under `@/components/ui` and import from `@/lib/utils` — consumed by every feature route.
+- `vite.config.ts` delegates plugin setup to `@lovable.dev/vite-tanstack-config` and only overrides Nitro preset and server entry, keeping all children unaware of bundler plumbing.
+- `Dockerfile` multi-stage builds the Nitro output and runs it as a Node server; `docker-compose.yml` exposes port 3000→80 and injects `.env`; `nginx.conf` is an alternative static reverse-proxy target for the same built artifact.
+- `playwright.config.ts` drives end-to-end tests against the dev server started by `npm run dev`.

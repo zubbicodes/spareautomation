@@ -1,0 +1,2 @@
+- Server-only configuration is read inside functions (not at module top level) so `process.env` resolves per-request on edge runtimes like Cloudflare Workers.
+- Public vs secret env vars are separated by prefix: `import.meta.env.VITE_*` for browser-readable public values, and `SHOPIFY_*` / `STRIPE_*` secrets accessed exclusively through the server-only `config.server.ts` module.

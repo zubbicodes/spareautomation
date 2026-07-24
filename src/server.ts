@@ -2,6 +2,17 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { runMigrations } from "./lib/db/migrate.server";
+import { seedInitialAdmin } from "./lib/admin/auth.server";
+
+// Apply CMS database migrations and seed the initial admin once on boot.
+// Database startup can briefly race the app process, so migrations retry
+// before seeding. Public pages remain available if the CMS database is absent.
+void runMigrations()
+  .then(async (migrationSucceeded) => {
+    if (migrationSucceeded) await seedInitialAdmin();
+  })
+  .catch((error) => console.error("[db] CMS initialization failed:", error));
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;

@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "./tests/e2e",
+  testDir: "./tests",
   fullyParallel: true,
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? "github" : "list",
@@ -10,8 +10,25 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
-    { name: "desktop-chromium", use: { ...devices["Desktop Chrome"], browserName: "chromium" } },
-    { name: "mobile-chromium", use: { ...devices["Pixel 7"], browserName: "chromium", viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 } },
+    {
+      name: "unit",
+      testMatch: /unit\/.*\.spec\.ts/,
+    },
+    {
+      name: "desktop-chromium",
+      testMatch: /e2e\/.*\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"], browserName: "chromium" },
+    },
+    {
+      name: "mobile-chromium",
+      testMatch: /e2e\/.*\.spec\.ts/,
+      use: {
+        ...devices["Pixel 7"],
+        browserName: "chromium",
+        viewport: { width: 390, height: 844 },
+        deviceScaleFactor: 1,
+      },
+    },
   ],
   webServer: {
     command: "bun run dev --host 127.0.0.1 --port 4173",

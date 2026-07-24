@@ -83,14 +83,14 @@ function ProductsCataloguePage() {
   const { initialPage } = Route.useLoaderData();
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
-  const [products, setProducts] = useState(initialPage.products);
+  const [products, setProducts] = useState<ShopifyProduct[]>(initialPage.products);
   const [pageInfo, setPageInfo] = useState(initialPage.pageInfo);
   const [loadingMore, setLoadingMore] = useState(false);
   const [loadError, setLoadError] = useState("");
   const activeCategory = search.category;
   const availability = search.availability;
   const sort = search.sort;
-  const updateSearch = (updates: Partial<typeof search>) => void navigate({ search: (previous) => ({ ...previous, ...updates }), replace: true });
+  const updateSearch = (updates: Partial<typeof search>) => void navigate({ search: (previous: typeof search) => ({ ...previous, ...updates }), replace: true });
 
   const filteredProducts = useMemo(() => {
     return products

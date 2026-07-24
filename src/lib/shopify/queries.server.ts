@@ -485,6 +485,7 @@ export async function getCustomer(customerAccessToken: string) {
       lastName?: string | null;
       email?: string | null;
       phone?: string | null;
+      tags?: string[];
     } | null;
   }>(
     `#graphql
@@ -496,6 +497,7 @@ export async function getCustomer(customerAccessToken: string) {
           lastName
           email
           phone
+          tags
         }
       }
     `,

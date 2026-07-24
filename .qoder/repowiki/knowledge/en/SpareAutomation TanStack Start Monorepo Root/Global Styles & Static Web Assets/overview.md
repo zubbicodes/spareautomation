@@ -1,0 +1,1 @@
+Central CSS theme and Tailwind configuration plus static site assets (PWA manifest, robots.txt, sitemap) served from the public directory.

@@ -1,0 +1,5 @@
+Three independent leaf files with no internal dependencies:
+- `src/lib/config.server.ts` — server-only env accessor; the `.server.ts` suffix tells Vite to exclude it from the client bundle. It exposes a single `getServerConfig()` function that reads `process.env` at call time (not module scope) so values resolve correctly on Cloudflare Workers where env binds per request.
+- `src/lib/utils.ts` — re-exports a `cn(...)` utility built on `clsx` + `tailwind-merge`, used across components for conditional Tailwind class resolution.
+- `src/hooks/use-mobile.tsx` — a React hook (`useIsMobile`) wrapping `window.matchMedia` with a fixed 768 px breakpoint, returning a boolean state.
+Dependency direction is outward only: these modules are consumed by handlers, components, and pages; nothing in this scope imports them from each other.

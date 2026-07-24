@@ -160,7 +160,7 @@ function AccountApplicationLinks({ mobile = false }: { mobile?: boolean }) {
 
   return (
     <div className={mobile ? "grid grid-cols-1 gap-2 sm:grid-cols-2" : "flex items-center gap-5"}>
-      <Link to="/trade-account" className={`${className} gap-1.5`}>
+      <Link to="/credit-account" className={`${className} gap-1.5`}>
         <CreditCard aria-hidden="true" className="h-4 w-4 shrink-0" />
         Open Credit Account
       </Link>

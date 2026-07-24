@@ -38,6 +38,40 @@ The July UX audit remediation is now implemented while retaining the existing in
 
 This document records the website changes implemented from the client feedback in `spares automation snags 10 July 2026.docx`.
 
+## CMS & Admin Panel Runbook
+
+The website forms (part inquiry, trade account, credit account, and support requests) are now handled by a lightweight CMS instead of `mailto:` links. Submissions are stored in Postgres and managed by staff at `/admin`. **Orders always stay in Shopify** — the CMS only manages applications, inquiries, and support requests. Approved trade/credit applications are synced to Shopify as tagged customers; staff then raise draft orders / invoices in Shopify.
+
+### Environment variables
+
+See `.env.example`. Key CMS variables:
+
+- `DATABASE_URL` — Postgres connection string (required for forms and `/admin`).
+- `APP_DATABASE_URL` — optional Docker Compose override for a managed database;
+  Compose otherwise connects to its bundled `db` service automatically.
+- `ADMIN_SEED_EMAIL` / `ADMIN_SEED_PASSWORD` — first admin account, seeded automatically on first boot when no staff exist.
+- `APP_SESSION_SECRET` — encrypts the admin (and customer) session cookies. Generate with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
+- `RESEND_API_KEY` (recommended) **or** `SMTP_HOST`/`SMTP_PORT`/`SMTP_USER`/`SMTP_PASS` — transactional email for sales-desk notifications. If neither is set, submissions are still stored but notification emails are skipped with a logged warning.
+- `MAIL_FROM` / `SALES_DESK_EMAIL` — sender and recipient for notifications.
+- `UPLOAD_DIR` — local storage for part-inquiry photos (default `./data/uploads`).
+- Shopify Admin token needs `write_customers`, `write_customer_metafields`, and `write_draft_orders` scopes for the customer handoff and quote flow.
+
+### Migrations
+
+Migrations run automatically and idempotently on server boot (`src/lib/db/migrate.server.ts`), reading the SQL files in `drizzle/`. The Docker runtime image copies the `drizzle/` folder so migrations apply on startup. To generate a new migration after schema changes:
+
+```
+npx drizzle-kit generate
+```
+
+### Admin seeding & access
+
+On first boot, if `staff_users` is empty and `ADMIN_SEED_EMAIL`/`ADMIN_SEED_PASSWORD` are set, an `admin` account is created. Staff sign in at `/admin/login`; unauthenticated visits to `/admin/*` redirect there.
+
+### Persistent storage
+
+Part-inquiry photo uploads are written to `UPLOAD_DIR`. In production mount a persistent volume at `/app/data` (see the `cms_data` volume in `docker-compose.yml`). Postgres itself is a separate managed service (e.g. one-click on Coolify) and needs no app volume.
+
 ## Summary
 
 - Cleaned the homepage, header, category cards, products page, footer links, support pages, resources access, and cart quote flow.

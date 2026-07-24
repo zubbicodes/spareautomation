@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronRight, FileText, Mail, MessageSquare, PlayCircle, Send } from "lucide-react";
-import { useState } from "react";
+import { CheckCircle2, ChevronRight, FileText, Mail, MessageSquare, Paperclip, PlayCircle, Send } from "lucide-react";
+import { useState, type FormEvent } from "react";
 
 import asphalt from "@/assets/asphalt-plant.jpg";
 import concrete from "@/assets/concrete-plant.jpg";
@@ -9,6 +9,8 @@ import catHome from "@/assets/cat-home.jpg";
 import catPacking from "@/assets/cat-packing.jpg";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
+import { submitPartInquiry, uploadPartInquiryPhoto } from "@/lib/api/cms.functions";
+import { useHydrated } from "@/hooks/use-hydrated";
 import { SITE, whatsappHref } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
@@ -78,8 +80,52 @@ function HeroTitle({ title, accent }: { title: string; accent: "accent" | "amber
 }
 
 function Home() {
-  const [partNumber, setPartNumber] = useState("");
-  const [description, setDescription] = useState("");
+  const hydrated = useHydrated();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [reference, setReference] = useState("");
+  const [photoError, setPhotoError] = useState("");
+
+  async function submitPartRequest(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const photo = data.get("photo");
+    setBusy(true);
+    setError("");
+    setPhotoError("");
+    try {
+      const result = await submitPartInquiry({
+        data: {
+          partNumber: String(data.get("partNumber") ?? ""),
+          description: String(data.get("description") ?? ""),
+          name: String(data.get("name") ?? ""),
+          email: String(data.get("email") ?? ""),
+          phone: String(data.get("phone") ?? ""),
+          website: String(data.get("website") ?? ""),
+        },
+      });
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
+      if (photo instanceof File && photo.size > 0) {
+        const uploadData = new FormData();
+        uploadData.set("reference", result.reference);
+        uploadData.set("photo", photo);
+        const upload = await uploadPartInquiryPhoto({ data: uploadData });
+        if (!upload.ok) {
+          setPhotoError(upload.error ?? "The photo could not be uploaded.");
+        }
+      }
+      setReference(result.reference);
+      form.reset();
+    } catch {
+      setError("We could not send your request. Please check your details and try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background text-ink">
@@ -241,25 +287,64 @@ function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+            {reference ? (
+              <div role="status" className="border border-accent/40 bg-accent/10 p-6 text-sm leading-6 text-white">
+                <CheckCircle2 aria-hidden="true" className="mr-2 inline h-5 w-5 text-accent" />
+                Thank you. Your part request has been received and our reference is{" "}
+                <strong className="font-semibold">{reference}</strong>. The sales desk will reply by
+                email shortly.
+                {photoError ? (
+                  <span className="mt-2 block text-red-200">Note: {photoError}</span>
+                ) : null}
+              </div>
+            ) : (
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                // Handle form submission here - e.g., send to email, API, etc.
-                const mailtoLink = `mailto:${SITE.email}?subject=Part Request: ${encodeURIComponent(partNumber)}&body=${encodeURIComponent(`Part Number: ${partNumber}\n\nDescription: ${description}`)}`;
-                window.location.href = mailtoLink;
-              }}
-              className="space-y-5 border border-white/10 bg-white/[0.035] p-4 sm:p-5 md:p-6"
+              method="post"
+              onSubmit={submitPartRequest}
+              className="relative space-y-5 border border-white/10 bg-white/[0.035] p-4 sm:p-5 md:p-6"
             >
+              <label className="absolute -left-[9999px]" aria-hidden="true">
+                Website
+                <input name="website" tabIndex={-1} autoComplete="off" />
+              </label>
               <div className="space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="part-name" className="font-mono text-xs uppercase tracking-[0.2em] text-white/75 block mb-2">
+                      Your name
+                    </label>
+                    <input
+                      id="part-name"
+                      name="name"
+                      type="text"
+                      autoComplete="name"
+                      placeholder="Full name"
+                      className="h-12 w-full border border-white/20 bg-white/10 px-4 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="part-email" className="font-mono text-xs uppercase tracking-[0.2em] text-white/75 block mb-2">
+                      Email
+                    </label>
+                    <input
+                      id="part-email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      placeholder="you@company.co.uk"
+                      className="h-12 w-full border border-white/20 bg-white/10 px-4 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
+                    />
+                  </div>
+                </div>
                 <div>
                   <label htmlFor="part-number" className="font-mono text-xs uppercase tracking-[0.2em] text-white/75 block mb-2">
                     Part Number
                   </label>
                   <input
                     id="part-number"
+                    name="partNumber"
                     type="text"
-                    value={partNumber}
-                    onChange={(e) => setPartNumber(e.target.value)}
                     required
                     placeholder="Enter part number here..."
                     className="h-12 w-full border border-white/20 bg-white/10 px-4 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
@@ -271,24 +356,46 @@ function Home() {
                   </label>
                   <textarea
                     id="part-description"
+                    name="description"
                     rows={3}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
                     placeholder="Describe the part you need..."
                     className="w-full resize-y border border-white/20 bg-white/10 px-4 py-3 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                   />
                 </div>
+                <div>
+                  <label htmlFor="part-photo" className="font-mono text-xs uppercase tracking-[0.2em] text-white/75 block mb-2">
+                    Photo (optional)
+                  </label>
+                  <div className="flex items-center gap-3 border border-white/20 bg-white/10 px-4 py-3">
+                    <Paperclip aria-hidden="true" className="h-4 w-4 shrink-0 text-white/50" />
+                    <input
+                      id="part-photo"
+                      name="photo"
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      className="w-full text-sm text-white/80 file:mr-3 file:border-0 file:bg-accent file:px-3 file:py-1.5 file:font-mono file:text-[10px] file:font-bold file:uppercase file:tracking-[0.14em] file:text-white"
+                    />
+                  </div>
+                  <p className="mt-1 text-xs text-white/45">JPG, PNG or WebP, up to 8 MB.</p>
+                </div>
               </div>
+              {error ? (
+                <div role="alert" className="border border-red-400/40 bg-red-500/10 p-3 text-sm leading-6 text-red-200">
+                  {error}
+                </div>
+              ) : null}
               <button
                 type="submit"
-                className="flex h-11 w-full items-center justify-center gap-2 bg-accent px-5 text-accent-foreground transition-colors hover:bg-accent/90 sm:w-auto"
+                disabled={busy || !hydrated}
+                className="flex h-11 w-full items-center justify-center gap-2 bg-accent px-5 text-accent-foreground transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
               >
                 <Send className="h-4 w-4" />
                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em]">
-                  Submit Request
+                  {busy ? "Sending" : "Submit Request"}
                 </span>
               </button>
             </form>
+            )}
 
             <div className="border border-white/10 bg-white/[0.035] p-4 sm:p-5 md:p-6">
               <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">

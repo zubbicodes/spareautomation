@@ -1,0 +1,1 @@
+`npm run check` runs lint → typecheck → playwright test → build in sequence; `npm run dev` starts the TanStack dev server; `npm run build` produces `.output/` for the Docker image or direct `node .output/server/index.mjs` execution.

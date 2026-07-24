@@ -1,0 +1,1 @@
+Tailwind CSS v4 (`@import "tailwindcss" source(none)`) with the `tw-animate-css` plugin; CSS custom properties expressed in OKLCH color space for perceptual uniformity.

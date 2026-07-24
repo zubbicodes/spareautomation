@@ -28,8 +28,30 @@ export function getServerConfig() {
       process.env.SHOPIFY_ADMIN_API_VERSION ??
       process.env.SHOPIFY_STOREFRONT_API_VERSION ??
       "2026-01",
-    // Add server-only values here, e.g.:
-    //   databaseUrl: process.env.DATABASE_URL,
-    //   stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+
+    // CMS database (Postgres). Required for form submissions and the admin panel.
+    databaseUrl: process.env.DATABASE_URL,
+
+    // Initial admin account, seeded on first boot when staff_users is empty.
+    adminSeedEmail: process.env.ADMIN_SEED_EMAIL,
+    adminSeedPassword: process.env.ADMIN_SEED_PASSWORD,
+
+    // Transactional email for sales-desk notifications. Resend is preferred;
+    // SMTP/nodemailer is the fallback. If neither is set, submissions are
+    // stored but notification emails are skipped with a warning.
+    resendApiKey: process.env.RESEND_API_KEY,
+    smtpHost: process.env.SMTP_HOST,
+    smtpPort: process.env.SMTP_PORT,
+    smtpUser: process.env.SMTP_USER,
+    smtpPass: process.env.SMTP_PASS,
+    mailFrom:
+      process.env.MAIL_FROM ??
+      "Spares Automation <trade@spares-automation.co.uk>",
+    salesDeskEmail:
+      process.env.SALES_DESK_EMAIL ?? "trade@spares-automation.co.uk",
+
+    // Local persistent storage for part-inquiry photo uploads. Mount a volume
+    // here in production (see docker-compose.yml).
+    uploadDir: process.env.UPLOAD_DIR ?? "./data/uploads",
   };
 }

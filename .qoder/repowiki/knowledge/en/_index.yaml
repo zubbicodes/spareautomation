@@ -1,0 +1,58 @@
+# 知识卡导出索引文件
+schema_version: 1
+locale: en-US
+branch: main
+nodes_managed: true
+exported_at: "2026-07-23T13:08:02Z"
+modules:
+    "":
+        dir_name: SpareAutomation TanStack Start Monorepo Root
+        title: SpareAutomation TanStack Start Monorepo Root
+        scope:
+            - README.md
+            - Dockerfile
+            - docker-compose.yml
+            - nginx.conf
+            - package.json
+            - bunfig.toml
+            - tsconfig.json
+            - vite.config.ts
+            - eslint.config.js
+            - .prettierrc
+            - .gitignore
+            - shopify-dummy-products.csv
+            - .dockerignore
+            - .env.example
+            - .prettierignore
+            - AUDIT_REPORT_2026-07-15.md
+            - bun.lock
+            - components.json
+            - package-lock.json
+            - playwright.config.ts
+        source_files: []
+        children:
+            - assets_and_styles
+            - shared_libs
+        depends_on: []
+        related_to: []
+    assets_and_styles:
+        dir_name: Global Styles & Static Web Assets
+        title: Global Styles & Static Web Assets
+        scope:
+            - src/styles.css
+            - public/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to: []
+    shared_libs:
+        dir_name: Shared Server Config, Utility & UI Hooks
+        title: Shared Server Config, Utility & UI Hooks
+        scope:
+            - src/lib/config.server.ts
+            - src/lib/utils.ts
+            - src/hooks/use-mobile.tsx
+        source_files: []
+        children: []
+        depends_on: []
+        related_to: []

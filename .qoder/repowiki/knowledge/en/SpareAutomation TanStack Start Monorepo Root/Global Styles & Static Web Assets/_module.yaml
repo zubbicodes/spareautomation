@@ -1,0 +1,9 @@
+schema_version: 1
+module_path: assets_and_styles
+title: Global Styles & Static Web Assets
+scope:
+    - src/styles.css
+    - public/
+source_files: []
+depends_on: []
+related_to: []

@@ -14,6 +14,10 @@ ENV HOST=0.0.0.0
 ENV PORT=80
 
 COPY --from=build /app/.output ./.output
+# Drizzle migrations are read from disk at boot by runMigrations().
+COPY --from=build /app/drizzle ./drizzle
+# Persistent local storage (part-inquiry photo uploads).
+RUN mkdir -p /app/data/uploads
 
 EXPOSE 80
 CMD ["node", ".output/server/index.mjs"]

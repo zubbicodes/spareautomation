@@ -1,0 +1,1 @@
+Small shared primitives: a server-only environment config loader, a Tailwind class-merging helper, and a mobile-breakpoint React hook.

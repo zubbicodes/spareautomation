@@ -51,6 +51,10 @@ function AccountPage() {
 
   const isLoggedIn = Boolean(storefrontCustomer);
 
+  const isCreditAccount = (storefrontCustomer?.tags ?? []).some((tag) =>
+    ["credit account", "credit-account"].includes(tag.toLowerCase()),
+  );
+
   return (
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
@@ -123,6 +127,22 @@ function AccountPage() {
               </button>
               </aside>
             </div>
+
+            {isCreditAccount ? (
+              <section aria-labelledby="credit-terms-title" className="border border-accent/40 bg-accent/10 p-5 md:p-6">
+                <h2 id="credit-terms-title" className="font-display text-lg font-bold uppercase tracking-tight text-ink">
+                  Credit account · invoice ordering
+                </h2>
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-ink-muted">
+                  You have an approved credit account. Build a quote from the catalogue and the sales
+                  desk will convert it into a Shopify draft order with your agreed payment terms, then
+                  email the invoice. You do not need to pay online.
+                </p>
+                <Link to="/quote" className="mt-4 inline-flex h-11 items-center justify-center bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white">
+                  Build a quote for invoicing
+                </Link>
+              </section>
+            ) : null}
 
             <section aria-labelledby="order-history-title" className="border border-rule bg-surface p-5 md:p-8">
               <div className="flex flex-col gap-2 border-b border-rule pb-5 sm:flex-row sm:items-end sm:justify-between">

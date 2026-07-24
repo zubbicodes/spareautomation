@@ -4,7 +4,7 @@ import { type FormEvent, useEffect, useMemo, useState } from "react";
 
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
-import { submitShopifyQuote } from "@/lib/api/shopify.functions";
+import { getShopifyCustomer, submitShopifyQuote } from "@/lib/api/shopify.functions";
 import { pageHead } from "@/lib/seo";
 import { formatMoney } from "@/lib/shopify/format";
 import {
@@ -31,10 +31,24 @@ function QuotePage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [reference, setReference] = useState("");
+  const [isCreditAccount, setIsCreditAccount] = useState(false);
 
   useEffect(() => {
     setItems(getStoredQuote());
     setLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    void getShopifyCustomer()
+      .then((customer) => {
+        const tags = customer?.tags ?? [];
+        setIsCreditAccount(
+          tags.some((tag) =>
+            ["credit account", "credit-account"].includes(tag.toLowerCase()),
+          ),
+        );
+      })
+      .catch(() => {});
   }, []);
 
   const currencyCode = items[0]?.price.currencyCode ?? "GBP";
@@ -257,8 +271,9 @@ function QuotePage() {
                 </div>
               </dl>
               <p className="mt-4 text-xs leading-5 text-ink-muted">
-                Prices shown are indicative. Your final quotation will confirm price, VAT,
-                availability, delivery, and payment terms.
+                {isCreditAccount
+                  ? "As a credit account holder, submit this quote and the sales desk will raise a Shopify draft order with your agreed payment terms and email the invoice. No online payment is required."
+                  : "Prices shown are indicative. Your final quotation will confirm price, VAT, availability, delivery, and payment terms."}
               </p>
 
               <fieldset className="mt-6 space-y-4">

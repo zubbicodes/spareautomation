@@ -18,7 +18,7 @@ export async function shopifyAdmin<T>(
   const token = config.shopifyAdminAccessToken;
 
   if (!domain || !token) {
-    throw new Error("Shopify quote submissions are not configured.");
+    throw new Error("Shopify Admin API is not configured.");
   }
 
   const response = await fetch(
@@ -38,12 +38,12 @@ export async function shopifyAdmin<T>(
   if (!response.ok || payload.errors?.length) {
     const message =
       payload.errors?.map((error) => error.message).join("; ") ||
-      `Shopify quote request failed with ${response.status}`;
+      `Shopify Admin API request failed with ${response.status}`;
     throw new Error(message);
   }
 
   if (!payload.data) {
-    throw new Error("Shopify returned no quote data.");
+    throw new Error("Shopify returned no data.");
   }
 
   return payload.data;

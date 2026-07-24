@@ -1,10 +1,43 @@
 services:
+  # Postgres for the CMS (form submissions + /admin panel).
+  # Start just the DB for local dev with: docker compose up -d db
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: spares
+      POSTGRES_PASSWORD: spares
+      POSTGRES_DB: spares
+    ports:
+      - "5432:5432"
+    volumes:
+      - cms_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spares -d spares"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
   app:
     build: .
     ports:
       - "3000:80"
     environment:
       - NODE_ENV=production
+      # Defaults to the bundled Postgres service. Override APP_DATABASE_URL
+      # when using a managed/Coolify Postgres instance.
+      - DATABASE_URL=${APP_DATABASE_URL:-postgres://spares:spares@db:5432/spares}
+      - UPLOAD_DIR=/app/data/uploads
     env_file:
       - .env
+    volumes:
+      # Persistent local storage for part-inquiry photo uploads.
+      - cms_data:/app/data
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
+
+volumes:
+  cms_data:
+  cms_db:

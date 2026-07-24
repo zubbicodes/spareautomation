@@ -1,0 +1,10 @@
+schema_version: 1
+module_path: shared_libs
+title: Shared Server Config, Utility & UI Hooks
+scope:
+    - src/lib/config.server.ts
+    - src/lib/utils.ts
+    - src/hooks/use-mobile.tsx
+source_files: []
+depends_on: []
+related_to: []

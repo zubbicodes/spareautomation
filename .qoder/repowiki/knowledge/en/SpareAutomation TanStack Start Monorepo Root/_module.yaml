@@ -1,0 +1,27 @@
+schema_version: 1
+module_path: ""
+title: SpareAutomation TanStack Start Monorepo Root
+scope:
+    - README.md
+    - Dockerfile
+    - docker-compose.yml
+    - nginx.conf
+    - package.json
+    - bunfig.toml
+    - tsconfig.json
+    - vite.config.ts
+    - eslint.config.js
+    - .prettierrc
+    - .gitignore
+    - shopify-dummy-products.csv
+    - .dockerignore
+    - .env.example
+    - .prettierignore
+    - AUDIT_REPORT_2026-07-15.md
+    - bun.lock
+    - components.json
+    - package-lock.json
+    - playwright.config.ts
+source_files: []
+depends_on: []
+related_to: []
