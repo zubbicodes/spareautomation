@@ -13,11 +13,16 @@ ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=80
 
-COPY --from=build /app/.output ./.output
+COPY --from=build --chown=node:node /app/.output ./.output
 # Drizzle migrations are read from disk at boot by runMigrations().
-COPY --from=build /app/drizzle ./drizzle
+COPY --from=build --chown=node:node /app/drizzle ./drizzle
 # Persistent local storage (part-inquiry photo uploads).
-RUN mkdir -p /app/data/uploads
+RUN apk add --no-cache su-exec \
+    && mkdir -p /app/data/uploads \
+    && chown -R node:node /app/data
+COPY --chmod=755 docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 80
 CMD ["node", ".output/server/index.mjs"]

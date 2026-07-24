@@ -1,41 +1,71 @@
 services:
-  # Postgres for the CMS (form submissions + /admin panel).
-  # Start just the DB for local dev with: docker compose up -d db
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: spares
-      POSTGRES_PASSWORD: spares
-      POSTGRES_DB: spares
-    ports:
-      - "5432:5432"
+      POSTGRES_USER: ${POSTGRES_USER:-spares}
+      POSTGRES_PASSWORD: ${SERVICE_PASSWORD_POSTGRES:-spares}
+      POSTGRES_DB: ${POSTGRES_DB:-spares}
     volumes:
       - cms_db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U spares -d spares"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}",
+        ]
       interval: 5s
       timeout: 5s
       retries: 10
+      start_period: 10s
     restart: unless-stopped
 
   app:
-    build: .
-    ports:
-      - "3000:80"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "80"
     environment:
-      - NODE_ENV=production
-      # Defaults to the bundled Postgres service. Override APP_DATABASE_URL
-      # when using a managed/Coolify Postgres instance.
-      - DATABASE_URL=${APP_DATABASE_URL:-postgres://spares:spares@db:5432/spares}
-      - UPLOAD_DIR=/app/data/uploads
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 80
+      # Coolify generates SERVICE_PASSWORD_POSTGRES automatically. Set
+      # APP_DATABASE_URL only when using an external/managed PostgreSQL service.
+      DATABASE_URL: ${APP_DATABASE_URL:-postgres://${POSTGRES_USER:-spares}:${SERVICE_PASSWORD_POSTGRES:-spares}@db:5432/${POSTGRES_DB:-spares}}
+      UPLOAD_DIR: /app/data/uploads
+      ADMIN_SEED_EMAIL: ${ADMIN_SEED_EMAIL:-}
+      ADMIN_SEED_PASSWORD: ${ADMIN_SEED_PASSWORD:-}
+      # Required by both staff and customer sessions. Coolify highlights this
+      # variable and blocks an unsafe deployment while it is missing.
+      APP_SESSION_SECRET: ${APP_SESSION_SECRET:?Set a random 32-byte or longer secret}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      MAIL_FROM: ${MAIL_FROM:-Spares Automation <trade@spares-automation.co.uk>}
+      SALES_DESK_EMAIL: ${SALES_DESK_EMAIL:-trade@spares-automation.co.uk}
+      SHOPIFY_STORE_DOMAIN: ${SHOPIFY_STORE_DOMAIN:-}
+      SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${SHOPIFY_STOREFRONT_ACCESS_TOKEN:-}
+      SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN: ${SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN:-}
+      SHOPIFY_STOREFRONT_API_VERSION: ${SHOPIFY_STOREFRONT_API_VERSION:-2026-01}
+      SHOPIFY_ADMIN_ACCESS_TOKEN: ${SHOPIFY_ADMIN_ACCESS_TOKEN:-}
+      SHOPIFY_ADMIN_API_VERSION: ${SHOPIFY_ADMIN_API_VERSION:-2026-01}
     env_file:
       - .env
     volumes:
-      # Persistent local storage for part-inquiry photo uploads.
       - cms_data:/app/data
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--spider", "http://127.0.0.1/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    init: true
+    stop_grace_period: 20s
     restart: unless-stopped
 
 volumes:

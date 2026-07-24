@@ -70,7 +70,27 @@ On first boot, if `staff_users` is empty and `ADMIN_SEED_EMAIL`/`ADMIN_SEED_PASS
 
 ### Persistent storage
 
-Part-inquiry photo uploads are written to `UPLOAD_DIR`. In production mount a persistent volume at `/app/data` (see the `cms_data` volume in `docker-compose.yml`). Postgres itself is a separate managed service (e.g. one-click on Coolify) and needs no app volume.
+Part-inquiry photo uploads are written to `UPLOAD_DIR`. The Compose stack mounts
+the persistent `cms_data` volume at `/app/data` and stores the bundled Postgres
+database in `cms_db`; both survive rebuilds and redeployments.
+
+### Coolify deployment
+
+Create a Docker Compose resource from this repository and assign the public
+domain to the `app` service on container port `80`. The `db` service is private
+and must not be assigned a domain. Coolify generates
+`SERVICE_PASSWORD_POSTGRES`; the same value is used by both services.
+
+Before the first deployment, set `ADMIN_SEED_EMAIL`, `ADMIN_SEED_PASSWORD`, and
+`APP_SESSION_SECRET` in Coolify. Add the email and Shopify variables described
+above as required by the enabled integrations. Keep those values runtime-only.
+When using an external managed PostgreSQL database, set `APP_DATABASE_URL`;
+otherwise leave it empty to use the bundled persistent database.
+
+The app exposes `/health`, which checks PostgreSQL connectivity. Coolify uses
+the Compose health checks for readiness and safe rolling replacement. Neither
+Postgres nor the Node process publishes a host port; Coolify's proxy reaches
+the app over its internal network.
 
 ## Summary
 
