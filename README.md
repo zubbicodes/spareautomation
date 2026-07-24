@@ -87,10 +87,11 @@ above as required by the enabled integrations. Keep those values runtime-only.
 When using an external managed PostgreSQL database, set `APP_DATABASE_URL`;
 otherwise leave it empty to use the bundled persistent database.
 
-The app exposes `/health`, which checks PostgreSQL connectivity. Coolify uses
-the Compose health checks for readiness and safe rolling replacement. Neither
-Postgres nor the Node process publishes a host port; Coolify's proxy reaches
-the app over its internal network.
+The app exposes `/health` for Coolify's container liveness check and `/ready`
+for PostgreSQL readiness. Keeping those checks separate prevents a brief
+database restart from removing the entire public storefront from Coolify's
+proxy. Neither Postgres nor the Node process publishes a host port; Coolify's
+proxy reaches the app over its internal network.
 
 ## Summary
 

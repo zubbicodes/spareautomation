@@ -65,10 +65,22 @@ function withSecurityHeaders(request: Request, response: Response) {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
-    if (new URL(request.url).pathname === "/health") {
+    const pathname = new URL(request.url).pathname;
+
+    // Liveness is intentionally independent of optional downstream services.
+    // Coolify should keep routing the public storefront while PostgreSQL is
+    // restarting; database readiness is exposed separately below.
+    if (pathname === "/health") {
+      return new Response("ok", {
+        status: 200,
+        headers: { "content-type": "text/plain; charset=utf-8" },
+      });
+    }
+
+    if (pathname === "/ready") {
       try {
         await getDb().execute(sql`select 1`);
-        return new Response("ok", {
+        return new Response("ready", {
           status: 200,
           headers: { "content-type": "text/plain; charset=utf-8" },
         });
