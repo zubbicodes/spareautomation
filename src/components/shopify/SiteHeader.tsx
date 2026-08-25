@@ -1,19 +1,42 @@
 import { Link } from "@tanstack/react-router";
-import { CreditCard, Globe, Menu, Phone, Search, ShoppingCart, User, UserPlus, X } from "lucide-react";
+import {
+  CreditCard,
+  Globe,
+  Menu,
+  Phone,
+  Search,
+  ShoppingCart,
+  User,
+  UserPlus,
+  X,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { getShopifyCart, getShopifyCustomer } from "@/lib/api/shopify.functions";
+import { getCatalogueSearch } from "@/lib/catalog";
 import { getStoredCartId } from "@/lib/shopify/cart";
 import { SITE } from "@/lib/site";
 
 const navigation = [
-  { label: "All Products", desktopLines: ["All Products"], to: "/products" },
-  { label: "Asphalt Blacktop", desktopLines: ["Asphalt", "Blacktop"], to: "/asphalt" },
-  { label: "Readymix Concrete", desktopLines: ["Readymix", "Concrete"], to: "/concrete" },
-  { label: "Packing Machinery", desktopLines: ["Packing", "Machinery"], to: "/packing" },
-  { label: "Automation and Drives", desktopLines: ["Automation and", "Drives"], to: "/automation" },
-  { label: "Home Automation and Controls", desktopLines: ["Home Automation", "and Controls"], to: "/home-controls" },
-  { label: "Control Panels and Software", desktopLines: ["Control Panels", "and Software"], to: "/control-panels-software" },
+  { label: "All Products", desktopLines: ["All Products"], category: "all" },
+  { label: "Asphalt Blacktop", desktopLines: ["Asphalt", "Blacktop"], category: "asphalt" },
+  { label: "Readymix Concrete", desktopLines: ["Readymix", "Concrete"], category: "concrete" },
+  { label: "Packing Machinery", desktopLines: ["Packing", "Machinery"], category: "packing" },
+  {
+    label: "Automation and Drives",
+    desktopLines: ["Automation and", "Drives"],
+    category: "automation",
+  },
+  {
+    label: "Home Automation and Controls",
+    desktopLines: ["Home Automation", "and Controls"],
+    category: "home-controls",
+  },
+  {
+    label: "Control Panels and Software",
+    desktopLines: ["Control Panels", "and Software"],
+    category: "control-panels-software",
+  },
   { label: "PDF and Videos", desktopLines: ["PDF and Videos"], to: "/resources" },
   { label: "Contact", desktopLines: ["Contact"], to: "/contact-us" },
 ] as const;
@@ -70,7 +93,10 @@ export function SiteHeader() {
             <span className="flex shrink-0 items-center gap-2">
               <Globe aria-hidden="true" className="h-3 w-3 text-accent" /> UK / EN-GB / GBP
             </span>
-            <a href={`tel:${SITE.phoneHref}`} className="hidden min-h-7 items-center gap-2 text-white/70 hover:text-white md:flex">
+            <a
+              href={`tel:${SITE.phoneHref}`}
+              className="hidden min-h-7 items-center gap-2 text-white/70 hover:text-white md:flex"
+            >
               <Phone aria-hidden="true" className="h-3 w-3" /> {SITE.phoneDisplay}
             </a>
           </div>
@@ -92,7 +118,11 @@ export function SiteHeader() {
               className="flex h-9 w-9 items-center justify-center text-white/80 hover:text-white disabled:opacity-60"
               onClick={() => setMobileMenuOpen((open) => !open)}
             >
-              {mobileMenuOpen ? <X aria-hidden="true" className="h-4 w-4" /> : <Menu aria-hidden="true" className="h-4 w-4" />}
+              {mobileMenuOpen ? (
+                <X aria-hidden="true" className="h-4 w-4" />
+              ) : (
+                <Menu aria-hidden="true" className="h-4 w-4" />
+              )}
             </button>
           </div>
         </div>
@@ -104,30 +134,53 @@ export function SiteHeader() {
             <BrandMark />
           </Link>
           <div className="min-w-0 md:col-span-9">
-            <form action="/search" role="search" className="group flex h-12 min-w-0 items-center border border-white/25 bg-white/[0.08] pl-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] focus-within:border-accent focus-within:bg-white/[0.11]">
+            <form
+              action="/search"
+              role="search"
+              className="group flex h-12 min-w-0 items-center border border-white/25 bg-white/[0.08] pl-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] focus-within:border-accent focus-within:bg-white/[0.11]"
+            >
               <Search aria-hidden="true" className="h-4 w-4 shrink-0 text-accent" />
-              <label htmlFor="site-search" className="sr-only">Search products or part number</label>
-              <input id="site-search" name="q" type="search" placeholder="Search products or part number" className="min-w-0 flex-1 bg-transparent px-3 font-mono text-[12px] tracking-wide text-white placeholder:text-white/70 focus:outline-none md:text-[13px]" />
-              <button type="submit" aria-label="Search products" className="flex h-10 shrink-0 items-center bg-accent px-3 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:brightness-110 sm:px-5 md:px-6 md:text-[11px] md:tracking-[0.22em]">
-                <span className="hidden sm:inline">Search</span><Search aria-hidden="true" className="h-4 w-4 sm:hidden" />
+              <label htmlFor="site-search" className="sr-only">
+                Search products or part number
+              </label>
+              <input
+                id="site-search"
+                name="q"
+                type="search"
+                placeholder="Search products or part number"
+                className="min-w-0 flex-1 bg-transparent px-3 font-mono text-[12px] tracking-wide text-white placeholder:text-white/70 focus:outline-none md:text-[13px]"
+              />
+              <button
+                type="submit"
+                aria-label="Search products"
+                className="flex h-10 shrink-0 items-center bg-accent px-3 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:brightness-110 sm:px-5 md:px-6 md:text-[11px] md:tracking-[0.22em]"
+              >
+                <span className="hidden sm:inline">Search</span>
+                <Search aria-hidden="true" className="h-4 w-4 sm:hidden" />
               </button>
             </form>
           </div>
         </div>
       </div>
 
-      <nav aria-label="Main navigation" className="hidden border-b border-white/10 bg-charcoal-deep xl:block">
+      <nav
+        aria-label="Main navigation"
+        className="hidden border-b border-white/10 bg-charcoal-deep xl:block"
+      >
         <div className="grid w-full grid-cols-9 px-3 2xl:px-5">
           {navigation.map((item) => (
             <Link
-              key={item.to}
-              to={item.to}
+              key={item.label}
+              to={"category" in item ? "/products" : item.to}
+              search={"category" in item ? getCatalogueSearch(item.category) : undefined}
               aria-label={item.label}
               activeProps={{ "aria-current": "page", className: "text-white bg-white/10" }}
               className="inline-flex min-h-16 min-w-0 flex-col items-center justify-center px-2 text-center font-display text-[11px] font-bold uppercase leading-[1.2] tracking-[-0.01em] text-white/85 transition-colors hover:bg-white/5 hover:text-white 2xl:text-[12px]"
             >
               {item.desktopLines.map((line) => (
-                <span key={line} className="block">{line}</span>
+                <span key={line} className="block">
+                  {line}
+                </span>
               ))}
             </Link>
           ))}
@@ -135,10 +188,20 @@ export function SiteHeader() {
       </nav>
 
       {mobileMenuOpen ? (
-        <nav id="mobile-navigation" aria-label="Mobile navigation" className="border-b border-white/10 bg-charcoal-deep px-4 py-4 xl:hidden">
+        <nav
+          id="mobile-navigation"
+          aria-label="Mobile navigation"
+          className="border-b border-white/10 bg-charcoal-deep px-4 py-4 xl:hidden"
+        >
           <div className="grid grid-cols-2 gap-2">
             {navigation.map((item) => (
-              <Link key={item.to} to={item.to} onClick={() => setMobileMenuOpen(false)} className="flex min-h-12 items-center border border-white/20 px-3 font-display text-sm font-bold uppercase leading-tight text-white/85 hover:border-accent hover:text-white">
+              <Link
+                key={item.label}
+                to={"category" in item ? "/products" : item.to}
+                search={"category" in item ? getCatalogueSearch(item.category) : undefined}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex min-h-12 items-center border border-white/20 px-3 font-display text-sm font-bold uppercase leading-tight text-white/85 hover:border-accent hover:text-white"
+              >
                 {item.label}
               </Link>
             ))}
@@ -154,11 +217,34 @@ export function SiteHeader() {
 }
 
 function BrandMark() {
-  return <><span aria-hidden="true" className="relative h-9 w-9 shrink-0"><span className="absolute inset-0 rotate-45 border-2 border-accent" /><span className="absolute inset-[6px] rotate-45 bg-accent" /></span><span className="whitespace-nowrap font-display text-[15px] font-bold uppercase tracking-tight text-white sm:text-[17px]">SPARES<span className="text-accent">.</span>AUTOMATION</span></>;
+  return (
+    <>
+      <span aria-hidden="true" className="relative h-9 w-9 shrink-0">
+        <span className="absolute inset-0 rotate-45 border-2 border-accent" />
+        <span className="absolute inset-[6px] rotate-45 bg-accent" />
+      </span>
+      <span className="whitespace-nowrap font-display text-[15px] font-bold uppercase tracking-tight text-white sm:text-[17px]">
+        SPARES<span className="text-accent">.</span>AUTOMATION
+      </span>
+    </>
+  );
 }
 
 function CartLink({ count }: { count: number }) {
-  return <Link to="/cart" aria-label={`Cart${count ? `, ${count} items` : ""}`} className="flex h-9 min-w-9 items-center justify-center gap-1 text-white/75 hover:text-white"><ShoppingCart aria-hidden="true" className="h-4 w-4" />{count > 0 ? <span className="inline-flex h-5 min-w-5 items-center justify-center bg-accent px-1 text-[9px] font-bold text-white">{count}</span> : null}</Link>;
+  return (
+    <Link
+      to="/cart"
+      aria-label={`Cart${count ? `, ${count} items` : ""}`}
+      className="flex h-9 min-w-9 items-center justify-center gap-1 text-white/75 hover:text-white"
+    >
+      <ShoppingCart aria-hidden="true" className="h-4 w-4" />
+      {count > 0 ? (
+        <span className="inline-flex h-5 min-w-5 items-center justify-center bg-accent px-1 text-[9px] font-bold text-white">
+          {count}
+        </span>
+      ) : null}
+    </Link>
+  );
 }
 
 function AccountApplicationLinks({ mobile = false }: { mobile?: boolean }) {
@@ -176,8 +262,35 @@ function AccountApplicationLinks({ mobile = false }: { mobile?: boolean }) {
   );
 }
 
-function AccountLinks({ customer, accountLabel, mobile = false }: { customer: Awaited<ReturnType<typeof getShopifyCustomer>>; accountLabel: string; mobile?: boolean }) {
-  const className = mobile ? "flex min-h-11 items-center gap-2 text-sm text-white/75 hover:text-white" : "flex min-h-7 items-center gap-1.5 text-white/75 hover:text-white";
-  if (customer) return <Link to="/account" className={className}><User aria-hidden="true" className="h-4 w-4" />{accountLabel}</Link>;
-  return <div className={mobile ? "grid grid-cols-2 gap-2" : "flex items-center gap-5"}><Link to="/login" className={className}><User aria-hidden="true" className="h-4 w-4" />Sign in</Link><Link to="/register" className={className}><UserPlus aria-hidden="true" className="h-4 w-4" />Register</Link></div>;
+function AccountLinks({
+  customer,
+  accountLabel,
+  mobile = false,
+}: {
+  customer: Awaited<ReturnType<typeof getShopifyCustomer>>;
+  accountLabel: string;
+  mobile?: boolean;
+}) {
+  const className = mobile
+    ? "flex min-h-11 items-center gap-2 text-sm text-white/75 hover:text-white"
+    : "flex min-h-7 items-center gap-1.5 text-white/75 hover:text-white";
+  if (customer)
+    return (
+      <Link to="/account" className={className}>
+        <User aria-hidden="true" className="h-4 w-4" />
+        {accountLabel}
+      </Link>
+    );
+  return (
+    <div className={mobile ? "grid grid-cols-2 gap-2" : "flex items-center gap-5"}>
+      <Link to="/login" className={className}>
+        <User aria-hidden="true" className="h-4 w-4" />
+        Sign in
+      </Link>
+      <Link to="/register" className={className}>
+        <UserPlus aria-hidden="true" className="h-4 w-4" />
+        Register
+      </Link>
+    </div>
+  );
 }

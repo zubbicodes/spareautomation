@@ -1,12 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpDown, ChevronRight, Filter, SlidersHorizontal } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import automation from "@/assets/Automation pic.jpg";
 import { ProductCard } from "@/components/shopify/ProductCard";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
-import { getCollection, getPaginatedProducts } from "@/lib/api/shopify.functions";
+import { getCatalogProductsPage, getCollection } from "@/lib/api/shopify.functions";
+import { CATALOG_CATEGORIES, getCatalogueSearch } from "@/lib/catalog";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { SITE } from "@/lib/site";
 
@@ -16,44 +17,26 @@ type CategoryFilter = {
   description: string;
 };
 
-const categoryFilters: CategoryFilter[] = [
-  {
-    label: "Asphalt / Blacktop Spares",
-    handle: "asphalt",
-    description: "Burners, conveyors, drum mixer wear parts",
-  },
-  {
-    label: "Concrete Spares",
-    handle: "concrete",
-    description: "Aggregate feeding, material silos, additives, water, air and automation controls",
-  },
-  {
-    label: "Packing Machinery",
-    handle: "packing",
-    description: "Automation and sensors, bag placement, filling, discharge and palletising",
-  },
-  {
-    label: "Automation & Drives",
-    handle: "automation",
-    description: "VFDs, PLC modules, relays, sensors",
-  },
-  {
-    label: "Home Automation and Controls",
-    handle: "home-controls",
-    description: "Smart relays, sensors, DIN rail supplies",
-  },
-  {
-    label: "Control Panels & Software",
-    handle: "control-panels-software",
-    description: "Control panels, PLC software and support",
-  },
-];
+const categoryGroups = CATALOG_CATEGORIES.map((category) => ({
+  ...category,
+  collections: [
+    { label: category.label, handle: category.handle, description: category.description },
+    ...category.productLines.map((line) => ({
+      label: line.label,
+      handle: line.collectionHandle,
+      description: `${line.label} products`,
+    })),
+  ] satisfies CategoryFilter[],
+}));
+const collectionFilters = categoryGroups.flatMap((category) => category.collections);
 
 export const Route = createFileRoute("/products/")({
   validateSearch: (search: Record<string, unknown>) => ({
     category: typeof search.category === "string" ? search.category : "all",
-    availability: search.availability === "available" ? "available" as const : "all" as const,
-    sort: ["price-asc", "price-desc", "title"].includes(String(search.sort)) ? search.sort as "price-asc" | "price-desc" | "title" : "newest" as const,
+    availability: search.availability === "available" ? ("available" as const) : ("all" as const),
+    sort: ["price-asc", "price-desc", "title"].includes(String(search.sort))
+      ? (search.sort as "price-asc" | "price-desc" | "title")
+      : ("newest" as const),
   }),
   head: () => ({
     meta: [
@@ -66,17 +49,24 @@ export const Route = createFileRoute("/products/")({
     ],
     links: [{ rel: "canonical", href: `${SITE.url}/products` }],
   }),
-  loader: async () => {
+  loaderDeps: ({ search }) => ({ category: search.category }),
+  loader: async ({ deps }) => {
+    const collectionHandle = collectionFilters.some((category) => category.handle === deps.category)
+      ? deps.category
+      : undefined;
     const [initialPage, collections] = await Promise.all([
-      getPaginatedProducts({ data: { first: 48 } }),
+      getCatalogProductsPage({ data: { first: 48, collectionHandle } }),
       Promise.all(
-        categoryFilters.map(async (category) => {
+        categoryGroups.map(async (category) => {
           try {
             const collection = await getCollection({
               data: { handle: category.handle, first: 1 },
             });
 
-            return [category.handle, collection?.description.trim() || category.description] as const;
+            return [
+              category.handle,
+              collection?.description.trim() || category.description,
+            ] as const;
           } catch {
             return [category.handle, category.description] as const;
           }
@@ -92,13 +82,6 @@ export const Route = createFileRoute("/products/")({
   component: ProductsCataloguePage,
 });
 
-function productMatchesCategory(product: ShopifyProduct, handle: string) {
-  const normalizedTags = product.tags.map((tag) => tag.toLowerCase());
-  return normalizedTags.some(
-    (tag) => tag === handle || tag === `collection:${handle}` || tag.includes(handle),
-  );
-}
-
 function ProductsCataloguePage() {
   const { initialPage, categoryDescriptions } = Route.useLoaderData();
   const search = Route.useSearch();
@@ -110,15 +93,21 @@ function ProductsCataloguePage() {
   const activeCategory = search.category;
   const availability = search.availability;
   const sort = search.sort;
-  const updateSearch = (updates: Partial<typeof search>) => void navigate({ search: (previous: typeof search) => ({ ...previous, ...updates }), replace: true });
+  const updateSearch = (updates: Partial<typeof search>) =>
+    void navigate({
+      search: (previous: typeof search) => ({ ...previous, ...updates }),
+      replace: true,
+    });
+
+  useEffect(() => {
+    setProducts(initialPage.products);
+    setPageInfo(initialPage.pageInfo);
+    setLoadError("");
+  }, [initialPage]);
 
   const filteredProducts = useMemo(() => {
     return products
       .filter((product) => {
-        if (activeCategory !== "all" && !productMatchesCategory(product, activeCategory)) {
-          return false;
-        }
-
         if (availability === "available" && !product.availableForSale) {
           return false;
         }
@@ -136,7 +125,7 @@ function ProductsCataloguePage() {
 
         return 0;
       });
-  }, [activeCategory, availability, products, sort]);
+  }, [availability, products, sort]);
 
   return (
     <div className="min-h-screen bg-background text-ink">
@@ -163,7 +152,10 @@ function ProductsCataloguePage() {
         </div>
       </section>
 
-      <main id="main-content" className="mx-auto grid min-w-0 max-w-[1600px] grid-cols-1 gap-6 px-4 py-8 md:px-6 lg:grid-cols-[300px_minmax(0,1fr)]">
+      <main
+        id="main-content"
+        className="mx-auto grid min-w-0 max-w-[1600px] grid-cols-1 gap-6 px-4 py-8 md:px-6 lg:grid-cols-[300px_minmax(0,1fr)]"
+      >
         <aside className="h-fit min-w-0 overflow-hidden border border-rule bg-surface">
           <div className="border-b border-rule p-5">
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
@@ -173,9 +165,9 @@ function ProductsCataloguePage() {
           </div>
 
           <div className="p-3">
-            <button
-              type="button"
-              onClick={() => updateSearch({ category: "all" })}
+            <Link
+              to="/products"
+              search={getCatalogueSearch("all")}
               className={`flex w-full items-center justify-between border px-4 py-4 text-left transition-colors ${
                 activeCategory === "all"
                   ? "border-accent bg-accent/10"
@@ -191,29 +183,41 @@ function ProductsCataloguePage() {
                 </span>
               </span>
               <ChevronRight className="h-4 w-4 text-accent" />
-            </button>
+            </Link>
 
-            {categoryFilters.map((category) => (
-              <button
-                key={category.handle}
-                type="button"
-                onClick={() => updateSearch({ category: category.handle })}
-                className={`mt-2 flex w-full items-center justify-between border px-4 py-4 text-left transition-colors ${
-                  activeCategory === category.handle
-                    ? "border-accent bg-accent/10"
-                    : "border-transparent hover:border-rule hover:bg-background"
-                }`}
-              >
-                <span>
-                  <span className="block font-display text-sm font-bold uppercase tracking-tight">
-                    {category.label}
-                  </span>
-                  <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
-                    {categoryDescriptions[category.handle] ?? category.description}
-                  </span>
-                </span>
-                <ChevronRight className="h-4 w-4 text-accent" />
-              </button>
+            {categoryGroups.map((category) => (
+              <div key={category.handle} className="mt-2">
+                {category.collections.map((collection, index) => (
+                  <Link
+                    key={collection.handle}
+                    to="/products"
+                    search={getCatalogueSearch(collection.handle)}
+                    className={`flex w-full items-center justify-between border text-left transition-colors ${
+                      index === 0 ? "px-4 py-4" : "border-t-0 px-4 py-2.5 pl-7"
+                    } ${
+                      activeCategory === collection.handle
+                        ? "border-accent bg-accent/10"
+                        : "border-transparent hover:border-rule hover:bg-background"
+                    }`}
+                  >
+                    <span>
+                      <span
+                        className={`block font-display font-bold uppercase tracking-tight ${
+                          index === 0 ? "text-sm" : "text-xs"
+                        }`}
+                      >
+                        {collection.label}
+                      </span>
+                      {index === 0 ? (
+                        <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
+                          {categoryDescriptions[collection.handle] ?? collection.description}
+                        </span>
+                      ) : null}
+                    </span>
+                    <ChevronRight className="h-4 w-4 shrink-0 text-accent" />
+                  </Link>
+                ))}
+              </div>
             ))}
           </div>
         </aside>
@@ -228,13 +232,15 @@ function ProductsCataloguePage() {
                 </div>
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
-                    Showing <strong className="font-bold text-ink">{filteredProducts.length}</strong> of{" "}
+                    Showing{" "}
+                    <strong className="font-bold text-ink">{filteredProducts.length}</strong> of{" "}
                     <strong className="font-bold text-ink">{products.length}</strong> loaded
                   </span>
                   <span className="border border-accent/30 bg-accent/10 px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-accent">
                     {activeCategory === "all"
                       ? "All Products"
-                      : categoryFilters.find((category) => category.handle === activeCategory)?.label}
+                      : collectionFilters.find((category) => category.handle === activeCategory)
+                          ?.label}
                   </span>
                 </div>
               </div>
@@ -269,7 +275,9 @@ function ProductsCataloguePage() {
                     <select
                       aria-label="Sort products"
                       value={sort}
-                      onChange={(event) => updateSearch({ sort: event.target.value as typeof sort })}
+                      onChange={(event) =>
+                        updateSearch({ sort: event.target.value as typeof sort })
+                      }
                       className="min-w-0 flex-1 bg-transparent font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-ink focus:outline-none"
                     >
                       <option value="newest">Newest</option>
@@ -292,15 +300,22 @@ function ProductsCataloguePage() {
           ) : (
             <div className="mt-6 border border-dashed border-rule bg-surface px-4 py-10 text-center md:px-8 md:py-16">
               <h2 className="font-display text-xl font-bold uppercase tracking-tight md:text-2xl">
-                {products.length === 0 ? "Catalogue products are being updated" : "No products match these filters"}
+                {products.length === 0
+                  ? "Catalogue products are being updated"
+                  : "No products match these filters"}
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ink-muted md:mt-4">
-                {products.length === 0 ? "Contact our sales desk for availability, product identification, or a quotation while the online catalogue is updated." : "Adjust the filters or browse other categories."}
+                {products.length === 0
+                  ? "Contact our sales desk for availability, product identification, or a quotation while the online catalogue is updated."
+                  : "Adjust the filters or browse other categories."}
               </p>
               <button
                 type="button"
                 onClick={() => {
-                  void navigate({ search: { category: "all", availability: "all", sort: "newest" }, replace: true });
+                  void navigate({
+                    search: { category: "all", availability: "all", sort: "newest" },
+                    replace: true,
+                  });
                 }}
                 className="mt-6 inline-flex h-11 items-center justify-center bg-accent px-6 font-mono text-[10px] uppercase tracking-[0.22em] text-accent-foreground md:mt-8"
               >
@@ -311,7 +326,11 @@ function ProductsCataloguePage() {
 
           {pageInfo.hasNextPage ? (
             <div className="mt-6 text-center">
-              {loadError ? <p role="alert" className="mb-3 text-sm text-red-700">{loadError}</p> : null}
+              {loadError ? (
+                <p role="alert" className="mb-3 text-sm text-red-700">
+                  {loadError}
+                </p>
+              ) : null}
               <button
                 type="button"
                 disabled={loadingMore}
@@ -319,8 +338,19 @@ function ProductsCataloguePage() {
                   setLoadingMore(true);
                   setLoadError("");
                   try {
-                    const next = await getPaginatedProducts({ data: { first: 48, after: pageInfo.endCursor ?? undefined } });
-                    setProducts((current) => [...current, ...next.products.filter((product) => !current.some((item) => item.id === product.id))]);
+                    const next = await getCatalogProductsPage({
+                      data: {
+                        first: 48,
+                        collectionHandle: activeCategory === "all" ? undefined : activeCategory,
+                        after: pageInfo.endCursor ?? undefined,
+                      },
+                    });
+                    setProducts((current) => [
+                      ...current,
+                      ...next.products.filter(
+                        (product) => !current.some((item) => item.id === product.id),
+                      ),
+                    ]);
                     setPageInfo(next.pageInfo);
                   } catch {
                     setLoadError("More products could not be loaded. Please try again.");
@@ -341,7 +371,8 @@ function ProductsCataloguePage() {
             </div>
             <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <p className="max-w-2xl text-sm leading-relaxed text-white/50">
-                Trouble finding the right part? Send a part number, manufacturer reference, or photo.
+                Trouble finding the right part? Send a part number, manufacturer reference, or
+                photo.
               </p>
               <Link
                 to="/contact-us"

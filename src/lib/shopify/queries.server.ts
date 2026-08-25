@@ -109,7 +109,12 @@ function parseProductResource(value: string | null | undefined) {
   if (!value) return null;
   try {
     const parsed = JSON.parse(value);
-    if (parsed && typeof parsed === "object" && typeof parsed.url === "string" && typeof parsed.text === "string") {
+    if (
+      parsed &&
+      typeof parsed === "object" &&
+      typeof parsed.url === "string" &&
+      typeof parsed.text === "string"
+    ) {
       const url = safeExternalUrl(parsed.url);
       return url ? { text: parsed.text, url } : null;
     }
@@ -517,6 +522,34 @@ export async function getCustomer(customerAccessToken: string) {
   );
 
   return data.customer;
+}
+
+export async function getCollectionProductsPage(handle: string, first = 48, after?: string) {
+  const data = await shopifyStorefront<{
+    collection: { products: Connection<ProductConnectionShape> & { pageInfo: PageInfo } } | null;
+  }>(
+    `#graphql
+      ${PRODUCT_CARD_FRAGMENT}
+      query CollectionProductsPage($handle: String!, $first: Int!, $after: String) {
+        collection(handle: $handle) {
+          products(first: $first, after: $after, sortKey: CREATED) {
+            nodes { ...ProductCardFields }
+            pageInfo { hasNextPage endCursor }
+          }
+        }
+      }
+    `,
+    { handle, first, after },
+  );
+
+  if (!data.collection) {
+    return { products: [], pageInfo: { hasNextPage: false, endCursor: null } };
+  }
+
+  return {
+    products: data.collection.products.nodes.map(normalizeProduct),
+    pageInfo: data.collection.products.pageInfo,
+  };
 }
 
 export async function getCustomerOrders(customerAccessToken: string) {

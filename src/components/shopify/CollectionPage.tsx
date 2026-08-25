@@ -9,7 +9,8 @@ import type { ShopifyCollection, ShopifyProduct } from "@/lib/shopify/types";
 export type ProductLineFilter = {
   slug: string;
   label: string;
-  keywords: string[];
+  collectionHandle: string;
+  keywords: readonly string[];
 };
 
 type CollectionPageProps = {
@@ -19,9 +20,10 @@ type CollectionPageProps = {
   image: string;
   imageAlt: string;
   collection: ShopifyCollection | null;
+  lineCollection?: ShopifyCollection | null;
   fallbackProducts?: ShopifyProduct[];
   expectedHandle: string;
-  productLines?: ProductLineFilter[];
+  productLines?: readonly ProductLineFilter[];
   activeLine?: string;
 };
 
@@ -32,14 +34,17 @@ export function CollectionPage({
   image,
   imageAlt,
   collection,
+  lineCollection = null,
   fallbackProducts = [],
   expectedHandle,
   productLines = [],
   activeLine,
 }: CollectionPageProps) {
-  const products = collection?.products ?? fallbackProducts;
   const selectedLine = productLines.find((line) => line.slug === activeLine);
-  const visibleProducts = selectedLine ? products.filter((product) => matchesLine(product, selectedLine)) : products;
+  const products = collection?.products ?? fallbackProducts;
+  const visibleProducts = selectedLine
+    ? (lineCollection?.products ?? products.filter((product) => matchesLine(product, selectedLine)))
+    : products;
   const bgAccentClass = accent === "amber" ? "bg-amber" : "bg-accent";
 
   return (
@@ -47,96 +52,100 @@ export function CollectionPage({
       <SiteHeader />
 
       <main id="main-content">
-      <section className="relative flex min-h-[150px] w-full min-w-0 items-center overflow-hidden md:min-h-[180px]">
-        <img
-          src={collection?.image?.url ?? image}
-          alt={collection?.image?.altText ?? imageAlt}
-          className="absolute inset-0 h-full w-full scale-105 object-cover blur-[2px]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/65 to-transparent" />
-        <div className="relative mx-auto w-full max-w-[1600px] px-4 py-6 md:px-6 md:py-8 lg:px-10">
-          <div className="mb-2 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 md:text-[10px]">
-            <span className={`h-px w-6 md:w-8 ${bgAccentClass}`} />
-            {eyebrow}
-          </div>
-          <h1 className="break-words font-display text-[clamp(1.45rem,5vw,2.5rem)] font-extrabold uppercase leading-none tracking-tight text-white">
-            {title}
-          </h1>
-        </div>
-      </section>
-
-      <section className="border-b border-rule bg-surface">
-        <div className="mx-auto flex max-w-[1600px] justify-end px-4 py-4 md:px-6">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted transition-colors hover:text-accent"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Return to overview
-          </Link>
-        </div>
-      </section>
-
-      {productLines.length ? (
-        <section className="border-b border-rule bg-background">
-          <div className="mx-auto max-w-[1600px] px-4 py-4 md:px-6">
-            <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
-              Product lines
+        <section className="relative flex min-h-[150px] w-full min-w-0 items-center overflow-hidden md:min-h-[180px]">
+          <img
+            src={collection?.image?.url ?? image}
+            alt={collection?.image?.altText ?? imageAlt}
+            className="absolute inset-0 h-full w-full scale-105 object-cover blur-[2px]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/65 to-transparent" />
+          <div className="relative mx-auto w-full max-w-[1600px] px-4 py-6 md:px-6 md:py-8 lg:px-10">
+            <div className="mb-2 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 md:text-[10px]">
+              <span className={`h-px w-6 md:w-8 ${bgAccentClass}`} />
+              {eyebrow}
             </div>
-            <div className="flex gap-2 overflow-x-auto pb-1">
-              <a
-                href={`/${expectedHandle}`}
-                className={`shrink-0 border px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] transition-colors ${
-                  !selectedLine
-                    ? `${bgAccentClass} border-transparent text-accent-foreground`
-                    : "border-rule bg-surface text-ink-muted hover:border-accent hover:text-accent"
-                }`}
-              >
-                All
-              </a>
-              {productLines.map((line) => (
+            <h1 className="break-words font-display text-[clamp(1.45rem,5vw,2.5rem)] font-extrabold uppercase leading-none tracking-tight text-white">
+              {title}
+            </h1>
+          </div>
+        </section>
+
+        <section className="border-b border-rule bg-surface">
+          <div className="mx-auto flex max-w-[1600px] justify-end px-4 py-4 md:px-6">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted transition-colors hover:text-accent"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              Return to overview
+            </Link>
+          </div>
+        </section>
+
+        {productLines.length ? (
+          <section className="border-b border-rule bg-background">
+            <div className="mx-auto max-w-[1600px] px-4 py-4 md:px-6">
+              <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
+                Product lines
+              </div>
+              <div className="flex gap-2 overflow-x-auto pb-1">
                 <a
-                  key={line.slug}
-                  href={`/${expectedHandle}?line=${line.slug}`}
+                  href={`/${expectedHandle}`}
                   className={`shrink-0 border px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] transition-colors ${
-                    selectedLine?.slug === line.slug
+                    !selectedLine
                       ? `${bgAccentClass} border-transparent text-accent-foreground`
                       : "border-rule bg-surface text-ink-muted hover:border-accent hover:text-accent"
                   }`}
                 >
-                  {line.label}
+                  All
                 </a>
-              ))}
+                {productLines.map((line) => (
+                  <a
+                    key={line.slug}
+                    href={`/${expectedHandle}?line=${line.slug}`}
+                    className={`shrink-0 border px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] transition-colors ${
+                      selectedLine?.slug === line.slug
+                        ? `${bgAccentClass} border-transparent text-accent-foreground`
+                        : "border-rule bg-surface text-ink-muted hover:border-accent hover:text-accent"
+                    }`}
+                  >
+                    {line.label}
+                  </a>
+                ))}
+              </div>
             </div>
+          </section>
+        ) : null}
+
+        <section className="bg-background py-8 md:py-10 lg:py-12">
+          <div className="mx-auto max-w-[1600px] px-4 md:px-6">
+            {visibleProducts.length > 0 ? (
+              <div className="grid grid-cols-1 gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+                {visibleProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="border border-dashed border-rule bg-surface px-4 py-10 md:px-8 md:py-16 text-center">
+                <div
+                  className={`mx-auto mb-4 md:mb-6 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center ${bgAccentClass} text-accent-foreground`}
+                >
+                  <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
+                </div>
+                <h3 className="font-display text-xl md:text-2xl font-bold uppercase tracking-tight">
+                  {selectedLine
+                    ? `No products found in ${selectedLine.label}`
+                    : "Catalogue products are being updated"}
+                </h3>
+                <p className="mx-auto mt-3 md:mt-4 max-w-2xl text-sm leading-relaxed text-ink-muted">
+                  {selectedLine
+                    ? "Choose another product line or contact sales with a part number or equipment photo."
+                    : "Contact sales for availability, product identification, or a quotation while this range is updated."}
+                </p>
+              </div>
+            )}
           </div>
         </section>
-      ) : null}
-
-      <section className="bg-background py-8 md:py-10 lg:py-12">
-        <div className="mx-auto max-w-[1600px] px-4 md:px-6">
-          {visibleProducts.length > 0 ? (
-            <div className="grid grid-cols-1 gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-              {visibleProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <div className="border border-dashed border-rule bg-surface px-4 py-10 md:px-8 md:py-16 text-center">
-              <div
-                className={`mx-auto mb-4 md:mb-6 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center ${bgAccentClass} text-accent-foreground`}
-              >
-                <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
-              </div>
-              <h3 className="font-display text-xl md:text-2xl font-bold uppercase tracking-tight">
-                {selectedLine ? `No products found in ${selectedLine.label}` : "Catalogue products are being updated"}
-              </h3>
-              <p className="mx-auto mt-3 md:mt-4 max-w-2xl text-sm leading-relaxed text-ink-muted">
-                {selectedLine ? "Choose another product line or contact sales with a part number or equipment photo." : "Contact sales for availability, product identification, or a quotation while this range is updated."}
-              </p>
-            </div>
-          )}
-        </div>
-      </section>
       </main>
 
       <SiteFooter />

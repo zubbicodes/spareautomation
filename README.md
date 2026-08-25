@@ -124,6 +124,11 @@ proxy reaches the app over its internal network.
 
 ## Category And Product Pages
 
+Shopify collection setup and the client product-assignment workflow are documented in
+[`SHOPIFY_CATALOGUE_GUIDE.md`](./SHOPIFY_CATALOGUE_GUIDE.md). The storefront category and
+product-line handles are defined once in `src/lib/catalog.ts`; run
+`npm run shopify:sync-collections` to preview any missing/unpublished Shopify collections.
+
 - Updated Ready-Mix / Concrete subcategories to:
   - `Aggregate Feeding`
   - `Cement / Material silos`

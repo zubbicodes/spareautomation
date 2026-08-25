@@ -8,6 +8,7 @@ import {
   createCustomerAccessToken,
   getCart,
   getCollectionByHandle,
+  getCollectionProductsPage,
   getCustomer,
   getCustomerOrders,
   getProductByHandle,
@@ -19,10 +20,7 @@ import {
   updateCartLine,
 } from "../shopify/queries.server";
 import { shopifyAdmin } from "../shopify/admin.server";
-import {
-  clearSession,
-  useSession as getServerSessionManager,
-} from "@tanstack/react-start/server";
+import { clearSession, useSession as getServerSessionManager } from "@tanstack/react-start/server";
 
 const positiveQuantity = z.number().int().min(1).max(99);
 
@@ -34,6 +32,23 @@ export const getCollection = createServerFn({ method: "GET" })
     }),
   )
   .handler(async ({ data }) => getCollectionByHandle(data.handle, data.first));
+
+export const getCategoryCollections = createServerFn({ method: "GET" })
+  .inputValidator(
+    z.object({
+      categoryHandle: z.string().min(1),
+      lineHandle: z.string().min(1).optional(),
+      first: z.number().int().min(1).max(100).default(48),
+    }),
+  )
+  .handler(async ({ data }) => {
+    const [collection, lineCollection] = await Promise.all([
+      getCollectionByHandle(data.categoryHandle, data.first),
+      data.lineHandle ? getCollectionByHandle(data.lineHandle, data.first) : null,
+    ]);
+
+    return { collection, lineCollection };
+  });
 
 export const getLatestProducts = createServerFn({ method: "GET" })
   .inputValidator(
@@ -49,8 +64,28 @@ export const getResourceProducts = createServerFn({ method: "GET" })
   .handler(async ({ data }) => getProductsWithResources(data.first));
 
 export const getPaginatedProducts = createServerFn({ method: "GET" })
-  .inputValidator(z.object({ first: z.number().int().min(1).max(100).default(48), query: z.string().optional(), after: z.string().optional() }))
+  .inputValidator(
+    z.object({
+      first: z.number().int().min(1).max(100).default(48),
+      query: z.string().optional(),
+      after: z.string().optional(),
+    }),
+  )
   .handler(async ({ data }) => getProductsPage(data.first, data.query, data.after));
+
+export const getCatalogProductsPage = createServerFn({ method: "GET" })
+  .inputValidator(
+    z.object({
+      first: z.number().int().min(1).max(100).default(48),
+      collectionHandle: z.string().min(1).optional(),
+      after: z.string().optional(),
+    }),
+  )
+  .handler(async ({ data }) =>
+    data.collectionHandle
+      ? getCollectionProductsPage(data.collectionHandle, data.first, data.after)
+      : getProductsPage(data.first, undefined, data.after),
+  );
 
 export const getProduct = createServerFn({ method: "GET" })
   .inputValidator(z.object({ handle: z.string().min(1) }))
@@ -135,9 +170,7 @@ export const submitShopifyQuote = createServerFn({ method: "POST" })
       `Customer: ${data.firstName} ${data.lastName}`,
       data.company ? `Company: ${data.company}` : "",
       data.phone ? `Phone: ${data.phone}` : "",
-      data.additionalInformation
-        ? `Additional information:\n${data.additionalInformation}`
-        : "",
+      data.additionalInformation ? `Additional information:\n${data.additionalInformation}` : "",
     ]
       .filter(Boolean)
       .join("\n");
@@ -181,7 +214,9 @@ export const submitShopifyQuote = createServerFn({ method: "POST" })
 
     const errors = result.draftOrderCreate.userErrors;
     if (errors.length || !result.draftOrderCreate.draftOrder) {
-      throw new Error(errors.map((error) => error.message).join("; ") || "The quote could not be created.");
+      throw new Error(
+        errors.map((error) => error.message).join("; ") || "The quote could not be created.",
+      );
     }
 
     return {
@@ -292,7 +327,13 @@ export const requestShopifyPasswordReset = createServerFn({ method: "POST" })
   .inputValidator(z.object({ email: z.string().trim().email("Enter a valid email address") }))
   .handler(async ({ data }) => {
     const result = await recoverCustomerPassword(data.email);
-    return { errors: result.customerUserErrors.map((error) => ({ code: error.code, message: error.message, field: error.field })) };
+    return {
+      errors: result.customerUserErrors.map((error) => ({
+        code: error.code,
+        message: error.message,
+        field: error.field,
+      })),
+    };
   });
 
 export const createShopifyCustomer = createServerFn({ method: "POST" })
