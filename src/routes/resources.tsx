@@ -55,15 +55,15 @@ function ResourcesPage() {
       <SiteHeader />
 
       <main id="main-content">
-        <section className="border-b border-rule bg-charcoal-deep text-white">
-          <div className="mx-auto max-w-[1400px] px-4 py-8 md:px-6 md:py-10">
+        <section className="flex min-h-[150px] items-center border-b border-rule bg-charcoal-deep text-white md:min-h-[180px]">
+          <div className="mx-auto w-full max-w-[1600px] px-4 py-6 md:px-6 md:py-8">
             <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/45 md:text-[10px]">
               Resource Library
             </div>
-            <h1 className="mt-3 max-w-4xl font-display text-2xl font-extrabold uppercase leading-tight tracking-tight md:text-4xl">
+            <h1 className="mt-2 max-w-4xl font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight">
               PDFs, manuals &amp; videos
             </h1>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-white/65 md:text-base">
+            <p className="mt-2 max-w-4xl text-xs leading-relaxed text-white/65 md:text-sm">
               Find product support files arranged by category, including burner PDFs and videos,
               installation guides, datasheets, and equipment manuals.
             </p>
@@ -131,9 +131,15 @@ function ResourcesPage() {
                         <div className="mt-5 grid gap-3">
                           {product.resources.map((resource) =>
                             resource.type === "video" ? (
-                              <ResourceVideoLink key={`${resource.type}-${resource.url}`} resource={resource} />
+                              <ResourceVideoLink
+                                key={`${resource.type}-${resource.url}`}
+                                resource={resource}
+                              />
                             ) : (
-                              <ResourceDocumentLink key={`${resource.type}-${resource.url}`} resource={resource} />
+                              <ResourceDocumentLink
+                                key={`${resource.type}-${resource.url}`}
+                                resource={resource}
+                              />
                             ),
                           )}
                         </div>
@@ -184,7 +190,10 @@ function groupProductResources(products: ShopifyProduct[]): ResourceGroup[] {
       category,
       slug: `resources-${slugify(category)}`,
       products: categoryProducts.sort((left, right) => left.title.localeCompare(right.title)),
-      resourceCount: categoryProducts.reduce((total, product) => total + product.resources.length, 0),
+      resourceCount: categoryProducts.reduce(
+        (total, product) => total + product.resources.length,
+        0,
+      ),
     }));
 }
 
@@ -193,16 +202,35 @@ function productResources(product: ShopifyProduct): ResourceLink[] {
   const resources: ResourceLink[] = [];
 
   if (videoGuide) {
-    resources.push({ label: videoGuide.text || "Video guide", url: videoGuide.url, type: "video", detail: "Video guide" });
+    resources.push({
+      label: videoGuide.text || "Video guide",
+      url: videoGuide.url,
+      type: "video",
+      detail: "Video guide",
+    });
   }
   if (setupVideoUrl && setupVideoUrl !== videoGuide?.url) {
-    resources.push({ label: "Setup video", url: setupVideoUrl, type: "video", detail: "Setup video" });
+    resources.push({
+      label: "Setup video",
+      url: setupVideoUrl,
+      type: "video",
+      detail: "Setup video",
+    });
   }
   if (pdfGuide) {
-    resources.push({ label: pdfGuide.text || "PDF guide", url: pdfGuide.url, type: "document", detail: "PDF guide" });
+    resources.push({
+      label: pdfGuide.text || "PDF guide",
+      url: pdfGuide.url,
+      type: "document",
+      detail: "PDF guide",
+    });
   }
   resources.push(
-    ...datasheets.map((resource) => ({ ...resource, type: "document" as const, detail: "Datasheet" })),
+    ...datasheets.map((resource) => ({
+      ...resource,
+      type: "document" as const,
+      detail: "Datasheet",
+    })),
     ...manuals.map((resource) => ({ ...resource, type: "document" as const, detail: "Manual" })),
   );
 
@@ -226,7 +254,10 @@ function ResourceDocumentLink({ resource }: { resource: ResourceLink }) {
     >
       <ResourceIcon icon="document" />
       <ResourceText resource={resource} />
-      <ExternalLink className="h-4 w-4 shrink-0 text-ink-muted group-hover:text-accent" aria-hidden="true" />
+      <ExternalLink
+        className="h-4 w-4 shrink-0 text-ink-muted group-hover:text-accent"
+        aria-hidden="true"
+      />
     </a>
   );
 }
@@ -248,7 +279,10 @@ function ResourceVideoLink({ resource }: { resource: ResourceLink }) {
       >
         <ResourceIcon icon="video" />
         <ResourceText resource={resource} />
-        <ExternalLink className="h-4 w-4 shrink-0 text-ink-muted group-hover:text-accent" aria-hidden="true" />
+        <ExternalLink
+          className="h-4 w-4 shrink-0 text-ink-muted group-hover:text-accent"
+          aria-hidden="true"
+        />
       </button>
 
       {open ? (
@@ -286,7 +320,10 @@ function ResourceVideoLink({ resource }: { resource: ResourceLink }) {
                   Google Privacy Policy
                 </a>
                 . You can also review our{" "}
-                <Link to="/cookies" className="font-semibold text-accent underline underline-offset-2">
+                <Link
+                  to="/cookies"
+                  className="font-semibold text-accent underline underline-offset-2"
+                >
                   Cookie Policy
                 </Link>
                 .

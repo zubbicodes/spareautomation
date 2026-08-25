@@ -211,7 +211,7 @@ test("all products keeps one search and a compact catalogue hero", async ({ page
   expect(box).not.toBeNull();
   expect(box!.height).toBeLessThanOrEqual(181);
 
-  await expect(page.getByRole("button", { name: /Control Panels & Software/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Control Panels & Software/i }).last()).toBeVisible();
   await expect(page.getByText("New Arrivals", { exact: true })).toHaveCount(0);
 });
 
@@ -353,7 +353,12 @@ test("resource navigation accurately describes the request service", async ({ pa
     page.locator('header a[href="/resources"]', { hasText: "PDF and Videos" }),
   ).toHaveAttribute("href", "/resources");
   await page.goto("/resources");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("PDFs, manuals & videos");
+  const heading = page.getByRole("heading", { level: 1 });
+  await expect(heading).toHaveText("PDFs, manuals & videos");
+  const hero = heading.locator("xpath=ancestor::section[1]");
+  const box = await hero.boundingBox();
+  expect(box).not.toBeNull();
+  expect(box!.height).toBeLessThanOrEqual(181);
   await expect(page.getByText(/arranged by category/i)).toBeVisible();
   await expect(
     page.getByRole("heading", { name: /Resource library is being updated/i }),
