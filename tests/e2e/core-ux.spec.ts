@@ -431,17 +431,39 @@ test("main navigation uses the approved labels and routes", async ({ page, isMob
 
 test("category entry points use the unified catalogue layout", async ({ page, isMobile }) => {
   test.skip(isMobile, "Desktop category navigation test");
-  await page.setViewportSize({ width: 1900, height: 900 });
-  await page.goto("/");
-  await page
-    .getByRole("navigation", { name: "Main navigation" })
-    .getByRole("link", { name: "Home Automation and Controls", exact: true })
-    .click();
+  await page.setViewportSize({ width: 1900, height: 500 });
+  await page.goto("/products?category=all&availability=all&sort=newest");
+  const sidebar = page.getByRole("complementary", { name: "Product collections" });
+
+  await expect(sidebar.getByRole("link", { name: "Lighting", exact: true })).toHaveCount(0);
+  await sidebar.getByRole("link", { name: /Home Automation and Controls/i }).click();
 
   await expect(page).toHaveURL(/\/products\?category=home-controls&availability=all&sort=newest$/);
   await expect(page.getByRole("heading", { level: 1 })).toContainText("ALL PRODUCTS CATALOGUE");
+  await expect(
+    sidebar.getByRole("button", { name: "Collapse Home Automation and Controls" }),
+  ).toHaveAttribute("aria-expanded", "true");
+  await expect(sidebar.getByRole("link", { name: "Lighting", exact: true })).toBeVisible();
+  await expect(sidebar.getByRole("link", { name: "Security", exact: true })).toBeVisible();
+  await expect(sidebar.getByRole("link", { name: "Baghouse", exact: true })).toHaveCount(0);
 
-  await page.getByRole("link", { name: "Lighting", exact: true }).click();
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = "auto";
+    window.scrollTo(0, 300);
+  });
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+  await expect(sidebar).toHaveCSS("position", "sticky");
+  await expect(sidebar).toHaveCSS("overflow-y", "auto");
+  await expect(sidebar).toHaveCSS("scrollbar-width", "none");
+  const sidebarMetrics = await sidebar.evaluate((element) => ({
+    clientHeight: element.clientHeight,
+    scrollHeight: element.scrollHeight,
+    top: element.getBoundingClientRect().top,
+  }));
+  expect(sidebarMetrics.scrollHeight).toBeGreaterThan(sidebarMetrics.clientHeight);
+  expect(sidebarMetrics.top).toBeCloseTo(180, 0);
+
+  await sidebar.getByRole("link", { name: "Lighting", exact: true }).click();
   await expect(page).toHaveURL(/\/products\?category=lighting&availability=all&sort=newest$/);
 
   await page.goto("/home-controls?line=lighting");

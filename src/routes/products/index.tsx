@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpDown, ChevronRight, Filter, SlidersHorizontal } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import automation from "@/assets/Automation pic.jpg";
 import { ProductCard } from "@/components/shopify/ProductCard";
@@ -91,6 +91,13 @@ function ProductsCataloguePage() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [loadError, setLoadError] = useState("");
   const activeCategory = search.category;
+  const activeGroup = categoryGroups.find((category) =>
+    category.collections.some((collection) => collection.handle === activeCategory),
+  );
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(
+    activeGroup?.handle ?? null,
+  );
+  const sidebarRef = useRef<HTMLElement>(null);
   const availability = search.availability;
   const sort = search.sort;
   const updateSearch = (updates: Partial<typeof search>) =>
@@ -104,6 +111,26 @@ function ProductsCataloguePage() {
     setPageInfo(initialPage.pageInfo);
     setLoadError("");
   }, [initialPage]);
+
+  useEffect(() => {
+    setExpandedCategory(activeGroup?.handle ?? null);
+  }, [activeGroup?.handle]);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const sidebar = sidebarRef.current;
+      const selected = sidebar?.querySelector<HTMLElement>("[data-catalog-active='true']");
+      if (!sidebar || !selected) return;
+
+      const sidebarBox = sidebar.getBoundingClientRect();
+      const selectedBox = selected.getBoundingClientRect();
+      sidebar.scrollTo({
+        top: Math.max(0, sidebar.scrollTop + selectedBox.top - sidebarBox.top - 12),
+      });
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [activeCategory, expandedCategory]);
 
   const filteredProducts = useMemo(() => {
     return products
@@ -156,7 +183,11 @@ function ProductsCataloguePage() {
         id="main-content"
         className="mx-auto grid min-w-0 max-w-[1600px] grid-cols-1 gap-6 px-4 py-8 md:px-6 lg:grid-cols-[300px_minmax(0,1fr)]"
       >
-        <aside className="h-fit min-w-0 overflow-hidden border border-rule bg-surface">
+        <aside
+          ref={sidebarRef}
+          aria-label="Product collections"
+          className="h-fit min-w-0 overflow-hidden border border-rule bg-surface lg:sticky lg:top-[116px] lg:max-h-[calc(100dvh-116px)] lg:self-start lg:overflow-y-auto lg:overscroll-contain lg:[scrollbar-gutter:auto] lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden xl:top-[180px] xl:max-h-[calc(100dvh-180px)]"
+        >
           <div className="border-b border-rule p-5">
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
               <Filter className="h-4 w-4 text-accent" />
@@ -168,6 +199,9 @@ function ProductsCataloguePage() {
             <Link
               to="/products"
               search={getCatalogueSearch("all")}
+              aria-current={activeCategory === "all" ? "page" : undefined}
+              data-catalog-active={activeCategory === "all"}
+              onClick={() => setExpandedCategory(null)}
               className={`flex w-full items-center justify-between border px-4 py-4 text-left transition-colors ${
                 activeCategory === "all"
                   ? "border-accent bg-accent/10"
@@ -185,40 +219,80 @@ function ProductsCataloguePage() {
               <ChevronRight className="h-4 w-4 text-accent" />
             </Link>
 
-            {categoryGroups.map((category) => (
-              <div key={category.handle} className="mt-2">
-                {category.collections.map((collection, index) => (
-                  <Link
-                    key={collection.handle}
-                    to="/products"
-                    search={getCatalogueSearch(collection.handle)}
-                    className={`flex w-full items-center justify-between border text-left transition-colors ${
-                      index === 0 ? "px-4 py-4" : "border-t-0 px-4 py-2.5 pl-7"
-                    } ${
-                      activeCategory === collection.handle
+            {categoryGroups.map((category) => {
+              const parent = category.collections[0];
+              const children = category.collections.slice(1);
+              const expanded = expandedCategory === category.handle;
+              const groupActive = category.collections.some(
+                (collection) => collection.handle === activeCategory,
+              );
+
+              return (
+                <div key={category.handle} className="mt-2">
+                  <div
+                    className={`flex w-full items-stretch border transition-colors ${
+                      activeCategory === parent.handle
                         ? "border-accent bg-accent/10"
-                        : "border-transparent hover:border-rule hover:bg-background"
+                        : groupActive
+                          ? "border-rule bg-background"
+                          : "border-transparent hover:border-rule hover:bg-background"
                     }`}
                   >
-                    <span>
-                      <span
-                        className={`block font-display font-bold uppercase tracking-tight ${
-                          index === 0 ? "text-sm" : "text-xs"
-                        }`}
-                      >
-                        {collection.label}
+                    <Link
+                      to="/products"
+                      search={getCatalogueSearch(parent.handle)}
+                      aria-current={activeCategory === parent.handle ? "page" : undefined}
+                      data-catalog-active={activeCategory === parent.handle}
+                      onClick={() => setExpandedCategory(category.handle)}
+                      className="min-w-0 flex-1 px-4 py-4 text-left"
+                    >
+                      <span className="block font-display text-sm font-bold uppercase tracking-tight">
+                        {parent.label}
                       </span>
-                      {index === 0 ? (
-                        <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
-                          {categoryDescriptions[collection.handle] ?? collection.description}
-                        </span>
-                      ) : null}
-                    </span>
-                    <ChevronRight className="h-4 w-4 shrink-0 text-accent" />
-                  </Link>
-                ))}
-              </div>
-            ))}
+                      <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
+                        {categoryDescriptions[parent.handle] ?? parent.description}
+                      </span>
+                    </Link>
+                    <button
+                      type="button"
+                      aria-expanded={expanded}
+                      aria-controls={`catalogue-group-${category.handle}`}
+                      aria-label={`${expanded ? "Collapse" : "Expand"} ${parent.label}`}
+                      onClick={() => setExpandedCategory(expanded ? null : category.handle)}
+                      className="flex w-11 shrink-0 items-center justify-center text-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent"
+                    >
+                      <ChevronRight
+                        className={`h-4 w-4 transition-transform ${expanded ? "rotate-90" : ""}`}
+                      />
+                    </button>
+                  </div>
+
+                  {expanded ? (
+                    <div id={`catalogue-group-${category.handle}`}>
+                      {children.map((collection) => (
+                        <Link
+                          key={collection.handle}
+                          to="/products"
+                          search={getCatalogueSearch(collection.handle)}
+                          aria-current={activeCategory === collection.handle ? "page" : undefined}
+                          data-catalog-active={activeCategory === collection.handle}
+                          className={`flex w-full items-center justify-between border border-t-0 px-4 py-2.5 pl-7 text-left transition-colors ${
+                            activeCategory === collection.handle
+                              ? "border-accent bg-accent/10"
+                              : "border-transparent hover:border-rule hover:bg-background"
+                          }`}
+                        >
+                          <span className="block font-display text-xs font-bold uppercase tracking-tight">
+                            {collection.label}
+                          </span>
+                          <ChevronRight className="h-4 w-4 shrink-0 text-accent" />
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         </aside>
 
