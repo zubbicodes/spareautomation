@@ -32,7 +32,7 @@ const MAX_ATTACHMENT_TOTAL_BYTES = 25 * 1024 * 1024;
 const COPY: Record<RequestKind, { title: string; subject: string; reference: string; referenceLabel: string; detailsLabel: string }> = {
   tracking: { title: "Request an order update", subject: "Order tracking request", reference: "Order number", referenceLabel: "Order number", detailsLabel: "Delivery postcode or company name" },
   resources: { title: "Request product resources", subject: "Product resource request", reference: "Part or product number", referenceLabel: "Part or product number", detailsLabel: "Document, manual, or video required" },
-  question: { title: "Send a product question", subject: "Product question", reference: "Part or product number", referenceLabel: "Part or product number (if known)", detailsLabel: "How can we help?" },
+  question: { title: "Send a product question", subject: "Product question", reference: "Part or product details", referenceLabel: "Part or product details *", detailsLabel: "How can we help?" },
   unsubscribe: { title: "Request email removal", subject: "Unsubscribe request", reference: "Email address", referenceLabel: "Email address to remove", detailsLabel: "Any additional details (optional)" },
 };
 
@@ -149,10 +149,10 @@ export function SupportRequestForm({ kind }: { kind: RequestKind }) {
             </label>
             <label className="grid gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/80">
               {copy.referenceLabel}
-              <input name="reference" required={kind !== "question"} className="h-12 min-w-0 border border-white/25 bg-white/10 px-4 font-sans text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none" />
+              <input name="reference" required className="h-12 min-w-0 border border-white/25 bg-white/10 px-4 font-sans text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none" />
             </label>
             <label className="grid gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/80">
-              Contact email
+              Contact email *
               <input name="email" type="email" required className="h-12 min-w-0 border border-white/25 bg-white/10 px-4 font-sans text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none" />
             </label>
             <label className="grid gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/80 md:col-span-2">

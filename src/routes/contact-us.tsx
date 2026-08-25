@@ -21,7 +21,6 @@ function ContactUsPage() {
     <InfoPage
       eyebrow="Support"
       title="Contact Spares Automation"
-      intro="Speak with the sales desk about part identification, product availability, quotations, orders, or account support. Choose the contact method that suits your request."
       compactHero
       sections={[]}
       ctaLabel="View common questions"

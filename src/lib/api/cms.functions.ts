@@ -350,7 +350,7 @@ const supportSubjectMap: Record<keyof typeof supportTypeMap, string> = {
 
 const supportRequestSchema = z.object({
   kind: z.enum(["tracking", "resources", "question", "unsubscribe"]),
-  reference: z.string().trim().max(160).optional(),
+  reference: z.string().trim().min(1, "Product or reference details are required").max(160),
   email: emailField,
   details: z.string().trim().max(3000).optional(),
   website: honeypot,

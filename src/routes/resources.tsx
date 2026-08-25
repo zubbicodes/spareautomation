@@ -63,10 +63,6 @@ function ResourcesPage() {
             <h1 className="mt-2 max-w-4xl font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight">
               PDFs, manuals &amp; videos
             </h1>
-            <p className="mt-2 max-w-4xl text-xs leading-relaxed text-white/65 md:text-sm">
-              Find product support files arranged by category, including burner PDFs and videos,
-              installation guides, datasheets, and equipment manuals.
-            </p>
           </div>
         </section>
 

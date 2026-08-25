@@ -359,7 +359,7 @@ test("resource navigation accurately describes the request service", async ({ pa
   const box = await hero.boundingBox();
   expect(box).not.toBeNull();
   expect(box!.height).toBeLessThanOrEqual(181);
-  await expect(page.getByText(/arranged by category/i)).toBeVisible();
+  await expect(page.getByText(/arranged by category/i)).toHaveCount(0);
   await expect(
     page.getByRole("heading", { name: /Resource library is being updated/i }),
   ).toHaveCount(0);
@@ -479,7 +479,7 @@ test("category entry points use the unified catalogue layout", async ({ page, is
 test("information pages use completed compact content flows", async ({ page }) => {
   await page.goto("/about-us");
   await expect(
-    page.getByRole("heading", { level: 1, name: "Industrial parts and automation support" }),
+    page.getByRole("heading", { level: 1, name: "About Spares Automation" }),
   ).toBeVisible();
   await expect(page.locator("main").getByRole("heading", { level: 2 })).toHaveCount(4);
   await expect(page.locator("main img")).toHaveCount(0);
@@ -488,8 +488,34 @@ test("information pages use completed compact content flows", async ({ page }) =
   await expect(
     page.getByRole("heading", { level: 1, name: "Contact Spares Automation" }),
   ).toBeVisible();
+  const contactHero = page
+    .getByRole("heading", { level: 1, name: "Contact Spares Automation" })
+    .locator("xpath=ancestor::section[1]");
+  const contactHeroBox = await contactHero.boundingBox();
+  expect(contactHeroBox).not.toBeNull();
+  expect(contactHeroBox!.height).toBeLessThanOrEqual(181);
+  await expect(page.getByText(/Speak with the sales desk/i)).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Send request" })).toBeVisible();
   await expect(page.locator("main img")).toHaveCount(0);
+});
+
+test("product question requires product details and contact email", async ({ page }) => {
+  await page.goto("/contact-us");
+
+  const productDetails = page.getByLabel("Part or product details *");
+  const contactEmail = page.getByLabel("Contact email *");
+  await expect(productDetails).toHaveAttribute("required", "");
+  await expect(contactEmail).toHaveAttribute("required", "");
+
+  await contactEmail.fill("buyer@example.com");
+  await page.getByLabel("How can we help?").fill("Please help identify this item.");
+  await page.getByRole("button", { name: "Send request" }).click();
+  await expect(productDetails).toBeFocused();
+
+  await productDetails.fill("Unknown actuator shown in attached photo");
+  await contactEmail.fill("");
+  await page.getByRole("button", { name: "Send request" }).click();
+  await expect(contactEmail).toBeFocused();
 });
 
 test("tracking page collects the required details", async ({ page }) => {

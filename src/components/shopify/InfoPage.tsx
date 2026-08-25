@@ -9,7 +9,7 @@ import { SITE } from "@/lib/site";
 type InfoPageProps = {
   eyebrow: string;
   title: string;
-  intro: string;
+  intro?: string;
   sections: Array<{
     title: string;
     copy: string;
@@ -40,7 +40,11 @@ export function InfoPage({
 
       <main id="main-content">
         {showHero ? (
-          <section className="border-b border-rule bg-charcoal-deep text-white">
+          <section
+            className={`border-b border-rule bg-charcoal-deep text-white ${
+              compactHero ? "flex min-h-[150px] items-center md:min-h-[180px]" : ""
+            }`}
+          >
             <div
               className={`mx-auto max-w-[1200px] px-4 md:px-6 ${
                 compactHero ? "py-8 md:py-10" : "py-12 md:py-16"
@@ -56,13 +60,15 @@ export function InfoPage({
               >
                 {title}
               </h1>
-              <p
-                className={`max-w-3xl text-sm leading-7 text-white/60 md:text-base ${
-                  compactHero ? "mt-3" : "mt-5"
-                }`}
-              >
-                {intro}
-              </p>
+              {intro ? (
+                <p
+                  className={`max-w-3xl text-sm leading-7 text-white/60 md:text-base ${
+                    compactHero ? "mt-3" : "mt-5"
+                  }`}
+                >
+                  {intro}
+                </p>
+              ) : null}
             </div>
           </section>
         ) : null}
