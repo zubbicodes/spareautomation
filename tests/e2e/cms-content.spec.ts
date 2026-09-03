@@ -150,6 +150,66 @@ test("every CMS-wired route renders without a client error", async ({ page }) =>
   expect(failures.filter((entry) => !/favicon|net::ERR/i.test(entry))).toEqual([]);
 });
 
+
+test("the CMS sign-in screen uses the admin design system", async ({ page }) => {
+  await page.goto("/admin/login");
+  await expect(page.getByRole("heading", { level: 1, name: "Admin sign in" })).toBeVisible();
+  await expect(page.getByLabel("Email address")).toBeVisible();
+  await expect(page.getByLabel("Password")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Sign in" })).toBeVisible();
+  // The storefront stylesheet must never drive the CMS chrome.
+  await expect(page.locator(".cms-auth-card")).toBeVisible();
+});
+
+test.describe("CMS dashboard", () => {
+  test.describe.configure({ mode: "serial" });
+
+  test("the sidebar reaches every area of the platform", async ({ page }, testInfo) => {
+    test.skip(!(await databaseReachable()), "CMS database is not reachable");
+    test.skip(testInfo.project.name !== "desktop-chromium", "Dashboard checks run once per suite");
+
+    await signIn(page, environment.adminEmail!, environment.adminPassword!);
+    await expect(page).toHaveURL(/\/admin$/);
+    await expect(page.getByRole("heading", { level: 1, name: "Overview" })).toBeVisible();
+
+    const sidebar = page.getByRole("navigation", { name: "CMS sections" });
+    for (const label of [
+      "Overview",
+      "Submissions",
+      "Content",
+      "Media library",
+      "Users",
+      "Activity log",
+      "Settings",
+    ]) {
+      await expect(sidebar.getByText(label, { exact: true }).first(), label).toBeVisible();
+    }
+
+    // Every content document is reachable from the sidebar.
+    await sidebar.getByText("Business details", { exact: true }).click();
+    await expect(page).toHaveURL(/\/admin\/content\/site$/);
+    await expect(page.getByRole("button", { name: "Save draft" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Publish" })).toBeVisible();
+
+    await sidebar.getByText("Media library", { exact: true }).click();
+    await expect(page).toHaveURL(/\/admin\/media$/);
+    await expect(page.getByRole("heading", { level: 1, name: "Media library" })).toBeVisible();
+
+    await sidebar.getByText("Activity log", { exact: true }).click();
+    await expect(page).toHaveURL(/\/admin\/activity/);
+    await expect(page.getByRole("heading", { level: 1, name: "Activity log" })).toBeVisible();
+
+    await sidebar.getByText("Settings", { exact: true }).click();
+    await expect(page).toHaveURL(/\/admin\/settings$/);
+    await expect(page.getByRole("heading", { name: "Business details" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Navigation and footer" })).toBeVisible();
+
+    await sidebar.getByText("Submissions", { exact: true }).click();
+    await expect(page).toHaveURL(/\/admin\/submissions/);
+    await expect(page.getByRole("heading", { level: 1, name: "Submissions" })).toBeVisible();
+  });
+});
+
 test.describe("CMS content workflow", () => {
   test.describe.configure({ mode: "serial" });
 
@@ -268,7 +328,10 @@ test.describe("CMS content workflow", () => {
 
       const card = page.locator("article", { hasText: alt });
       await expect(card).toContainText("Draft only");
-      mediaId = ((await card.locator("code").textContent()) ?? "").trim();
+      const [uploaded] = await sql<{ id: string }[]>`
+        select id from content_media where default_alt = ${alt} order by created_at desc limit 1
+      `;
+      mediaId = uploaded?.id ?? "";
       expect(mediaId).toMatch(/^[a-f0-9]{32}$/);
 
       // Unpublished media is not served to anonymous visitors.

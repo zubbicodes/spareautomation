@@ -1,258 +1,236 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, Inbox, Search } from "lucide-react";
-import { useEffect, useState, type FormEvent } from "react";
-
-import { AdminShell } from "@/components/admin/AdminShell";
 import {
-  getAdminSession,
-  listSubmissions,
-  type SubmissionListResult,
-} from "@/lib/admin/admin.functions";
+  Activity,
+  ArrowUpRight,
+  FileText,
+  Images,
+  Inbox,
+  Send,
+  Users,
+} from "lucide-react";
 
-const TYPE_LABELS: Record<string, string> = {
-  part_inquiry: "Part inquiry",
-  credit_account: "Credit account",
-  return_request: "Return request",
-  support_tracking: "Order tracking",
-  support_resources: "Resource request",
-  support_question: "Product question",
-  unsubscribe: "Unsubscribe",
-};
-
-const STATUS_LABELS: Record<string, string> = {
-  new: "New",
-  in_review: "In review",
-  approved: "Approved",
-  rejected: "Rejected",
-  completed: "Completed",
-};
-
-const STATUS_STYLES: Record<string, string> = {
-  new: "border-accent/40 bg-accent/10 text-accent",
-  in_review: "border-amber/40 bg-amber/10 text-amber",
-  approved: "border-green-500/40 bg-green-500/10 text-green-700",
-  rejected: "border-red-500/40 bg-red-500/10 text-red-700",
-  completed: "border-rule bg-surface text-ink-muted",
-};
-
-type AdminSearch = {
-  type: string;
-  status: string;
-  search: string;
-  page: number;
-};
+import { CmsShell } from "@/components/admin/CmsShell";
+import {
+  EmptyState,
+  formatDateTime,
+  formatRelative,
+  humaniseAction,
+  Notice,
+  Stat,
+  StatusBadge,
+  SUBMISSION_TYPE_LABELS,
+} from "@/components/admin/cms-ui";
+import { getAdminSession } from "@/lib/admin/admin.functions";
+import { getDashboard } from "@/lib/admin/dashboard.functions";
+import { cmsHead } from "@/lib/admin/head";
 
 export const Route = createFileRoute("/admin/")({
-  head: () => ({
-    meta: [{ title: "Admin Dashboard | Spares Automation" }, { name: "robots", content: "noindex, nofollow" }],
-  }),
-  validateSearch: (search: Record<string, unknown>): AdminSearch => ({
-    type: typeof search.type === "string" ? search.type : "all",
-    status: typeof search.status === "string" ? search.status : "all",
-    search: typeof search.search === "string" ? search.search : "",
-    page: typeof search.page === "number" && search.page > 0 ? search.page : 1,
-  }),
+  head: () => cmsHead("Overview"),
   loader: async () => {
     const staff = await getAdminSession();
-    if (!staff) {
-      throw redirect({ to: "/admin/login" });
-    }
+    if (!staff) throw redirect({ to: "/admin/login" });
     if (staff.mustChangePassword) throw redirect({ to: "/admin/change-password" });
-    return { staff };
+    return { staff, data: await getDashboard() };
   },
-  component: AdminDashboardPage,
+  component: OverviewPage,
 });
 
-function AdminDashboardPage() {
-  const { staff } = Route.useLoaderData();
-  const search = Route.useSearch();
-  const navigate = Route.useNavigate();
-  const [result, setResult] = useState<SubmissionListResult | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState("");
+const SUBMISSION_SEARCH = { type: "all", status: "all", search: "", page: 1 } as const;
 
-  useEffect(() => {
-    let active = true;
-    async function load() {
-      setLoading(true);
-      setLoadError("");
-      try {
-        const res = await listSubmissions({
-          data: {
-            type: search.type === "all" ? undefined : (search.type as never),
-            status: search.status === "all" ? undefined : (search.status as never),
-            search: search.search || undefined,
-            page: search.page,
-          },
-        });
-        if (active) setResult(res);
-      } catch {
-        if (active) setLoadError("We could not load submissions.");
-      } finally {
-        if (active) setLoading(false);
-      }
-    }
-    void load();
-    return () => {
-      active = false;
-    };
-  }, [search.type, search.status, search.search, search.page]);
-
-  function applyFilters(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    void navigate({
-      to: "/admin",
-      search: {
-        type: String(form.get("type") ?? "all"),
-        status: String(form.get("status") ?? "all"),
-        search: String(form.get("search") ?? ""),
-        page: 1,
-      },
-    });
-  }
-
-  const items = result?.ok ? result.items : [];
+function OverviewPage() {
+  const { staff, data } = Route.useLoaderData();
+  const openCount = (data.submissions.byStatus.new ?? 0) + (data.submissions.byStatus.in_review ?? 0);
 
   return (
-    <AdminShell staff={staff} title="Submissions" eyebrow="Dashboard">
-      {result?.ok ? (
-        <div className="mb-5 grid grid-cols-2 gap-3 md:grid-cols-5">
-          {Object.entries(STATUS_LABELS).map(([status, label]) => (
-            <div key={status} className="border border-rule bg-surface p-4">
-              <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink-muted">
-                {label}
-              </div>
-              <div className="mt-2 font-display text-2xl font-bold text-ink">
-                {result.counts[status as keyof typeof result.counts]}
-              </div>
-            </div>
-          ))}
+    <CmsShell
+      staff={staff}
+      eyebrow="Dashboard"
+      title="Overview"
+      subtitle="Everything waiting for the team: enquiries from the website, unpublished content drafts, and the latest changes made in the CMS."
+      inboxCount={data.submissions.byStatus.new}
+      actions={
+        <>
+          <Link to="/admin/content" className="cms-btn">
+            <FileText aria-hidden="true" /> Edit content
+          </Link>
+          <Link to="/admin/submissions" search={SUBMISSION_SEARCH} className="cms-btn cms-btn-primary">
+            <Inbox aria-hidden="true" /> Open inbox
+          </Link>
+        </>
+      }
+    >
+      {!data.ok ? (
+        <div style={{ marginBottom: 16 }}>
+          <Notice tone="warning">
+            Live figures are unavailable because the CMS database could not be reached. The public
+            website keeps serving its last published content.
+          </Notice>
         </div>
       ) : null}
-      <form
-        onSubmit={applyFilters}
-        className="mb-5 grid gap-3 border border-rule bg-surface p-4 md:grid-cols-[1fr_180px_180px_auto]"
-      >
-        <label className="grid gap-1.5">
-          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-muted">Search</span>
-          <div className="flex items-center border border-rule bg-background focus-within:border-accent">
-            <Search className="ml-3 h-4 w-4 text-ink-muted" />
-            <input
-              name="search"
-              defaultValue={search.search}
-              placeholder="Reference, email, name or company"
-              className="h-11 w-full bg-transparent px-3 text-sm text-ink outline-none placeholder:text-ink-muted"
-            />
-          </div>
-        </label>
-        <label className="grid gap-1.5">
-          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-muted">Type</span>
-          <select name="type" defaultValue={search.type} className="h-11 border border-rule bg-background px-3 text-sm text-ink outline-none focus:border-accent">
-            <option value="all">All types</option>
-            {Object.entries(TYPE_LABELS).map(([value, label]) => (
-              <option key={value} value={value}>{label}</option>
-            ))}
-          </select>
-        </label>
-        <label className="grid gap-1.5">
-          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-muted">Status</span>
-          <select name="status" defaultValue={search.status} className="h-11 border border-rule bg-background px-3 text-sm text-ink outline-none focus:border-accent">
-            <option value="all">All statuses</option>
-            {Object.entries(STATUS_LABELS).map(([value, label]) => (
-              <option key={value} value={value}>{label}</option>
-            ))}
-          </select>
-        </label>
-        <div className="flex items-end">
-          <button type="submit" className="inline-flex h-11 items-center justify-center bg-accent px-6 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:brightness-110">
-            Apply
-          </button>
-        </div>
-      </form>
 
-      {loadError ? (
-        <div role="alert" className="border border-red-300 bg-red-50 p-4 text-sm text-red-800">{loadError}</div>
-      ) : loading ? (
-        <div className="border border-rule bg-surface px-4 py-16 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted">
-          Loading submissions
-        </div>
-      ) : items.length === 0 ? (
-        <div className="border border-rule bg-surface px-4 py-16 text-center">
-          <Inbox className="mx-auto h-8 w-8 text-ink-muted" />
-          <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-muted">No submissions match these filters</p>
-        </div>
-      ) : (
-        <>
-          <div className="overflow-x-auto border border-rule bg-surface">
-            <table className="w-full min-w-[820px] text-left text-sm">
-              <thead className="border-b border-rule bg-background font-mono text-[9px] uppercase tracking-[0.16em] text-ink-muted">
+      <div className="cms-grid cms-grid-stats" style={{ marginBottom: 16 }}>
+        <Stat
+          label="Open enquiries"
+          value={openCount}
+          hint={`${data.submissions.byStatus.new ?? 0} new · ${data.submissions.byStatus.in_review ?? 0} in review`}
+          icon={<Inbox aria-hidden="true" style={{ width: 14, height: 14 }} />}
+        />
+        <Stat
+          label="Last 7 days"
+          value={data.submissions.last7Days}
+          hint={`${data.submissions.total} submissions all time`}
+          icon={<Activity aria-hidden="true" style={{ width: 14, height: 14 }} />}
+        />
+        <Stat
+          label="Drafts to publish"
+          value={data.content.pendingPublish.length}
+          hint={`${data.content.total} content documents`}
+          icon={<Send aria-hidden="true" style={{ width: 14, height: 14 }} />}
+        />
+        <Stat
+          label="Media"
+          value={data.media.total}
+          hint={`${data.media.published} live · ${data.media.archived} archived`}
+          icon={<Images aria-hidden="true" style={{ width: 14, height: 14 }} />}
+        />
+        <Stat
+          label="Team"
+          value={data.team.active}
+          hint={`${data.team.admins} admins · ${data.team.inactive} inactive`}
+          icon={<Users aria-hidden="true" style={{ width: 14, height: 14 }} />}
+        />
+      </div>
+
+      <div className="cms-grid cms-grid-2">
+        <section className="cms-card">
+          <header className="cms-card-head">
+            <h2 className="cms-card-title">Latest enquiries</h2>
+            <Link
+              to="/admin/submissions"
+              search={SUBMISSION_SEARCH}
+              className="cms-link"
+              style={{ marginLeft: "auto", fontSize: 12 }}
+            >
+              View all
+            </Link>
+          </header>
+          {data.submissions.recent.length ? (
+            <div className="cms-list">
+              {data.submissions.recent.map((item) => (
+                <Link
+                  key={item.id}
+                  to="/admin/submissions/$id"
+                  params={{ id: String(item.id) }}
+                  className="cms-row"
+                >
+                  <span className="cms-row-main">
+                    <span className="cms-row-title">
+                      {item.reference ?? `#${item.id}`}{" "}
+                      <span className="cms-faint" style={{ fontWeight: 400 }}>
+                        · {SUBMISSION_TYPE_LABELS[item.type] ?? item.type}
+                      </span>
+                    </span>
+                    <span className="cms-row-meta">
+                      {item.contactEmail} · {formatRelative(item.createdAt)}
+                    </span>
+                  </span>
+                  <span className="cms-row-actions">
+                    <StatusBadge status={item.status} />
+                    <ArrowUpRight aria-hidden="true" style={{ width: 15, height: 15, opacity: 0.5 }} />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              icon={<Inbox aria-hidden="true" />}
+              title="No enquiries yet"
+              copy="Website forms will appear here the moment a customer submits one."
+            />
+          )}
+        </section>
+
+        <section className="cms-card">
+          <header className="cms-card-head">
+            <h2 className="cms-card-title">Waiting to publish</h2>
+            <Link to="/admin/content" className="cms-link" style={{ marginLeft: "auto", fontSize: 12 }}>
+              All documents
+            </Link>
+          </header>
+          {data.content.pendingPublish.length ? (
+            <div className="cms-list">
+              {data.content.pendingPublish.map((item) => (
+                <Link
+                  key={item.key}
+                  to="/admin/content/$key"
+                  params={{ key: item.key }}
+                  className="cms-row"
+                >
+                  <span className="cms-row-main">
+                    <span className="cms-row-title">{item.label}</span>
+                    <span className="cms-row-meta">
+                      {item.group} · edited {formatRelative(item.updatedAt)}
+                      {item.updatedBy ? ` by ${item.updatedBy}` : ""}
+                    </span>
+                  </span>
+                  <span className="cms-row-actions">
+                    <span className="cms-badge cms-badge-warning">Draft changes</span>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              icon={<Send aria-hidden="true" />}
+              title="Everything is published"
+              copy={`The website matches the CMS. Last publish ${formatRelative(data.content.lastPublishedAt)}.`}
+            />
+          )}
+        </section>
+      </div>
+
+      <section className="cms-card" style={{ marginTop: 14 }}>
+        <header className="cms-card-head">
+          <h2 className="cms-card-title">Recent CMS activity</h2>
+          {staff.role === "admin" ? (
+            <Link to="/admin/activity" search={{ page: 1, action: "" }} className="cms-link" style={{ marginLeft: "auto", fontSize: 12 }}>
+              Full log
+            </Link>
+          ) : null}
+        </header>
+        {data.activity.length ? (
+          <div className="cms-table-wrap">
+            <table className="cms-table">
+              <thead>
                 <tr>
-                  <th className="px-4 py-3">Reference</th>
-                  <th className="px-4 py-3">Type</th>
-                  <th className="px-4 py-3">Contact</th>
-                  <th className="px-4 py-3">Company</th>
-                  <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3">Received</th>
-                  <th className="px-4 py-3 text-right">Sync</th>
+                  <th>Action</th>
+                  <th>Target</th>
+                  <th>By</th>
+                  <th>When</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-rule">
-                {items.map((item) => (
-                  <tr key={item.id} className="transition-colors hover:bg-background">
-                    <td className="px-4 py-3">
-                      <Link to="/admin/submissions/$id" params={{ id: String(item.id) }} className="font-mono text-xs font-semibold text-ink hover:text-accent">
-                        {item.reference ?? `#${item.id}`}
-                      </Link>
+              <tbody>
+                {data.activity.map((entry) => (
+                  <tr key={entry.id}>
+                    <td>{humaniseAction(entry.action)}</td>
+                    <td className="cms-mono">
+                      {entry.targetType}/{entry.targetId}
                     </td>
-                    <td className="px-4 py-3 text-ink">{TYPE_LABELS[item.type] ?? item.type}</td>
-                    <td className="px-4 py-3">
-                      <div className="text-ink">{item.contactName ?? "—"}</div>
-                      <div className="text-xs text-ink-muted">{item.contactEmail}</div>
-                    </td>
-                    <td className="px-4 py-3 text-ink">{item.company ?? "—"}</td>
-                    <td className="px-4 py-3">
-                      <span className={`inline-block border px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.14em] ${STATUS_STYLES[item.status] ?? STATUS_STYLES.completed}`}>
-                        {STATUS_LABELS[item.status] ?? item.status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-xs text-ink-muted">
-                      {new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(item.createdAt))}
-                    </td>
-                    <td className="px-4 py-3 text-right font-mono text-[9px] uppercase tracking-[0.14em] text-ink-muted">
-                      {item.shopifySyncedAt ? "Synced" : "—"}
-                    </td>
+                    <td>{entry.staff ?? "system"}</td>
+                    <td className="cms-num">{formatDateTime(entry.createdAt)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
-          {result?.ok && result.pageCount > 1 ? (
-            <div className="mt-4 flex items-center justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
-                Page {result.page} of {result.pageCount} · {result.total} total
-              </span>
-              <div className="flex gap-2">
-                <button
-                  disabled={result.page <= 1}
-                  onClick={() => void navigate({ to: "/admin", search: { ...search, page: result.page - 1 } })}
-                  className="inline-flex h-10 items-center gap-1 border border-rule px-4 font-mono text-[10px] uppercase tracking-[0.16em] text-ink hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  <ChevronLeft className="h-4 w-4" /> Prev
-                </button>
-                <button
-                  disabled={result.page >= result.pageCount}
-                  onClick={() => void navigate({ to: "/admin", search: { ...search, page: result.page + 1 } })}
-                  className="inline-flex h-10 items-center gap-1 border border-rule px-4 font-mono text-[10px] uppercase tracking-[0.16em] text-ink hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  Next <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          ) : null}
-        </>
-      )}
-    </AdminShell>
+        ) : (
+          <EmptyState
+            icon={<Activity aria-hidden="true" />}
+            title="No activity recorded yet"
+            copy="Draft saves, publishes, media changes and account updates are all logged here."
+          />
+        )}
+      </section>
+    </CmsShell>
   );
 }

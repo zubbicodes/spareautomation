@@ -107,3 +107,29 @@ export const deleteMedia = createServerFn({ method: "POST" })
     await writeAdminAudit(getDb() as never, { staffId: staff.id, action: "media.deleted", targetType: "media", targetId: data.id });
     return { ok: true as const };
   });
+
+const altSchema = z.object({
+  id: z.string().regex(/^[a-f0-9]{32}$/),
+  defaultAlt: z.string().trim().min(1).max(300),
+});
+
+/** Rename the default alt text of an uploaded image. */
+export const updateMediaAlt = createServerFn({ method: "POST" })
+  .inputValidator(altSchema)
+  .handler(async ({ data }) => {
+    const staff = await requireStaff();
+    const [row] = await getDb()
+      .update(contentMedia)
+      .set({ defaultAlt: data.defaultAlt, updatedAt: sql`now()` })
+      .where(eq(contentMedia.id, data.id))
+      .returning({ id: contentMedia.id });
+    if (!row) return { ok: false as const, error: "Image not found." };
+    await writeAdminAudit(getDb() as never, {
+      staffId: staff.id,
+      action: "media.alt_updated",
+      targetType: "media",
+      targetId: data.id,
+      details: { defaultAlt: data.defaultAlt },
+    });
+    return { ok: true as const };
+  });

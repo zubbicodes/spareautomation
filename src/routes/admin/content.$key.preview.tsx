@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { getAdminSession } from "@/lib/admin/admin.functions";
 import { ContentProvider, useContent } from "@/lib/content/ContentContext";
 import { getContentEditor } from "@/lib/content/content.functions";
+import { cmsHead } from "@/lib/admin/head";
 import { isContentKey, renderTemplateText, type ContentBundle } from "@/lib/content/registry";
 import { Home } from "@/routes/index";
 
@@ -29,9 +30,7 @@ const EMAIL_SAMPLE = {
 };
 
 export const Route = createFileRoute("/admin/content/$key/preview")({
-  head: () => ({
-    meta: [{ title: "Draft preview" }, { name: "robots", content: "noindex, nofollow" }],
-  }),
+  head: () => cmsHead("Draft preview"),
   validateSearch: (search: Record<string, unknown>) => ({
     raw: search.raw === true || search.raw === "true",
     page: typeof search.page === "string" ? search.page : "",
@@ -72,12 +71,13 @@ function PreviewPage() {
   }`;
 
   return (
-    <div className="min-h-screen bg-background text-ink">
-      <div className="sticky top-0 z-[100] flex flex-wrap items-center gap-3 bg-amber px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-charcoal-deep">
-        <span>Authenticated draft preview · {editor.document.label}</span>
+    <div className="cms">
+      <div className="cms-preview-bar">
+        <span className="cms-badge cms-badge-warning">Draft preview</span>
+        <strong style={{ fontWeight: 600 }}>{editor.document.label}</strong>
         {pageKeys.length ? (
-          <label className="flex items-center gap-2">
-            Page
+          <label style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <span className="cms-sr">Page to preview</span>
             <select
               value={selectedPage}
               onChange={(event) => {
@@ -86,7 +86,6 @@ function PreviewPage() {
                   width: search.width,
                 }).toString();
               }}
-              className="h-7 border border-charcoal-deep/40 bg-white px-2 font-mono text-[10px] uppercase"
             >
               {pageKeys.map((pageKey) => (
                 <option key={pageKey} value={pageKey}>
@@ -96,30 +95,31 @@ function PreviewPage() {
             </select>
           </label>
         ) : null}
-        <span className="ml-auto flex items-center gap-1">
-          {(Object.keys(VIEWPORTS) as Viewport[]).map((viewport) => (
-            <Link
-              key={viewport}
-              to="/admin/content/$key/preview"
-              params={{ key }}
-              search={{ raw: false, page: selectedPage, width: viewport }}
-              className={`border px-2 py-1 ${
-                search.width === viewport
-                  ? "border-charcoal-deep bg-charcoal-deep text-white"
-                  : "border-charcoal-deep/40"
-              }`}
-            >
-              {VIEWPORTS[viewport].label}
-            </Link>
-          ))}
+        <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 10 }}>
+          <span className="cms-seg">
+            {(Object.keys(VIEWPORTS) as Viewport[]).map((viewport) => (
+              <Link
+                key={viewport}
+                to="/admin/content/$key/preview"
+                params={{ key }}
+                search={{ raw: false, page: selectedPage, width: viewport }}
+                data-active={search.width === viewport ? "true" : "false"}
+              >
+                {VIEWPORTS[viewport].label}
+              </Link>
+            ))}
+          </span>
+          <Link to="/admin/content/$key" params={{ key }} style={{ color: "#b9c0cf" }}>
+            Back to editor
+          </Link>
         </span>
       </div>
-      <div className="mx-auto flex justify-center bg-charcoal-deep/5 p-4">
+      <div className="cms-preview-stage">
         <iframe
           key={frameSource}
           title="Draft preview"
           src={frameSource}
-          className="h-[calc(100vh-6rem)] border border-rule bg-background"
+          className="cms-preview-frame"
           style={{ width: VIEWPORTS[search.width].width, maxWidth: "100%" }}
         />
       </div>

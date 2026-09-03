@@ -2,18 +2,16 @@ import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { Loader2, ShieldCheck } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
-import { adminLogin, getAdminSession } from "@/lib/admin/admin.functions";
+import { Notice } from "@/components/admin/cms-ui";
 import { useHydrated } from "@/hooks/use-hydrated";
+import { adminLogin, getAdminSession } from "@/lib/admin/admin.functions";
+import { cmsHead } from "@/lib/admin/head";
 
 export const Route = createFileRoute("/admin/login")({
-  head: () => ({
-    meta: [{ title: "Admin Sign In | Spares Automation" }, { name: "robots", content: "noindex, nofollow" }],
-  }),
+  head: () => cmsHead("Sign in"),
   loader: async () => {
     const staff = await getAdminSession();
-    if (staff) {
-      throw redirect({ to: "/admin", search: { type: "all", status: "all", search: "", page: 1 } });
-    }
+    if (staff) throw redirect({ to: "/admin" });
     return {};
   },
   component: AdminLoginPage,
@@ -43,7 +41,7 @@ function AdminLoginPage() {
         return;
       }
       if (result.mustChangePassword) void navigate({ to: "/admin/change-password" });
-      else void navigate({ to: "/admin", search: { type: "all", status: "all", search: "", page: 1 } });
+      else void navigate({ to: "/admin" });
     } catch {
       setError("We could not sign you in. Please try again.");
     } finally {
@@ -52,53 +50,60 @@ function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-charcoal-deep px-4 text-white">
-      <div className="w-full max-w-md border border-white/15 bg-charcoal p-8">
-        <div className="mb-8 flex h-12 w-12 items-center justify-center bg-accent text-white">
-          <ShieldCheck className="h-6 w-6" />
+    <div className="cms">
+      <div className="cms-auth">
+        <div className="cms-auth-card">
+          <span className="cms-brand-mark" aria-hidden="true">
+            <ShieldCheck />
+          </span>
+          <div className="cms-eyebrow" style={{ marginTop: 16 }}>
+            Spares Automation
+          </div>
+          <h1 className="cms-title" style={{ fontSize: 20 }}>
+            Admin sign in
+          </h1>
+          <p className="cms-subtitle" style={{ fontSize: 13 }}>
+            Content platform for website copy, media, enquiries and accounts.
+          </p>
+
+          <form method="post" onSubmit={handleSubmit} className="cms-stack" style={{ marginTop: 20 }}>
+            <label className="cms-field">
+              <span className="cms-label">Email address</span>
+              <input
+                name="email"
+                type="email"
+                autoComplete="username"
+                required
+                className="cms-input"
+              />
+            </label>
+            <label className="cms-field">
+              <span className="cms-label">Password</span>
+              <input
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="cms-input"
+              />
+            </label>
+
+            {error ? <Notice tone="danger">{error}</Notice> : null}
+
+            <button disabled={busy || !hydrated} className="cms-btn cms-btn-primary">
+              {busy ? (
+                <Loader2 aria-hidden="true" className="cms-spin" />
+              ) : (
+                <ShieldCheck aria-hidden="true" />
+              )}
+              Sign in
+            </button>
+          </form>
+
+          <p className="cms-faint" style={{ marginTop: 16, fontSize: 12 }}>
+            Access is restricted to Spares Automation staff. Sessions expire after 8 hours.
+          </p>
         </div>
-        <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/45">Staff access</div>
-        <h1 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight">Admin sign in</h1>
-        <p className="mt-3 text-sm leading-6 text-white/55">
-          Restricted area for Spares Automation staff managing form submissions.
-        </p>
-
-        <form method="post" onSubmit={handleSubmit} className="mt-8 grid gap-5">
-          <label className="grid gap-2">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">Email address</span>
-            <input
-              name="email"
-              type="email"
-              autoComplete="username"
-              required
-              className="h-12 border border-white/20 bg-white/5 px-4 text-sm text-white outline-none transition-colors placeholder:text-white/30 focus:border-accent"
-            />
-          </label>
-          <label className="grid gap-2">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/60">Password</span>
-            <input
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              className="h-12 border border-white/20 bg-white/5 px-4 text-sm text-white outline-none transition-colors placeholder:text-white/30 focus:border-accent"
-            />
-          </label>
-
-          {error ? (
-            <div role="alert" className="border border-red-400/40 bg-red-500/10 p-4 text-sm leading-6 text-red-200">
-              {error}
-            </div>
-          ) : null}
-
-          <button
-            disabled={busy || !hydrated}
-            className="inline-flex h-12 items-center justify-center gap-2 bg-accent px-6 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-white transition-colors hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
-            Sign in
-          </button>
-        </form>
       </div>
     </div>
   );

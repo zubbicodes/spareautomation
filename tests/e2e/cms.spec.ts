@@ -213,7 +213,10 @@ test("public submission persists and staff can review, update, and annotate it",
     await page.getByLabel("Password").fill(cmsTestEnv.adminPassword!);
     await page.getByRole("button", { name: "Sign in" }).click();
     await expect(page).toHaveURL(/\/admin(?:\?|$)/);
+    await expect(page.getByRole("heading", { level: 1, name: "Overview" })).toBeVisible();
 
+    await page.getByRole("link", { name: "Open inbox" }).click();
+    await expect(page).toHaveURL(/\/admin\/submissions/);
     await page.getByPlaceholder("Reference, email, name or company").fill(email);
     await page.getByRole("button", { name: "Apply" }).click();
     await page.getByRole("link", { name: reference! }).click();

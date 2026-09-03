@@ -1,8 +1,23 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { ArrowLeft, CheckCircle2, Image as ImageIcon, Loader2, Send } from "lucide-react";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Download,
+  Eye,
+  Image as ImageIcon,
+  Loader2,
+  Send,
+} from "lucide-react";
 import { useState, type FormEvent } from "react";
 
-import { AdminShell } from "@/components/admin/AdminShell";
+import { CmsShell } from "@/components/admin/CmsShell";
+import {
+  EmptyState,
+  formatDateTime,
+  Notice,
+  StatusBadge,
+  SUBMISSION_TYPE_LABELS,
+} from "@/components/admin/cms-ui";
 import { useHydrated } from "@/hooks/use-hydrated";
 import {
   addSubmissionNote,
@@ -14,16 +29,7 @@ import {
   syncSubmissionToShopify,
   type SubmissionDetail,
 } from "@/lib/admin/admin.functions";
-
-const TYPE_LABELS: Record<string, string> = {
-  part_inquiry: "Part inquiry",
-  credit_account: "Credit account",
-  return_request: "Return request",
-  support_tracking: "Order tracking",
-  support_resources: "Resource request",
-  support_question: "Product question",
-  unsubscribe: "Unsubscribe",
-};
+import { cmsHead } from "@/lib/admin/head";
 
 const STATUS_OPTIONS = [
   { value: "new", label: "New" },
@@ -33,20 +39,16 @@ const STATUS_OPTIONS = [
   { value: "completed", label: "Completed" },
 ] as const;
 
+const SUBMISSION_SEARCH = { type: "all", status: "all", search: "", page: 1 } as const;
+
 export const Route = createFileRoute("/admin/submissions/$id")({
-  head: () => ({
-    meta: [{ title: "Submission | Spares Automation Admin" }, { name: "robots", content: "noindex, nofollow" }],
-  }),
+  head: () => cmsHead("Submission"),
   loader: async ({ params }) => {
     const staff = await getAdminSession();
-    if (!staff) {
-      throw redirect({ to: "/admin/login" });
-    }
+    if (!staff) throw redirect({ to: "/admin/login" });
     if (staff.mustChangePassword) throw redirect({ to: "/admin/change-password" });
     const result = await getSubmissionDetail({ data: { id: Number(params.id) } });
-    if (!result.ok) {
-      throw redirect({ to: "/admin", search: { type: "all", status: "all", search: "", page: 1 } });
-    }
+    if (!result.ok) throw redirect({ to: "/admin/submissions", search: SUBMISSION_SEARCH });
     return { staff, submission: result.submission };
   },
   component: SubmissionDetailPage,
@@ -68,7 +70,7 @@ function SubmissionDetailPage() {
     try {
       const result = await setSubmissionStatus({ data: { id: submission.id, status } });
       if (result.ok) {
-        setSubmission((prev) => ({ ...prev, status }));
+        setSubmission((previous) => ({ ...previous, status }));
         setNotice(`Status updated to ${status.replace("_", " ")}.`);
       }
     } catch {
@@ -84,8 +86,8 @@ function SubmissionDetailPage() {
     try {
       const result = await markSubmissionReviewed({ data: { id: submission.id } });
       if (result.ok) {
-        setSubmission((prev) => ({
-          ...prev,
+        setSubmission((previous) => ({
+          ...previous,
           reviewedByName: staff.name,
           reviewedAt: new Date().toISOString(),
         }));
@@ -108,11 +110,11 @@ function SubmissionDetailPage() {
     try {
       const result = await addSubmissionNote({ data: { submissionId: submission.id, body } });
       if (result.ok) {
-        setSubmission((prev) => ({
-          ...prev,
+        setSubmission((previous) => ({
+          ...previous,
           notes: [
             { id: Date.now(), body, staffName: staff.name, createdAt: new Date().toISOString() },
-            ...prev.notes,
+            ...previous.notes,
           ],
         }));
         form.reset();
@@ -124,10 +126,6 @@ function SubmissionDetailPage() {
     }
   }
 
-  const payloadEntries = Object.entries(submission.payload).filter(
-    ([, value]) => value !== null && value !== undefined && String(value).trim() !== "",
-  );
-
   async function runSync() {
     setSyncBusy(true);
     setSyncError("");
@@ -138,8 +136,8 @@ function SubmissionDetailPage() {
         setSyncError(result.error);
         return;
       }
-      setSubmission((prev) => ({
-        ...prev,
+      setSubmission((previous) => ({
+        ...previous,
         status: "approved",
         shopifyCustomerId: result.shopifyCustomerId,
         shopifySyncedAt: result.syncedAt,
@@ -154,216 +152,268 @@ function SubmissionDetailPage() {
 
   async function viewAttachment(id: number) {
     const result = await getAttachmentDownload({ data: { id } });
-    if (result.ok) {
-      if (!result.mime.startsWith("image/")) {
-        const link = document.createElement("a");
-        link.href = result.dataUrl;
-        link.download = result.filename;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        return;
-      }
-      const win = window.open();
-      if (win) {
-        win.document.title = result.filename;
-        const image = win.document.createElement("img");
-        image.src = result.dataUrl;
-        image.alt = result.filename;
-        image.style.maxWidth = "100%";
-        win.document.body.appendChild(image);
-      }
-    } else {
+    if (!result.ok) {
       setNotice(result.error);
+      return;
+    }
+    if (!result.mime.startsWith("image/")) {
+      const link = document.createElement("a");
+      link.href = result.dataUrl;
+      link.download = result.filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      return;
+    }
+    const win = window.open();
+    if (win) {
+      win.document.title = result.filename;
+      const image = win.document.createElement("img");
+      image.src = result.dataUrl;
+      image.alt = result.filename;
+      image.style.maxWidth = "100%";
+      win.document.body.appendChild(image);
     }
   }
 
-  return (
-    <AdminShell staff={staff} title={submission.reference ?? `Submission #${submission.id}`} eyebrow={TYPE_LABELS[submission.type] ?? submission.type}>
-      <Link to="/admin" search={{ type: "all", status: "all", search: "", page: 1 }} className="mb-5 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted hover:text-accent">
-        <ArrowLeft className="h-4 w-4" /> Back to submissions
-      </Link>
+  const payloadEntries = Object.entries(submission.payload).filter(
+    ([, value]) => value !== null && value !== undefined && String(value).trim() !== "",
+  );
 
+  return (
+    <CmsShell
+      staff={staff}
+      eyebrow={SUBMISSION_TYPE_LABELS[submission.type] ?? submission.type}
+      title={submission.reference ?? `Submission #${submission.id}`}
+      breadcrumbs={[{ label: "Submissions", to: "/admin/submissions" }]}
+      actions={
+        <Link to="/admin/submissions" search={SUBMISSION_SEARCH} className="cms-btn">
+          <ArrowLeft aria-hidden="true" /> Back to inbox
+        </Link>
+      }
+    >
       {notice ? (
-        <div role="status" className="mb-5 border border-accent/40 bg-accent/10 p-3 text-sm text-ink">{notice}</div>
+        <div style={{ marginBottom: 14 }}>
+          <Notice tone="success">{notice}</Notice>
+        </div>
       ) : null}
 
-      <div className="grid gap-5 lg:grid-cols-[1fr_320px]">
-        <div className="space-y-5">
-          <section className="border border-rule bg-surface p-5">
-            <h2 className="font-display text-lg font-bold uppercase tracking-tight">Submission details</h2>
-            <dl className="mt-4 grid gap-x-6 gap-y-3 sm:grid-cols-2">
-              <DetailRow label="Contact name" value={submission.contactName} />
-              <DetailRow label="Contact email" value={submission.contactEmail} />
-              <DetailRow label="Company" value={submission.company} />
-              <DetailRow label="Reference" value={submission.reference} />
-              <DetailRow
-                label="Received"
-                value={new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(submission.createdAt))}
-              />
-              <DetailRow label="Reviewed by" value={submission.reviewedByName} />
-            </dl>
-          </section>
+      <div className="cms-grid" style={{ gridTemplateColumns: "minmax(0, 1fr)" }}>
+        <div
+          className="cms-grid"
+          style={{ gridTemplateColumns: "minmax(0, 1fr) minmax(260px, 320px)", alignItems: "start" }}
+        >
+          <div className="cms-stack">
+            <section className="cms-card">
+              <header className="cms-card-head">
+                <h2 className="cms-card-title">Submission details</h2>
+                <span style={{ marginLeft: "auto" }}>
+                  <StatusBadge status={submission.status} />
+                </span>
+              </header>
+              <div className="cms-card-pad">
+                <dl className="cms-kv">
+                  <dt>Contact name</dt>
+                  <dd>{submission.contactName ?? "—"}</dd>
+                  <dt>Contact email</dt>
+                  <dd>
+                    <a className="cms-link" href={`mailto:${submission.contactEmail}`}>
+                      {submission.contactEmail}
+                    </a>
+                  </dd>
+                  <dt>Company</dt>
+                  <dd>{submission.company ?? "—"}</dd>
+                  <dt>Reference</dt>
+                  <dd className="cms-mono">{submission.reference ?? "—"}</dd>
+                  <dt>Received</dt>
+                  <dd>{formatDateTime(submission.createdAt)}</dd>
+                  <dt>Reviewed by</dt>
+                  <dd>{submission.reviewedByName ?? "Not reviewed yet"}</dd>
+                </dl>
+              </div>
+            </section>
 
-          <section className="border border-rule bg-surface p-5">
-            <h2 className="font-display text-lg font-bold uppercase tracking-tight">Captured fields</h2>
-            {payloadEntries.length === 0 ? (
-              <p className="mt-3 text-sm text-ink-muted">No additional fields were captured.</p>
-            ) : (
-              <dl className="mt-4 divide-y divide-rule">
-                {payloadEntries.map(([key, value]) => (
-                  <div key={key} className="grid gap-1 py-3 sm:grid-cols-[220px_1fr] sm:gap-4">
-                    <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">{key}</dt>
-                    <dd className="whitespace-pre-wrap text-sm text-ink">{String(value)}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
-          </section>
+            <section className="cms-card">
+              <header className="cms-card-head">
+                <h2 className="cms-card-title">Captured fields</h2>
+              </header>
+              {payloadEntries.length === 0 ? (
+                <EmptyState icon={<ImageIcon aria-hidden="true" />} title="No additional fields captured" />
+              ) : (
+                <div className="cms-card-pad">
+                  <dl className="cms-kv">
+                    {payloadEntries.map(([key, value]) => (
+                      <div key={key} style={{ display: "contents" }}>
+                        <dt>{key}</dt>
+                        <dd style={{ whiteSpace: "pre-wrap" }}>{String(value)}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              )}
+            </section>
 
-          <section className="border border-rule bg-surface p-5">
-            <h2 className="font-display text-lg font-bold uppercase tracking-tight">Attachments</h2>
-            {submission.attachments.length === 0 ? (
-              <p className="mt-3 text-sm text-ink-muted">No files attached.</p>
-            ) : (
-              <ul className="mt-4 divide-y divide-rule">
-                {submission.attachments.map((attachment) => (
-                  <li key={attachment.id} className="flex items-center justify-between gap-3 py-3">
-                    <span className="flex min-w-0 items-center gap-3">
-                      <ImageIcon className="h-4 w-4 shrink-0 text-ink-muted" />
-                      <span className="min-w-0">
-                        <span className="block truncate text-sm text-ink">{attachment.filename}</span>
-                        <span className="block font-mono text-[9px] uppercase tracking-[0.14em] text-ink-muted">
+            <section className="cms-card">
+              <header className="cms-card-head">
+                <h2 className="cms-card-title">Attachments</h2>
+                <span className="cms-badge" style={{ marginLeft: "auto" }}>
+                  {submission.attachments.length}
+                </span>
+              </header>
+              {submission.attachments.length === 0 ? (
+                <EmptyState icon={<ImageIcon aria-hidden="true" />} title="No files attached" />
+              ) : (
+                <div className="cms-list">
+                  {submission.attachments.map((attachment) => (
+                    <div key={attachment.id} className="cms-row">
+                      <span className="cms-row-main">
+                        <span className="cms-row-title">{attachment.filename}</span>
+                        <span className="cms-row-meta">
                           {attachment.mime} · {Math.max(1, Math.round(attachment.size / 1024))} KB
                         </span>
                       </span>
-                    </span>
-                    <button
-                      onClick={() => void viewAttachment(attachment.id)}
-                      className="inline-flex h-9 shrink-0 items-center border border-rule px-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink hover:border-accent hover:text-accent"
-                    >
-                      {attachment.mime.startsWith("image/") ? "View" : "Download"}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-
-          <section className="border border-rule bg-surface p-5">
-            <h2 className="font-display text-lg font-bold uppercase tracking-tight">Notes</h2>
-            <form method="post" onSubmit={addNote} className="mt-4 grid gap-3">
-              <textarea
-                name="body"
-                rows={3}
-                placeholder="Add an internal note (visible to staff only)"
-                className="resize-y border border-rule bg-background px-4 py-3 text-sm text-ink outline-none focus:border-accent"
-              />
-              <div>
-                <button
-                  disabled={noteBusy || !hydrated}
-                  className="inline-flex h-10 items-center gap-2 bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:brightness-110 disabled:opacity-60"
-                >
-                  {noteBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />} Add note
-                </button>
-              </div>
-            </form>
-
-            <div className="mt-5 space-y-3">
-              {submission.notes.length === 0 ? (
-                <p className="text-sm text-ink-muted">No notes yet.</p>
-              ) : (
-                submission.notes.map((note) => (
-                  <div key={note.id} className="border border-rule bg-background p-4">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">
-                        {note.staffName ?? "Staff"}
-                      </span>
-                      <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-ink-muted">
-                        {new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" }).format(new Date(note.createdAt))}
+                      <span className="cms-row-actions">
+                        <button
+                          type="button"
+                          onClick={() => void viewAttachment(attachment.id)}
+                          className="cms-btn cms-btn-sm"
+                        >
+                          {attachment.mime.startsWith("image/") ? (
+                            <>
+                              <Eye aria-hidden="true" /> View
+                            </>
+                          ) : (
+                            <>
+                              <Download aria-hidden="true" /> Download
+                            </>
+                          )}
+                        </button>
                       </span>
                     </div>
-                    <p className="mt-2 whitespace-pre-wrap text-sm text-ink">{note.body}</p>
-                  </div>
-                ))
-              )}
-            </div>
-          </section>
-        </div>
-
-        <aside className="space-y-5">
-          <section className="border border-rule bg-surface p-5">
-            <h2 className="font-display text-sm font-bold uppercase tracking-tight">Status</h2>
-            <p className="mt-2 text-sm text-ink-muted">
-              Current: <span className="font-semibold text-ink">{submission.status.replace("_", " ")}</span>
-            </p>
-            <div className="mt-4 grid gap-2">
-              {STATUS_OPTIONS.map((option) => (
-                <button
-                  key={option.value}
-                  disabled={statusBusy || submission.status === option.value}
-                  onClick={() => void changeStatus(option.value)}
-                  className={`inline-flex h-10 items-center justify-center border px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] transition-colors disabled:cursor-not-allowed ${
-                    submission.status === option.value
-                      ? "border-accent bg-accent text-white"
-                      : "border-rule bg-background text-ink hover:border-accent hover:text-accent disabled:opacity-40"
-                  }`}
-                >
-                  {submission.status === option.value ? <CheckCircle2 className="mr-2 h-4 w-4" /> : null}
-                  {option.label}
-                </button>
-              ))}
-              {!submission.reviewedAt ? (
-                <button
-                  disabled={statusBusy}
-                  onClick={() => void markReviewed()}
-                  className="inline-flex h-10 items-center justify-center border border-rule bg-background px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-ink hover:border-accent hover:text-accent disabled:opacity-40"
-                >
-                  Mark reviewed
-                </button>
-              ) : null}
-            </div>
-          </section>
-
-          {submission.type === "credit_account" && (
-            <section className="border border-rule bg-surface p-5">
-              <h2 className="font-display text-sm font-bold uppercase tracking-tight">Shopify sync</h2>
-              {submission.shopifySyncedAt ? (
-                <p className="mt-2 text-sm text-ink-muted">
-                  Synced to Shopify customer on{" "}
-                  {new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(submission.shopifySyncedAt))}.
-                </p>
-              ) : (
-                <>
-                  <p className="mt-2 text-sm text-ink-muted">
-                    Create a tagged Shopify customer from this approved application. Orders and invoicing stay in Shopify.
-                  </p>
-                  {syncError ? (
-                    <div role="alert" className="mt-3 border border-red-300 bg-red-50 p-3 text-sm text-red-800">{syncError}</div>
-                  ) : null}
-                  <button
-                    disabled={syncBusy}
-                    onClick={() => void runSync()}
-                    className="mt-4 inline-flex h-10 items-center gap-2 bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:brightness-110 disabled:opacity-60"
-                  >
-                    {syncBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
-                    {syncBusy ? "Syncing" : "Approve & sync to Shopify"}
-                  </button>
-                </>
+                  ))}
+                </div>
               )}
             </section>
-          )}
-        </aside>
-      </div>
-    </AdminShell>
-  );
-}
 
-function DetailRow({ label, value }: { label: string; value: string | null }) {
-  return (
-    <div>
-      <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">{label}</dt>
-      <dd className="mt-1 text-sm text-ink">{value ?? "—"}</dd>
-    </div>
+            <section className="cms-card">
+              <header className="cms-card-head">
+                <h2 className="cms-card-title">Internal notes</h2>
+              </header>
+              <div className="cms-card-pad cms-stack-sm">
+                <form method="post" onSubmit={addNote} className="cms-stack-sm">
+                  <textarea
+                    name="body"
+                    rows={3}
+                    className="cms-textarea"
+                    placeholder="Add an internal note (visible to staff only)"
+                  />
+                  <div>
+                    <button
+                      disabled={noteBusy || !hydrated}
+                      className="cms-btn cms-btn-primary"
+                    >
+                      {noteBusy ? (
+                        <Loader2 aria-hidden="true" className="cms-spin" />
+                      ) : (
+                        <Send aria-hidden="true" />
+                      )}{" "}
+                      Add note
+                    </button>
+                  </div>
+                </form>
+              </div>
+              {submission.notes.length === 0 ? (
+                <EmptyState icon={<Send aria-hidden="true" />} title="No notes yet" />
+              ) : (
+                <div className="cms-list">
+                  {submission.notes.map((note) => (
+                    <div key={note.id} className="cms-row" style={{ alignItems: "flex-start" }}>
+                      <span className="cms-row-main">
+                        <span className="cms-row-title">{note.staffName ?? "Staff"}</span>
+                        <span className="cms-row-meta">{formatDateTime(note.createdAt)}</span>
+                        <p style={{ marginTop: 6, whiteSpace: "pre-wrap" }}>{note.body}</p>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+          </div>
+
+          <aside className="cms-stack">
+            <section className="cms-card">
+              <header className="cms-card-head">
+                <h2 className="cms-card-title">Workflow</h2>
+              </header>
+              <div className="cms-card-pad cms-stack-sm">
+                {STATUS_OPTIONS.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    disabled={statusBusy || submission.status === option.value}
+                    onClick={() => void changeStatus(option.value)}
+                    className={`cms-btn${submission.status === option.value ? " cms-btn-primary" : ""}`}
+                    style={{ justifyContent: "flex-start" }}
+                  >
+                    {submission.status === option.value ? (
+                      <CheckCircle2 aria-hidden="true" />
+                    ) : (
+                      <span style={{ width: 15 }} />
+                    )}
+                    {option.label}
+                  </button>
+                ))}
+                {!submission.reviewedAt ? (
+                  <button
+                    type="button"
+                    disabled={statusBusy}
+                    onClick={() => void markReviewed()}
+                    className="cms-btn"
+                  >
+                    Mark reviewed
+                  </button>
+                ) : null}
+              </div>
+            </section>
+
+            {submission.type === "credit_account" ? (
+              <section className="cms-card">
+                <header className="cms-card-head">
+                  <h2 className="cms-card-title">Shopify sync</h2>
+                </header>
+                <div className="cms-card-pad cms-stack-sm">
+                  {submission.shopifySyncedAt ? (
+                    <Notice tone="success">
+                      Synced to Shopify customer on {formatDateTime(submission.shopifySyncedAt)}.
+                    </Notice>
+                  ) : (
+                    <>
+                      <p className="cms-muted">
+                        Create a tagged Shopify customer from this approved application. Orders and
+                        invoicing stay in Shopify.
+                      </p>
+                      {syncError ? <Notice tone="danger">{syncError}</Notice> : null}
+                      <button
+                        type="button"
+                        disabled={syncBusy}
+                        onClick={() => void runSync()}
+                        className="cms-btn cms-btn-primary"
+                      >
+                        {syncBusy ? (
+                          <Loader2 aria-hidden="true" className="cms-spin" />
+                        ) : (
+                          <CheckCircle2 aria-hidden="true" />
+                        )}
+                        {syncBusy ? "Syncing" : "Approve & sync to Shopify"}
+                      </button>
+                    </>
+                  )}
+                </div>
+              </section>
+            ) : null}
+          </aside>
+        </div>
+      </div>
+    </CmsShell>
   );
 }

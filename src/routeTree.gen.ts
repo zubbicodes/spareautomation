@@ -45,9 +45,12 @@ import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ProductsHandleRouteImport } from './routes/products/$handle'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as AdminSettingsRouteImport } from './routes/admin/settings'
 import { Route as AdminMediaRouteImport } from './routes/admin/media'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminChangePasswordRouteImport } from './routes/admin/change-password'
+import { Route as AdminActivityRouteImport } from './routes/admin/activity'
+import { Route as AdminSubmissionsIndexRouteImport } from './routes/admin/submissions.index'
 import { Route as AdminContentIndexRouteImport } from './routes/admin/content.index'
 import { Route as ContentMediaIdFilenameRouteImport } from './routes/content-media/$id/$filename'
 import { Route as AdminSubmissionsIdRouteImport } from './routes/admin/submissions.$id'
@@ -234,6 +237,11 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
   path: '/admin/users',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/admin/settings',
+  path: '/admin/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminMediaRoute = AdminMediaRouteImport.update({
   id: '/admin/media',
   path: '/admin/media',
@@ -247,6 +255,16 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
 const AdminChangePasswordRoute = AdminChangePasswordRouteImport.update({
   id: '/admin/change-password',
   path: '/admin/change-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminActivityRoute = AdminActivityRouteImport.update({
+  id: '/admin/activity',
+  path: '/admin/activity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSubmissionsIndexRoute = AdminSubmissionsIndexRouteImport.update({
+  id: '/admin/submissions/',
+  path: '/admin/submissions/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminContentIndexRoute = AdminContentIndexRouteImport.update({
@@ -308,9 +326,11 @@ export interface FileRoutesByFullPath {
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/track-order': typeof TrackOrderRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/activity': typeof AdminActivityRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/admin/': typeof AdminIndexRoute
@@ -319,6 +339,7 @@ export interface FileRoutesByFullPath {
   '/admin/submissions/$id': typeof AdminSubmissionsIdRoute
   '/content-media/$id/$filename': typeof ContentMediaIdFilenameRoute
   '/admin/content/': typeof AdminContentIndexRoute
+  '/admin/submissions/': typeof AdminSubmissionsIndexRoute
   '/admin/content/$key/preview': typeof AdminContentKeyPreviewRoute
 }
 export interface FileRoutesByTo {
@@ -354,9 +375,11 @@ export interface FileRoutesByTo {
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/track-order': typeof TrackOrderRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/activity': typeof AdminActivityRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/admin': typeof AdminIndexRoute
@@ -365,6 +388,7 @@ export interface FileRoutesByTo {
   '/admin/submissions/$id': typeof AdminSubmissionsIdRoute
   '/content-media/$id/$filename': typeof ContentMediaIdFilenameRoute
   '/admin/content': typeof AdminContentIndexRoute
+  '/admin/submissions': typeof AdminSubmissionsIndexRoute
   '/admin/content/$key/preview': typeof AdminContentKeyPreviewRoute
 }
 export interface FileRoutesById {
@@ -401,9 +425,11 @@ export interface FileRoutesById {
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/track-order': typeof TrackOrderRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/activity': typeof AdminActivityRoute
   '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/admin/': typeof AdminIndexRoute
@@ -412,6 +438,7 @@ export interface FileRoutesById {
   '/admin/submissions/$id': typeof AdminSubmissionsIdRoute
   '/content-media/$id/$filename': typeof ContentMediaIdFilenameRoute
   '/admin/content/': typeof AdminContentIndexRoute
+  '/admin/submissions/': typeof AdminSubmissionsIndexRoute
   '/admin/content/$key/preview': typeof AdminContentKeyPreviewRoute
 }
 export interface FileRouteTypes {
@@ -449,9 +476,11 @@ export interface FileRouteTypes {
     | '/terms-and-conditions'
     | '/track-order'
     | '/unsubscribe'
+    | '/admin/activity'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/media'
+    | '/admin/settings'
     | '/admin/users'
     | '/products/$handle'
     | '/admin/'
@@ -460,6 +489,7 @@ export interface FileRouteTypes {
     | '/admin/submissions/$id'
     | '/content-media/$id/$filename'
     | '/admin/content/'
+    | '/admin/submissions/'
     | '/admin/content/$key/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -495,9 +525,11 @@ export interface FileRouteTypes {
     | '/terms-and-conditions'
     | '/track-order'
     | '/unsubscribe'
+    | '/admin/activity'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/media'
+    | '/admin/settings'
     | '/admin/users'
     | '/products/$handle'
     | '/admin'
@@ -506,6 +538,7 @@ export interface FileRouteTypes {
     | '/admin/submissions/$id'
     | '/content-media/$id/$filename'
     | '/admin/content'
+    | '/admin/submissions'
     | '/admin/content/$key/preview'
   id:
     | '__root__'
@@ -541,9 +574,11 @@ export interface FileRouteTypes {
     | '/terms-and-conditions'
     | '/track-order'
     | '/unsubscribe'
+    | '/admin/activity'
     | '/admin/change-password'
     | '/admin/login'
     | '/admin/media'
+    | '/admin/settings'
     | '/admin/users'
     | '/products/$handle'
     | '/admin/'
@@ -552,6 +587,7 @@ export interface FileRouteTypes {
     | '/admin/submissions/$id'
     | '/content-media/$id/$filename'
     | '/admin/content/'
+    | '/admin/submissions/'
     | '/admin/content/$key/preview'
   fileRoutesById: FileRoutesById
 }
@@ -588,9 +624,11 @@ export interface RootRouteChildren {
   TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   TrackOrderRoute: typeof TrackOrderRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
+  AdminActivityRoute: typeof AdminActivityRoute
   AdminChangePasswordRoute: typeof AdminChangePasswordRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMediaRoute: typeof AdminMediaRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   AdminUsersRoute: typeof AdminUsersRoute
   ProductsHandleRoute: typeof ProductsHandleRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -599,6 +637,7 @@ export interface RootRouteChildren {
   AdminSubmissionsIdRoute: typeof AdminSubmissionsIdRoute
   ContentMediaIdFilenameRoute: typeof ContentMediaIdFilenameRoute
   AdminContentIndexRoute: typeof AdminContentIndexRoute
+  AdminSubmissionsIndexRoute: typeof AdminSubmissionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -855,6 +894,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/admin/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/media': {
       id: '/admin/media'
       path: '/admin/media'
@@ -874,6 +920,20 @@ declare module '@tanstack/react-router' {
       path: '/admin/change-password'
       fullPath: '/admin/change-password'
       preLoaderRoute: typeof AdminChangePasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/activity': {
+      id: '/admin/activity'
+      path: '/admin/activity'
+      fullPath: '/admin/activity'
+      preLoaderRoute: typeof AdminActivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/submissions/': {
+      id: '/admin/submissions/'
+      path: '/admin/submissions'
+      fullPath: '/admin/submissions/'
+      preLoaderRoute: typeof AdminSubmissionsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/content/': {
@@ -959,9 +1019,11 @@ const rootRouteChildren: RootRouteChildren = {
   TermsAndConditionsRoute: TermsAndConditionsRoute,
   TrackOrderRoute: TrackOrderRoute,
   UnsubscribeRoute: UnsubscribeRoute,
+  AdminActivityRoute: AdminActivityRoute,
   AdminChangePasswordRoute: AdminChangePasswordRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMediaRoute: AdminMediaRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   AdminUsersRoute: AdminUsersRoute,
   ProductsHandleRoute: ProductsHandleRoute,
   AdminIndexRoute: AdminIndexRoute,
@@ -970,6 +1032,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminSubmissionsIdRoute: AdminSubmissionsIdRoute,
   ContentMediaIdFilenameRoute: ContentMediaIdFilenameRoute,
   AdminContentIndexRoute: AdminContentIndexRoute,
+  AdminSubmissionsIndexRoute: AdminSubmissionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
