@@ -34,13 +34,14 @@ import {
   STANDARD_VAT_RATE,
 } from "@/lib/shopify/format";
 import type { ShopifyProduct, ShopifyVariant } from "@/lib/shopify/types";
-import { SITE } from "@/lib/site";
+import { useContent } from "@/lib/content/ContentContext";
 
 type ProductDetailProps = {
   product: ShopifyProduct;
 };
 
 export function ProductDetail({ product }: ProductDetailProps) {
+  const { site, product: copy } = useContent();
   const [selectedVariantId, setSelectedVariantId] = useState(
     product.variants.find((variant) => variant.availableForSale)?.id ?? product.variants[0]?.id,
   );
@@ -58,7 +59,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
   return (
     <div className="min-h-screen bg-background text-ink">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "Product", name: product.title, description: product.description, image: product.images.map((image) => image.url), sku: selectedVariant?.sku || undefined, brand: { "@type": "Brand", name: brand }, offers: selectedVariant ? { "@type": "Offer", price: selectedVariant.price.amount, priceCurrency: selectedVariant.price.currencyCode, availability: selectedVariant.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url: `${SITE.url}/products/${product.handle}` } : undefined }).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "Product", name: product.title, description: product.description, image: product.images.map((image) => image.url), sku: selectedVariant?.sku || undefined, brand: { "@type": "Brand", name: brand }, offers: selectedVariant ? { "@type": "Offer", price: selectedVariant.price.amount, priceCurrency: selectedVariant.price.currencyCode, availability: selectedVariant.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url: `${site.url}/products/${product.handle}` } : undefined }).replace(/</g, "\\u003c") }} />
       <SiteHeader />
 
       <main id="main-content" className="mx-auto max-w-[1600px]">
@@ -172,7 +173,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   to="/cart"
                   className="inline-flex h-13 items-center justify-center border border-charcoal-deep bg-charcoal-deep px-5 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-white shadow-sm transition-colors hover:border-accent hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
-                  View Cart
+                  {copy.viewCartLabel}
                 </Link>
               </div>
               <div className="flex flex-col gap-3 border border-rule bg-background p-3.5 sm:flex-row sm:items-center">
@@ -190,7 +191,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 to="/contact-us"
                 className="inline-flex h-12 w-full items-center justify-center border border-rule bg-surface px-5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-ink transition-colors hover:border-accent hover:text-accent sm:w-auto"
               >
-                Got a question?
+                {copy.questionLabel}
               </Link>
             </div>
 
@@ -216,13 +217,14 @@ function QuantityStepper({
   onChange: (value: number) => void;
   disabled?: boolean;
 }) {
+  const { quantityLabel: label } = useContent().product;
   const decrease = () => onChange(Math.max(1, value - 1));
   const increase = () => onChange(Math.min(99, value + 1));
 
   return (
     <div className="flex h-13 w-full items-stretch border border-rule bg-surface sm:w-[210px]">
       <div className="flex min-w-[52px] items-center justify-center border-r border-rule font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-ink-muted">
-        Qty
+        {label}
       </div>
       <button
         type="button"
@@ -272,6 +274,7 @@ function ProductGallery({
   activeImage: ShopifyProduct["images"][number] | undefined;
   onSelectImage: (image: ShopifyProduct["images"][number]) => void;
 }) {
+  const { enlargeHint, imagePendingLabel } = useContent().product;
   const [viewerOpen, setViewerOpen] = useState(false);
   const [zoom, setZoom] = useState(1);
   const activeIndex = activeImage
@@ -310,12 +313,12 @@ function ProductGallery({
             />
             <span className="absolute bottom-3 right-3 inline-flex min-h-10 items-center gap-2 bg-charcoal-deep/90 px-3 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-white shadow-md">
               <Maximize2 className="h-4 w-4" aria-hidden="true" />
-              Click to enlarge
+              {enlargeHint}
             </span>
           </button>
         ) : (
           <div className="flex h-full w-full items-center justify-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted">
-            Image pending
+            {imagePendingLabel}
           </div>
         )}
 
@@ -467,6 +470,7 @@ function ProductGallery({
 }
 
 function StockBadge({ variant, product }: { variant?: ShopifyVariant; product: ShopifyProduct }) {
+  const copy = useContent().product;
   const quantity = variant?.quantityAvailable;
   const hasExactStock = typeof quantity === "number" && quantity > 0;
   const isAvailable = variant?.availableForSale || product.availableForSale;
@@ -475,7 +479,7 @@ function StockBadge({ variant, product }: { variant?: ShopifyVariant; product: S
     return (
       <span className="inline-flex min-h-10 items-center gap-2 border border-red-200 bg-red-50 px-3 text-sm font-semibold text-red-700">
         <PackageCheck className="h-3.5 w-3.5" />
-        Out of stock
+        {copy.outOfStockLabel}
       </span>
     );
   }
@@ -487,7 +491,7 @@ function StockBadge({ variant, product }: { variant?: ShopifyVariant; product: S
         {hasExactStock ? `${quantity} in stock` : "Available to order"}
       </span>
       <span aria-hidden="true" className="hidden h-4 w-px bg-rule sm:block" />
-      <span className="text-xs text-ink-muted">Lead time and dispatch confirmed at order</span>
+      <span className="text-xs text-ink-muted">{copy.leadTimeNote}</span>
     </div>
   );
 }
@@ -527,6 +531,7 @@ function extractYouTubeVideoId(url: string) {
 }
 
 function ProductResources({ product }: { product: ShopifyProduct }) {
+  const copy = useContent().product;
   type SupportTab = "video" | "pdf" | "description";
   const [activeTab, setActiveTab] = useState<SupportTab>("description");
   const [videoDisclaimerAccepted, setVideoDisclaimerAccepted] = useState(false);
@@ -548,9 +553,9 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
   ];
   const hasDescription = Boolean(product.descriptionHtml.trim() || product.description.trim());
   const tabs: Array<{ id: SupportTab; label: string; icon: typeof PlayCircle }> = [
-    { id: "description", label: "Product Details", icon: FileText },
-    { id: "pdf", label: "PDF Guide", icon: FileText },
-    { id: "video", label: "Video Guide", icon: PlayCircle },
+    { id: "description", label: copy.tabDetails, icon: FileText },
+    { id: "pdf", label: copy.tabPdf, icon: FileText },
+    { id: "video", label: copy.tabVideo, icon: PlayCircle },
   ];
 
   return (
@@ -558,10 +563,10 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-5 md:mb-6">
           <div className="font-mono text-[9px] font-bold uppercase tracking-[0.24em] text-accent">
-            Guides &amp; information
+            {copy.supportEyebrow}
           </div>
           <h2 id="product-support-title" className="mt-2 font-display text-xl font-bold uppercase tracking-tight md:text-2xl">
-            Product Support
+            {copy.supportTitle}
           </h2>
         </div>
 
@@ -646,7 +651,7 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
                       />
                     )}
                     <div className="space-y-3">
-                      <div className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-ink-muted">Available videos</div>
+                      <div className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-ink-muted">{copy.videosLabel}</div>
                       {videoLinks.map((video) => (
                         <SupportLink key={video.url} href={video.url} icon={PlayCircle} label={video.label} />
                       ))}
@@ -671,7 +676,7 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
                     className="h-[55vh] min-h-[420px] w-full border border-rule bg-white"
                   />
                   <div className="space-y-3">
-                    <div className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-ink-muted">Available documents</div>
+                    <div className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-ink-muted">{copy.documentsLabel}</div>
                     {documents.map((document) => (
                       <SupportLink
                         key={`${document.type}-${document.url}`}
@@ -703,6 +708,21 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
               )
             ) : null}
           </div>
+        </div>
+
+        <div className="mt-5 border border-rule bg-surface p-5 md:mt-6 md:flex md:items-center md:justify-between md:gap-8 md:p-6">
+          <div>
+            <h3 className="font-display text-lg font-bold uppercase tracking-tight">
+              {copy.questionLabel}
+            </h3>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-muted">{copy.questionCopy}</p>
+          </div>
+          <Link
+            to="/contact-us"
+            className="mt-4 inline-flex h-11 shrink-0 items-center justify-center gap-2 bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:brightness-110 md:mt-0"
+          >
+            {copy.questionCta}
+          </Link>
         </div>
       </div>
     </section>

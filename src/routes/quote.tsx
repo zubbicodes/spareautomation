@@ -5,7 +5,9 @@ import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { getShopifyCustomer, submitShopifyQuote } from "@/lib/api/shopify.functions";
-import { pageHead } from "@/lib/seo";
+import { useContent } from "@/lib/content/ContentContext";
+import { getPublishedContent } from "@/lib/content/content.functions";
+import { contentPageHead } from "@/lib/seo";
 import { formatMoney } from "@/lib/shopify/format";
 import {
   clearStoredQuote,
@@ -18,17 +20,21 @@ import {
 } from "@/lib/shopify/quote";
 
 export const Route = createFileRoute("/quote")({
-  head: () =>
-    pageHead(
-      "Build a Quote",
-      "Review industrial products and submit a quotation request to Spares Automation.",
-      "/quote",
-      true,
-    ),
+  loader: async () => {
+    const { site, functional } = await getPublishedContent();
+    return { site, seo: functional.quote.seo };
+  },
+  head: ({ loaderData }) =>
+    contentPageHead(loaderData?.seo, loaderData?.site, "/quote", {
+      title: "Build a Quote",
+      description: "Review industrial products and submit a quotation request to Spares Automation.",
+    }, { noIndex: true }),
   component: QuotePage,
 });
 
 function QuotePage() {
+  const { functional } = useContent();
+  const copy = functional.quote;
   const [items, setItems] = useState<StoredQuoteItem[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -141,15 +147,14 @@ function QuotePage() {
         <header className="mb-7 flex flex-col gap-4 border-b border-rule pb-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
-              Product quotation
+              {copy.eyebrow}
             </div>
             <h1 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight md:text-4xl">
-              My Quote
+              {copy.title}
             </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted">
-              Review your products and submit the quote for sales review. Shopify account details
-              are filled automatically when you are signed in.
-            </p>
+            {copy.intro ? (
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted">{copy.intro}</p>
+            ) : null}
           </div>
           <Link
             to="/products"
@@ -164,11 +169,10 @@ function QuotePage() {
           <section className="border border-rule bg-surface px-5 py-12 text-center md:px-8 md:py-16">
             <CheckCircle2 className="mx-auto h-12 w-12 text-accent" aria-hidden="true" />
             <h2 className="mt-5 font-display text-2xl font-bold uppercase tracking-tight">
-              Quote submitted
+              {copy.sectionTitle}
             </h2>
             <p className="mt-3 text-sm leading-6 text-ink-muted">
-              Your reference is <strong className="text-ink">{reference}</strong>. Our sales team
-              will review pricing, availability, and delivery before contacting you.
+              Your reference is <strong className="text-ink">{reference}</strong>. {copy.helpCopy}
             </p>
             <Link
               to="/products"
@@ -180,17 +184,15 @@ function QuotePage() {
           </section>
         ) : !loaded ? (
           <div className="border border-rule bg-surface py-16 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted">
-            Loading quote
+            {copy.loadingLabel}
           </div>
         ) : items.length === 0 ? (
           <section className="border border-dashed border-rule bg-surface px-5 py-12 text-center md:py-16">
             <FileText className="mx-auto h-10 w-10 text-accent" aria-hidden="true" />
             <h2 className="mt-5 font-display text-2xl font-bold uppercase tracking-tight">
-              Your quote is empty
+              {copy.emptyTitle}
             </h2>
-            <p className="mt-3 text-sm text-ink-muted">
-              Choose “Build a quote” on any product page to add an item.
-            </p>
+            <p className="mt-3 text-sm text-ink-muted">{copy.emptyCopy}</p>
           </section>
         ) : (
           <form onSubmit={submit} className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">

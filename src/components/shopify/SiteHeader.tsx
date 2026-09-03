@@ -13,35 +13,13 @@ import {
 import { useEffect, useState } from "react";
 
 import { getShopifyCart, getShopifyCustomer } from "@/lib/api/shopify.functions";
-import { getCatalogueSearch } from "@/lib/catalog";
+import { navTarget } from "@/lib/content/nav";
 import { getStoredCartId } from "@/lib/shopify/cart";
-import { SITE } from "@/lib/site";
-
-const navigation = [
-  { label: "All Products", desktopLines: ["All Products"], category: "all" },
-  { label: "Asphalt Blacktop", desktopLines: ["Asphalt", "Blacktop"], category: "asphalt" },
-  { label: "Readymix Concrete", desktopLines: ["Readymix", "Concrete"], category: "concrete" },
-  { label: "Packing Machinery", desktopLines: ["Packing", "Machinery"], category: "packing" },
-  {
-    label: "Automation and Drives",
-    desktopLines: ["Automation and", "Drives"],
-    category: "automation",
-  },
-  {
-    label: "Home Automation and Controls",
-    desktopLines: ["Home Automation", "and Controls"],
-    category: "home-controls",
-  },
-  {
-    label: "Control Panels and Software",
-    desktopLines: ["Control Panels", "and Software"],
-    category: "control-panels-software",
-  },
-  { label: "PDF and Videos", desktopLines: ["PDF and Videos"], to: "/resources" },
-  { label: "Contact", desktopLines: ["Contact"], to: "/contact-us" },
-] as const;
+import { useContent } from "@/lib/content/ContentContext";
 
 export function SiteHeader() {
+  const content = useContent();
+  const navigation = content.navigation.header.filter((item) => item.visible);
   const [cartCount, setCartCount] = useState(0);
   const [customer, setCustomer] = useState<Awaited<ReturnType<typeof getShopifyCustomer>>>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -94,10 +72,10 @@ export function SiteHeader() {
               <Globe aria-hidden="true" className="h-3 w-3 text-accent" /> UK / EN-GB / GBP
             </span>
             <a
-              href={`tel:${SITE.phoneHref}`}
+              href={`tel:${content.site.phoneHref}`}
               className="hidden min-h-7 items-center gap-2 text-white/70 hover:text-white md:flex"
             >
-              <Phone aria-hidden="true" className="h-3 w-3" /> {SITE.phoneDisplay}
+              <Phone aria-hidden="true" className="h-3 w-3" /> {content.site.phoneDisplay}
             </a>
           </div>
 
@@ -131,7 +109,7 @@ export function SiteHeader() {
       <div className="border-b border-white/10 bg-[oklch(0.285_0.012_250)]">
         <div className="grid w-full min-w-0 grid-cols-1 items-center gap-4 px-4 py-4 md:grid-cols-12 md:gap-6 md:px-6">
           <Link to="/" className="mx-auto flex items-center gap-3 md:col-span-3 md:mx-0">
-            <BrandMark />
+            <BrandMark name={content.site.name} />
           </Link>
           <div className="min-w-0 md:col-span-9">
             <form
@@ -170,18 +148,13 @@ export function SiteHeader() {
         <div className="grid w-full grid-cols-9 px-3 2xl:px-5">
           {navigation.map((item) => (
             <Link
-              key={item.label}
-              to={"category" in item ? "/products" : item.to}
-              search={"category" in item ? getCatalogueSearch(item.category) : undefined}
+              key={item.id}
+              {...navTarget(item.to)}
               aria-label={item.label}
               activeProps={{ "aria-current": "page", className: "text-white bg-white/10" }}
               className="inline-flex min-h-16 min-w-0 flex-col items-center justify-center px-2 text-center font-display text-[11px] font-bold uppercase leading-[1.2] tracking-[-0.01em] text-white/85 transition-colors hover:bg-white/5 hover:text-white 2xl:text-[12px]"
             >
-              {item.desktopLines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
+              {(DEFAULT_NAV_LINES[item.id]?.label === item.label ? DEFAULT_NAV_LINES[item.id].lines : [item.label]).map((line) => <span key={line} className="block">{line}</span>)}
             </Link>
           ))}
         </div>
@@ -196,9 +169,8 @@ export function SiteHeader() {
           <div className="grid grid-cols-2 gap-2">
             {navigation.map((item) => (
               <Link
-                key={item.label}
-                to={"category" in item ? "/products" : item.to}
-                search={"category" in item ? getCatalogueSearch(item.category) : undefined}
+                key={item.id}
+                {...navTarget(item.to)}
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex min-h-12 items-center border border-white/20 px-3 font-display text-sm font-bold uppercase leading-tight text-white/85 hover:border-accent hover:text-white"
               >
@@ -216,7 +188,11 @@ export function SiteHeader() {
   );
 }
 
-function BrandMark() {
+const DEFAULT_NAV_LINES: Record<string, { label: string; lines: string[] }> = {
+  "all-products": { label: "All Products", lines: ["All Products"] }, asphalt: { label: "Asphalt Blacktop", lines: ["Asphalt", "Blacktop"] }, concrete: { label: "Readymix Concrete", lines: ["Readymix", "Concrete"] }, packing: { label: "Packing Machinery", lines: ["Packing", "Machinery"] }, automation: { label: "Automation and Drives", lines: ["Automation and", "Drives"] }, "home-controls": { label: "Home Automation and Controls", lines: ["Home Automation", "and Controls"] }, "control-panels": { label: "Control Panels and Software", lines: ["Control Panels", "and Software"] }, resources: { label: "PDF and Videos", lines: ["PDF and Videos"] }, contact: { label: "Contact", lines: ["Contact"] },
+};
+
+function BrandMark({ name }: { name: string }) {
   return (
     <>
       <span aria-hidden="true" className="relative h-9 w-9 shrink-0">
@@ -224,7 +200,7 @@ function BrandMark() {
         <span className="absolute inset-[6px] rotate-45 bg-accent" />
       </span>
       <span className="whitespace-nowrap font-display text-[15px] font-bold uppercase tracking-tight text-white sm:text-[17px]">
-        SPARES<span className="text-accent">.</span>AUTOMATION
+        {name === "Spares Automation" ? <>SPARES<span className="text-accent">.</span>AUTOMATION</> : name}
       </span>
     </>
   );

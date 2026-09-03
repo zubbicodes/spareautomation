@@ -1,0 +1,96 @@
+{
+  "nodes": [
+    {
+      "id": "config:.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": ".env.example",
+      "summary": "Documents the production runtime settings for the TanStack server, PostgreSQL-backed CMS, admin seeding, transactional email, uploads, Shopify Storefront and Admin APIs, and encrypted customer sessions.",
+      "tags": ["configuration", "environment", "shopify", "database", "security"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:AUDIT_REPORT_2026-07-15.md",
+      "type": "document",
+      "name": "AUDIT_REPORT_2026-07-15.md",
+      "filePath": "AUDIT_REPORT_2026-07-15.md",
+      "summary": "Records the July 2026 snag audit, remediation outcome, detailed launch checklist, remaining priorities, verification performed, and release sign-off recommendation.",
+      "tags": ["documentation", "audit", "quality-assurance", "release-readiness"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Project operations and change record covering UX hardening, launch inputs, the CMS/admin runbook, database migrations, admin seeding, persistent uploads, Coolify deployment, commerce flows, and verification.",
+      "tags": ["documentation", "entry-point", "cms", "deployment", "operations"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:SHOPIFY_CATALOGUE_GUIDE.md",
+      "type": "document",
+      "name": "SHOPIFY_CATALOGUE_GUIDE.md",
+      "filePath": "SHOPIFY_CATALOGUE_GUIDE.md",
+      "summary": "Explains how developers synchronize manual Shopify collections and how clients publish products to the Headless channel, assign main and product-line collections, bulk-edit existing products, and troubleshoot storefront visibility.",
+      "tags": ["documentation", "shopify", "catalogue", "product-management"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:bunfig.toml",
+      "type": "config",
+      "name": "bunfig.toml",
+      "filePath": "bunfig.toml",
+      "summary": "Controls Bun package installation behavior for the project through its install section.",
+      "tags": ["configuration", "bun", "package-management", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:components.json",
+      "type": "config",
+      "name": "components.json",
+      "filePath": "components.json",
+      "summary": "Configures the shadcn component generator, including TSX output, Tailwind integration, icon library, directionality, source aliases, and component registries.",
+      "tags": ["configuration", "shadcn", "component-library", "tailwind"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:docker-entrypoint.sh",
+      "type": "file",
+      "name": "docker-entrypoint.sh",
+      "filePath": "docker-entrypoint.sh",
+      "summary": "Container startup script that repairs ownership of the persistent data volume before dropping privileges to the node user and executing the application command.",
+      "tags": ["entry-point", "containerization", "permissions", "deployment"],
+      "complexity": "simple",
+      "languageNotes": "Uses POSIX shell fail-fast flags and su-exec for privilege dropping."
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Defines the private ESM application package, its development, build, database, Shopify synchronization, test, and formatting scripts, plus the React/TanStack, Shopify, Drizzle, email, and UI dependency set.",
+      "tags": ["configuration", "package-management", "build-system", "scripts", "dependencies"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:shopify-dummy-products.csv",
+      "type": "file",
+      "name": "shopify-dummy-products.csv",
+      "filePath": "shopify-dummy-products.csv",
+      "summary": "Shopify-compatible seed catalogue containing industrial spare products with handles, HTML descriptions, vendors, types, collection tags, variants, inventory, prices, shipping and tax flags, images, SEO copy, and active status.",
+      "tags": ["data", "shopify", "catalogue", "seed-data", "products"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "Configures TypeScript compilation for the application, including the project include set and compiler behavior used by TanStack Start and the React source tree.",
+      "tags": ["configuration", "typescript", "build-system", "type-checking"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

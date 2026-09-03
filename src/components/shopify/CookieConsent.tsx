@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Cookie, Settings2, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useContent } from "@/lib/content/ContentContext";
 
 const CONSENT_KEY = "spares-automation-cookie-consent-v1";
 
@@ -17,6 +18,7 @@ const DEFAULT_PREFERENCES: ConsentPreferences = {
 };
 
 export function CookieConsent() {
+  const { messages } = useContent();
   const [visible, setVisible] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
   const [preferences, setPreferences] = useState(DEFAULT_PREFERENCES);
@@ -76,20 +78,18 @@ export function CookieConsent() {
           </span>
           <div className="min-w-0 flex-1">
             <p className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-accent">
-              Your privacy choices
+              {messages["cookie.eyebrow"]}
             </p>
             <h2 className="mt-2 font-display text-xl font-bold uppercase tracking-tight">
-              We use cookies
+              {messages["cookie.title"]}
             </h2>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-white/70">
-              We use necessary cookies and browser storage to keep the website secure and remember
-              your cart. With your permission, we may also use analytics and marketing cookies. Read
-              our{" "}
+              {messages["cookie.copy"]}{" "}
               <Link
                 to="/cookies"
                 className="font-semibold text-white underline underline-offset-4 hover:text-accent"
               >
-                cookie information
+                {messages["cookie.link"]}
               </Link>
               .
             </p>
@@ -103,21 +103,21 @@ export function CookieConsent() {
           >
             <PreferenceCard
               icon={<ShieldCheck aria-hidden="true" className="h-4 w-4" />}
-              title="Necessary"
-              description="Security, account access, checkout, and cart functions."
+              title={messages["cookie.necessary"]}
+              description={messages["cookie.necessaryCopy"]}
               checked
               disabled
               onChange={() => undefined}
             />
             <PreferenceCard
-              title="Analytics"
-              description="Helps us understand how visitors use the website."
+              title={messages["cookie.analytics"]}
+              description={messages["cookie.analyticsCopy"]}
               checked={preferences.analytics}
               onChange={(analytics) => setPreferences((current) => ({ ...current, analytics }))}
             />
             <PreferenceCard
-              title="Marketing"
-              description="Supports relevant advertising and campaign measurement."
+              title={messages["cookie.marketing"]}
+              description={messages["cookie.marketingCopy"]}
               checked={preferences.marketing}
               onChange={(marketing) => setPreferences((current) => ({ ...current, marketing }))}
             />
@@ -133,14 +133,14 @@ export function CookieConsent() {
             className="inline-flex h-11 items-center justify-center gap-2 border border-white/25 px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:border-white"
           >
             <Settings2 aria-hidden="true" className="h-4 w-4" />
-            {showPreferences ? "Hide choices" : "Manage choices"}
+            {showPreferences ? messages["cookie.hide"] : messages["cookie.manage"]}
           </button>
           <button
             type="button"
             onClick={() => save(DEFAULT_PREFERENCES)}
             className="inline-flex h-11 items-center justify-center border border-white/25 px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:border-white"
           >
-            Reject non-essential
+            {messages["cookie.reject"]}
           </button>
           {showPreferences ? (
             <button
@@ -148,7 +148,7 @@ export function CookieConsent() {
               onClick={() => save(preferences)}
               className="inline-flex h-11 items-center justify-center bg-white px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-ink hover:bg-white/90"
             >
-              Save choices
+              {messages["cookie.save"]}
             </button>
           ) : null}
           <button
@@ -156,7 +156,7 @@ export function CookieConsent() {
             onClick={() => save({ necessary: true, analytics: true, marketing: true })}
             className="inline-flex h-11 items-center justify-center bg-accent px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:brightness-110"
           >
-            Accept all
+            {messages["cookie.accept"]}
           </button>
         </div>
       </div>

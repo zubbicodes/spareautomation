@@ -10,8 +10,9 @@ import { SlidingWindowRateLimiter } from "../cms/rate-limit";
 import { getDb } from "../db/index.server";
 import { attachments, submissions, type SubmissionType } from "../db/schema";
 import { notifySalesDesk, sendEmail } from "../notify.server";
-import { SITE } from "../site";
 import { unsubscribeCustomerEmail } from "../shopify/customer-sync.server";
+import { loadPublishedContentBundle } from "../content/content.server";
+import { renderTemplateText } from "../content/registry";
 
 /**
  * Public form submission endpoints. Each validates input (honeypot included),
@@ -95,18 +96,22 @@ async function recordSubmission(input: {
     .filter((line) => line !== "")
     .join("\n");
 
+  const content = await loadPublishedContentBundle();
+  const notificationVariables = { reference, submissionType: input.type.replaceAll("_", " "), details: text };
   await notifySalesDesk({
-    subject: input.emailSubject,
-    text,
+    subject: renderTemplateText(content.emails.salesNotification.subject, notificationVariables).replace(/[\r\n]+/g, " "),
+    text: renderTemplateText(content.emails.salesNotification.body, notificationVariables),
     replyTo: input.contactEmail,
   });
 
   if (input.customerConfirmation) {
+    const orderNumber = String(input.payload["Order number"] ?? "").trim();
+    const acknowledgement = orderNumber ? content.emails.returnAcknowledgement : null;
     await sendEmail({
       to: input.contactEmail,
-      subject: input.customerConfirmation.subject,
-      replyTo: SITE.email,
-      text: [
+      subject: acknowledgement ? renderTemplateText(acknowledgement.subject, { reference, orderNumber }).replace(/[\r\n]+/g, " ") : input.customerConfirmation.subject,
+      replyTo: content.site.email,
+      text: acknowledgement ? renderTemplateText(acknowledgement.body, { reference, orderNumber }) : [
         input.customerConfirmation.heading,
         "",
         `Your reference: ${reference}`,
@@ -114,7 +119,7 @@ async function recordSubmission(input: {
         ...input.customerConfirmation.nextSteps,
         "",
         `Keep this reference when contacting us: ${reference}`,
-        `${SITE.name} · ${SITE.email} · ${SITE.phoneDisplay}`,
+        `${content.site.name} · ${content.site.email} · ${content.site.phoneDisplay}`,
       ].join("\n"),
     });
   }
@@ -170,6 +175,7 @@ const creditAccountSchema = z.object({
   email: emailField,
   purchasingContact: z.string().trim().min(1, "Purchasing contact is required").max(160),
   accountsContact: z.string().trim().min(1, "Accounts contact is required").max(160),
+  creditLimit: z.string().trim().max(40).optional(),
   tradeCompany1: z.string().trim().min(1, "First trade reference company is required").max(160),
   tradeContact1: z.string().trim().min(1, "First trade reference contact is required").max(160),
   tradeAddress1: z.string().trim().min(1, "First trade reference address is required").max(1000),
@@ -213,6 +219,7 @@ export const submitCreditAccount = createServerFn({ method: "POST" })
         Fax: fields.fax,
         "Purchasing contact": fields.purchasingContact,
         "Accounts contact": fields.accountsContact,
+        "Requested credit limit": fields.creditLimit,
         "Trade reference 1 company": fields.tradeCompany1,
         "Trade reference 1 contact": fields.tradeContact1,
         "Trade reference 1 address": fields.tradeAddress1,

@@ -1,0 +1,1513 @@
+{
+  "nodes": [
+    {
+      "id": "file:scripts/sync-shopify-collections.ts",
+      "type": "file",
+      "name": "sync-shopify-collections.ts",
+      "filePath": "scripts/sync-shopify-collections.ts",
+      "summary": "Synchronizes the project catalogue taxonomy with Shopify collections through the Shopify CLI, creating or updating collection definitions as needed.",
+      "tags": [
+        "script",
+        "automation",
+        "shopify",
+        "data-sync"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:scripts/sync-shopify-collections.ts:getShopifyCliCommand",
+      "type": "function",
+      "name": "getShopifyCliCommand",
+      "filePath": "scripts/sync-shopify-collections.ts",
+      "lineRange": [
+        19,
+        37
+      ],
+      "summary": "Retrieves shopify cli command for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:scripts/sync-shopify-collections.ts:admin",
+      "type": "function",
+      "name": "admin",
+      "filePath": "scripts/sync-shopify-collections.ts",
+      "lineRange": [
+        39,
+        91
+      ],
+      "summary": "Executes Shopify Admin GraphQL through the locally installed Shopify CLI and returns validated response data to the synchronization script.",
+      "tags": [
+        "function",
+        "application-logic",
+        "script"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/shopify/InfoPage.tsx",
+      "type": "file",
+      "name": "InfoPage.tsx",
+      "filePath": "src/components/shopify/InfoPage.tsx",
+      "summary": "Provides the shared visual layout for informational storefront pages with breadcrumbs, hero treatment, article content, and site chrome.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/InfoPage.tsx:InfoPage",
+      "type": "function",
+      "name": "InfoPage",
+      "filePath": "src/components/shopify/InfoPage.tsx",
+      "lineRange": [
+        25,
+        124
+      ],
+      "summary": "Renders the info page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/shopify/SupportRequestForm.tsx",
+      "type": "file",
+      "name": "SupportRequestForm.tsx",
+      "filePath": "src/components/shopify/SupportRequestForm.tsx",
+      "summary": "Implements the general support/contact request workflow with category selection, contact details, optional attachment, validation, and submission feedback.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/components/shopify/SupportRequestForm.tsx:SupportRequestForm",
+      "type": "function",
+      "name": "SupportRequestForm",
+      "filePath": "src/components/shopify/SupportRequestForm.tsx",
+      "lineRange": [
+        39,
+        221
+      ],
+      "summary": "Renders the support request form UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/lib/catalog.ts",
+      "type": "file",
+      "name": "catalog.ts",
+      "filePath": "src/lib/catalog.ts",
+      "summary": "Defines the spare-parts catalogue taxonomy, collection mappings, route lookup helpers, and normalized catalogue search/filter behavior.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/lib/catalog.ts:getCatalogCategory",
+      "type": "function",
+      "name": "getCatalogCategory",
+      "filePath": "src/lib/catalog.ts",
+      "lineRange": [
+        226,
+        228
+      ],
+      "summary": "Retrieves catalog category for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/catalog.ts:getCatalogueSearch",
+      "type": "function",
+      "name": "getCatalogueSearch",
+      "filePath": "src/lib/catalog.ts",
+      "lineRange": [
+        230,
+        236
+      ],
+      "summary": "Retrieves catalogue search for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/catalog.ts:getCatalogFilterHandle",
+      "type": "function",
+      "name": "getCatalogFilterHandle",
+      "filePath": "src/lib/catalog.ts",
+      "lineRange": [
+        238,
+        244
+      ],
+      "summary": "Retrieves catalog filter handle for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/catalog.ts:getCatalogCollections",
+      "type": "function",
+      "name": "getCatalogCollections",
+      "filePath": "src/lib/catalog.ts",
+      "lineRange": [
+        246,
+        257
+      ],
+      "summary": "Retrieves catalog collections for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/seo.ts",
+      "type": "file",
+      "name": "seo.ts",
+      "filePath": "src/lib/seo.ts",
+      "summary": "Builds consistent TanStack route head metadata from a page title and description.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/seo.ts:pageHead",
+      "type": "function",
+      "name": "pageHead",
+      "filePath": "src/lib/seo.ts",
+      "lineRange": [
+        3,
+        19
+      ],
+      "summary": "Implements page head as a significant part of this module. Builds consistent TanStack route head metadata from a page title and description.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routeTree.gen.ts",
+      "type": "file",
+      "name": "routeTree.gen.ts",
+      "filePath": "src/routeTree.gen.ts",
+      "summary": "Generated TanStack Router route-tree metadata connecting every file route, parent route, path, and typed route registration.",
+      "tags": [
+        "generated",
+        "routing",
+        "type-definition"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Generated TanStack Router code should be regenerated from route files rather than edited by hand."
+    },
+    {
+      "id": "file:src/router.tsx",
+      "type": "file",
+      "name": "router.tsx",
+      "filePath": "src/router.tsx",
+      "summary": "Creates the application router with the generated route tree and restores scroll position between navigations.",
+      "tags": [
+        "entry-point",
+        "routing",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/router.tsx:getRouter",
+      "type": "function",
+      "name": "getRouter",
+      "filePath": "src/router.tsx",
+      "lineRange": [
+        4,
+        13
+      ],
+      "summary": "Retrieves router for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/about-us.tsx",
+      "type": "file",
+      "name": "about-us.tsx",
+      "filePath": "src/routes/about-us.tsx",
+      "summary": "Publishes the company overview and customer-service positioning using the shared informational page layout.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/about-us.tsx:AboutUsPage",
+      "type": "function",
+      "name": "AboutUsPage",
+      "filePath": "src/routes/about-us.tsx",
+      "lineRange": [
+        16,
+        45
+      ],
+      "summary": "Renders the about us page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/asphalt.tsx",
+      "type": "file",
+      "name": "asphalt.tsx",
+      "filePath": "src/routes/asphalt.tsx",
+      "summary": "Maps the asphalt category route to its configured Shopify collection landing page.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/automation.tsx",
+      "type": "file",
+      "name": "automation.tsx",
+      "filePath": "src/routes/automation.tsx",
+      "summary": "Maps the automation category route to its configured Shopify collection landing page.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/concrete.tsx",
+      "type": "file",
+      "name": "concrete.tsx",
+      "filePath": "src/routes/concrete.tsx",
+      "summary": "Maps the concrete category route to its configured Shopify collection landing page.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/contact-us.tsx",
+      "type": "file",
+      "name": "contact-us.tsx",
+      "filePath": "src/routes/contact-us.tsx",
+      "summary": "Publishes contact channels and operating information alongside the managed support-request form.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/routes/contact-us.tsx:ContactUsPage",
+      "type": "function",
+      "name": "ContactUsPage",
+      "filePath": "src/routes/contact-us.tsx",
+      "lineRange": [
+        19,
+        38
+      ],
+      "summary": "Renders the contact us page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/contact-us.tsx:ContactCard",
+      "type": "function",
+      "name": "ContactCard",
+      "filePath": "src/routes/contact-us.tsx",
+      "lineRange": [
+        40,
+        72
+      ],
+      "summary": "Renders the contact card UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/control-panels-software.tsx",
+      "type": "file",
+      "name": "control-panels-software.tsx",
+      "filePath": "src/routes/control-panels-software.tsx",
+      "summary": "Maps the control-panels and software category route to its configured Shopify collection landing page.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/cookies.tsx",
+      "type": "file",
+      "name": "cookies.tsx",
+      "filePath": "src/routes/cookies.tsx",
+      "summary": "Publishes the site cookie policy using the standard informational page layout.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/cookies.tsx:CookiesPage",
+      "type": "function",
+      "name": "CookiesPage",
+      "filePath": "src/routes/cookies.tsx",
+      "lineRange": [
+        16,
+        46
+      ],
+      "summary": "Renders the cookies page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/credit-account.tsx",
+      "type": "file",
+      "name": "credit-account.tsx",
+      "filePath": "src/routes/credit-account.tsx",
+      "summary": "Hosts the business credit-account application workflow and supporting route metadata.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/credit-account.tsx:CreditAccountPage",
+      "type": "function",
+      "name": "CreditAccountPage",
+      "filePath": "src/routes/credit-account.tsx",
+      "lineRange": [
+        17,
+        31
+      ],
+      "summary": "Renders the credit account page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/disclaimer.tsx",
+      "type": "file",
+      "name": "disclaimer.tsx",
+      "filePath": "src/routes/disclaimer.tsx",
+      "summary": "Publishes the legal disclaimer for product information, external links, and liability.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/disclaimer.tsx:DisclaimerPage",
+      "type": "function",
+      "name": "DisclaimerPage",
+      "filePath": "src/routes/disclaimer.tsx",
+      "lineRange": [
+        11,
+        45
+      ],
+      "summary": "Renders the disclaimer page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/got-a-question.tsx",
+      "type": "file",
+      "name": "got-a-question.tsx",
+      "filePath": "src/routes/got-a-question.tsx",
+      "summary": "Hosts the general customer support form for product and service questions.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/got-a-question.tsx:GotAQuestionPage",
+      "type": "function",
+      "name": "GotAQuestionPage",
+      "filePath": "src/routes/got-a-question.tsx",
+      "lineRange": [
+        12,
+        32
+      ],
+      "summary": "Renders the got aquestion page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/home-controls.tsx",
+      "type": "file",
+      "name": "home-controls.tsx",
+      "filePath": "src/routes/home-controls.tsx",
+      "summary": "Maps the home-controls category route to its configured Shopify collection landing page.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/index.tsx",
+      "type": "file",
+      "name": "index.tsx",
+      "filePath": "src/routes/index.tsx",
+      "summary": "Implements the storefront home page with hero content, category discovery, service benefits, featured products, calls to action, and global site chrome.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/index.tsx:Home",
+      "type": "function",
+      "name": "Home",
+      "filePath": "src/routes/index.tsx",
+      "lineRange": [
+        120,
+        507
+      ],
+      "summary": "Renders the home UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/routes/new-arrivals.tsx",
+      "type": "file",
+      "name": "new-arrivals.tsx",
+      "filePath": "src/routes/new-arrivals.tsx",
+      "summary": "Maps the new-arrivals route to the configured Shopify collection landing page.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/packing.tsx",
+      "type": "file",
+      "name": "packing.tsx",
+      "filePath": "src/routes/packing.tsx",
+      "summary": "Maps the packing category route to its configured Shopify collection landing page.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/privacy-policy.tsx",
+      "type": "file",
+      "name": "privacy-policy.tsx",
+      "filePath": "src/routes/privacy-policy.tsx",
+      "summary": "Publishes the privacy policy covering collected data, purposes, rights, retention, and contact details.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/privacy-policy.tsx:PrivacyPage",
+      "type": "function",
+      "name": "PrivacyPage",
+      "filePath": "src/routes/privacy-policy.tsx",
+      "lineRange": [
+        11,
+        45
+      ],
+      "summary": "Renders the privacy page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/returns-policy.tsx",
+      "type": "file",
+      "name": "returns-policy.tsx",
+      "filePath": "src/routes/returns-policy.tsx",
+      "summary": "Publishes the returns eligibility, exclusions, process, refund, and contact policy.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/routes/returns-policy.tsx:ReturnsPolicyPage",
+      "type": "function",
+      "name": "ReturnsPolicyPage",
+      "filePath": "src/routes/returns-policy.tsx",
+      "lineRange": [
+        16,
+        60
+      ],
+      "summary": "Renders the returns policy page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/terms-and-conditions.tsx",
+      "type": "file",
+      "name": "terms-and-conditions.tsx",
+      "filePath": "src/routes/terms-and-conditions.tsx",
+      "summary": "Publishes the storefront terms governing orders, payment, delivery, liability, and use of the site.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/terms-and-conditions.tsx:TermsPage",
+      "type": "function",
+      "name": "TermsPage",
+      "filePath": "src/routes/terms-and-conditions.tsx",
+      "lineRange": [
+        11,
+        45
+      ],
+      "summary": "Renders the terms page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/unsubscribe.tsx",
+      "type": "file",
+      "name": "unsubscribe.tsx",
+      "filePath": "src/routes/unsubscribe.tsx",
+      "summary": "Handles customer email-marketing unsubscribe requests and presents the resulting status.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/unsubscribe.tsx:UnsubscribePage",
+      "type": "function",
+      "name": "UnsubscribePage",
+      "filePath": "src/routes/unsubscribe.tsx",
+      "lineRange": [
+        12,
+        31
+      ],
+      "summary": "Renders the unsubscribe page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/unit/catalog.spec.ts",
+      "type": "file",
+      "name": "catalog.spec.ts",
+      "filePath": "tests/unit/catalog.spec.ts",
+      "summary": "Verifies catalogue route resolution, query normalization, filter mapping, and collection lookup helpers.",
+      "tags": [
+        "test",
+        "unit-test",
+        "validation"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:scripts/sync-shopify-collections.ts",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:scripts/sync-shopify-collections.ts",
+      "target": "function:scripts/sync-shopify-collections.ts:getShopifyCliCommand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/sync-shopify-collections.ts",
+      "target": "function:scripts/sync-shopify-collections.ts:admin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/InfoPage.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/InfoPage.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/InfoPage.tsx",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/InfoPage.tsx",
+      "target": "function:src/components/shopify/InfoPage.tsx:InfoPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/InfoPage.tsx",
+      "target": "function:src/components/shopify/InfoPage.tsx:InfoPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/SupportRequestForm.tsx",
+      "target": "file:src/hooks/use-hydrated.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/SupportRequestForm.tsx",
+      "target": "file:src/lib/api/cms.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/SupportRequestForm.tsx",
+      "target": "function:src/components/shopify/SupportRequestForm.tsx:SupportRequestForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/SupportRequestForm.tsx",
+      "target": "function:src/components/shopify/SupportRequestForm.tsx:SupportRequestForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/catalog.ts",
+      "target": "function:src/lib/catalog.ts:getCatalogCategory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/catalog.ts",
+      "target": "function:src/lib/catalog.ts:getCatalogCategory",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/catalog.ts",
+      "target": "function:src/lib/catalog.ts:getCatalogueSearch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/catalog.ts",
+      "target": "function:src/lib/catalog.ts:getCatalogueSearch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/catalog.ts",
+      "target": "function:src/lib/catalog.ts:getCatalogFilterHandle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/catalog.ts",
+      "target": "function:src/lib/catalog.ts:getCatalogFilterHandle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/catalog.ts",
+      "target": "function:src/lib/catalog.ts:getCatalogCollections",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/catalog.ts",
+      "target": "function:src/lib/catalog.ts:getCatalogCollections",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/seo.ts",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/seo.ts",
+      "target": "function:src/lib/seo.ts:pageHead",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/seo.ts",
+      "target": "function:src/lib/seo.ts:pageHead",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/router.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/__root.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/about-us.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/account.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/admin/index.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/admin/login.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/admin/submissions.$id.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/asphalt.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/automation.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/cart.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/concrete.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/contact-us.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/control-panels-software.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/cookies.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/credit-account.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/delivery-information.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/disclaimer.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/forgot-password.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/got-a-question.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/home-controls.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/index.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/login.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/new-arrivals.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/packing.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/privacy-policy.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/products/$handle.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/products/index.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/quote.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/register.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/resources.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/returns-policy.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/returns.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/search.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/terms-and-conditions.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/track-order.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/routes/unsubscribe.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routeTree.gen.ts",
+      "target": "file:src/start.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/router.tsx",
+      "target": "file:src/routeTree.gen.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/router.tsx",
+      "target": "function:src/router.tsx:getRouter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/router.tsx",
+      "target": "function:src/router.tsx:getRouter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/routes/about-us.tsx",
+      "target": "file:src/components/shopify/InfoPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/about-us.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/about-us.tsx",
+      "target": "function:src/routes/about-us.tsx:AboutUsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/asphalt.tsx",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/automation.tsx",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/concrete.tsx",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/contact-us.tsx",
+      "target": "file:src/components/shopify/InfoPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/contact-us.tsx",
+      "target": "file:src/components/shopify/SupportRequestForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/contact-us.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/contact-us.tsx",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/contact-us.tsx",
+      "target": "function:src/routes/contact-us.tsx:ContactUsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/contact-us.tsx",
+      "target": "function:src/routes/contact-us.tsx:ContactCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/control-panels-software.tsx",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/cookies.tsx",
+      "target": "file:src/components/shopify/InfoPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/cookies.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/cookies.tsx",
+      "target": "function:src/routes/cookies.tsx:CookiesPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/credit-account.tsx",
+      "target": "file:src/components/shopify/CreditAccountApplicationForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/credit-account.tsx",
+      "target": "file:src/components/shopify/InfoPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/credit-account.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/credit-account.tsx",
+      "target": "function:src/routes/credit-account.tsx:CreditAccountPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/disclaimer.tsx",
+      "target": "file:src/components/shopify/InfoPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/disclaimer.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/disclaimer.tsx",
+      "target": "function:src/routes/disclaimer.tsx:DisclaimerPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/got-a-question.tsx",
+      "target": "file:src/components/shopify/InfoPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/got-a-question.tsx",
+      "target": "file:src/components/shopify/SupportRequestForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/got-a-question.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/got-a-question.tsx",
+      "target": "function:src/routes/got-a-question.tsx:GotAQuestionPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/home-controls.tsx",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/index.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/index.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/index.tsx",
+      "target": "file:src/hooks/use-hydrated.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/index.tsx",
+      "target": "file:src/lib/api/cms.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/index.tsx",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/index.tsx",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/index.tsx",
+      "target": "function:src/routes/index.tsx:Home",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/packing.tsx",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/privacy-policy.tsx",
+      "target": "file:src/components/shopify/InfoPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/privacy-policy.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/privacy-policy.tsx",
+      "target": "function:src/routes/privacy-policy.tsx:PrivacyPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/returns-policy.tsx",
+      "target": "file:src/components/shopify/InfoPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/returns-policy.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/returns-policy.tsx",
+      "target": "function:src/routes/returns-policy.tsx:ReturnsPolicyPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/terms-and-conditions.tsx",
+      "target": "file:src/components/shopify/InfoPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/terms-and-conditions.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/terms-and-conditions.tsx",
+      "target": "function:src/routes/terms-and-conditions.tsx:TermsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/unsubscribe.tsx",
+      "target": "file:src/components/shopify/InfoPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/unsubscribe.tsx",
+      "target": "file:src/components/shopify/SupportRequestForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/unsubscribe.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/unsubscribe.tsx",
+      "target": "function:src/routes/unsubscribe.tsx:UnsubscribePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/unit/catalog.spec.ts",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

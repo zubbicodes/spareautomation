@@ -2,31 +2,39 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { InfoPage } from "@/components/shopify/InfoPage";
 import { SupportRequestForm } from "@/components/shopify/SupportRequestForm";
-import { pageHead } from "@/lib/seo";
+import { useContent } from "@/lib/content/ContentContext";
+import { getPublishedContent } from "@/lib/content/content.functions";
+import { contentPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/got-a-question")({
-  head: () => pageHead("Product and Quote Help", "Get help with product identification, availability, quotations, carts, and technical questions.", "/got-a-question"),
+  loader: async () => {
+    const { site, functional } = await getPublishedContent();
+    return { site, seo: functional["got-a-question"].seo };
+  },
+  head: ({ loaderData }) =>
+    contentPageHead(loaderData?.seo, loaderData?.site, "/got-a-question", {
+      title: "Product and Quote Help",
+      description:
+        "Get help with product identification, availability, quotations, carts, and technical questions.",
+    }),
   component: GotAQuestionPage,
 });
 
 function GotAQuestionPage() {
+  const { functional } = useContent();
+  const copy = functional["got-a-question"];
+
   return (
     <InfoPage
-      eyebrow="Questions"
-      title="Got a question?"
-      intro="For product identification, availability, technical details, quote help, or cart questions, contact the sales desk with as much reference detail as possible."
-      sections={[
-        {
-          title: "Product questions",
-          copy: "Send the part number, manufacturer reference, product photo, or equipment name and we will help identify the right item.",
-        },
-        {
-          title: "Cart and quote questions",
-          copy: "Add products to the cart and use request quote to email the current cart details to the sales desk.",
-        },
-      ]}
-      ctaLabel="View all contact options"
-      ctaTo="/contact-us"
-    ><SupportRequestForm kind="question" /></InfoPage>
+      functionalKey="got-a-question"
+      eyebrow={copy.eyebrow}
+      title={copy.title}
+      intro={copy.intro}
+      sections={[]}
+      ctaLabel={copy.ctaLabel}
+      ctaTo={copy.ctaTo}
+    >
+      <SupportRequestForm kind="question" />
+    </InfoPage>
   );
 }

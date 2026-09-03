@@ -1,0 +1,300 @@
+{
+    "projectRoot":  "D:\\StratonAlly\\Code\\spareautomation",
+    "batchFiles":  [
+                       {
+                           "path":  "scripts/sync-shopify-collections.ts",
+                           "language":  "typescript",
+                           "sizeLines":  221,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/InfoPage.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  124,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/SupportRequestForm.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  221,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/lib/catalog.ts",
+                           "language":  "typescript",
+                           "sizeLines":  257,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/lib/seo.ts",
+                           "language":  "typescript",
+                           "sizeLines":  19,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routeTree.gen.ts",
+                           "language":  "typescript",
+                           "sizeLines":  766,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/router.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  13,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/about-us.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  45,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/asphalt.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  16,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/automation.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  16,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/concrete.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  16,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/contact-us.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  72,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/control-panels-software.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  16,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/cookies.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  46,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/credit-account.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  31,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/disclaimer.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  45,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/got-a-question.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  32,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/home-controls.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  16,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/index.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  507,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/new-arrivals.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  12,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/packing.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  16,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/privacy-policy.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  45,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/returns-policy.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  60,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/terms-and-conditions.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  45,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/unsubscribe.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  31,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "tests/unit/catalog.spec.ts",
+                           "language":  "typescript",
+                           "sizeLines":  42,
+                           "fileCategory":  "code"
+                       }
+                   ],
+    "batchImportData":  {
+                            "scripts/sync-shopify-collections.ts":  [
+                                                                        "src/lib/catalog.ts"
+                                                                    ],
+                            "src/components/shopify/InfoPage.tsx":  [
+                                                                        "src/components/shopify/SiteFooter.tsx",
+                                                                        "src/components/shopify/SiteHeader.tsx",
+                                                                        "src/lib/site.ts"
+                                                                    ],
+                            "src/components/shopify/SupportRequestForm.tsx":  [
+                                                                                  "src/hooks/use-hydrated.ts",
+                                                                                  "src/lib/api/cms.functions.ts"
+                                                                              ],
+                            "src/lib/catalog.ts":  [
+
+                                                   ],
+                            "src/lib/seo.ts":  [
+                                                   "src/lib/site.ts"
+                                               ],
+                            "src/routeTree.gen.ts":  [
+                                                         "src/router.tsx",
+                                                         "src/routes/__root.tsx",
+                                                         "src/routes/about-us.tsx",
+                                                         "src/routes/account.tsx",
+                                                         "src/routes/admin/index.tsx",
+                                                         "src/routes/admin/login.tsx",
+                                                         "src/routes/admin/submissions.$id.tsx",
+                                                         "src/routes/asphalt.tsx",
+                                                         "src/routes/automation.tsx",
+                                                         "src/routes/cart.tsx",
+                                                         "src/routes/concrete.tsx",
+                                                         "src/routes/contact-us.tsx",
+                                                         "src/routes/control-panels-software.tsx",
+                                                         "src/routes/cookies.tsx",
+                                                         "src/routes/credit-account.tsx",
+                                                         "src/routes/delivery-information.tsx",
+                                                         "src/routes/disclaimer.tsx",
+                                                         "src/routes/forgot-password.tsx",
+                                                         "src/routes/got-a-question.tsx",
+                                                         "src/routes/home-controls.tsx",
+                                                         "src/routes/index.tsx",
+                                                         "src/routes/login.tsx",
+                                                         "src/routes/new-arrivals.tsx",
+                                                         "src/routes/packing.tsx",
+                                                         "src/routes/privacy-policy.tsx",
+                                                         "src/routes/products/$handle.tsx",
+                                                         "src/routes/products/index.tsx",
+                                                         "src/routes/quote.tsx",
+                                                         "src/routes/register.tsx",
+                                                         "src/routes/resources.tsx",
+                                                         "src/routes/returns-policy.tsx",
+                                                         "src/routes/returns.tsx",
+                                                         "src/routes/search.tsx",
+                                                         "src/routes/terms-and-conditions.tsx",
+                                                         "src/routes/track-order.tsx",
+                                                         "src/routes/unsubscribe.tsx",
+                                                         "src/start.ts"
+                                                     ],
+                            "src/router.tsx":  [
+                                                   "src/routeTree.gen.ts"
+                                               ],
+                            "src/routes/about-us.tsx":  [
+                                                            "src/components/shopify/InfoPage.tsx",
+                                                            "src/lib/seo.ts"
+                                                        ],
+                            "src/routes/asphalt.tsx":  [
+                                                           "src/lib/catalog.ts"
+                                                       ],
+                            "src/routes/automation.tsx":  [
+                                                              "src/lib/catalog.ts"
+                                                          ],
+                            "src/routes/concrete.tsx":  [
+                                                            "src/lib/catalog.ts"
+                                                        ],
+                            "src/routes/contact-us.tsx":  [
+                                                              "src/components/shopify/InfoPage.tsx",
+                                                              "src/components/shopify/SupportRequestForm.tsx",
+                                                              "src/lib/seo.ts",
+                                                              "src/lib/site.ts"
+                                                          ],
+                            "src/routes/control-panels-software.tsx":  [
+                                                                           "src/lib/catalog.ts"
+                                                                       ],
+                            "src/routes/cookies.tsx":  [
+                                                           "src/components/shopify/InfoPage.tsx",
+                                                           "src/lib/seo.ts"
+                                                       ],
+                            "src/routes/credit-account.tsx":  [
+                                                                  "src/components/shopify/CreditAccountApplicationForm.tsx",
+                                                                  "src/components/shopify/InfoPage.tsx",
+                                                                  "src/lib/seo.ts"
+                                                              ],
+                            "src/routes/disclaimer.tsx":  [
+                                                              "src/components/shopify/InfoPage.tsx",
+                                                              "src/lib/seo.ts"
+                                                          ],
+                            "src/routes/got-a-question.tsx":  [
+                                                                  "src/components/shopify/InfoPage.tsx",
+                                                                  "src/components/shopify/SupportRequestForm.tsx",
+                                                                  "src/lib/seo.ts"
+                                                              ],
+                            "src/routes/home-controls.tsx":  [
+                                                                 "src/lib/catalog.ts"
+                                                             ],
+                            "src/routes/index.tsx":  [
+                                                         "src/components/shopify/SiteFooter.tsx",
+                                                         "src/components/shopify/SiteHeader.tsx",
+                                                         "src/hooks/use-hydrated.ts",
+                                                         "src/lib/api/cms.functions.ts",
+                                                         "src/lib/catalog.ts",
+                                                         "src/lib/site.ts"
+                                                     ],
+                            "src/routes/new-arrivals.tsx":  [
+
+                                                            ],
+                            "src/routes/packing.tsx":  [
+                                                           "src/lib/catalog.ts"
+                                                       ],
+                            "src/routes/privacy-policy.tsx":  [
+                                                                  "src/components/shopify/InfoPage.tsx",
+                                                                  "src/lib/seo.ts"
+                                                              ],
+                            "src/routes/returns-policy.tsx":  [
+                                                                  "src/components/shopify/InfoPage.tsx",
+                                                                  "src/lib/seo.ts"
+                                                              ],
+                            "src/routes/terms-and-conditions.tsx":  [
+                                                                        "src/components/shopify/InfoPage.tsx",
+                                                                        "src/lib/seo.ts"
+                                                                    ],
+                            "src/routes/unsubscribe.tsx":  [
+                                                               "src/components/shopify/InfoPage.tsx",
+                                                               "src/components/shopify/SupportRequestForm.tsx",
+                                                               "src/lib/seo.ts"
+                                                           ],
+                            "tests/unit/catalog.spec.ts":  [
+                                                               "src/lib/catalog.ts"
+                                                           ]
+                        }
+}

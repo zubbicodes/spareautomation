@@ -18,13 +18,26 @@ import {
   STANDARD_VAT_RATE,
 } from "@/lib/shopify/format";
 import type { ShopifyCart } from "@/lib/shopify/types";
+import { useContent } from "@/lib/content/ContentContext";
+import { getPublishedContent } from "@/lib/content/content.functions";
+import { contentPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/cart")({
-  head: () => ({ meta: [{ title: "Cart | Spares Automation" }, { name: "description", content: "Review selected industrial parts, continue to secure Shopify checkout, or request a quote by email." }, { name: "robots", content: "noindex, nofollow" }] }),
+  loader: async () => {
+    const { site, functional } = await getPublishedContent();
+    return { site, seo: functional.cart.seo };
+  },
+  head: ({ loaderData }) =>
+    contentPageHead(loaderData?.seo, loaderData?.site, "/cart", {
+      title: "Cart",
+      description: "Review selected industrial parts, continue to secure Shopify checkout, or request a quote by email.",
+    }, { noIndex: true, noFollow: true }),
   component: CartPage,
 });
 
 function CartPage() {
+  const { functional, messages } = useContent();
+  const copy = functional.cart;
   const [cart, setCart] = useState<ShopifyCart | null>(null);
   const [loading, setLoading] = useState(true);
   const [busyLineId, setBusyLineId] = useState<string | null>(null);
@@ -42,14 +55,14 @@ function CartPage() {
         setCart(nextCart);
         if (!nextCart) clearStoredCartId();
       } catch {
-        setError("Your cart could not be loaded. Check your connection and try again.");
+        setError(messages["cart.loadFailed"]);
       } finally {
         setLoading(false);
       }
     }
 
     loadCart();
-  }, []);
+  }, [messages]);
 
   async function updateLine(lineId: string, quantity: number) {
     const cartId = getStoredCartId();
@@ -61,7 +74,7 @@ function CartPage() {
       setCart(nextCart);
       setStoredCartId(nextCart.id);
     } catch {
-      setError("We could not update this item. Your previous quantity is unchanged.");
+      setError(messages["cart.updateFailed"]);
     } finally {
       setBusyLineId(null);
     }
@@ -77,7 +90,7 @@ function CartPage() {
       setCart(nextCart);
       setStoredCartId(nextCart.id);
     } catch {
-      setError("We could not remove this item. Please try again.");
+      setError(messages["cart.removeFailed"]);
     } finally {
       setBusyLineId(null);
     }
@@ -95,10 +108,10 @@ function CartPage() {
         <div className="mb-6 md:mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
-              Secure Checkout
+              {copy.eyebrow}
             </div>
             <h1 className="mt-2 font-display text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight">
-              Cart
+              {copy.title}
             </h1>
           </div>
           <Link
@@ -112,7 +125,7 @@ function CartPage() {
         {error ? <div role="alert" className="mb-5 border border-red-300 bg-red-50 p-4 text-sm text-red-800">{error}</div> : null}
         {loading ? (
           <div className="border border-rule bg-surface px-4 py-12 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted md:px-8 md:py-16">
-            Loading cart
+            {copy.loadingLabel}
           </div>
         ) : isEmpty ? (
           <div className="border border-dashed border-rule bg-surface px-4 py-12 text-center md:px-8 md:py-16">
@@ -120,10 +133,10 @@ function CartPage() {
               <ShoppingCart className="h-5 w-5" />
             </div>
             <h2 className="font-display text-xl md:text-2xl font-bold uppercase tracking-tight">
-              Your cart is empty
+              {copy.emptyTitle}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-muted">
-              Add products from any category, then complete payment and shipping through checkout.
+              {copy.emptyCopy}
             </p>
           </div>
         ) : (

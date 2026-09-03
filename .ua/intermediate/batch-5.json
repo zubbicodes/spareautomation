@@ -1,0 +1,997 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/components/ui/navigation-menu.tsx",
+      "type": "file",
+      "name": "navigation-menu.tsx",
+      "filePath": "src/components/ui/navigation-menu.tsx",
+      "summary": "Provides accessible, styled navigation-menu primitives for site navigation, including triggers, content panels, indicators, and a responsive viewport.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/ui/pagination.tsx",
+      "type": "file",
+      "name": "pagination.tsx",
+      "filePath": "src/components/ui/pagination.tsx",
+      "summary": "Provides accessible pagination composition primitives and previous, next, link, and ellipsis controls styled with the shared button system.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/pagination.tsx:Pagination",
+      "type": "function",
+      "name": "Pagination",
+      "filePath": "src/components/ui/pagination.tsx",
+      "lineRange": [
+        7,
+        14
+      ],
+      "summary": "Renders the semantic navigation container for a pagination control.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/pagination.tsx:PaginationLink",
+      "type": "function",
+      "name": "PaginationLink",
+      "filePath": "src/components/ui/pagination.tsx",
+      "lineRange": [
+        34,
+        46
+      ],
+      "summary": "Renders a pagination link using shared button variants and marks the active page accessibly.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/pagination.tsx:PaginationPrevious",
+      "type": "function",
+      "name": "PaginationPrevious",
+      "filePath": "src/components/ui/pagination.tsx",
+      "lineRange": [
+        49,
+        62
+      ],
+      "summary": "Renders a previous-page link with an icon and screen-size-aware label.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/pagination.tsx:PaginationNext",
+      "type": "function",
+      "name": "PaginationNext",
+      "filePath": "src/components/ui/pagination.tsx",
+      "lineRange": [
+        65,
+        75
+      ],
+      "summary": "Renders a next-page link with an icon and screen-size-aware label.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/pagination.tsx:PaginationEllipsis",
+      "type": "function",
+      "name": "PaginationEllipsis",
+      "filePath": "src/components/ui/pagination.tsx",
+      "lineRange": [
+        78,
+        87
+      ],
+      "summary": "Renders a non-interactive ellipsis and an accessible indication that more pages exist.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/popover.tsx",
+      "type": "file",
+      "name": "popover.tsx",
+      "filePath": "src/components/ui/popover.tsx",
+      "summary": "Wraps Radix popover primitives with the project's trigger, anchor, portal, and styled content conventions.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/progress.tsx",
+      "type": "file",
+      "name": "progress.tsx",
+      "filePath": "src/components/ui/progress.tsx",
+      "summary": "Provides an accessible progress indicator whose visual transform reflects the supplied completion value.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/radio-group.tsx",
+      "type": "file",
+      "name": "radio-group.tsx",
+      "filePath": "src/components/ui/radio-group.tsx",
+      "summary": "Wraps Radix radio-group primitives with project styling for grouped choices and selected-state indicators.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/resizable.tsx",
+      "type": "file",
+      "name": "resizable.tsx",
+      "filePath": "src/components/ui/resizable.tsx",
+      "summary": "Provides resizable panel-group and handle components, including an optional visible grip for split layouts.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/resizable.tsx:ResizablePanelGroup",
+      "type": "function",
+      "name": "ResizablePanelGroup",
+      "filePath": "src/components/ui/resizable.tsx",
+      "lineRange": [
+        6,
+        11
+      ],
+      "summary": "Styles and orients a resizable panel group for horizontal or vertical layouts.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/resizable.tsx:ResizableHandle",
+      "type": "function",
+      "name": "ResizableHandle",
+      "filePath": "src/components/ui/resizable.tsx",
+      "lineRange": [
+        15,
+        35
+      ],
+      "summary": "Renders the draggable separator between panels, optionally with a visible grip.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/scroll-area.tsx",
+      "type": "file",
+      "name": "scroll-area.tsx",
+      "filePath": "src/components/ui/scroll-area.tsx",
+      "summary": "Wraps Radix scroll-area primitives with styled viewport, corner, and horizontal or vertical scrollbars.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/select.tsx",
+      "type": "file",
+      "name": "select.tsx",
+      "filePath": "src/components/ui/select.tsx",
+      "summary": "Provides the complete styled select-control family, including trigger, portal content, items, labels, separators, and scroll controls.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/ui/separator.tsx",
+      "type": "file",
+      "name": "separator.tsx",
+      "filePath": "src/components/ui/separator.tsx",
+      "summary": "Provides a styled horizontal or vertical Radix separator with decorative and semantic modes.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/sheet.tsx",
+      "type": "file",
+      "name": "sheet.tsx",
+      "filePath": "src/components/ui/sheet.tsx",
+      "summary": "Provides an accessible slide-over sheet system with portal, overlay, directional content variants, close control, and structured header/footer elements.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/sheet.tsx:SheetHeader",
+      "type": "function",
+      "name": "SheetHeader",
+      "filePath": "src/components/ui/sheet.tsx",
+      "lineRange": [
+        74,
+        76
+      ],
+      "summary": "Groups and styles a sheet's title and descriptive header content.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/sheet.tsx:SheetFooter",
+      "type": "function",
+      "name": "SheetFooter",
+      "filePath": "src/components/ui/sheet.tsx",
+      "lineRange": [
+        79,
+        84
+      ],
+      "summary": "Groups and aligns a sheet's action controls across responsive layouts.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/sidebar.tsx",
+      "type": "file",
+      "name": "sidebar.tsx",
+      "filePath": "src/components/ui/sidebar.tsx",
+      "summary": "Implements the application's responsive sidebar system, including context-managed state, keyboard toggling, mobile sheets, rails, menus, groups, badges, and skeleton states.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/components/ui/sidebar.tsx:useSidebar",
+      "type": "function",
+      "name": "useSidebar",
+      "filePath": "src/components/ui/sidebar.tsx",
+      "lineRange": [
+        40,
+        47
+      ],
+      "summary": "Returns the nearest sidebar context and fails fast when used outside its provider.",
+      "tags": [
+        "hook",
+        "react",
+        "state-management"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/skeleton.tsx",
+      "type": "file",
+      "name": "skeleton.tsx",
+      "filePath": "src/components/ui/skeleton.tsx",
+      "summary": "Provides a reusable animated placeholder block for loading states.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/skeleton.tsx:Skeleton",
+      "type": "function",
+      "name": "Skeleton",
+      "filePath": "src/components/ui/skeleton.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders an animated placeholder while content is loading.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/slider.tsx",
+      "type": "file",
+      "name": "slider.tsx",
+      "filePath": "src/components/ui/slider.tsx",
+      "summary": "Wraps the Radix slider with a styled track, range, and draggable thumb.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/switch.tsx",
+      "type": "file",
+      "name": "switch.tsx",
+      "filePath": "src/components/ui/switch.tsx",
+      "summary": "Wraps the Radix switch with accessible checked-state styling and a moving thumb.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/table.tsx",
+      "type": "file",
+      "name": "table.tsx",
+      "filePath": "src/components/ui/table.tsx",
+      "summary": "Provides styled semantic table primitives for headers, bodies, rows, cells, captions, and footers, with horizontal overflow support.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/ui/tabs.tsx",
+      "type": "file",
+      "name": "tabs.tsx",
+      "filePath": "src/components/ui/tabs.tsx",
+      "summary": "Wraps Radix tabs with styled lists, triggers, and content panels for keyboard-accessible tabbed interfaces.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/textarea.tsx",
+      "type": "file",
+      "name": "textarea.tsx",
+      "filePath": "src/components/ui/textarea.tsx",
+      "summary": "Provides the shared styled textarea control with focus, disabled, and validation states.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/toggle-group.tsx",
+      "type": "file",
+      "name": "toggle-group.tsx",
+      "filePath": "src/components/ui/toggle-group.tsx",
+      "summary": "Provides single- or multiple-selection toggle groups that propagate shared size and variant styling to each item.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/toggle.tsx",
+      "type": "file",
+      "name": "toggle.tsx",
+      "filePath": "src/components/ui/toggle.tsx",
+      "summary": "Defines the reusable toggle control and its visual variants for default, outlined, and sized states.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/tooltip.tsx",
+      "type": "file",
+      "name": "tooltip.tsx",
+      "filePath": "src/components/ui/tooltip.tsx",
+      "summary": "Wraps Radix tooltip primitives with the project's provider, trigger, portal, and animated content conventions.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/hooks/use-mobile.tsx",
+      "type": "file",
+      "name": "use-mobile.tsx",
+      "filePath": "src/hooks/use-mobile.tsx",
+      "summary": "Provides the responsive viewport hook used by layout components to switch behavior below the mobile breakpoint.",
+      "tags": [
+        "hook",
+        "responsive-design",
+        "browser-api",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/hooks/use-mobile.tsx:useIsMobile",
+      "type": "function",
+      "name": "useIsMobile",
+      "filePath": "src/hooks/use-mobile.tsx",
+      "lineRange": [
+        5,
+        19
+      ],
+      "summary": "Tracks whether the viewport is below the mobile breakpoint using matchMedia and a change listener.",
+      "tags": [
+        "hook",
+        "react",
+        "state-management"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/utils.ts",
+      "type": "file",
+      "name": "utils.ts",
+      "filePath": "src/lib/utils.ts",
+      "summary": "Provides the shared class-name utility that combines conditional classes and resolves Tailwind conflicts.",
+      "tags": [
+        "utility",
+        "styling",
+        "tailwind-css",
+        "serialization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/utils.ts:cn",
+      "type": "function",
+      "name": "cn",
+      "filePath": "src/lib/utils.ts",
+      "lineRange": [
+        4,
+        6
+      ],
+      "summary": "Combines conditional class values and resolves conflicting Tailwind utilities into one class string.",
+      "tags": [
+        "component",
+        "react",
+        "user-interface"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "function:src/components/ui/pagination.tsx:Pagination",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "function:src/components/ui/pagination.tsx:Pagination",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "function:src/components/ui/pagination.tsx:PaginationLink",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "function:src/components/ui/pagination.tsx:PaginationLink",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "function:src/components/ui/pagination.tsx:PaginationPrevious",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "function:src/components/ui/pagination.tsx:PaginationPrevious",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "function:src/components/ui/pagination.tsx:PaginationNext",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "function:src/components/ui/pagination.tsx:PaginationNext",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "function:src/components/ui/pagination.tsx:PaginationEllipsis",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "function:src/components/ui/pagination.tsx:PaginationEllipsis",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/resizable.tsx",
+      "target": "function:src/components/ui/resizable.tsx:ResizablePanelGroup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/resizable.tsx",
+      "target": "function:src/components/ui/resizable.tsx:ResizablePanelGroup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/resizable.tsx",
+      "target": "function:src/components/ui/resizable.tsx:ResizableHandle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/resizable.tsx",
+      "target": "function:src/components/ui/resizable.tsx:ResizableHandle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/sheet.tsx",
+      "target": "function:src/components/ui/sheet.tsx:SheetHeader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/sheet.tsx",
+      "target": "function:src/components/ui/sheet.tsx:SheetHeader",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/sheet.tsx",
+      "target": "function:src/components/ui/sheet.tsx:SheetFooter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/sheet.tsx",
+      "target": "function:src/components/ui/sheet.tsx:SheetFooter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/sidebar.tsx",
+      "target": "function:src/components/ui/sidebar.tsx:useSidebar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/sidebar.tsx",
+      "target": "function:src/components/ui/sidebar.tsx:useSidebar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/skeleton.tsx",
+      "target": "function:src/components/ui/skeleton.tsx:Skeleton",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/skeleton.tsx",
+      "target": "function:src/components/ui/skeleton.tsx:Skeleton",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/hooks/use-mobile.tsx",
+      "target": "function:src/hooks/use-mobile.tsx:useIsMobile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/hooks/use-mobile.tsx",
+      "target": "function:src/hooks/use-mobile.tsx:useIsMobile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/utils.ts",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/utils.ts",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/navigation-menu.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "file:src/components/ui/button.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/pagination.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/popover.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/progress.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/radio-group.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/resizable.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/scroll-area.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/select.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/separator.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/sheet.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/sidebar.tsx",
+      "target": "file:src/components/ui/button.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/sidebar.tsx",
+      "target": "file:src/components/ui/input.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/sidebar.tsx",
+      "target": "file:src/components/ui/separator.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/sidebar.tsx",
+      "target": "file:src/components/ui/sheet.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/sidebar.tsx",
+      "target": "file:src/components/ui/skeleton.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/sidebar.tsx",
+      "target": "file:src/components/ui/tooltip.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/sidebar.tsx",
+      "target": "file:src/hooks/use-mobile.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/sidebar.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/skeleton.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/slider.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/switch.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/table.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/tabs.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/textarea.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/toggle-group.tsx",
+      "target": "file:src/components/ui/toggle.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/toggle-group.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/toggle.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/tooltip.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:src/components/ui/pagination.tsx:Pagination",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/ui/pagination.tsx:PaginationLink",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/ui/pagination.tsx:PaginationPrevious",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/ui/pagination.tsx:PaginationNext",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/ui/pagination.tsx:PaginationEllipsis",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/ui/resizable.tsx:ResizablePanelGroup",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/ui/resizable.tsx:ResizableHandle",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/ui/sheet.tsx:SheetHeader",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/ui/sheet.tsx:SheetFooter",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/ui/skeleton.tsx:Skeleton",
+      "target": "function:src/lib/utils.ts:cn",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/components/ui/pagination.tsx:PaginationLink",
+      "target": "function:src/components/ui/button.tsx:buttonVariants",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

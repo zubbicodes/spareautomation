@@ -42,7 +42,8 @@ function AdminLoginPage() {
         setError(result.error ?? "Sign in failed.");
         return;
       }
-      void navigate({ to: "/admin", search: { type: "all", status: "all", search: "", page: 1 } });
+      if (result.mustChangePassword) void navigate({ to: "/admin/change-password" });
+      else void navigate({ to: "/admin", search: { type: "all", status: "all", search: "", page: 1 } });
     } catch {
       setError("We could not sign you in. Please try again.");
     } finally {

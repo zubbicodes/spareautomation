@@ -1,0 +1,3865 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 175,
+  "totalBatches": 12,
+  "exportsByPath": {
+    ".prettierignore": [],
+    "Credit-Account-Application.docx": [],
+    "client-documents/Spares Automation - Shopify Product and Collection Guide.docx": [],
+    "drizzle.config.ts": [],
+    "eslint.config.js": [],
+    "nginx.conf": [],
+    "playwright.config.ts": [],
+    "public/site.webmanifest": [],
+    "scripts/sync-shopify-collections.ts": [],
+    "src/components/admin/AdminShell.tsx": [
+      "AdminShell"
+    ],
+    "src/components/shopify/AddToCartButton.tsx": [
+      "AddToCartButton"
+    ],
+    "src/components/shopify/AddToQuoteButton.tsx": [
+      "AddToQuoteButton"
+    ],
+    "src/components/shopify/BuildQuoteFromCartButton.tsx": [
+      "BuildQuoteFromCartButton"
+    ],
+    "src/components/shopify/CollectionPage.tsx": [
+      "CollectionPage"
+    ],
+    "src/components/shopify/CookieConsent.tsx": [
+      "CookieConsent"
+    ],
+    "src/components/shopify/CreditAccountApplicationForm.tsx": [
+      "CreditAccountApplicationForm"
+    ],
+    "src/components/shopify/InfoPage.tsx": [
+      "InfoPage"
+    ],
+    "src/components/shopify/PaymentMarks.tsx": [
+      "PaymentMarks",
+      "PayPalMark"
+    ],
+    "src/components/shopify/ProductCard.tsx": [
+      "ProductCard"
+    ],
+    "src/components/shopify/ProductDetail.tsx": [
+      "ProductDetail"
+    ],
+    "src/components/shopify/ReturnRequestForm.tsx": [
+      "ReturnRequestForm"
+    ],
+    "src/components/shopify/SignInRequired.tsx": [
+      "SignInRequired"
+    ],
+    "src/components/shopify/SiteFooter.tsx": [
+      "SiteFooter"
+    ],
+    "src/components/shopify/SiteHeader.tsx": [
+      "SiteHeader"
+    ],
+    "src/components/shopify/SupportRequestForm.tsx": [
+      "SupportRequestForm"
+    ],
+    "src/components/ui/accordion.tsx": [
+      "Accordion",
+      "AccordionItem",
+      "AccordionTrigger",
+      "AccordionContent"
+    ],
+    "src/components/ui/alert-dialog.tsx": [
+      "AlertDialog",
+      "AlertDialogPortal",
+      "AlertDialogOverlay",
+      "AlertDialogTrigger",
+      "AlertDialogContent",
+      "AlertDialogHeader",
+      "AlertDialogFooter",
+      "AlertDialogTitle",
+      "AlertDialogDescription",
+      "AlertDialogAction",
+      "AlertDialogCancel"
+    ],
+    "src/components/ui/alert.tsx": [
+      "Alert",
+      "AlertTitle",
+      "AlertDescription"
+    ],
+    "src/components/ui/aspect-ratio.tsx": [
+      "AspectRatio"
+    ],
+    "src/components/ui/avatar.tsx": [
+      "Avatar",
+      "AvatarImage",
+      "AvatarFallback"
+    ],
+    "src/components/ui/badge.tsx": [
+      "Badge",
+      "badgeVariants"
+    ],
+    "src/components/ui/breadcrumb.tsx": [
+      "Breadcrumb",
+      "BreadcrumbList",
+      "BreadcrumbItem",
+      "BreadcrumbLink",
+      "BreadcrumbPage",
+      "BreadcrumbSeparator",
+      "BreadcrumbEllipsis"
+    ],
+    "src/components/ui/button.tsx": [
+      "Button",
+      "buttonVariants"
+    ],
+    "src/components/ui/calendar.tsx": [
+      "Calendar",
+      "CalendarDayButton"
+    ],
+    "src/components/ui/card.tsx": [
+      "Card",
+      "CardHeader",
+      "CardFooter",
+      "CardTitle",
+      "CardDescription",
+      "CardContent"
+    ],
+    "src/components/ui/carousel.tsx": [
+      "CarouselApi",
+      "Carousel",
+      "CarouselContent",
+      "CarouselItem",
+      "CarouselPrevious",
+      "CarouselNext"
+    ],
+    "src/components/ui/chart.tsx": [
+      "ChartContainer",
+      "ChartTooltip",
+      "ChartTooltipContent",
+      "ChartLegend",
+      "ChartLegendContent",
+      "ChartStyle"
+    ],
+    "src/components/ui/checkbox.tsx": [
+      "Checkbox"
+    ],
+    "src/components/ui/collapsible.tsx": [
+      "Collapsible",
+      "CollapsibleTrigger",
+      "CollapsibleContent"
+    ],
+    "src/components/ui/command.tsx": [
+      "Command",
+      "CommandDialog",
+      "CommandInput",
+      "CommandList",
+      "CommandEmpty",
+      "CommandGroup",
+      "CommandItem",
+      "CommandShortcut",
+      "CommandSeparator"
+    ],
+    "src/components/ui/context-menu.tsx": [
+      "ContextMenu",
+      "ContextMenuTrigger",
+      "ContextMenuContent",
+      "ContextMenuItem",
+      "ContextMenuCheckboxItem",
+      "ContextMenuRadioItem",
+      "ContextMenuLabel",
+      "ContextMenuSeparator",
+      "ContextMenuShortcut",
+      "ContextMenuGroup",
+      "ContextMenuPortal",
+      "ContextMenuSub",
+      "ContextMenuSubContent",
+      "ContextMenuSubTrigger",
+      "ContextMenuRadioGroup"
+    ],
+    "src/components/ui/dialog.tsx": [
+      "Dialog",
+      "DialogPortal",
+      "DialogOverlay",
+      "DialogTrigger",
+      "DialogClose",
+      "DialogContent",
+      "DialogHeader",
+      "DialogFooter",
+      "DialogTitle",
+      "DialogDescription"
+    ],
+    "src/components/ui/drawer.tsx": [
+      "Drawer",
+      "DrawerPortal",
+      "DrawerOverlay",
+      "DrawerTrigger",
+      "DrawerClose",
+      "DrawerContent",
+      "DrawerHeader",
+      "DrawerFooter",
+      "DrawerTitle",
+      "DrawerDescription"
+    ],
+    "src/components/ui/dropdown-menu.tsx": [
+      "DropdownMenu",
+      "DropdownMenuTrigger",
+      "DropdownMenuContent",
+      "DropdownMenuItem",
+      "DropdownMenuCheckboxItem",
+      "DropdownMenuRadioItem",
+      "DropdownMenuLabel",
+      "DropdownMenuSeparator",
+      "DropdownMenuShortcut",
+      "DropdownMenuGroup",
+      "DropdownMenuPortal",
+      "DropdownMenuSub",
+      "DropdownMenuSubContent",
+      "DropdownMenuSubTrigger",
+      "DropdownMenuRadioGroup"
+    ],
+    "src/components/ui/form.tsx": [
+      "useFormField",
+      "Form",
+      "FormItem",
+      "FormLabel",
+      "FormControl",
+      "FormDescription",
+      "FormMessage",
+      "FormField"
+    ],
+    "src/components/ui/hover-card.tsx": [
+      "HoverCard",
+      "HoverCardTrigger",
+      "HoverCardContent"
+    ],
+    "src/components/ui/input-otp.tsx": [
+      "InputOTP",
+      "InputOTPGroup",
+      "InputOTPSlot",
+      "InputOTPSeparator"
+    ],
+    "src/components/ui/input.tsx": [
+      "Input"
+    ],
+    "src/components/ui/label.tsx": [
+      "Label"
+    ],
+    "src/components/ui/menubar.tsx": [
+      "Menubar",
+      "MenubarMenu",
+      "MenubarTrigger",
+      "MenubarContent",
+      "MenubarItem",
+      "MenubarSeparator",
+      "MenubarLabel",
+      "MenubarCheckboxItem",
+      "MenubarRadioGroup",
+      "MenubarRadioItem",
+      "MenubarPortal",
+      "MenubarSubContent",
+      "MenubarSubTrigger",
+      "MenubarGroup",
+      "MenubarSub",
+      "MenubarShortcut"
+    ],
+    "src/components/ui/navigation-menu.tsx": [
+      "navigationMenuTriggerStyle",
+      "NavigationMenu",
+      "NavigationMenuList",
+      "NavigationMenuItem",
+      "NavigationMenuContent",
+      "NavigationMenuTrigger",
+      "NavigationMenuLink",
+      "NavigationMenuIndicator",
+      "NavigationMenuViewport"
+    ],
+    "src/components/ui/pagination.tsx": [
+      "Pagination",
+      "PaginationContent",
+      "PaginationLink",
+      "PaginationItem",
+      "PaginationPrevious",
+      "PaginationNext",
+      "PaginationEllipsis"
+    ],
+    "src/components/ui/popover.tsx": [
+      "Popover",
+      "PopoverTrigger",
+      "PopoverContent",
+      "PopoverAnchor"
+    ],
+    "src/components/ui/progress.tsx": [
+      "Progress"
+    ],
+    "src/components/ui/radio-group.tsx": [
+      "RadioGroup",
+      "RadioGroupItem"
+    ],
+    "src/components/ui/resizable.tsx": [
+      "ResizablePanelGroup",
+      "ResizablePanel",
+      "ResizableHandle"
+    ],
+    "src/components/ui/scroll-area.tsx": [
+      "ScrollArea",
+      "ScrollBar"
+    ],
+    "src/components/ui/select.tsx": [
+      "Select",
+      "SelectGroup",
+      "SelectValue",
+      "SelectTrigger",
+      "SelectContent",
+      "SelectLabel",
+      "SelectItem",
+      "SelectSeparator",
+      "SelectScrollUpButton",
+      "SelectScrollDownButton"
+    ],
+    "src/components/ui/separator.tsx": [
+      "Separator"
+    ],
+    "src/components/ui/sheet.tsx": [
+      "Sheet",
+      "SheetPortal",
+      "SheetOverlay",
+      "SheetTrigger",
+      "SheetClose",
+      "SheetContent",
+      "SheetHeader",
+      "SheetFooter",
+      "SheetTitle",
+      "SheetDescription"
+    ],
+    "src/components/ui/sidebar.tsx": [
+      "Sidebar",
+      "SidebarContent",
+      "SidebarFooter",
+      "SidebarGroup",
+      "SidebarGroupAction",
+      "SidebarGroupContent",
+      "SidebarGroupLabel",
+      "SidebarHeader",
+      "SidebarInput",
+      "SidebarInset",
+      "SidebarMenu",
+      "SidebarMenuAction",
+      "SidebarMenuBadge",
+      "SidebarMenuButton",
+      "SidebarMenuItem",
+      "SidebarMenuSkeleton",
+      "SidebarMenuSub",
+      "SidebarMenuSubButton",
+      "SidebarMenuSubItem",
+      "SidebarProvider",
+      "SidebarRail",
+      "SidebarSeparator",
+      "SidebarTrigger",
+      "useSidebar"
+    ],
+    "src/components/ui/skeleton.tsx": [
+      "Skeleton"
+    ],
+    "src/components/ui/slider.tsx": [
+      "Slider"
+    ],
+    "src/components/ui/sonner.tsx": [
+      "Toaster"
+    ],
+    "src/components/ui/switch.tsx": [
+      "Switch"
+    ],
+    "src/components/ui/table.tsx": [
+      "Table",
+      "TableHeader",
+      "TableBody",
+      "TableFooter",
+      "TableHead",
+      "TableRow",
+      "TableCell",
+      "TableCaption"
+    ],
+    "src/components/ui/tabs.tsx": [
+      "Tabs",
+      "TabsList",
+      "TabsTrigger",
+      "TabsContent"
+    ],
+    "src/components/ui/textarea.tsx": [
+      "Textarea"
+    ],
+    "src/components/ui/toggle-group.tsx": [
+      "ToggleGroup",
+      "ToggleGroupItem"
+    ],
+    "src/components/ui/toggle.tsx": [
+      "Toggle",
+      "toggleVariants"
+    ],
+    "src/components/ui/tooltip.tsx": [
+      "Tooltip",
+      "TooltipTrigger",
+      "TooltipContent",
+      "TooltipProvider"
+    ],
+    "src/hooks/use-hydrated.ts": [
+      "useHydrated"
+    ],
+    "src/hooks/use-mobile.tsx": [
+      "useIsMobile"
+    ],
+    "src/lib/admin/admin.functions.ts": [
+      "getAdminSession",
+      "adminLogin",
+      "adminLogout",
+      "listSubmissions",
+      "getSubmissionDetail",
+      "setSubmissionStatus",
+      "addSubmissionNote",
+      "markSubmissionReviewed",
+      "syncSubmissionToShopify",
+      "getAttachmentDownload"
+    ],
+    "src/lib/admin/auth.server.ts": [
+      "hashPassword",
+      "getCurrentStaff",
+      "requireAdmin",
+      "isUnauthorizedError",
+      "loginStaff",
+      "logoutStaff",
+      "seedInitialAdmin"
+    ],
+    "src/lib/api/cms.functions.ts": [
+      "submitPartInquiry",
+      "submitCreditAccount",
+      "submitReturnRequest",
+      "submitSupportRequest",
+      "uploadPartInquiryPhoto",
+      "uploadSupportQuestionAttachment"
+    ],
+    "src/lib/api/example.functions.ts": [
+      "getGreeting"
+    ],
+    "src/lib/api/shopify.functions.ts": [
+      "getCollection",
+      "getCategoryCollections",
+      "getLatestProducts",
+      "getResourceProducts",
+      "getPaginatedProducts",
+      "getCatalogProductsPage",
+      "getProduct",
+      "getShopifyCart",
+      "addToShopifyCart",
+      "updateShopifyCartLine",
+      "removeShopifyCartLine",
+      "submitShopifyQuote",
+      "loginShopifyCustomer",
+      "getShopifyCustomer",
+      "logoutShopifyCustomer",
+      "requestShopifyPasswordReset",
+      "createShopifyCustomer"
+    ],
+    "src/lib/catalog.ts": [
+      "CATALOG_CATEGORIES",
+      "getCatalogCategory",
+      "getCatalogueSearch",
+      "getCatalogFilterHandle",
+      "getCatalogCollections"
+    ],
+    "src/lib/cms/rate-limit.ts": [
+      "SlidingWindowRateLimiter"
+    ],
+    "src/lib/config.server.ts": [
+      "getServerConfig"
+    ],
+    "src/lib/db/index.server.ts": [
+      "getDb"
+    ],
+    "src/lib/db/migrate.server.ts": [
+      "runMigrations"
+    ],
+    "src/lib/db/schema.ts": [
+      "submissionType",
+      "submissionStatus",
+      "staffRole",
+      "staffUsers",
+      "submissions",
+      "submissionNotes",
+      "attachments"
+    ],
+    "src/lib/error-capture.ts": [
+      "consumeLastCapturedError"
+    ],
+    "src/lib/error-page.ts": [
+      "renderErrorPage"
+    ],
+    "src/lib/lovable-error-reporting.ts": [
+      "reportLovableError"
+    ],
+    "src/lib/notify.server.ts": [
+      "sendEmail",
+      "notifySalesDesk"
+    ],
+    "src/lib/quote.ts": [
+      "productQuestionMailto",
+      "productQuestionWhatsApp",
+      "productQuoteMailto",
+      "quoteRequestMailto"
+    ],
+    "src/lib/seo.ts": [
+      "pageHead"
+    ],
+    "src/lib/shopify/admin.server.ts": [
+      "shopifyAdmin"
+    ],
+    "src/lib/shopify/cart.ts": [
+      "SHOPIFY_CART_ID_STORAGE_KEY",
+      "getStoredCartId",
+      "setStoredCartId",
+      "clearStoredCartId"
+    ],
+    "src/lib/shopify/customer-sync.server.ts": [
+      "syncCustomerToShopify",
+      "syncCreditCustomer",
+      "unsubscribeCustomerEmail"
+    ],
+    "src/lib/shopify/format.ts": [
+      "STANDARD_VAT_RATE",
+      "formatMoney",
+      "addVat",
+      "calculateVat",
+      "formatProductPrice",
+      "shopifyImageUrl"
+    ],
+    "src/lib/shopify/fragments.ts": [
+      "PRODUCT_CARD_FRAGMENT",
+      "PRODUCT_DETAIL_FRAGMENT",
+      "CART_FRAGMENT"
+    ],
+    "src/lib/shopify/queries.server.ts": [
+      "getCollectionByHandle",
+      "getProducts",
+      "getProductsWithResources",
+      "getProductsPage",
+      "getProductByHandle",
+      "getCart",
+      "createCart",
+      "addCartLines",
+      "updateCartLine",
+      "removeCartLine",
+      "createCustomer",
+      "createCustomerAccessToken",
+      "recoverCustomerPassword",
+      "getCustomer",
+      "getCollectionProductsPage",
+      "getCustomerOrders"
+    ],
+    "src/lib/shopify/quote.ts": [
+      "SHOPIFY_QUOTE_STORAGE_KEY",
+      "SHOPIFY_QUOTE_UPDATED_EVENT",
+      "EMPTY_QUOTE_CONTACT_DETAILS",
+      "quoteContactDetailsFromCustomer",
+      "getStoredQuote",
+      "setStoredQuote",
+      "clearStoredQuote",
+      "addProductToStoredQuote",
+      "addCartToStoredQuote"
+    ],
+    "src/lib/shopify/storefront.server.ts": [
+      "shopifyStorefront"
+    ],
+    "src/lib/shopify/types.ts": [],
+    "src/lib/site.ts": [
+      "SITE",
+      "emailHref",
+      "whatsappHref"
+    ],
+    "src/lib/utils.ts": [
+      "cn"
+    ],
+    "src/routeTree.gen.ts": [
+      "routeTree"
+    ],
+    "src/router.tsx": [
+      "getRouter"
+    ],
+    "src/routes/__root.tsx": [
+      "Route"
+    ],
+    "src/routes/about-us.tsx": [
+      "Route"
+    ],
+    "src/routes/account.tsx": [
+      "Route"
+    ],
+    "src/routes/admin/index.tsx": [
+      "Route"
+    ],
+    "src/routes/admin/login.tsx": [
+      "Route"
+    ],
+    "src/routes/admin/submissions.$id.tsx": [
+      "Route"
+    ],
+    "src/routes/asphalt.tsx": [
+      "Route"
+    ],
+    "src/routes/automation.tsx": [
+      "Route"
+    ],
+    "src/routes/cart.tsx": [
+      "Route"
+    ],
+    "src/routes/concrete.tsx": [
+      "Route"
+    ],
+    "src/routes/contact-us.tsx": [
+      "Route"
+    ],
+    "src/routes/control-panels-software.tsx": [
+      "Route"
+    ],
+    "src/routes/cookies.tsx": [
+      "Route"
+    ],
+    "src/routes/credit-account.tsx": [
+      "Route"
+    ],
+    "src/routes/delivery-information.tsx": [
+      "Route"
+    ],
+    "src/routes/disclaimer.tsx": [
+      "Route"
+    ],
+    "src/routes/forgot-password.tsx": [
+      "Route"
+    ],
+    "src/routes/got-a-question.tsx": [
+      "Route"
+    ],
+    "src/routes/home-controls.tsx": [
+      "Route"
+    ],
+    "src/routes/index.tsx": [
+      "Route"
+    ],
+    "src/routes/login.tsx": [
+      "Route"
+    ],
+    "src/routes/new-arrivals.tsx": [
+      "Route"
+    ],
+    "src/routes/packing.tsx": [
+      "Route"
+    ],
+    "src/routes/privacy-policy.tsx": [
+      "Route"
+    ],
+    "src/routes/products/$handle.tsx": [
+      "Route"
+    ],
+    "src/routes/products/index.tsx": [
+      "Route"
+    ],
+    "src/routes/quote.tsx": [
+      "Route"
+    ],
+    "src/routes/register.tsx": [
+      "Route"
+    ],
+    "src/routes/resources.tsx": [
+      "Route"
+    ],
+    "src/routes/returns-policy.tsx": [
+      "Route"
+    ],
+    "src/routes/returns.tsx": [
+      "Route"
+    ],
+    "src/routes/search.tsx": [
+      "Route"
+    ],
+    "src/routes/terms-and-conditions.tsx": [
+      "Route"
+    ],
+    "src/routes/track-order.tsx": [
+      "Route"
+    ],
+    "src/routes/unsubscribe.tsx": [
+      "Route"
+    ],
+    "src/server.ts": [],
+    "src/start.ts": [
+      "startInstance"
+    ],
+    "tests/e2e/cms.spec.ts": [],
+    "tests/e2e/cookie-consent.spec.ts": [],
+    "tests/e2e/core-ux.spec.ts": [],
+    "tests/unit/catalog.spec.ts": [],
+    "tests/unit/customer-sync.spec.ts": [],
+    "tests/unit/format.spec.ts": [],
+    "tests/unit/quote-prefill.spec.ts": [],
+    "tests/unit/rate-limit.spec.ts": [],
+    "vite.config.ts": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "src/components/shopify/AddToCartButton.tsx",
+          "language": "typescript",
+          "sizeLines": 64,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/AddToQuoteButton.tsx",
+          "language": "typescript",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/BuildQuoteFromCartButton.tsx",
+          "language": "typescript",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/CollectionPage.tsx",
+          "language": "typescript",
+          "sizeLines": 168,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/PaymentMarks.tsx",
+          "language": "typescript",
+          "sizeLines": 56,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/ProductCard.tsx",
+          "language": "typescript",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/ProductDetail.tsx",
+          "language": "typescript",
+          "sizeLines": 834,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/ReturnRequestForm.tsx",
+          "language": "typescript",
+          "sizeLines": 468,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/SignInRequired.tsx",
+          "language": "typescript",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/SiteFooter.tsx",
+          "language": "typescript",
+          "sizeLines": 138,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/SiteHeader.tsx",
+          "language": "typescript",
+          "sizeLines": 296,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/api/shopify.functions.ts",
+          "language": "typescript",
+          "sizeLines": 375,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/quote.ts",
+          "language": "typescript",
+          "sizeLines": 88,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/shopify/cart.ts",
+          "language": "typescript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/shopify/format.ts",
+          "language": "typescript",
+          "sizeLines": 52,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/shopify/quote.ts",
+          "language": "typescript",
+          "sizeLines": 133,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/shopify/types.ts",
+          "language": "typescript",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/site.ts",
+          "language": "typescript",
+          "sizeLines": 22,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/account.tsx",
+          "language": "typescript",
+          "sizeLines": 285,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/cart.tsx",
+          "language": "typescript",
+          "sizeLines": 265,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/delivery-information.tsx",
+          "language": "typescript",
+          "sizeLines": 151,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/forgot-password.tsx",
+          "language": "typescript",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/login.tsx",
+          "language": "typescript",
+          "sizeLines": 291,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/products/$handle.tsx",
+          "language": "typescript",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/products/index.tsx",
+          "language": "typescript",
+          "sizeLines": 465,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/quote.tsx",
+          "language": "typescript",
+          "sizeLines": 399,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/register.tsx",
+          "language": "typescript",
+          "sizeLines": 590,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/resources.tsx",
+          "language": "typescript",
+          "sizeLines": 378,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/returns.tsx",
+          "language": "typescript",
+          "sizeLines": 178,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/search.tsx",
+          "language": "typescript",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/track-order.tsx",
+          "language": "typescript",
+          "sizeLines": 151,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/format.spec.ts",
+          "language": "typescript",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/quote-prefill.spec.ts",
+          "language": "typescript",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "src/components/shopify/AddToCartButton.tsx": [
+          "src/lib/api/shopify.functions.ts",
+          "src/lib/shopify/cart.ts"
+        ],
+        "src/components/shopify/AddToQuoteButton.tsx": [
+          "src/lib/shopify/quote.ts",
+          "src/lib/shopify/types.ts"
+        ],
+        "src/components/shopify/BuildQuoteFromCartButton.tsx": [
+          "src/lib/shopify/quote.ts",
+          "src/lib/shopify/types.ts"
+        ],
+        "src/components/shopify/CollectionPage.tsx": [
+          "src/components/shopify/ProductCard.tsx",
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/shopify/types.ts"
+        ],
+        "src/components/shopify/PaymentMarks.tsx": [],
+        "src/components/shopify/ProductCard.tsx": [
+          "src/components/shopify/AddToCartButton.tsx",
+          "src/lib/shopify/format.ts",
+          "src/lib/shopify/types.ts"
+        ],
+        "src/components/shopify/ProductDetail.tsx": [
+          "src/components/shopify/AddToCartButton.tsx",
+          "src/components/shopify/AddToQuoteButton.tsx",
+          "src/components/shopify/PaymentMarks.tsx",
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/components/ui/dialog.tsx",
+          "src/lib/shopify/format.ts",
+          "src/lib/shopify/types.ts",
+          "src/lib/site.ts"
+        ],
+        "src/components/shopify/ReturnRequestForm.tsx": [
+          "src/components/shopify/SignInRequired.tsx",
+          "src/lib/api/cms.functions.ts",
+          "src/lib/api/shopify.functions.ts"
+        ],
+        "src/components/shopify/SignInRequired.tsx": [],
+        "src/components/shopify/SiteFooter.tsx": [
+          "src/components/shopify/PaymentMarks.tsx",
+          "src/lib/site.ts"
+        ],
+        "src/components/shopify/SiteHeader.tsx": [
+          "src/lib/api/shopify.functions.ts",
+          "src/lib/catalog.ts",
+          "src/lib/shopify/cart.ts",
+          "src/lib/site.ts"
+        ],
+        "src/lib/api/shopify.functions.ts": [
+          "src/lib/shopify/admin.server.ts",
+          "src/lib/shopify/queries.server.ts"
+        ],
+        "src/lib/quote.ts": [
+          "src/lib/shopify/format.ts",
+          "src/lib/shopify/types.ts",
+          "src/lib/site.ts"
+        ],
+        "src/lib/shopify/cart.ts": [],
+        "src/lib/shopify/format.ts": [
+          "src/lib/shopify/types.ts"
+        ],
+        "src/lib/shopify/quote.ts": [
+          "src/lib/shopify/types.ts"
+        ],
+        "src/lib/shopify/types.ts": [],
+        "src/lib/site.ts": [],
+        "src/routes/account.tsx": [
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/api/shopify.functions.ts",
+          "src/lib/shopify/format.ts"
+        ],
+        "src/routes/cart.tsx": [
+          "src/components/shopify/BuildQuoteFromCartButton.tsx",
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/api/shopify.functions.ts",
+          "src/lib/shopify/cart.ts",
+          "src/lib/shopify/format.ts",
+          "src/lib/shopify/types.ts"
+        ],
+        "src/routes/delivery-information.tsx": [
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/seo.ts"
+        ],
+        "src/routes/forgot-password.tsx": [
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/api/shopify.functions.ts"
+        ],
+        "src/routes/login.tsx": [
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/api/shopify.functions.ts"
+        ],
+        "src/routes/products/$handle.tsx": [
+          "src/components/shopify/ProductDetail.tsx",
+          "src/lib/api/shopify.functions.ts",
+          "src/lib/site.ts"
+        ],
+        "src/routes/products/index.tsx": [
+          "src/components/shopify/ProductCard.tsx",
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/api/shopify.functions.ts",
+          "src/lib/catalog.ts",
+          "src/lib/shopify/types.ts",
+          "src/lib/site.ts"
+        ],
+        "src/routes/quote.tsx": [
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/api/shopify.functions.ts",
+          "src/lib/seo.ts",
+          "src/lib/shopify/format.ts",
+          "src/lib/shopify/quote.ts"
+        ],
+        "src/routes/register.tsx": [
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/api/shopify.functions.ts"
+        ],
+        "src/routes/resources.tsx": [
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/api/shopify.functions.ts",
+          "src/lib/seo.ts",
+          "src/lib/shopify/types.ts"
+        ],
+        "src/routes/returns.tsx": [
+          "src/components/shopify/ReturnRequestForm.tsx",
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/seo.ts"
+        ],
+        "src/routes/search.tsx": [
+          "src/components/shopify/CollectionPage.tsx",
+          "src/lib/api/shopify.functions.ts"
+        ],
+        "src/routes/track-order.tsx": [
+          "src/components/shopify/SignInRequired.tsx",
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/api/shopify.functions.ts",
+          "src/lib/seo.ts",
+          "src/lib/shopify/format.ts"
+        ],
+        "tests/unit/format.spec.ts": [
+          "src/lib/shopify/format.ts"
+        ],
+        "tests/unit/quote-prefill.spec.ts": [
+          "src/lib/shopify/quote.ts"
+        ]
+      },
+      "neighborMap": {
+        "src/components/shopify/ProductDetail.tsx": [
+          {
+            "path": "src/components/ui/dialog.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Dialog",
+              "DialogPortal",
+              "DialogOverlay",
+              "DialogTrigger",
+              "DialogClose",
+              "DialogContent",
+              "DialogHeader",
+              "DialogFooter",
+              "DialogTitle",
+              "DialogDescription"
+            ]
+          }
+        ],
+        "src/components/shopify/ReturnRequestForm.tsx": [
+          {
+            "path": "src/lib/api/cms.functions.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "submitPartInquiry",
+              "submitCreditAccount",
+              "submitReturnRequest",
+              "submitSupportRequest",
+              "uploadPartInquiryPhoto",
+              "uploadSupportQuestionAttachment"
+            ]
+          }
+        ],
+        "src/components/shopify/SiteFooter.tsx": [
+          {
+            "path": "src/components/shopify/InfoPage.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "InfoPage"
+            ]
+          },
+          {
+            "path": "src/routes/index.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Route"
+            ]
+          }
+        ],
+        "src/components/shopify/SiteHeader.tsx": [
+          {
+            "path": "src/lib/catalog.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "CATALOG_CATEGORIES",
+              "getCatalogCategory",
+              "getCatalogueSearch",
+              "getCatalogFilterHandle",
+              "getCatalogCollections"
+            ]
+          },
+          {
+            "path": "src/components/shopify/InfoPage.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "InfoPage"
+            ]
+          },
+          {
+            "path": "src/routes/index.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Route"
+            ]
+          }
+        ],
+        "src/lib/api/shopify.functions.ts": [
+          {
+            "path": "src/lib/shopify/admin.server.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "shopifyAdmin"
+            ]
+          },
+          {
+            "path": "src/lib/shopify/queries.server.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "getCollectionByHandle",
+              "getProducts",
+              "getProductsWithResources",
+              "getProductsPage",
+              "getProductByHandle",
+              "getCart",
+              "createCart",
+              "addCartLines",
+              "updateCartLine",
+              "removeCartLine",
+              "createCustomer",
+              "createCustomerAccessToken",
+              "recoverCustomerPassword",
+              "getCustomer",
+              "getCollectionProductsPage",
+              "getCustomerOrders"
+            ]
+          }
+        ],
+        "src/lib/shopify/types.ts": [
+          {
+            "path": "src/lib/shopify/queries.server.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "getCollectionByHandle",
+              "getProducts",
+              "getProductsWithResources",
+              "getProductsPage",
+              "getProductByHandle",
+              "getCart",
+              "createCart",
+              "addCartLines",
+              "updateCartLine",
+              "removeCartLine",
+              "createCustomer",
+              "createCustomerAccessToken",
+              "recoverCustomerPassword",
+              "getCustomer",
+              "getCollectionProductsPage",
+              "getCustomerOrders"
+            ]
+          }
+        ],
+        "src/lib/site.ts": [
+          {
+            "path": "src/components/shopify/InfoPage.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "InfoPage"
+            ]
+          },
+          {
+            "path": "src/lib/admin/admin.functions.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "getAdminSession",
+              "adminLogin",
+              "adminLogout",
+              "listSubmissions",
+              "getSubmissionDetail",
+              "setSubmissionStatus",
+              "addSubmissionNote",
+              "markSubmissionReviewed",
+              "syncSubmissionToShopify",
+              "getAttachmentDownload"
+            ]
+          },
+          {
+            "path": "src/lib/api/cms.functions.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "submitPartInquiry",
+              "submitCreditAccount",
+              "submitReturnRequest",
+              "submitSupportRequest",
+              "uploadPartInquiryPhoto",
+              "uploadSupportQuestionAttachment"
+            ]
+          },
+          {
+            "path": "src/lib/seo.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "pageHead"
+            ]
+          },
+          {
+            "path": "src/routes/__root.tsx",
+            "batchIndex": 6,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/contact-us.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/index.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Route"
+            ]
+          }
+        ],
+        "src/routes/account.tsx": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/cart.tsx": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/delivery-information.tsx": [
+          {
+            "path": "src/lib/seo.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "pageHead"
+            ]
+          },
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/forgot-password.tsx": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/login.tsx": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/products/$handle.tsx": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/products/index.tsx": [
+          {
+            "path": "src/lib/catalog.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "CATALOG_CATEGORIES",
+              "getCatalogCategory",
+              "getCatalogueSearch",
+              "getCatalogFilterHandle",
+              "getCatalogCollections"
+            ]
+          },
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/quote.tsx": [
+          {
+            "path": "src/lib/seo.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "pageHead"
+            ]
+          },
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/register.tsx": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/resources.tsx": [
+          {
+            "path": "src/lib/seo.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "pageHead"
+            ]
+          },
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/returns.tsx": [
+          {
+            "path": "src/lib/seo.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "pageHead"
+            ]
+          },
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/search.tsx": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/track-order.tsx": [
+          {
+            "path": "src/lib/seo.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "pageHead"
+            ]
+          },
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "src/components/admin/AdminShell.tsx",
+          "language": "typescript",
+          "sizeLines": 67,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/CreditAccountApplicationForm.tsx",
+          "language": "typescript",
+          "sizeLines": 301,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/hooks/use-hydrated.ts",
+          "language": "typescript",
+          "sizeLines": 8,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/admin/admin.functions.ts",
+          "language": "typescript",
+          "sizeLines": 621,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/admin/auth.server.ts",
+          "language": "typescript",
+          "sizeLines": 148,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/api/cms.functions.ts",
+          "language": "typescript",
+          "sizeLines": 594,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/api/example.functions.ts",
+          "language": "typescript",
+          "sizeLines": 22,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/cms/rate-limit.ts",
+          "language": "typescript",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/config.server.ts",
+          "language": "typescript",
+          "sizeLines": 57,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/db/index.server.ts",
+          "language": "typescript",
+          "sizeLines": 29,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/db/migrate.server.ts",
+          "language": "typescript",
+          "sizeLines": 64,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/db/schema.ts",
+          "language": "typescript",
+          "sizeLines": 109,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/error-capture.ts",
+          "language": "typescript",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/error-page.ts",
+          "language": "typescript",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/notify.server.ts",
+          "language": "typescript",
+          "sizeLines": 106,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/shopify/admin.server.ts",
+          "language": "typescript",
+          "sizeLines": 50,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/shopify/customer-sync.server.ts",
+          "language": "typescript",
+          "sizeLines": 219,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/shopify/fragments.ts",
+          "language": "typescript",
+          "sizeLines": 141,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/shopify/queries.server.ts",
+          "language": "typescript",
+          "sizeLines": 612,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/shopify/storefront.server.ts",
+          "language": "typescript",
+          "sizeLines": 54,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/admin/index.tsx",
+          "language": "typescript",
+          "sizeLines": 257,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/admin/login.tsx",
+          "language": "typescript",
+          "sizeLines": 104,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/admin/submissions.$id.tsx",
+          "language": "typescript",
+          "sizeLines": 368,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/server.ts",
+          "language": "typescript",
+          "sizeLines": 108,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/start.ts",
+          "language": "typescript",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/customer-sync.spec.ts",
+          "language": "typescript",
+          "sizeLines": 69,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/rate-limit.spec.ts",
+          "language": "typescript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "src/components/admin/AdminShell.tsx": [
+          "src/lib/admin/admin.functions.ts"
+        ],
+        "src/components/shopify/CreditAccountApplicationForm.tsx": [
+          "src/hooks/use-hydrated.ts",
+          "src/lib/api/cms.functions.ts"
+        ],
+        "src/hooks/use-hydrated.ts": [],
+        "src/lib/admin/admin.functions.ts": [
+          "src/lib/admin/auth.server.ts",
+          "src/lib/db/index.server.ts",
+          "src/lib/db/schema.ts",
+          "src/lib/notify.server.ts",
+          "src/lib/shopify/customer-sync.server.ts",
+          "src/lib/site.ts"
+        ],
+        "src/lib/admin/auth.server.ts": [
+          "src/lib/config.server.ts",
+          "src/lib/db/index.server.ts",
+          "src/lib/db/schema.ts"
+        ],
+        "src/lib/api/cms.functions.ts": [
+          "src/lib/cms/rate-limit.ts",
+          "src/lib/config.server.ts",
+          "src/lib/db/index.server.ts",
+          "src/lib/db/schema.ts",
+          "src/lib/notify.server.ts",
+          "src/lib/shopify/customer-sync.server.ts",
+          "src/lib/site.ts"
+        ],
+        "src/lib/api/example.functions.ts": [
+          "src/lib/config.server.ts"
+        ],
+        "src/lib/cms/rate-limit.ts": [],
+        "src/lib/config.server.ts": [],
+        "src/lib/db/index.server.ts": [
+          "src/lib/config.server.ts",
+          "src/lib/db/schema.ts"
+        ],
+        "src/lib/db/migrate.server.ts": [
+          "src/lib/config.server.ts"
+        ],
+        "src/lib/db/schema.ts": [],
+        "src/lib/error-capture.ts": [],
+        "src/lib/error-page.ts": [],
+        "src/lib/notify.server.ts": [
+          "src/lib/config.server.ts"
+        ],
+        "src/lib/shopify/admin.server.ts": [
+          "src/lib/config.server.ts"
+        ],
+        "src/lib/shopify/customer-sync.server.ts": [
+          "src/lib/shopify/admin.server.ts"
+        ],
+        "src/lib/shopify/fragments.ts": [],
+        "src/lib/shopify/queries.server.ts": [
+          "src/lib/shopify/fragments.ts",
+          "src/lib/shopify/storefront.server.ts",
+          "src/lib/shopify/types.ts"
+        ],
+        "src/lib/shopify/storefront.server.ts": [
+          "src/lib/config.server.ts"
+        ],
+        "src/routes/admin/index.tsx": [
+          "src/components/admin/AdminShell.tsx",
+          "src/lib/admin/admin.functions.ts"
+        ],
+        "src/routes/admin/login.tsx": [
+          "src/hooks/use-hydrated.ts",
+          "src/lib/admin/admin.functions.ts"
+        ],
+        "src/routes/admin/submissions.$id.tsx": [
+          "src/components/admin/AdminShell.tsx",
+          "src/hooks/use-hydrated.ts",
+          "src/lib/admin/admin.functions.ts"
+        ],
+        "src/server.ts": [
+          "src/lib/admin/auth.server.ts",
+          "src/lib/db/index.server.ts",
+          "src/lib/db/migrate.server.ts",
+          "src/lib/error-capture.ts",
+          "src/lib/error-page.ts"
+        ],
+        "src/start.ts": [
+          "src/lib/error-page.ts"
+        ],
+        "tests/unit/customer-sync.spec.ts": [
+          "src/lib/shopify/customer-sync.server.ts"
+        ],
+        "tests/unit/rate-limit.spec.ts": [
+          "src/lib/cms/rate-limit.ts"
+        ]
+      },
+      "neighborMap": {
+        "src/components/shopify/CreditAccountApplicationForm.tsx": [
+          {
+            "path": "src/routes/credit-account.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Route"
+            ]
+          }
+        ],
+        "src/hooks/use-hydrated.ts": [
+          {
+            "path": "src/components/shopify/SupportRequestForm.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "SupportRequestForm"
+            ]
+          },
+          {
+            "path": "src/routes/index.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Route"
+            ]
+          }
+        ],
+        "src/lib/admin/admin.functions.ts": [
+          {
+            "path": "src/lib/site.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "SITE",
+              "emailHref",
+              "whatsappHref"
+            ]
+          }
+        ],
+        "src/lib/api/cms.functions.ts": [
+          {
+            "path": "src/lib/site.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "SITE",
+              "emailHref",
+              "whatsappHref"
+            ]
+          },
+          {
+            "path": "src/components/shopify/ReturnRequestForm.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "ReturnRequestForm"
+            ]
+          },
+          {
+            "path": "src/components/shopify/SupportRequestForm.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "SupportRequestForm"
+            ]
+          },
+          {
+            "path": "src/routes/index.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Route"
+            ]
+          }
+        ],
+        "src/lib/shopify/admin.server.ts": [
+          {
+            "path": "src/lib/api/shopify.functions.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "getCollection",
+              "getCategoryCollections",
+              "getLatestProducts",
+              "getResourceProducts",
+              "getPaginatedProducts",
+              "getCatalogProductsPage",
+              "getProduct",
+              "getShopifyCart",
+              "addToShopifyCart",
+              "updateShopifyCartLine",
+              "removeShopifyCartLine",
+              "submitShopifyQuote",
+              "loginShopifyCustomer",
+              "getShopifyCustomer",
+              "logoutShopifyCustomer",
+              "requestShopifyPasswordReset",
+              "createShopifyCustomer"
+            ]
+          }
+        ],
+        "src/lib/shopify/queries.server.ts": [
+          {
+            "path": "src/lib/shopify/types.ts",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "src/lib/api/shopify.functions.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "getCollection",
+              "getCategoryCollections",
+              "getLatestProducts",
+              "getResourceProducts",
+              "getPaginatedProducts",
+              "getCatalogProductsPage",
+              "getProduct",
+              "getShopifyCart",
+              "addToShopifyCart",
+              "updateShopifyCartLine",
+              "removeShopifyCartLine",
+              "submitShopifyQuote",
+              "loginShopifyCustomer",
+              "getShopifyCustomer",
+              "logoutShopifyCustomer",
+              "requestShopifyPasswordReset",
+              "createShopifyCustomer"
+            ]
+          }
+        ],
+        "src/routes/admin/index.tsx": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/admin/login.tsx": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/routes/admin/submissions.$id.tsx": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ],
+        "src/start.ts": [
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "scripts/sync-shopify-collections.ts",
+          "language": "typescript",
+          "sizeLines": 221,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/InfoPage.tsx",
+          "language": "typescript",
+          "sizeLines": 124,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/shopify/SupportRequestForm.tsx",
+          "language": "typescript",
+          "sizeLines": 221,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/catalog.ts",
+          "language": "typescript",
+          "sizeLines": 257,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/seo.ts",
+          "language": "typescript",
+          "sizeLines": 19,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routeTree.gen.ts",
+          "language": "typescript",
+          "sizeLines": 766,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/router.tsx",
+          "language": "typescript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/about-us.tsx",
+          "language": "typescript",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/asphalt.tsx",
+          "language": "typescript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/automation.tsx",
+          "language": "typescript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/concrete.tsx",
+          "language": "typescript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/contact-us.tsx",
+          "language": "typescript",
+          "sizeLines": 72,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/control-panels-software.tsx",
+          "language": "typescript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/cookies.tsx",
+          "language": "typescript",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/credit-account.tsx",
+          "language": "typescript",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/disclaimer.tsx",
+          "language": "typescript",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/got-a-question.tsx",
+          "language": "typescript",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/home-controls.tsx",
+          "language": "typescript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/index.tsx",
+          "language": "typescript",
+          "sizeLines": 507,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/new-arrivals.tsx",
+          "language": "typescript",
+          "sizeLines": 12,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/packing.tsx",
+          "language": "typescript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/privacy-policy.tsx",
+          "language": "typescript",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/returns-policy.tsx",
+          "language": "typescript",
+          "sizeLines": 60,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/terms-and-conditions.tsx",
+          "language": "typescript",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/unsubscribe.tsx",
+          "language": "typescript",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/unit/catalog.spec.ts",
+          "language": "typescript",
+          "sizeLines": 42,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "scripts/sync-shopify-collections.ts": [
+          "src/lib/catalog.ts"
+        ],
+        "src/components/shopify/InfoPage.tsx": [
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/lib/site.ts"
+        ],
+        "src/components/shopify/SupportRequestForm.tsx": [
+          "src/hooks/use-hydrated.ts",
+          "src/lib/api/cms.functions.ts"
+        ],
+        "src/lib/catalog.ts": [],
+        "src/lib/seo.ts": [
+          "src/lib/site.ts"
+        ],
+        "src/routeTree.gen.ts": [
+          "src/router.tsx",
+          "src/routes/__root.tsx",
+          "src/routes/about-us.tsx",
+          "src/routes/account.tsx",
+          "src/routes/admin/index.tsx",
+          "src/routes/admin/login.tsx",
+          "src/routes/admin/submissions.$id.tsx",
+          "src/routes/asphalt.tsx",
+          "src/routes/automation.tsx",
+          "src/routes/cart.tsx",
+          "src/routes/concrete.tsx",
+          "src/routes/contact-us.tsx",
+          "src/routes/control-panels-software.tsx",
+          "src/routes/cookies.tsx",
+          "src/routes/credit-account.tsx",
+          "src/routes/delivery-information.tsx",
+          "src/routes/disclaimer.tsx",
+          "src/routes/forgot-password.tsx",
+          "src/routes/got-a-question.tsx",
+          "src/routes/home-controls.tsx",
+          "src/routes/index.tsx",
+          "src/routes/login.tsx",
+          "src/routes/new-arrivals.tsx",
+          "src/routes/packing.tsx",
+          "src/routes/privacy-policy.tsx",
+          "src/routes/products/$handle.tsx",
+          "src/routes/products/index.tsx",
+          "src/routes/quote.tsx",
+          "src/routes/register.tsx",
+          "src/routes/resources.tsx",
+          "src/routes/returns-policy.tsx",
+          "src/routes/returns.tsx",
+          "src/routes/search.tsx",
+          "src/routes/terms-and-conditions.tsx",
+          "src/routes/track-order.tsx",
+          "src/routes/unsubscribe.tsx",
+          "src/start.ts"
+        ],
+        "src/router.tsx": [
+          "src/routeTree.gen.ts"
+        ],
+        "src/routes/about-us.tsx": [
+          "src/components/shopify/InfoPage.tsx",
+          "src/lib/seo.ts"
+        ],
+        "src/routes/asphalt.tsx": [
+          "src/lib/catalog.ts"
+        ],
+        "src/routes/automation.tsx": [
+          "src/lib/catalog.ts"
+        ],
+        "src/routes/concrete.tsx": [
+          "src/lib/catalog.ts"
+        ],
+        "src/routes/contact-us.tsx": [
+          "src/components/shopify/InfoPage.tsx",
+          "src/components/shopify/SupportRequestForm.tsx",
+          "src/lib/seo.ts",
+          "src/lib/site.ts"
+        ],
+        "src/routes/control-panels-software.tsx": [
+          "src/lib/catalog.ts"
+        ],
+        "src/routes/cookies.tsx": [
+          "src/components/shopify/InfoPage.tsx",
+          "src/lib/seo.ts"
+        ],
+        "src/routes/credit-account.tsx": [
+          "src/components/shopify/CreditAccountApplicationForm.tsx",
+          "src/components/shopify/InfoPage.tsx",
+          "src/lib/seo.ts"
+        ],
+        "src/routes/disclaimer.tsx": [
+          "src/components/shopify/InfoPage.tsx",
+          "src/lib/seo.ts"
+        ],
+        "src/routes/got-a-question.tsx": [
+          "src/components/shopify/InfoPage.tsx",
+          "src/components/shopify/SupportRequestForm.tsx",
+          "src/lib/seo.ts"
+        ],
+        "src/routes/home-controls.tsx": [
+          "src/lib/catalog.ts"
+        ],
+        "src/routes/index.tsx": [
+          "src/components/shopify/SiteFooter.tsx",
+          "src/components/shopify/SiteHeader.tsx",
+          "src/hooks/use-hydrated.ts",
+          "src/lib/api/cms.functions.ts",
+          "src/lib/catalog.ts",
+          "src/lib/site.ts"
+        ],
+        "src/routes/new-arrivals.tsx": [],
+        "src/routes/packing.tsx": [
+          "src/lib/catalog.ts"
+        ],
+        "src/routes/privacy-policy.tsx": [
+          "src/components/shopify/InfoPage.tsx",
+          "src/lib/seo.ts"
+        ],
+        "src/routes/returns-policy.tsx": [
+          "src/components/shopify/InfoPage.tsx",
+          "src/lib/seo.ts"
+        ],
+        "src/routes/terms-and-conditions.tsx": [
+          "src/components/shopify/InfoPage.tsx",
+          "src/lib/seo.ts"
+        ],
+        "src/routes/unsubscribe.tsx": [
+          "src/components/shopify/InfoPage.tsx",
+          "src/components/shopify/SupportRequestForm.tsx",
+          "src/lib/seo.ts"
+        ],
+        "tests/unit/catalog.spec.ts": [
+          "src/lib/catalog.ts"
+        ]
+      },
+      "neighborMap": {
+        "src/components/shopify/InfoPage.tsx": [
+          {
+            "path": "src/components/shopify/SiteFooter.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "SiteFooter"
+            ]
+          },
+          {
+            "path": "src/components/shopify/SiteHeader.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "SiteHeader"
+            ]
+          },
+          {
+            "path": "src/lib/site.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "SITE",
+              "emailHref",
+              "whatsappHref"
+            ]
+          }
+        ],
+        "src/components/shopify/SupportRequestForm.tsx": [
+          {
+            "path": "src/hooks/use-hydrated.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useHydrated"
+            ]
+          },
+          {
+            "path": "src/lib/api/cms.functions.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "submitPartInquiry",
+              "submitCreditAccount",
+              "submitReturnRequest",
+              "submitSupportRequest",
+              "uploadPartInquiryPhoto",
+              "uploadSupportQuestionAttachment"
+            ]
+          }
+        ],
+        "src/lib/catalog.ts": [
+          {
+            "path": "src/components/shopify/SiteHeader.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "SiteHeader"
+            ]
+          },
+          {
+            "path": "src/routes/products/index.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          }
+        ],
+        "src/lib/seo.ts": [
+          {
+            "path": "src/lib/site.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "SITE",
+              "emailHref",
+              "whatsappHref"
+            ]
+          },
+          {
+            "path": "src/routes/delivery-information.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/quote.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/resources.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/returns.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/track-order.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          }
+        ],
+        "src/routeTree.gen.ts": [
+          {
+            "path": "src/routes/__root.tsx",
+            "batchIndex": 6,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/account.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/admin/index.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/admin/login.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/admin/submissions.$id.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/cart.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/delivery-information.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/forgot-password.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/login.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/products/$handle.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/products/index.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/quote.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/register.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/resources.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/returns.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/search.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/routes/track-order.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "Route"
+            ]
+          },
+          {
+            "path": "src/start.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "startInstance"
+            ]
+          }
+        ],
+        "src/routes/contact-us.tsx": [
+          {
+            "path": "src/lib/site.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "SITE",
+              "emailHref",
+              "whatsappHref"
+            ]
+          }
+        ],
+        "src/routes/credit-account.tsx": [
+          {
+            "path": "src/components/shopify/CreditAccountApplicationForm.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "CreditAccountApplicationForm"
+            ]
+          }
+        ],
+        "src/routes/index.tsx": [
+          {
+            "path": "src/components/shopify/SiteFooter.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "SiteFooter"
+            ]
+          },
+          {
+            "path": "src/components/shopify/SiteHeader.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "SiteHeader"
+            ]
+          },
+          {
+            "path": "src/hooks/use-hydrated.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "useHydrated"
+            ]
+          },
+          {
+            "path": "src/lib/api/cms.functions.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "submitPartInquiry",
+              "submitCreditAccount",
+              "submitReturnRequest",
+              "submitSupportRequest",
+              "uploadPartInquiryPhoto",
+              "uploadSupportQuestionAttachment"
+            ]
+          },
+          {
+            "path": "src/lib/site.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "SITE",
+              "emailHref",
+              "whatsappHref"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "src/components/ui/accordion.tsx",
+          "language": "typescript",
+          "sizeLines": 51,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/alert-dialog.tsx",
+          "language": "typescript",
+          "sizeLines": 115,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/alert.tsx",
+          "language": "typescript",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/avatar.tsx",
+          "language": "typescript",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/badge.tsx",
+          "language": "typescript",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/breadcrumb.tsx",
+          "language": "typescript",
+          "sizeLines": 101,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/button.tsx",
+          "language": "typescript",
+          "sizeLines": 49,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/calendar.tsx",
+          "language": "typescript",
+          "sizeLines": 177,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/card.tsx",
+          "language": "typescript",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/carousel.tsx",
+          "language": "typescript",
+          "sizeLines": 240,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/chart.tsx",
+          "language": "typescript",
+          "sizeLines": 331,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/checkbox.tsx",
+          "language": "typescript",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/command.tsx",
+          "language": "typescript",
+          "sizeLines": 143,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/context-menu.tsx",
+          "language": "typescript",
+          "sizeLines": 187,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/dialog.tsx",
+          "language": "typescript",
+          "sizeLines": 104,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/drawer.tsx",
+          "language": "typescript",
+          "sizeLines": 98,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/dropdown-menu.tsx",
+          "language": "typescript",
+          "sizeLines": 188,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/form.tsx",
+          "language": "typescript",
+          "sizeLines": 171,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/hover-card.tsx",
+          "language": "typescript",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/input-otp.tsx",
+          "language": "typescript",
+          "sizeLines": 69,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/input.tsx",
+          "language": "typescript",
+          "sizeLines": 22,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/label.tsx",
+          "language": "typescript",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/menubar.tsx",
+          "language": "typescript",
+          "sizeLines": 229,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "src/components/ui/accordion.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/alert-dialog.tsx": [
+          "src/components/ui/button.tsx",
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/alert.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/avatar.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/badge.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/breadcrumb.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/button.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/calendar.tsx": [
+          "src/components/ui/button.tsx",
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/card.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/carousel.tsx": [
+          "src/components/ui/button.tsx",
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/chart.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/checkbox.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/command.tsx": [
+          "src/components/ui/dialog.tsx",
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/context-menu.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/dialog.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/drawer.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/dropdown-menu.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/form.tsx": [
+          "src/components/ui/label.tsx",
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/hover-card.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/input-otp.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/input.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/label.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/menubar.tsx": [
+          "src/lib/utils.ts"
+        ]
+      },
+      "neighborMap": {
+        "src/components/ui/accordion.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/alert-dialog.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/alert.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/avatar.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/badge.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/breadcrumb.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/button.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          },
+          {
+            "path": "src/components/ui/pagination.tsx",
+            "batchIndex": 5,
+            "symbols": [
+              "Pagination",
+              "PaginationContent",
+              "PaginationLink",
+              "PaginationItem",
+              "PaginationPrevious",
+              "PaginationNext",
+              "PaginationEllipsis"
+            ]
+          },
+          {
+            "path": "src/components/ui/sidebar.tsx",
+            "batchIndex": 5,
+            "symbols": [
+              "Sidebar",
+              "SidebarContent",
+              "SidebarFooter",
+              "SidebarGroup",
+              "SidebarGroupAction",
+              "SidebarGroupContent",
+              "SidebarGroupLabel",
+              "SidebarHeader",
+              "SidebarInput",
+              "SidebarInset",
+              "SidebarMenu",
+              "SidebarMenuAction",
+              "SidebarMenuBadge",
+              "SidebarMenuButton",
+              "SidebarMenuItem",
+              "SidebarMenuSkeleton",
+              "SidebarMenuSub",
+              "SidebarMenuSubButton",
+              "SidebarMenuSubItem",
+              "SidebarProvider",
+              "SidebarRail",
+              "SidebarSeparator",
+              "SidebarTrigger",
+              "useSidebar"
+            ]
+          }
+        ],
+        "src/components/ui/calendar.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/card.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/carousel.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/chart.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/checkbox.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/command.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/context-menu.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/dialog.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          },
+          {
+            "path": "src/components/shopify/ProductDetail.tsx",
+            "batchIndex": 1,
+            "symbols": [
+              "ProductDetail"
+            ]
+          }
+        ],
+        "src/components/ui/drawer.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/dropdown-menu.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/form.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/hover-card.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/input-otp.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/input.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          },
+          {
+            "path": "src/components/ui/sidebar.tsx",
+            "batchIndex": 5,
+            "symbols": [
+              "Sidebar",
+              "SidebarContent",
+              "SidebarFooter",
+              "SidebarGroup",
+              "SidebarGroupAction",
+              "SidebarGroupContent",
+              "SidebarGroupLabel",
+              "SidebarHeader",
+              "SidebarInput",
+              "SidebarInset",
+              "SidebarMenu",
+              "SidebarMenuAction",
+              "SidebarMenuBadge",
+              "SidebarMenuButton",
+              "SidebarMenuItem",
+              "SidebarMenuSkeleton",
+              "SidebarMenuSub",
+              "SidebarMenuSubButton",
+              "SidebarMenuSubItem",
+              "SidebarProvider",
+              "SidebarRail",
+              "SidebarSeparator",
+              "SidebarTrigger",
+              "useSidebar"
+            ]
+          }
+        ],
+        "src/components/ui/label.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ],
+        "src/components/ui/menubar.tsx": [
+          {
+            "path": "src/lib/utils.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "cn"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": "src/components/ui/navigation-menu.tsx",
+          "language": "typescript",
+          "sizeLines": 120,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/pagination.tsx",
+          "language": "typescript",
+          "sizeLines": 98,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/popover.tsx",
+          "language": "typescript",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/progress.tsx",
+          "language": "typescript",
+          "sizeLines": 25,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/radio-group.tsx",
+          "language": "typescript",
+          "sizeLines": 36,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/resizable.tsx",
+          "language": "typescript",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/scroll-area.tsx",
+          "language": "typescript",
+          "sizeLines": 44,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/select.tsx",
+          "language": "typescript",
+          "sizeLines": 152,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/separator.tsx",
+          "language": "typescript",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "language": "typescript",
+          "sizeLines": 122,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/sidebar.tsx",
+          "language": "typescript",
+          "sizeLines": 744,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/skeleton.tsx",
+          "language": "typescript",
+          "sizeLines": 7,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/slider.tsx",
+          "language": "typescript",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/switch.tsx",
+          "language": "typescript",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "language": "typescript",
+          "sizeLines": 94,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/tabs.tsx",
+          "language": "typescript",
+          "sizeLines": 53,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/textarea.tsx",
+          "language": "typescript",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/toggle-group.tsx",
+          "language": "typescript",
+          "sizeLines": 57,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "language": "typescript",
+          "sizeLines": 42,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/tooltip.tsx",
+          "language": "typescript",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/hooks/use-mobile.tsx",
+          "language": "typescript",
+          "sizeLines": 19,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "language": "typescript",
+          "sizeLines": 6,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "src/components/ui/navigation-menu.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/pagination.tsx": [
+          "src/components/ui/button.tsx",
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/popover.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/progress.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/radio-group.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/resizable.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/scroll-area.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/select.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/separator.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/sheet.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/sidebar.tsx": [
+          "src/components/ui/button.tsx",
+          "src/components/ui/input.tsx",
+          "src/components/ui/separator.tsx",
+          "src/components/ui/sheet.tsx",
+          "src/components/ui/skeleton.tsx",
+          "src/components/ui/tooltip.tsx",
+          "src/hooks/use-mobile.tsx",
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/skeleton.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/slider.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/switch.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/table.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/tabs.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/textarea.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/toggle-group.tsx": [
+          "src/components/ui/toggle.tsx",
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/toggle.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/components/ui/tooltip.tsx": [
+          "src/lib/utils.ts"
+        ],
+        "src/hooks/use-mobile.tsx": [],
+        "src/lib/utils.ts": []
+      },
+      "neighborMap": {
+        "src/components/ui/pagination.tsx": [
+          {
+            "path": "src/components/ui/button.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Button",
+              "buttonVariants"
+            ]
+          }
+        ],
+        "src/components/ui/sidebar.tsx": [
+          {
+            "path": "src/components/ui/button.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Button",
+              "buttonVariants"
+            ]
+          },
+          {
+            "path": "src/components/ui/input.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Input"
+            ]
+          }
+        ],
+        "src/lib/utils.ts": [
+          {
+            "path": "src/components/ui/accordion.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Accordion",
+              "AccordionItem",
+              "AccordionTrigger",
+              "AccordionContent"
+            ]
+          },
+          {
+            "path": "src/components/ui/alert-dialog.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "AlertDialog",
+              "AlertDialogPortal",
+              "AlertDialogOverlay",
+              "AlertDialogTrigger",
+              "AlertDialogContent",
+              "AlertDialogHeader",
+              "AlertDialogFooter",
+              "AlertDialogTitle",
+              "AlertDialogDescription",
+              "AlertDialogAction",
+              "AlertDialogCancel"
+            ]
+          },
+          {
+            "path": "src/components/ui/alert.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Alert",
+              "AlertTitle",
+              "AlertDescription"
+            ]
+          },
+          {
+            "path": "src/components/ui/avatar.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Avatar",
+              "AvatarImage",
+              "AvatarFallback"
+            ]
+          },
+          {
+            "path": "src/components/ui/badge.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Badge",
+              "badgeVariants"
+            ]
+          },
+          {
+            "path": "src/components/ui/breadcrumb.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Breadcrumb",
+              "BreadcrumbList",
+              "BreadcrumbItem",
+              "BreadcrumbLink",
+              "BreadcrumbPage",
+              "BreadcrumbSeparator",
+              "BreadcrumbEllipsis"
+            ]
+          },
+          {
+            "path": "src/components/ui/button.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Button",
+              "buttonVariants"
+            ]
+          },
+          {
+            "path": "src/components/ui/calendar.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Calendar",
+              "CalendarDayButton"
+            ]
+          },
+          {
+            "path": "src/components/ui/card.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Card",
+              "CardHeader",
+              "CardFooter",
+              "CardTitle",
+              "CardDescription",
+              "CardContent"
+            ]
+          },
+          {
+            "path": "src/components/ui/carousel.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "CarouselApi",
+              "Carousel",
+              "CarouselContent",
+              "CarouselItem",
+              "CarouselPrevious",
+              "CarouselNext"
+            ]
+          },
+          {
+            "path": "src/components/ui/chart.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "ChartContainer",
+              "ChartTooltip",
+              "ChartTooltipContent",
+              "ChartLegend",
+              "ChartLegendContent",
+              "ChartStyle"
+            ]
+          },
+          {
+            "path": "src/components/ui/checkbox.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Checkbox"
+            ]
+          },
+          {
+            "path": "src/components/ui/command.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Command",
+              "CommandDialog",
+              "CommandInput",
+              "CommandList",
+              "CommandEmpty",
+              "CommandGroup",
+              "CommandItem",
+              "CommandShortcut",
+              "CommandSeparator"
+            ]
+          },
+          {
+            "path": "src/components/ui/context-menu.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "ContextMenu",
+              "ContextMenuTrigger",
+              "ContextMenuContent",
+              "ContextMenuItem",
+              "ContextMenuCheckboxItem",
+              "ContextMenuRadioItem",
+              "ContextMenuLabel",
+              "ContextMenuSeparator",
+              "ContextMenuShortcut",
+              "ContextMenuGroup",
+              "ContextMenuPortal",
+              "ContextMenuSub",
+              "ContextMenuSubContent",
+              "ContextMenuSubTrigger",
+              "ContextMenuRadioGroup"
+            ]
+          },
+          {
+            "path": "src/components/ui/dialog.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Dialog",
+              "DialogPortal",
+              "DialogOverlay",
+              "DialogTrigger",
+              "DialogClose",
+              "DialogContent",
+              "DialogHeader",
+              "DialogFooter",
+              "DialogTitle",
+              "DialogDescription"
+            ]
+          },
+          {
+            "path": "src/components/ui/drawer.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Drawer",
+              "DrawerPortal",
+              "DrawerOverlay",
+              "DrawerTrigger",
+              "DrawerClose",
+              "DrawerContent",
+              "DrawerHeader",
+              "DrawerFooter",
+              "DrawerTitle",
+              "DrawerDescription"
+            ]
+          },
+          {
+            "path": "src/components/ui/dropdown-menu.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "DropdownMenu",
+              "DropdownMenuTrigger",
+              "DropdownMenuContent",
+              "DropdownMenuItem",
+              "DropdownMenuCheckboxItem",
+              "DropdownMenuRadioItem",
+              "DropdownMenuLabel",
+              "DropdownMenuSeparator",
+              "DropdownMenuShortcut",
+              "DropdownMenuGroup",
+              "DropdownMenuPortal",
+              "DropdownMenuSub",
+              "DropdownMenuSubContent",
+              "DropdownMenuSubTrigger",
+              "DropdownMenuRadioGroup"
+            ]
+          },
+          {
+            "path": "src/components/ui/form.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "useFormField",
+              "Form",
+              "FormItem",
+              "FormLabel",
+              "FormControl",
+              "FormDescription",
+              "FormMessage",
+              "FormField"
+            ]
+          },
+          {
+            "path": "src/components/ui/hover-card.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "HoverCard",
+              "HoverCardTrigger",
+              "HoverCardContent"
+            ]
+          },
+          {
+            "path": "src/components/ui/input-otp.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "InputOTP",
+              "InputOTPGroup",
+              "InputOTPSlot",
+              "InputOTPSeparator"
+            ]
+          },
+          {
+            "path": "src/components/ui/input.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Input"
+            ]
+          },
+          {
+            "path": "src/components/ui/label.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Label"
+            ]
+          },
+          {
+            "path": "src/components/ui/menubar.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Menubar",
+              "MenubarMenu",
+              "MenubarTrigger",
+              "MenubarContent",
+              "MenubarItem",
+              "MenubarSeparator",
+              "MenubarLabel",
+              "MenubarCheckboxItem",
+              "MenubarRadioGroup",
+              "MenubarRadioItem",
+              "MenubarPortal",
+              "MenubarSubContent",
+              "MenubarSubTrigger",
+              "MenubarGroup",
+              "MenubarSub",
+              "MenubarShortcut"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "src/components/shopify/CookieConsent.tsx",
+          "language": "typescript",
+          "sizeLines": 200,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/lib/lovable-error-reporting.ts",
+          "language": "typescript",
+          "sizeLines": 36,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/__root.tsx",
+          "language": "typescript",
+          "sizeLines": 172,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "src/components/shopify/CookieConsent.tsx": [],
+        "src/lib/lovable-error-reporting.ts": [],
+        "src/routes/__root.tsx": [
+          "src/components/shopify/CookieConsent.tsx",
+          "src/lib/lovable-error-reporting.ts",
+          "src/lib/site.ts"
+        ]
+      },
+      "neighborMap": {
+        "src/routes/__root.tsx": [
+          {
+            "path": "src/lib/site.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "SITE",
+              "emailHref",
+              "whatsappHref"
+            ]
+          },
+          {
+            "path": "src/routeTree.gen.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "routeTree"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": ".dockerignore",
+          "language": "unknown",
+          "sizeLines": 10,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 28,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "docker-compose.override.yml",
+          "language": "yaml",
+          "sizeLines": 6,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "docker-compose.yml",
+          "language": "yaml",
+          "sizeLines": 76,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        ".dockerignore": [],
+        "Dockerfile": [],
+        "docker-compose.override.yml": [],
+        "docker-compose.yml": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": ".github/workflows/quality.yml",
+          "language": "yaml",
+          "sizeLines": 40,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        ".github/workflows/quality.yml": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 9,
+      "files": [
+        {
+          "path": ".env.example",
+          "language": "config",
+          "sizeLines": 64,
+          "fileCategory": "config"
+        },
+        {
+          "path": "AUDIT_REPORT_2026-07-15.md",
+          "language": "markdown",
+          "sizeLines": 74,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 211,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "SHOPIFY_CATALOGUE_GUIDE.md",
+          "language": "markdown",
+          "sizeLines": 41,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "bunfig.toml",
+          "language": "toml",
+          "sizeLines": 6,
+          "fileCategory": "config"
+        },
+        {
+          "path": "components.json",
+          "language": "json",
+          "sizeLines": 22,
+          "fileCategory": "config"
+        },
+        {
+          "path": "docker-entrypoint.sh",
+          "language": "shell",
+          "sizeLines": 8,
+          "fileCategory": "script"
+        },
+        {
+          "path": "package.json",
+          "language": "json",
+          "sizeLines": 97,
+          "fileCategory": "config"
+        },
+        {
+          "path": "shopify-dummy-products.csv",
+          "language": "csv",
+          "sizeLines": 19,
+          "fileCategory": "data"
+        },
+        {
+          "path": "tsconfig.json",
+          "language": "json",
+          "sizeLines": 27,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        ".env.example": [],
+        "AUDIT_REPORT_2026-07-15.md": [],
+        "README.md": [],
+        "SHOPIFY_CATALOGUE_GUIDE.md": [],
+        "bunfig.toml": [],
+        "components.json": [],
+        "docker-entrypoint.sh": [],
+        "package.json": [],
+        "shopify-dummy-products.csv": [],
+        "tsconfig.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 10,
+      "files": [
+        {
+          "path": "drizzle/0000_smiling_slyde.sql",
+          "language": "sql",
+          "sizeLines": 53,
+          "fileCategory": "data"
+        },
+        {
+          "path": "drizzle/0001_curly_banshee.sql",
+          "language": "sql",
+          "sizeLines": 1,
+          "fileCategory": "data"
+        },
+        {
+          "path": "drizzle/0002_add_return_request.sql",
+          "language": "sql",
+          "sizeLines": 3,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "drizzle/0000_smiling_slyde.sql": [],
+        "drizzle/0001_curly_banshee.sql": [],
+        "drizzle/0002_add_return_request.sql": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 11,
+      "files": [
+        {
+          "path": "drizzle/meta/0000_snapshot.json",
+          "language": "json",
+          "sizeLines": 449,
+          "fileCategory": "config"
+        },
+        {
+          "path": "drizzle/meta/0001_snapshot.json",
+          "language": "json",
+          "sizeLines": 468,
+          "fileCategory": "config"
+        },
+        {
+          "path": "drizzle/meta/0002_snapshot.json",
+          "language": "json",
+          "sizeLines": 468,
+          "fileCategory": "config"
+        },
+        {
+          "path": "drizzle/meta/_journal.json",
+          "language": "json",
+          "sizeLines": 26,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "drizzle/meta/0000_snapshot.json": [],
+        "drizzle/meta/0001_snapshot.json": [],
+        "drizzle/meta/0002_snapshot.json": [],
+        "drizzle/meta/_journal.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 12,
+      "files": [
+        {
+          "path": ".prettierignore",
+          "language": "unknown",
+          "sizeLines": 8,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Credit-Account-Application.docx",
+          "language": "docx",
+          "sizeLines": 57,
+          "fileCategory": "code"
+        },
+        {
+          "path": "client-documents/Spares Automation - Shopify Product and Collection Guide.docx",
+          "language": "docx",
+          "sizeLines": 174,
+          "fileCategory": "code"
+        },
+        {
+          "path": "drizzle.config.ts",
+          "language": "typescript",
+          "sizeLines": 17,
+          "fileCategory": "code"
+        },
+        {
+          "path": "eslint.config.js",
+          "language": "javascript",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        },
+        {
+          "path": "nginx.conf",
+          "language": "conf",
+          "sizeLines": 19,
+          "fileCategory": "code"
+        },
+        {
+          "path": "playwright.config.ts",
+          "language": "typescript",
+          "sizeLines": 39,
+          "fileCategory": "code"
+        },
+        {
+          "path": "public/robots.txt",
+          "language": "txt",
+          "sizeLines": 10,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "public/site.webmanifest",
+          "language": "webmanifest",
+          "sizeLines": 8,
+          "fileCategory": "code"
+        },
+        {
+          "path": "public/sitemap.xml",
+          "language": "xml",
+          "sizeLines": 20,
+          "fileCategory": "config"
+        },
+        {
+          "path": "src/components/ui/aspect-ratio.tsx",
+          "language": "typescript",
+          "sizeLines": 5,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/collapsible.tsx",
+          "language": "typescript",
+          "sizeLines": 11,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/components/ui/sonner.tsx",
+          "language": "typescript",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/routes/README.md",
+          "language": "markdown",
+          "sizeLines": 21,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "src/styles.css",
+          "language": "css",
+          "sizeLines": 125,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "tests/e2e/cms.spec.ts",
+          "language": "typescript",
+          "sizeLines": 253,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/e2e/cookie-consent.spec.ts",
+          "language": "typescript",
+          "sizeLines": 22,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/e2e/core-ux.spec.ts",
+          "language": "typescript",
+          "sizeLines": 534,
+          "fileCategory": "code"
+        },
+        {
+          "path": "vite.config.ts",
+          "language": "typescript",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        ".prettierignore": [],
+        "Credit-Account-Application.docx": [],
+        "client-documents/Spares Automation - Shopify Product and Collection Guide.docx": [],
+        "drizzle.config.ts": [],
+        "eslint.config.js": [],
+        "nginx.conf": [],
+        "playwright.config.ts": [],
+        "public/robots.txt": [],
+        "public/site.webmanifest": [],
+        "public/sitemap.xml": [],
+        "src/components/ui/aspect-ratio.tsx": [],
+        "src/components/ui/collapsible.tsx": [],
+        "src/components/ui/sonner.tsx": [],
+        "src/routes/README.md": [],
+        "src/styles.css": [],
+        "tests/e2e/cms.spec.ts": [],
+        "tests/e2e/cookie-consent.spec.ts": [],
+        "tests/e2e/core-ux.spec.ts": [],
+        "vite.config.ts": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

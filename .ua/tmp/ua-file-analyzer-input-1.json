@@ -1,0 +1,370 @@
+{
+    "projectRoot":  "D:\\StratonAlly\\Code\\spareautomation",
+    "batchFiles":  [
+                       {
+                           "path":  "src/components/shopify/AddToCartButton.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  64,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/AddToQuoteButton.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  40,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/BuildQuoteFromCartButton.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  23,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/CollectionPage.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  168,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/PaymentMarks.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  56,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/ProductCard.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  75,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/ProductDetail.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  834,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/ReturnRequestForm.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  468,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/SignInRequired.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  37,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/SiteFooter.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  138,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/shopify/SiteHeader.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  296,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/lib/api/shopify.functions.ts",
+                           "language":  "typescript",
+                           "sizeLines":  375,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/lib/quote.ts",
+                           "language":  "typescript",
+                           "sizeLines":  88,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/lib/shopify/cart.ts",
+                           "language":  "typescript",
+                           "sizeLines":  16,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/lib/shopify/format.ts",
+                           "language":  "typescript",
+                           "sizeLines":  52,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/lib/shopify/quote.ts",
+                           "language":  "typescript",
+                           "sizeLines":  133,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/lib/shopify/types.ts",
+                           "language":  "typescript",
+                           "sizeLines":  93,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/lib/site.ts",
+                           "language":  "typescript",
+                           "sizeLines":  22,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/account.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  285,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/cart.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  265,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/delivery-information.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  151,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/forgot-password.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  31,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/login.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  291,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/products/$handle.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  30,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/products/index.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  465,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/quote.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  399,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/register.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  590,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/resources.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  378,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/returns.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  178,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/search.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  39,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/track-order.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  151,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "tests/unit/format.spec.ts",
+                           "language":  "typescript",
+                           "sizeLines":  34,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "tests/unit/quote-prefill.spec.ts",
+                           "language":  "typescript",
+                           "sizeLines":  39,
+                           "fileCategory":  "code"
+                       }
+                   ],
+    "batchImportData":  {
+                            "src/components/shopify/AddToCartButton.tsx":  [
+                                                                               "src/lib/api/shopify.functions.ts",
+                                                                               "src/lib/shopify/cart.ts"
+                                                                           ],
+                            "src/components/shopify/AddToQuoteButton.tsx":  [
+                                                                                "src/lib/shopify/quote.ts",
+                                                                                "src/lib/shopify/types.ts"
+                                                                            ],
+                            "src/components/shopify/BuildQuoteFromCartButton.tsx":  [
+                                                                                        "src/lib/shopify/quote.ts",
+                                                                                        "src/lib/shopify/types.ts"
+                                                                                    ],
+                            "src/components/shopify/CollectionPage.tsx":  [
+                                                                              "src/components/shopify/ProductCard.tsx",
+                                                                              "src/components/shopify/SiteFooter.tsx",
+                                                                              "src/components/shopify/SiteHeader.tsx",
+                                                                              "src/lib/shopify/types.ts"
+                                                                          ],
+                            "src/components/shopify/PaymentMarks.tsx":  [
+
+                                                                        ],
+                            "src/components/shopify/ProductCard.tsx":  [
+                                                                           "src/components/shopify/AddToCartButton.tsx",
+                                                                           "src/lib/shopify/format.ts",
+                                                                           "src/lib/shopify/types.ts"
+                                                                       ],
+                            "src/components/shopify/ProductDetail.tsx":  [
+                                                                             "src/components/shopify/AddToCartButton.tsx",
+                                                                             "src/components/shopify/AddToQuoteButton.tsx",
+                                                                             "src/components/shopify/PaymentMarks.tsx",
+                                                                             "src/components/shopify/SiteFooter.tsx",
+                                                                             "src/components/shopify/SiteHeader.tsx",
+                                                                             "src/components/ui/dialog.tsx",
+                                                                             "src/lib/shopify/format.ts",
+                                                                             "src/lib/shopify/types.ts",
+                                                                             "src/lib/site.ts"
+                                                                         ],
+                            "src/components/shopify/ReturnRequestForm.tsx":  [
+                                                                                 "src/components/shopify/SignInRequired.tsx",
+                                                                                 "src/lib/api/cms.functions.ts",
+                                                                                 "src/lib/api/shopify.functions.ts"
+                                                                             ],
+                            "src/components/shopify/SignInRequired.tsx":  [
+
+                                                                          ],
+                            "src/components/shopify/SiteFooter.tsx":  [
+                                                                          "src/components/shopify/PaymentMarks.tsx",
+                                                                          "src/lib/site.ts"
+                                                                      ],
+                            "src/components/shopify/SiteHeader.tsx":  [
+                                                                          "src/lib/api/shopify.functions.ts",
+                                                                          "src/lib/catalog.ts",
+                                                                          "src/lib/shopify/cart.ts",
+                                                                          "src/lib/site.ts"
+                                                                      ],
+                            "src/lib/api/shopify.functions.ts":  [
+                                                                     "src/lib/shopify/admin.server.ts",
+                                                                     "src/lib/shopify/queries.server.ts"
+                                                                 ],
+                            "src/lib/quote.ts":  [
+                                                     "src/lib/shopify/format.ts",
+                                                     "src/lib/shopify/types.ts",
+                                                     "src/lib/site.ts"
+                                                 ],
+                            "src/lib/shopify/cart.ts":  [
+
+                                                        ],
+                            "src/lib/shopify/format.ts":  [
+                                                              "src/lib/shopify/types.ts"
+                                                          ],
+                            "src/lib/shopify/quote.ts":  [
+                                                             "src/lib/shopify/types.ts"
+                                                         ],
+                            "src/lib/shopify/types.ts":  [
+
+                                                         ],
+                            "src/lib/site.ts":  [
+
+                                                ],
+                            "src/routes/account.tsx":  [
+                                                           "src/components/shopify/SiteFooter.tsx",
+                                                           "src/components/shopify/SiteHeader.tsx",
+                                                           "src/lib/api/shopify.functions.ts",
+                                                           "src/lib/shopify/format.ts"
+                                                       ],
+                            "src/routes/cart.tsx":  [
+                                                        "src/components/shopify/BuildQuoteFromCartButton.tsx",
+                                                        "src/components/shopify/SiteFooter.tsx",
+                                                        "src/components/shopify/SiteHeader.tsx",
+                                                        "src/lib/api/shopify.functions.ts",
+                                                        "src/lib/shopify/cart.ts",
+                                                        "src/lib/shopify/format.ts",
+                                                        "src/lib/shopify/types.ts"
+                                                    ],
+                            "src/routes/delivery-information.tsx":  [
+                                                                        "src/components/shopify/SiteFooter.tsx",
+                                                                        "src/components/shopify/SiteHeader.tsx",
+                                                                        "src/lib/seo.ts"
+                                                                    ],
+                            "src/routes/forgot-password.tsx":  [
+                                                                   "src/components/shopify/SiteFooter.tsx",
+                                                                   "src/components/shopify/SiteHeader.tsx",
+                                                                   "src/lib/api/shopify.functions.ts"
+                                                               ],
+                            "src/routes/login.tsx":  [
+                                                         "src/components/shopify/SiteHeader.tsx",
+                                                         "src/lib/api/shopify.functions.ts"
+                                                     ],
+                            "src/routes/products/$handle.tsx":  [
+                                                                    "src/components/shopify/ProductDetail.tsx",
+                                                                    "src/lib/api/shopify.functions.ts",
+                                                                    "src/lib/site.ts"
+                                                                ],
+                            "src/routes/products/index.tsx":  [
+                                                                  "src/components/shopify/ProductCard.tsx",
+                                                                  "src/components/shopify/SiteFooter.tsx",
+                                                                  "src/components/shopify/SiteHeader.tsx",
+                                                                  "src/lib/api/shopify.functions.ts",
+                                                                  "src/lib/catalog.ts",
+                                                                  "src/lib/shopify/types.ts",
+                                                                  "src/lib/site.ts"
+                                                              ],
+                            "src/routes/quote.tsx":  [
+                                                         "src/components/shopify/SiteFooter.tsx",
+                                                         "src/components/shopify/SiteHeader.tsx",
+                                                         "src/lib/api/shopify.functions.ts",
+                                                         "src/lib/seo.ts",
+                                                         "src/lib/shopify/format.ts",
+                                                         "src/lib/shopify/quote.ts"
+                                                     ],
+                            "src/routes/register.tsx":  [
+                                                            "src/components/shopify/SiteHeader.tsx",
+                                                            "src/lib/api/shopify.functions.ts"
+                                                        ],
+                            "src/routes/resources.tsx":  [
+                                                             "src/components/shopify/SiteFooter.tsx",
+                                                             "src/components/shopify/SiteHeader.tsx",
+                                                             "src/lib/api/shopify.functions.ts",
+                                                             "src/lib/seo.ts",
+                                                             "src/lib/shopify/types.ts"
+                                                         ],
+                            "src/routes/returns.tsx":  [
+                                                           "src/components/shopify/ReturnRequestForm.tsx",
+                                                           "src/components/shopify/SiteFooter.tsx",
+                                                           "src/components/shopify/SiteHeader.tsx",
+                                                           "src/lib/seo.ts"
+                                                       ],
+                            "src/routes/search.tsx":  [
+                                                          "src/components/shopify/CollectionPage.tsx",
+                                                          "src/lib/api/shopify.functions.ts"
+                                                      ],
+                            "src/routes/track-order.tsx":  [
+                                                               "src/components/shopify/SignInRequired.tsx",
+                                                               "src/components/shopify/SiteFooter.tsx",
+                                                               "src/components/shopify/SiteHeader.tsx",
+                                                               "src/lib/api/shopify.functions.ts",
+                                                               "src/lib/seo.ts",
+                                                               "src/lib/shopify/format.ts"
+                                                           ],
+                            "tests/unit/format.spec.ts":  [
+                                                              "src/lib/shopify/format.ts"
+                                                          ],
+                            "tests/unit/quote-prefill.spec.ts":  [
+                                                                     "src/lib/shopify/quote.ts"
+                                                                 ]
+                        }
+}

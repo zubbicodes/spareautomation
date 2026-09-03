@@ -1,0 +1,140 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 3
+    }
+  },
+  "results": [
+    {
+      "path": "drizzle/0000_smiling_slyde.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 54,
+      "nonEmptyLines": 54,
+      "definitions": [
+        {
+          "name": "attachments",
+          "kind": "table",
+          "fields": [
+            "id",
+            "submission_id",
+            "filename",
+            "mime",
+            "size",
+            "path",
+            "created_at"
+          ],
+          "startLine": 4,
+          "endLine": 12
+        },
+        {
+          "name": "staff_users",
+          "kind": "table",
+          "fields": [
+            "id",
+            "email",
+            "password_hash",
+            "name",
+            "role",
+            "created_at"
+          ],
+          "startLine": 14,
+          "endLine": 22
+        },
+        {
+          "name": "submission_notes",
+          "kind": "table",
+          "fields": [
+            "id",
+            "submission_id",
+            "staff_id",
+            "body",
+            "created_at"
+          ],
+          "startLine": 24,
+          "endLine": 30
+        },
+        {
+          "name": "submissions",
+          "kind": "table",
+          "fields": [
+            "id",
+            "type",
+            "status",
+            "payload",
+            "contact_email",
+            "contact_name",
+            "company",
+            "reference",
+            "shopify_customer_id",
+            "shopify_synced_at",
+            "reviewed_by",
+            "reviewed_at",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 32,
+          "endLine": 47
+        },
+        {
+          "name": "submissions_type_status_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 53,
+          "endLine": 53
+        },
+        {
+          "name": "submissions_created_at_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 54,
+          "endLine": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 6
+      }
+    },
+    {
+      "path": "drizzle/0001_curly_banshee.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 2,
+      "nonEmptyLines": 2,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    },
+    {
+      "path": "drizzle/0002_add_return_request.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+    "projectRoot":  "D:\\StratonAlly\\Code\\spareautomation",
+    "batchFiles":  [
+                       {
+                           "path":  ".prettierignore",
+                           "language":  "unknown",
+                           "sizeLines":  8,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "Credit-Account-Application.docx",
+                           "language":  "docx",
+                           "sizeLines":  57,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "client-documents/Spares Automation - Shopify Product and Collection Guide.docx",
+                           "language":  "docx",
+                           "sizeLines":  174,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "drizzle.config.ts",
+                           "language":  "typescript",
+                           "sizeLines":  17,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "eslint.config.js",
+                           "language":  "javascript",
+                           "sizeLines":  45,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "nginx.conf",
+                           "language":  "conf",
+                           "sizeLines":  19,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "playwright.config.ts",
+                           "language":  "typescript",
+                           "sizeLines":  39,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "public/robots.txt",
+                           "language":  "txt",
+                           "sizeLines":  10,
+                           "fileCategory":  "docs"
+                       },
+                       {
+                           "path":  "public/site.webmanifest",
+                           "language":  "webmanifest",
+                           "sizeLines":  8,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "public/sitemap.xml",
+                           "language":  "xml",
+                           "sizeLines":  20,
+                           "fileCategory":  "config"
+                       },
+                       {
+                           "path":  "src/components/ui/aspect-ratio.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  5,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/ui/collapsible.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  11,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/components/ui/sonner.tsx",
+                           "language":  "typescript",
+                           "sizeLines":  23,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "src/routes/README.md",
+                           "language":  "markdown",
+                           "sizeLines":  21,
+                           "fileCategory":  "docs"
+                       },
+                       {
+                           "path":  "src/styles.css",
+                           "language":  "css",
+                           "sizeLines":  125,
+                           "fileCategory":  "markup"
+                       },
+                       {
+                           "path":  "tests/e2e/cms.spec.ts",
+                           "language":  "typescript",
+                           "sizeLines":  253,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "tests/e2e/cookie-consent.spec.ts",
+                           "language":  "typescript",
+                           "sizeLines":  22,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "tests/e2e/core-ux.spec.ts",
+                           "language":  "typescript",
+                           "sizeLines":  534,
+                           "fileCategory":  "code"
+                       },
+                       {
+                           "path":  "vite.config.ts",
+                           "language":  "typescript",
+                           "sizeLines":  18,
+                           "fileCategory":  "code"
+                       }
+                   ],
+    "batchImportData":  {
+                            ".prettierignore":  [
+
+                                                ],
+                            "Credit-Account-Application.docx":  [
+
+                                                                ],
+                            "client-documents/Spares Automation - Shopify Product and Collection Guide.docx":  [
+
+                                                                                                               ],
+                            "drizzle.config.ts":  [
+
+                                                  ],
+                            "eslint.config.js":  [
+
+                                                 ],
+                            "nginx.conf":  [
+
+                                           ],
+                            "playwright.config.ts":  [
+
+                                                     ],
+                            "public/robots.txt":  [
+
+                                                  ],
+                            "public/site.webmanifest":  [
+
+                                                        ],
+                            "public/sitemap.xml":  [
+
+                                                   ],
+                            "src/components/ui/aspect-ratio.tsx":  [
+
+                                                                   ],
+                            "src/components/ui/collapsible.tsx":  [
+
+                                                                  ],
+                            "src/components/ui/sonner.tsx":  [
+
+                                                             ],
+                            "src/routes/README.md":  [
+
+                                                     ],
+                            "src/styles.css":  [
+
+                                               ],
+                            "tests/e2e/cms.spec.ts":  [
+
+                                                      ],
+                            "tests/e2e/cookie-consent.spec.ts":  [
+
+                                                                 ],
+                            "tests/e2e/core-ux.spec.ts":  [
+
+                                                          ],
+                            "vite.config.ts":  [
+
+                                               ]
+                        }
+}

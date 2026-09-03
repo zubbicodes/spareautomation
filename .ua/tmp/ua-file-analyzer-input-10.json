@@ -1,0 +1,34 @@
+{
+    "projectRoot":  "D:\\StratonAlly\\Code\\spareautomation",
+    "batchFiles":  [
+                       {
+                           "path":  "drizzle/0000_smiling_slyde.sql",
+                           "language":  "sql",
+                           "sizeLines":  53,
+                           "fileCategory":  "data"
+                       },
+                       {
+                           "path":  "drizzle/0001_curly_banshee.sql",
+                           "language":  "sql",
+                           "sizeLines":  1,
+                           "fileCategory":  "data"
+                       },
+                       {
+                           "path":  "drizzle/0002_add_return_request.sql",
+                           "language":  "sql",
+                           "sizeLines":  3,
+                           "fileCategory":  "data"
+                       }
+                   ],
+    "batchImportData":  {
+                            "drizzle/0000_smiling_slyde.sql":  [
+
+                                                               ],
+                            "drizzle/0001_curly_banshee.sql":  [
+
+                                                               ],
+                            "drizzle/0002_add_return_request.sql":  [
+
+                                                                    ]
+                        }
+}

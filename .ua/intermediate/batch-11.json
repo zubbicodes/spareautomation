@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "config:drizzle/meta/0000_snapshot.json",
+      "type": "config",
+      "name": "0000_snapshot.json",
+      "filePath": "drizzle/meta/0000_snapshot.json",
+      "summary": "Drizzle Kit PostgreSQL schema snapshot for the initial CMS migration, describing the attachments, staff_users, submission_notes, and submissions tables plus staff role and submission workflow enums.",
+      "tags": ["configuration", "database", "drizzle", "schema-snapshot", "postgresql"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:drizzle/meta/0001_snapshot.json",
+      "type": "config",
+      "name": "0001_snapshot.json",
+      "filePath": "drizzle/meta/0001_snapshot.json",
+      "summary": "Drizzle Kit schema snapshot after the staff-origin migration, preserving the complete PostgreSQL table, column, constraint, index, and enum state used for subsequent migration diffs.",
+      "tags": ["configuration", "database", "drizzle", "schema-snapshot", "migration"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:drizzle/meta/0002_snapshot.json",
+      "type": "config",
+      "name": "0002_snapshot.json",
+      "filePath": "drizzle/meta/0002_snapshot.json",
+      "summary": "Current Drizzle Kit PostgreSQL schema snapshot after return-request support, capturing all CMS tables, relationships, indexes, and enum values for migration generation.",
+      "tags": ["configuration", "database", "drizzle", "schema-snapshot", "returns"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:drizzle/meta/_journal.json",
+      "type": "config",
+      "name": "_journal.json",
+      "filePath": "drizzle/meta/_journal.json",
+      "summary": "Drizzle migration journal ordering the three PostgreSQL migrations, recording their version, timestamps, tags, and statement-breakpoint behavior.",
+      "tags": ["configuration", "database", "drizzle", "migration-journal"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

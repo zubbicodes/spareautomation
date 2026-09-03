@@ -1,0 +1,277 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 4
+    }
+  },
+  "results": [
+    {
+      "path": "drizzle/meta/0000_snapshot.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 450,
+      "nonEmptyLines": 450,
+      "sections": [
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "prevId",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "dialect",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "tables",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "enums",
+          "level": 1,
+          "line": 406
+        },
+        {
+          "heading": "schemas",
+          "level": 1,
+          "line": 440
+        },
+        {
+          "heading": "sequences",
+          "level": 1,
+          "line": 441
+        },
+        {
+          "heading": "roles",
+          "level": 1,
+          "line": 442
+        },
+        {
+          "heading": "policies",
+          "level": 1,
+          "line": 84
+        },
+        {
+          "heading": "views",
+          "level": 1,
+          "line": 444
+        },
+        {
+          "heading": "_meta",
+          "level": 1,
+          "line": 445
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "drizzle/meta/0001_snapshot.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 469,
+      "nonEmptyLines": 469,
+      "sections": [
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "prevId",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "dialect",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "tables",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "enums",
+          "level": 1,
+          "line": 425
+        },
+        {
+          "heading": "schemas",
+          "level": 1,
+          "line": 459
+        },
+        {
+          "heading": "sequences",
+          "level": 1,
+          "line": 460
+        },
+        {
+          "heading": "roles",
+          "level": 1,
+          "line": 461
+        },
+        {
+          "heading": "policies",
+          "level": 1,
+          "line": 84
+        },
+        {
+          "heading": "views",
+          "level": 1,
+          "line": 463
+        },
+        {
+          "heading": "_meta",
+          "level": 1,
+          "line": 464
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "drizzle/meta/0002_snapshot.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 469,
+      "nonEmptyLines": 469,
+      "sections": [
+        {
+          "heading": "id",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "prevId",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "dialect",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "tables",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "enums",
+          "level": 1,
+          "line": 425
+        },
+        {
+          "heading": "schemas",
+          "level": 1,
+          "line": 459
+        },
+        {
+          "heading": "sequences",
+          "level": 1,
+          "line": 460
+        },
+        {
+          "heading": "roles",
+          "level": 1,
+          "line": 461
+        },
+        {
+          "heading": "policies",
+          "level": 1,
+          "line": 84
+        },
+        {
+          "heading": "views",
+          "level": 1,
+          "line": 463
+        },
+        {
+          "heading": "_meta",
+          "level": 1,
+          "line": 464
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 12
+      }
+    },
+    {
+      "path": "drizzle/meta/_journal.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 27,
+      "nonEmptyLines": 27,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "dialect",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "entries",
+          "level": 1,
+          "line": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

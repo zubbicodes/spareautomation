@@ -1,35 +1,54 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, MessageCircle, type LucideIcon } from "lucide-react";
+import { Mail, MessageCircle, Phone, type LucideIcon } from "lucide-react";
 
 import { InfoPage } from "@/components/shopify/InfoPage";
 import { SupportRequestForm } from "@/components/shopify/SupportRequestForm";
-import { pageHead } from "@/lib/seo";
-import { SITE, whatsappHref } from "@/lib/site";
+import { contentPageHead } from "@/lib/seo";
+import { useContent } from "@/lib/content/ContentContext";
+import { getPublishedContent } from "@/lib/content/content.functions";
 
 export const Route = createFileRoute("/contact-us")({
-  head: () =>
-    pageHead(
-      "Contact Industrial Parts Support",
-      "Contact Spares Automation for product identification, quotations, availability, and industrial parts support.",
-      "/contact-us",
-    ),
+  loader: async () => {
+    const { site, pages } = await getPublishedContent();
+    return { site, seo: pages["contact-us"].seo };
+  },
+  head: ({ loaderData }) =>
+    contentPageHead(loaderData?.seo, loaderData?.site, "/contact-us", {
+      title: "Contact Industrial Parts Support",
+      description:
+        "Contact Spares Automation for product identification, quotations, availability, and industrial parts support.",
+    }),
   component: ContactUsPage,
 });
 
 function ContactUsPage() {
+  const { site, messages } = useContent();
   return (
-    <InfoPage
-      eyebrow="Support"
-      title="Contact Spares Automation"
-      compactHero
-      sections={[]}
-      ctaLabel="View common questions"
-      ctaTo="/got-a-question"
-    >
+    <InfoPage contentKey="contact-us">
       <section className="border-t border-rule bg-background py-10">
-        <div className="mx-auto grid max-w-[900px] grid-cols-1 gap-4 px-4 sm:grid-cols-2 md:px-6">
-          <ContactCard icon={Mail} title="Email Enquiries" copy={SITE.email} detail="Send product questions or cart details" href={`mailto:${SITE.email}`} />
-          <ContactCard icon={MessageCircle} title="WhatsApp" copy={SITE.phoneDisplay} detail="Useful for photos and part numbers" href={whatsappHref("Hello Spares Automation, I need help identifying a part.")} external />
+        <div className="mx-auto grid max-w-[1000px] grid-cols-1 gap-4 px-4 sm:grid-cols-2 lg:grid-cols-3 md:px-6">
+          <ContactCard
+            icon={Mail}
+            title={messages["contact.emailLabel"]}
+            copy={site.email}
+            detail={messages["contact.emailDetail"]}
+            href={`mailto:${site.email}`}
+          />
+          <ContactCard
+            icon={Phone}
+            title={messages["contact.phoneLabel"]}
+            copy={site.phoneDisplay}
+            detail={messages["contact.phoneDetail"]}
+            href={`tel:${site.phoneHref}`}
+          />
+          <ContactCard
+            icon={MessageCircle}
+            title={messages["contact.whatsappLabel"]}
+            copy={site.phoneDisplay}
+            detail={messages["contact.whatsappDetail"]}
+            href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(`Hello ${site.name}, ${messages["contact.whatsappMessage"]}`)}`}
+            external
+          />
         </div>
       </section>
       <SupportRequestForm kind="question" />

@@ -1,0 +1,1866 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/components/shopify/AddToCartButton.tsx",
+      "type": "file",
+      "name": "AddToCartButton.tsx",
+      "filePath": "src/components/shopify/AddToCartButton.tsx",
+      "summary": "Renders the product add-to-cart control and coordinates Shopify cart creation, line insertion, browser cart persistence, loading state, and failure feedback.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/AddToCartButton.tsx:AddToCartButton",
+      "type": "function",
+      "name": "AddToCartButton",
+      "filePath": "src/components/shopify/AddToCartButton.tsx",
+      "lineRange": [
+        16,
+        64
+      ],
+      "summary": "Renders the add to cart button UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/shopify/AddToQuoteButton.tsx",
+      "type": "file",
+      "name": "AddToQuoteButton.tsx",
+      "filePath": "src/components/shopify/AddToQuoteButton.tsx",
+      "summary": "Adds a selected product and quantity to the browser-stored quote, presenting immediate confirmation to the shopper.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/AddToQuoteButton.tsx:AddToQuoteButton",
+      "type": "function",
+      "name": "AddToQuoteButton",
+      "filePath": "src/components/shopify/AddToQuoteButton.tsx",
+      "lineRange": [
+        14,
+        40
+      ],
+      "summary": "Renders the add to quote button UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/shopify/BuildQuoteFromCartButton.tsx",
+      "type": "file",
+      "name": "BuildQuoteFromCartButton.tsx",
+      "filePath": "src/components/shopify/BuildQuoteFromCartButton.tsx",
+      "summary": "Converts the current Shopify cart lines into a locally stored quote and directs the shopper into the quote workflow.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/BuildQuoteFromCartButton.tsx:BuildQuoteFromCartButton",
+      "type": "function",
+      "name": "BuildQuoteFromCartButton",
+      "filePath": "src/components/shopify/BuildQuoteFromCartButton.tsx",
+      "lineRange": [
+        7,
+        23
+      ],
+      "summary": "Renders the build quote from cart button UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/shopify/CollectionPage.tsx",
+      "type": "file",
+      "name": "CollectionPage.tsx",
+      "filePath": "src/components/shopify/CollectionPage.tsx",
+      "summary": "Builds a collection landing page with site chrome, product filtering, sorting, empty states, and reusable product cards.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/CollectionPage.tsx:CollectionPage",
+      "type": "function",
+      "name": "CollectionPage",
+      "filePath": "src/components/shopify/CollectionPage.tsx",
+      "lineRange": [
+        30,
+        154
+      ],
+      "summary": "Renders the collection page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/CollectionPage.tsx:matchesLine",
+      "type": "function",
+      "name": "matchesLine",
+      "filePath": "src/components/shopify/CollectionPage.tsx",
+      "lineRange": [
+        156,
+        168
+      ],
+      "summary": "Checks whether matches line satisfies the module's validation rule.",
+      "tags": [
+        "validation",
+        "security",
+        "predicate"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/shopify/PaymentMarks.tsx",
+      "type": "file",
+      "name": "PaymentMarks.tsx",
+      "filePath": "src/components/shopify/PaymentMarks.tsx",
+      "summary": "Provides reusable payment-brand artwork, including card and PayPal marks, for storefront trust and checkout messaging.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/PaymentMarks.tsx:PaymentMarks",
+      "type": "function",
+      "name": "PaymentMarks",
+      "filePath": "src/components/shopify/PaymentMarks.tsx",
+      "lineRange": [
+        1,
+        40
+      ],
+      "summary": "Renders the payment marks UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/PaymentMarks.tsx:PayPalMark",
+      "type": "function",
+      "name": "PayPalMark",
+      "filePath": "src/components/shopify/PaymentMarks.tsx",
+      "lineRange": [
+        42,
+        56
+      ],
+      "summary": "Renders the pay pal mark UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/shopify/ProductCard.tsx",
+      "type": "file",
+      "name": "ProductCard.tsx",
+      "filePath": "src/components/shopify/ProductCard.tsx",
+      "summary": "Presents a Shopify product summary with image, pricing, availability, product navigation, and a quick add-to-cart action.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/ProductCard.tsx:ProductCard",
+      "type": "function",
+      "name": "ProductCard",
+      "filePath": "src/components/shopify/ProductCard.tsx",
+      "lineRange": [
+        13,
+        75
+      ],
+      "summary": "Renders the product card UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/shopify/ProductDetail.tsx",
+      "type": "file",
+      "name": "ProductDetail.tsx",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "summary": "Implements the full product-detail experience: gallery, variant and quantity selection, VAT-aware pricing, stock status, technical specifications, downloads, videos with consent, support links, cart actions, and quote actions.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/components/shopify/ProductDetail.tsx:ProductDetail",
+      "type": "function",
+      "name": "ProductDetail",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "lineRange": [
+        43,
+        208
+      ],
+      "summary": "Renders the product detail UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/ProductDetail.tsx:QuantityStepper",
+      "type": "function",
+      "name": "QuantityStepper",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "lineRange": [
+        210,
+        262
+      ],
+      "summary": "Renders the quantity stepper UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/ProductDetail.tsx:ProductGallery",
+      "type": "function",
+      "name": "ProductGallery",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "lineRange": [
+        264,
+        467
+      ],
+      "summary": "Renders the product gallery UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/components/shopify/ProductDetail.tsx:StockBadge",
+      "type": "function",
+      "name": "StockBadge",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "lineRange": [
+        469,
+        493
+      ],
+      "summary": "Renders the stock badge UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/ProductDetail.tsx:SpecBlock",
+      "type": "function",
+      "name": "SpecBlock",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "lineRange": [
+        495,
+        506
+      ],
+      "summary": "Renders the spec block UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/ProductDetail.tsx:ProductDescription",
+      "type": "function",
+      "name": "ProductDescription",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "lineRange": [
+        508,
+        521
+      ],
+      "summary": "Renders the product description UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/ProductDetail.tsx:ProductResources",
+      "type": "function",
+      "name": "ProductResources",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "lineRange": [
+        529,
+        710
+      ],
+      "summary": "Renders the product resources UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/ProductDetail.tsx:YouTubeConsentPanel",
+      "type": "function",
+      "name": "YouTubeConsentPanel",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "lineRange": [
+        712,
+        789
+      ],
+      "summary": "Renders the you tube consent panel UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/ProductDetail.tsx:SupportLink",
+      "type": "function",
+      "name": "SupportLink",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "lineRange": [
+        791,
+        813
+      ],
+      "summary": "Renders the support link UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/ProductDetail.tsx:SupportEmptyState",
+      "type": "function",
+      "name": "SupportEmptyState",
+      "filePath": "src/components/shopify/ProductDetail.tsx",
+      "lineRange": [
+        815,
+        833
+      ],
+      "summary": "Renders the support empty state UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/shopify/ReturnRequestForm.tsx",
+      "type": "file",
+      "name": "ReturnRequestForm.tsx",
+      "filePath": "src/components/shopify/ReturnRequestForm.tsx",
+      "summary": "Runs the signed-in customer return-request workflow, including order lookup, item selection, reason/details capture, validation, submission, and confirmation.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/components/shopify/ReturnRequestForm.tsx:ReturnRequestForm",
+      "type": "function",
+      "name": "ReturnRequestForm",
+      "filePath": "src/components/shopify/ReturnRequestForm.tsx",
+      "lineRange": [
+        38,
+        468
+      ],
+      "summary": "Renders the return request form UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/components/shopify/SignInRequired.tsx",
+      "type": "file",
+      "name": "SignInRequired.tsx",
+      "filePath": "src/components/shopify/SignInRequired.tsx",
+      "summary": "Displays a consistent sign-in gate with return navigation when an account-only storefront action is attempted anonymously.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/SignInRequired.tsx:SignInRequired",
+      "type": "function",
+      "name": "SignInRequired",
+      "filePath": "src/components/shopify/SignInRequired.tsx",
+      "lineRange": [
+        4,
+        37
+      ],
+      "summary": "Renders the sign in required UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "file",
+      "name": "SiteFooter.tsx",
+      "filePath": "src/components/shopify/SiteFooter.tsx",
+      "summary": "Renders the global storefront footer with company, service, policy, contact, and payment information.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/SiteFooter.tsx:SiteFooter",
+      "type": "function",
+      "name": "SiteFooter",
+      "filePath": "src/components/shopify/SiteFooter.tsx",
+      "lineRange": [
+        28,
+        110
+      ],
+      "summary": "Renders the site footer UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/SiteFooter.tsx:FooterColumn",
+      "type": "function",
+      "name": "FooterColumn",
+      "filePath": "src/components/shopify/SiteFooter.tsx",
+      "lineRange": [
+        112,
+        138
+      ],
+      "summary": "Renders the footer column UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "file",
+      "name": "SiteHeader.tsx",
+      "filePath": "src/components/shopify/SiteHeader.tsx",
+      "summary": "Renders the responsive storefront header, catalogue navigation, account links, search access, and cart state.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/components/shopify/SiteHeader.tsx:SiteHeader",
+      "type": "function",
+      "name": "SiteHeader",
+      "filePath": "src/components/shopify/SiteHeader.tsx",
+      "lineRange": [
+        44,
+        217
+      ],
+      "summary": "Renders the site header UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/shopify/SiteHeader.tsx:BrandMark",
+      "type": "function",
+      "name": "BrandMark",
+      "filePath": "src/components/shopify/SiteHeader.tsx",
+      "lineRange": [
+        219,
+        231
+      ],
+      "summary": "Renders the brand mark UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/SiteHeader.tsx:CartLink",
+      "type": "function",
+      "name": "CartLink",
+      "filePath": "src/components/shopify/SiteHeader.tsx",
+      "lineRange": [
+        233,
+        248
+      ],
+      "summary": "Renders the cart link UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/SiteHeader.tsx:AccountApplicationLinks",
+      "type": "function",
+      "name": "AccountApplicationLinks",
+      "filePath": "src/components/shopify/SiteHeader.tsx",
+      "lineRange": [
+        250,
+        263
+      ],
+      "summary": "Renders the account application links UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/SiteHeader.tsx:AccountLinks",
+      "type": "function",
+      "name": "AccountLinks",
+      "filePath": "src/components/shopify/SiteHeader.tsx",
+      "lineRange": [
+        265,
+        296
+      ],
+      "summary": "Renders the account links UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/api/shopify.functions.ts",
+      "type": "file",
+      "name": "shopify.functions.ts",
+      "filePath": "src/lib/api/shopify.functions.ts",
+      "summary": "Exposes server functions for Shopify storefront operations and customer-account actions while managing the customer access-token session.",
+      "tags": [
+        "api-handler",
+        "server-function",
+        "validation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/lib/api/shopify.functions.ts:sessionConfig",
+      "type": "function",
+      "name": "sessionConfig",
+      "filePath": "src/lib/api/shopify.functions.ts",
+      "lineRange": [
+        231,
+        243
+      ],
+      "summary": "Implements session config as a significant part of this module. Exposes server functions for Shopify storefront operations and customer-account actions while managing the customer access-token session.",
+      "tags": [
+        "function",
+        "application-logic",
+        "api-handler"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/api/shopify.functions.ts:getCustomerAccessTokenSession",
+      "type": "function",
+      "name": "getCustomerAccessTokenSession",
+      "filePath": "src/lib/api/shopify.functions.ts",
+      "lineRange": [
+        245,
+        258
+      ],
+      "summary": "Retrieves customer access token session for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/quote.ts",
+      "type": "file",
+      "name": "quote.ts",
+      "filePath": "src/lib/quote.ts",
+      "summary": "Builds prefilled email and WhatsApp contact links for product questions and quote requests using normalized Shopify product and site contact data.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/lib/quote.ts:productQuestionMailto",
+      "type": "function",
+      "name": "productQuestionMailto",
+      "filePath": "src/lib/quote.ts",
+      "lineRange": [
+        9,
+        23
+      ],
+      "summary": "Builds the product question mailto contact link with prefilled product, quote, and customer context.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/quote.ts:productQuestionWhatsApp",
+      "type": "function",
+      "name": "productQuestionWhatsApp",
+      "filePath": "src/lib/quote.ts",
+      "lineRange": [
+        25,
+        35
+      ],
+      "summary": "Builds the product question whats app contact link with prefilled product, quote, and customer context.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/quote.ts:productQuoteMailto",
+      "type": "function",
+      "name": "productQuoteMailto",
+      "filePath": "src/lib/quote.ts",
+      "lineRange": [
+        37,
+        63
+      ],
+      "summary": "Builds the product quote mailto contact link with prefilled product, quote, and customer context.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/quote.ts:quoteRequestMailto",
+      "type": "function",
+      "name": "quoteRequestMailto",
+      "filePath": "src/lib/quote.ts",
+      "lineRange": [
+        65,
+        88
+      ],
+      "summary": "Builds the quote request mailto contact link with prefilled product, quote, and customer context.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/shopify/cart.ts",
+      "type": "file",
+      "name": "cart.ts",
+      "filePath": "src/lib/shopify/cart.ts",
+      "summary": "Owns browser session storage of the active Shopify cart identifier.",
+      "tags": [
+        "shopify",
+        "service",
+        "integration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/cart.ts:getStoredCartId",
+      "type": "function",
+      "name": "getStoredCartId",
+      "filePath": "src/lib/shopify/cart.ts",
+      "lineRange": [
+        3,
+        6
+      ],
+      "summary": "Retrieves stored cart id for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "utility",
+        "cart",
+        "browser-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/cart.ts:setStoredCartId",
+      "type": "function",
+      "name": "setStoredCartId",
+      "filePath": "src/lib/shopify/cart.ts",
+      "lineRange": [
+        8,
+        11
+      ],
+      "summary": "Persists stored cart id for later use by the associated workflow.",
+      "tags": [
+        "utility",
+        "cart",
+        "browser-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/cart.ts:clearStoredCartId",
+      "type": "function",
+      "name": "clearStoredCartId",
+      "filePath": "src/lib/shopify/cart.ts",
+      "lineRange": [
+        13,
+        16
+      ],
+      "summary": "Removes the persisted stored cart id state.",
+      "tags": [
+        "utility",
+        "cart",
+        "browser-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/shopify/format.ts",
+      "type": "file",
+      "name": "format.ts",
+      "filePath": "src/lib/shopify/format.ts",
+      "summary": "Provides Shopify money, VAT, product-price, and image URL formatting helpers shared by storefront views.",
+      "tags": [
+        "shopify",
+        "service",
+        "integration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/format.ts:formatMoney",
+      "type": "function",
+      "name": "formatMoney",
+      "filePath": "src/lib/shopify/format.ts",
+      "lineRange": [
+        5,
+        10
+      ],
+      "summary": "Formats money for consistent storefront presentation.",
+      "tags": [
+        "utility",
+        "transformation",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/format.ts:addVat",
+      "type": "function",
+      "name": "addVat",
+      "filePath": "src/lib/shopify/format.ts",
+      "lineRange": [
+        12,
+        20
+      ],
+      "summary": "Adds vat while preserving the module's storage and data-shape invariants.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/format.ts:calculateVat",
+      "type": "function",
+      "name": "calculateVat",
+      "filePath": "src/lib/shopify/format.ts",
+      "lineRange": [
+        22,
+        30
+      ],
+      "summary": "Implements calculate vat as a significant part of this module. Provides Shopify money, VAT, product-price, and image URL formatting helpers shared by storefront views.",
+      "tags": [
+        "utility",
+        "transformation",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/format.ts:formatProductPrice",
+      "type": "function",
+      "name": "formatProductPrice",
+      "filePath": "src/lib/shopify/format.ts",
+      "lineRange": [
+        32,
+        41
+      ],
+      "summary": "Formats product price for consistent storefront presentation.",
+      "tags": [
+        "utility",
+        "transformation",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/format.ts:shopifyImageUrl",
+      "type": "function",
+      "name": "shopifyImageUrl",
+      "filePath": "src/lib/shopify/format.ts",
+      "lineRange": [
+        43,
+        52
+      ],
+      "summary": "Implements shopify image url as a significant part of this module. Provides Shopify money, VAT, product-price, and image URL formatting helpers shared by storefront views.",
+      "tags": [
+        "function",
+        "application-logic",
+        "shopify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/shopify/quote.ts",
+      "type": "file",
+      "name": "quote.ts",
+      "filePath": "src/lib/shopify/quote.ts",
+      "summary": "Defines quote-contact and quote-item structures and owns validation and browser persistence for the quote basket.",
+      "tags": [
+        "shopify",
+        "service",
+        "integration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/lib/shopify/quote.ts:quoteContactDetailsFromCustomer",
+      "type": "function",
+      "name": "quoteContactDetailsFromCustomer",
+      "filePath": "src/lib/shopify/quote.ts",
+      "lineRange": [
+        22,
+        38
+      ],
+      "summary": "Implements quote contact details from customer as a significant part of this module. Defines quote-contact and quote-item structures and owns validation and browser persistence for the quote basket.",
+      "tags": [
+        "function",
+        "application-logic",
+        "shopify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/quote.ts:isStoredQuoteItem",
+      "type": "function",
+      "name": "isStoredQuoteItem",
+      "filePath": "src/lib/shopify/quote.ts",
+      "lineRange": [
+        51,
+        65
+      ],
+      "summary": "Checks whether is stored quote item satisfies the module's validation rule.",
+      "tags": [
+        "validation",
+        "security",
+        "predicate"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/quote.ts:getStoredQuote",
+      "type": "function",
+      "name": "getStoredQuote",
+      "filePath": "src/lib/shopify/quote.ts",
+      "lineRange": [
+        67,
+        75
+      ],
+      "summary": "Retrieves stored quote for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "utility",
+        "quote",
+        "browser-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/quote.ts:setStoredQuote",
+      "type": "function",
+      "name": "setStoredQuote",
+      "filePath": "src/lib/shopify/quote.ts",
+      "lineRange": [
+        77,
+        81
+      ],
+      "summary": "Persists stored quote for later use by the associated workflow.",
+      "tags": [
+        "utility",
+        "quote",
+        "browser-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/quote.ts:clearStoredQuote",
+      "type": "function",
+      "name": "clearStoredQuote",
+      "filePath": "src/lib/shopify/quote.ts",
+      "lineRange": [
+        83,
+        87
+      ],
+      "summary": "Removes the persisted stored quote state.",
+      "tags": [
+        "utility",
+        "quote",
+        "browser-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/quote.ts:addProductToStoredQuote",
+      "type": "function",
+      "name": "addProductToStoredQuote",
+      "filePath": "src/lib/shopify/quote.ts",
+      "lineRange": [
+        89,
+        111
+      ],
+      "summary": "Adds product to stored quote while preserving the module's storage and data-shape invariants.",
+      "tags": [
+        "utility",
+        "quote",
+        "browser-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/quote.ts:addCartToStoredQuote",
+      "type": "function",
+      "name": "addCartToStoredQuote",
+      "filePath": "src/lib/shopify/quote.ts",
+      "lineRange": [
+        113,
+        133
+      ],
+      "summary": "Adds cart to stored quote while preserving the module's storage and data-shape invariants.",
+      "tags": [
+        "utility",
+        "quote",
+        "browser-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/shopify/types.ts",
+      "type": "file",
+      "name": "types.ts",
+      "filePath": "src/lib/shopify/types.ts",
+      "summary": "Centralizes the TypeScript shapes used for Shopify products, variants, collections, carts, customers, orders, and resources.",
+      "tags": [
+        "shopify",
+        "service",
+        "integration"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/components/shopify/AddToCartButton.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/AddToCartButton.tsx",
+      "target": "file:src/lib/shopify/cart.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/AddToCartButton.tsx",
+      "target": "function:src/components/shopify/AddToCartButton.tsx:AddToCartButton",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/AddToCartButton.tsx",
+      "target": "function:src/components/shopify/AddToCartButton.tsx:AddToCartButton",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/AddToQuoteButton.tsx",
+      "target": "file:src/lib/shopify/quote.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/AddToQuoteButton.tsx",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/AddToQuoteButton.tsx",
+      "target": "function:src/components/shopify/AddToQuoteButton.tsx:AddToQuoteButton",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/AddToQuoteButton.tsx",
+      "target": "function:src/components/shopify/AddToQuoteButton.tsx:AddToQuoteButton",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/BuildQuoteFromCartButton.tsx",
+      "target": "file:src/lib/shopify/quote.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/BuildQuoteFromCartButton.tsx",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/BuildQuoteFromCartButton.tsx",
+      "target": "function:src/components/shopify/BuildQuoteFromCartButton.tsx:BuildQuoteFromCartButton",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/BuildQuoteFromCartButton.tsx",
+      "target": "function:src/components/shopify/BuildQuoteFromCartButton.tsx:BuildQuoteFromCartButton",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/CollectionPage.tsx",
+      "target": "file:src/components/shopify/ProductCard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/CollectionPage.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/CollectionPage.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/CollectionPage.tsx",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/CollectionPage.tsx",
+      "target": "function:src/components/shopify/CollectionPage.tsx:CollectionPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/CollectionPage.tsx",
+      "target": "function:src/components/shopify/CollectionPage.tsx:CollectionPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/CollectionPage.tsx",
+      "target": "function:src/components/shopify/CollectionPage.tsx:matchesLine",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/PaymentMarks.tsx",
+      "target": "function:src/components/shopify/PaymentMarks.tsx:PaymentMarks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/PaymentMarks.tsx",
+      "target": "function:src/components/shopify/PaymentMarks.tsx:PaymentMarks",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/PaymentMarks.tsx",
+      "target": "function:src/components/shopify/PaymentMarks.tsx:PayPalMark",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/PaymentMarks.tsx",
+      "target": "function:src/components/shopify/PaymentMarks.tsx:PayPalMark",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/ProductCard.tsx",
+      "target": "file:src/components/shopify/AddToCartButton.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductCard.tsx",
+      "target": "file:src/lib/shopify/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductCard.tsx",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductCard.tsx",
+      "target": "function:src/components/shopify/ProductCard.tsx:ProductCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ProductCard.tsx",
+      "target": "function:src/components/shopify/ProductCard.tsx:ProductCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "file:src/components/shopify/AddToCartButton.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "file:src/components/shopify/AddToQuoteButton.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "file:src/components/shopify/PaymentMarks.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "file:src/components/ui/dialog.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "file:src/lib/shopify/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:ProductDetail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:ProductDetail",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:QuantityStepper",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:ProductGallery",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:StockBadge",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:SpecBlock",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:ProductDescription",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:ProductResources",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:YouTubeConsentPanel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:SupportLink",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ProductDetail.tsx",
+      "target": "function:src/components/shopify/ProductDetail.tsx:SupportEmptyState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ReturnRequestForm.tsx",
+      "target": "file:src/components/shopify/SignInRequired.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ReturnRequestForm.tsx",
+      "target": "file:src/lib/api/cms.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ReturnRequestForm.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/ReturnRequestForm.tsx",
+      "target": "function:src/components/shopify/ReturnRequestForm.tsx:ReturnRequestForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/ReturnRequestForm.tsx",
+      "target": "function:src/components/shopify/ReturnRequestForm.tsx:ReturnRequestForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/SignInRequired.tsx",
+      "target": "function:src/components/shopify/SignInRequired.tsx:SignInRequired",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/SignInRequired.tsx",
+      "target": "function:src/components/shopify/SignInRequired.tsx:SignInRequired",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/SiteFooter.tsx",
+      "target": "file:src/components/shopify/PaymentMarks.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/SiteFooter.tsx",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/SiteFooter.tsx",
+      "target": "function:src/components/shopify/SiteFooter.tsx:SiteFooter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/SiteFooter.tsx",
+      "target": "function:src/components/shopify/SiteFooter.tsx:SiteFooter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/SiteFooter.tsx",
+      "target": "function:src/components/shopify/SiteFooter.tsx:FooterColumn",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/SiteHeader.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/SiteHeader.tsx",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/SiteHeader.tsx",
+      "target": "file:src/lib/shopify/cart.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/SiteHeader.tsx",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/SiteHeader.tsx",
+      "target": "function:src/components/shopify/SiteHeader.tsx:SiteHeader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/SiteHeader.tsx",
+      "target": "function:src/components/shopify/SiteHeader.tsx:SiteHeader",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/SiteHeader.tsx",
+      "target": "function:src/components/shopify/SiteHeader.tsx:BrandMark",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/SiteHeader.tsx",
+      "target": "function:src/components/shopify/SiteHeader.tsx:CartLink",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/SiteHeader.tsx",
+      "target": "function:src/components/shopify/SiteHeader.tsx:AccountApplicationLinks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/SiteHeader.tsx",
+      "target": "function:src/components/shopify/SiteHeader.tsx:AccountLinks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/api/shopify.functions.ts",
+      "target": "file:src/lib/shopify/admin.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/api/shopify.functions.ts",
+      "target": "file:src/lib/shopify/queries.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/api/shopify.functions.ts",
+      "target": "function:src/lib/api/shopify.functions.ts:sessionConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/api/shopify.functions.ts",
+      "target": "function:src/lib/api/shopify.functions.ts:getCustomerAccessTokenSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "file:src/lib/shopify/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "function:src/lib/quote.ts:productQuestionMailto",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "function:src/lib/quote.ts:productQuestionMailto",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "function:src/lib/quote.ts:productQuestionWhatsApp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "function:src/lib/quote.ts:productQuestionWhatsApp",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "function:src/lib/quote.ts:productQuoteMailto",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "function:src/lib/quote.ts:productQuoteMailto",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "function:src/lib/quote.ts:quoteRequestMailto",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/quote.ts",
+      "target": "function:src/lib/quote.ts:quoteRequestMailto",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/cart.ts",
+      "target": "function:src/lib/shopify/cart.ts:getStoredCartId",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/cart.ts",
+      "target": "function:src/lib/shopify/cart.ts:getStoredCartId",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/cart.ts",
+      "target": "function:src/lib/shopify/cart.ts:setStoredCartId",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/cart.ts",
+      "target": "function:src/lib/shopify/cart.ts:setStoredCartId",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/cart.ts",
+      "target": "function:src/lib/shopify/cart.ts:clearStoredCartId",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/cart.ts",
+      "target": "function:src/lib/shopify/cart.ts:clearStoredCartId",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "function:src/lib/shopify/format.ts:formatMoney",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "function:src/lib/shopify/format.ts:formatMoney",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "function:src/lib/shopify/format.ts:addVat",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "function:src/lib/shopify/format.ts:addVat",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "function:src/lib/shopify/format.ts:calculateVat",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "function:src/lib/shopify/format.ts:calculateVat",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "function:src/lib/shopify/format.ts:formatProductPrice",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "function:src/lib/shopify/format.ts:formatProductPrice",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "function:src/lib/shopify/format.ts:shopifyImageUrl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/format.ts",
+      "target": "function:src/lib/shopify/format.ts:shopifyImageUrl",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:quoteContactDetailsFromCustomer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:quoteContactDetailsFromCustomer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:isStoredQuoteItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:getStoredQuote",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:getStoredQuote",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:setStoredQuote",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:setStoredQuote",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:clearStoredQuote",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:clearStoredQuote",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:addProductToStoredQuote",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:addProductToStoredQuote",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:addCartToStoredQuote",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/quote.ts",
+      "target": "function:src/lib/shopify/quote.ts:addCartToStoredQuote",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

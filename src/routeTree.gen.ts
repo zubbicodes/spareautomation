@@ -12,7 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as TrackOrderRouteImport } from './routes/track-order'
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SiteDotwebmanifestRouteImport } from './routes/site[.]webmanifest'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as ReturnsPolicyRouteImport } from './routes/returns-policy'
 import { Route as ReturnsRouteImport } from './routes/returns'
 import { Route as ResourcesRouteImport } from './routes/resources'
@@ -41,8 +44,15 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ProductsHandleRouteImport } from './routes/products/$handle'
+import { Route as AdminUsersRouteImport } from './routes/admin/users'
+import { Route as AdminMediaRouteImport } from './routes/admin/media'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminChangePasswordRouteImport } from './routes/admin/change-password'
+import { Route as AdminContentIndexRouteImport } from './routes/admin/content.index'
+import { Route as ContentMediaIdFilenameRouteImport } from './routes/content-media/$id/$filename'
 import { Route as AdminSubmissionsIdRouteImport } from './routes/admin/submissions.$id'
+import { Route as AdminContentKeyRouteImport } from './routes/admin/content.$key'
+import { Route as AdminContentKeyPreviewRouteImport } from './routes/admin/content.$key.preview'
 
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
@@ -59,9 +69,24 @@ const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
   path: '/terms-and-conditions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteDotwebmanifestRoute = SiteDotwebmanifestRouteImport.update({
+  id: '/site.webmanifest',
+  path: '/site.webmanifest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReturnsPolicyRoute = ReturnsPolicyRouteImport.update({
@@ -204,15 +229,50 @@ const ProductsHandleRoute = ProductsHandleRouteImport.update({
   path: '/products/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminMediaRoute = AdminMediaRouteImport.update({
+  id: '/admin/media',
+  path: '/admin/media',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin/login',
   path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminChangePasswordRoute = AdminChangePasswordRouteImport.update({
+  id: '/admin/change-password',
+  path: '/admin/change-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminContentIndexRoute = AdminContentIndexRouteImport.update({
+  id: '/admin/content/',
+  path: '/admin/content/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContentMediaIdFilenameRoute = ContentMediaIdFilenameRouteImport.update({
+  id: '/content-media/$id/$filename',
+  path: '/content-media/$id/$filename',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminSubmissionsIdRoute = AdminSubmissionsIdRouteImport.update({
   id: '/admin/submissions/$id',
   path: '/admin/submissions/$id',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminContentKeyRoute = AdminContentKeyRouteImport.update({
+  id: '/admin/content/$key',
+  path: '/admin/content/$key',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminContentKeyPreviewRoute = AdminContentKeyPreviewRouteImport.update({
+  id: '/preview',
+  path: '/preview',
+  getParentRoute: () => AdminContentKeyRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -241,15 +301,25 @@ export interface FileRoutesByFullPath {
   '/resources': typeof ResourcesRoute
   '/returns': typeof ReturnsRoute
   '/returns-policy': typeof ReturnsPolicyRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
+  '/site.webmanifest': typeof SiteDotwebmanifestRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/track-order': typeof TrackOrderRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/users': typeof AdminUsersRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/admin/': typeof AdminIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/admin/content/$key': typeof AdminContentKeyRouteWithChildren
   '/admin/submissions/$id': typeof AdminSubmissionsIdRoute
+  '/content-media/$id/$filename': typeof ContentMediaIdFilenameRoute
+  '/admin/content/': typeof AdminContentIndexRoute
+  '/admin/content/$key/preview': typeof AdminContentKeyPreviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -277,15 +347,25 @@ export interface FileRoutesByTo {
   '/resources': typeof ResourcesRoute
   '/returns': typeof ReturnsRoute
   '/returns-policy': typeof ReturnsPolicyRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
+  '/site.webmanifest': typeof SiteDotwebmanifestRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/track-order': typeof TrackOrderRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/users': typeof AdminUsersRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/admin': typeof AdminIndexRoute
   '/products': typeof ProductsIndexRoute
+  '/admin/content/$key': typeof AdminContentKeyRouteWithChildren
   '/admin/submissions/$id': typeof AdminSubmissionsIdRoute
+  '/content-media/$id/$filename': typeof ContentMediaIdFilenameRoute
+  '/admin/content': typeof AdminContentIndexRoute
+  '/admin/content/$key/preview': typeof AdminContentKeyPreviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -314,15 +394,25 @@ export interface FileRoutesById {
   '/resources': typeof ResourcesRoute
   '/returns': typeof ReturnsRoute
   '/returns-policy': typeof ReturnsPolicyRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/search': typeof SearchRoute
+  '/site.webmanifest': typeof SiteDotwebmanifestRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/track-order': typeof TrackOrderRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/change-password': typeof AdminChangePasswordRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/users': typeof AdminUsersRoute
   '/products/$handle': typeof ProductsHandleRoute
   '/admin/': typeof AdminIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/admin/content/$key': typeof AdminContentKeyRouteWithChildren
   '/admin/submissions/$id': typeof AdminSubmissionsIdRoute
+  '/content-media/$id/$filename': typeof ContentMediaIdFilenameRoute
+  '/admin/content/': typeof AdminContentIndexRoute
+  '/admin/content/$key/preview': typeof AdminContentKeyPreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -352,15 +442,25 @@ export interface FileRouteTypes {
     | '/resources'
     | '/returns'
     | '/returns-policy'
+    | '/robots.txt'
     | '/search'
+    | '/site.webmanifest'
+    | '/sitemap.xml'
     | '/terms-and-conditions'
     | '/track-order'
     | '/unsubscribe'
+    | '/admin/change-password'
     | '/admin/login'
+    | '/admin/media'
+    | '/admin/users'
     | '/products/$handle'
     | '/admin/'
     | '/products/'
+    | '/admin/content/$key'
     | '/admin/submissions/$id'
+    | '/content-media/$id/$filename'
+    | '/admin/content/'
+    | '/admin/content/$key/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -388,15 +488,25 @@ export interface FileRouteTypes {
     | '/resources'
     | '/returns'
     | '/returns-policy'
+    | '/robots.txt'
     | '/search'
+    | '/site.webmanifest'
+    | '/sitemap.xml'
     | '/terms-and-conditions'
     | '/track-order'
     | '/unsubscribe'
+    | '/admin/change-password'
     | '/admin/login'
+    | '/admin/media'
+    | '/admin/users'
     | '/products/$handle'
     | '/admin'
     | '/products'
+    | '/admin/content/$key'
     | '/admin/submissions/$id'
+    | '/content-media/$id/$filename'
+    | '/admin/content'
+    | '/admin/content/$key/preview'
   id:
     | '__root__'
     | '/'
@@ -424,15 +534,25 @@ export interface FileRouteTypes {
     | '/resources'
     | '/returns'
     | '/returns-policy'
+    | '/robots.txt'
     | '/search'
+    | '/site.webmanifest'
+    | '/sitemap.xml'
     | '/terms-and-conditions'
     | '/track-order'
     | '/unsubscribe'
+    | '/admin/change-password'
     | '/admin/login'
+    | '/admin/media'
+    | '/admin/users'
     | '/products/$handle'
     | '/admin/'
     | '/products/'
+    | '/admin/content/$key'
     | '/admin/submissions/$id'
+    | '/content-media/$id/$filename'
+    | '/admin/content/'
+    | '/admin/content/$key/preview'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -461,15 +581,24 @@ export interface RootRouteChildren {
   ResourcesRoute: typeof ResourcesRoute
   ReturnsRoute: typeof ReturnsRoute
   ReturnsPolicyRoute: typeof ReturnsPolicyRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   SearchRoute: typeof SearchRoute
+  SiteDotwebmanifestRoute: typeof SiteDotwebmanifestRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   TrackOrderRoute: typeof TrackOrderRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
+  AdminChangePasswordRoute: typeof AdminChangePasswordRoute
   AdminLoginRoute: typeof AdminLoginRoute
+  AdminMediaRoute: typeof AdminMediaRoute
+  AdminUsersRoute: typeof AdminUsersRoute
   ProductsHandleRoute: typeof ProductsHandleRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
+  AdminContentKeyRoute: typeof AdminContentKeyRouteWithChildren
   AdminSubmissionsIdRoute: typeof AdminSubmissionsIdRoute
+  ContentMediaIdFilenameRoute: typeof ContentMediaIdFilenameRoute
+  AdminContentIndexRoute: typeof AdminContentIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -495,11 +624,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsAndConditionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/site.webmanifest': {
+      id: '/site.webmanifest'
+      path: '/site.webmanifest'
+      fullPath: '/site.webmanifest'
+      preLoaderRoute: typeof SiteDotwebmanifestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search': {
       id: '/search'
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/returns-policy': {
@@ -698,11 +848,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/media': {
+      id: '/admin/media'
+      path: '/admin/media'
+      fullPath: '/admin/media'
+      preLoaderRoute: typeof AdminMediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/admin/login'
       fullPath: '/admin/login'
       preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/change-password': {
+      id: '/admin/change-password'
+      path: '/admin/change-password'
+      fullPath: '/admin/change-password'
+      preLoaderRoute: typeof AdminChangePasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/content/': {
+      id: '/admin/content/'
+      path: '/admin/content'
+      fullPath: '/admin/content/'
+      preLoaderRoute: typeof AdminContentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/content-media/$id/$filename': {
+      id: '/content-media/$id/$filename'
+      path: '/content-media/$id/$filename'
+      fullPath: '/content-media/$id/$filename'
+      preLoaderRoute: typeof ContentMediaIdFilenameRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/submissions/$id': {
@@ -712,8 +897,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSubmissionsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/content/$key': {
+      id: '/admin/content/$key'
+      path: '/admin/content/$key'
+      fullPath: '/admin/content/$key'
+      preLoaderRoute: typeof AdminContentKeyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/content/$key/preview': {
+      id: '/admin/content/$key/preview'
+      path: '/preview'
+      fullPath: '/admin/content/$key/preview'
+      preLoaderRoute: typeof AdminContentKeyPreviewRouteImport
+      parentRoute: typeof AdminContentKeyRoute
+    }
   }
 }
+
+interface AdminContentKeyRouteChildren {
+  AdminContentKeyPreviewRoute: typeof AdminContentKeyPreviewRoute
+}
+
+const AdminContentKeyRouteChildren: AdminContentKeyRouteChildren = {
+  AdminContentKeyPreviewRoute: AdminContentKeyPreviewRoute,
+}
+
+const AdminContentKeyRouteWithChildren = AdminContentKeyRoute._addFileChildren(
+  AdminContentKeyRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -741,15 +952,24 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesRoute: ResourcesRoute,
   ReturnsRoute: ReturnsRoute,
   ReturnsPolicyRoute: ReturnsPolicyRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   SearchRoute: SearchRoute,
+  SiteDotwebmanifestRoute: SiteDotwebmanifestRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsAndConditionsRoute: TermsAndConditionsRoute,
   TrackOrderRoute: TrackOrderRoute,
   UnsubscribeRoute: UnsubscribeRoute,
+  AdminChangePasswordRoute: AdminChangePasswordRoute,
   AdminLoginRoute: AdminLoginRoute,
+  AdminMediaRoute: AdminMediaRoute,
+  AdminUsersRoute: AdminUsersRoute,
   ProductsHandleRoute: ProductsHandleRoute,
   AdminIndexRoute: AdminIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
+  AdminContentKeyRoute: AdminContentKeyRouteWithChildren,
   AdminSubmissionsIdRoute: AdminSubmissionsIdRoute,
+  ContentMediaIdFilenameRoute: ContentMediaIdFilenameRoute,
+  AdminContentIndexRoute: AdminContentIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

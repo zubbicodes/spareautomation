@@ -1,0 +1,14 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 1,
+  "edgesRestored": 1,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "The merge output was structurally sane: no duplicate nodes or edges, no unknown node types or complexity values, and no raw nodes lacked IDs.",
+    "Recovered the exported buttonVariants callable because src/components/ui/pagination.tsx directly invokes it and the analyzed button module defines it on lines 7-31.",
+    "All 282 import-map relationships have corresponding file-level imports edges; no cross-batch import edges were missing.",
+    "No large-scale ID normalization pattern was observed: all 382 raw node IDs already matched assembled node IDs."
+  ]
+}

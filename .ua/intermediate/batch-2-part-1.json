@@ -1,0 +1,991 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/components/admin/AdminShell.tsx",
+      "type": "file",
+      "name": "AdminShell.tsx",
+      "filePath": "src/components/admin/AdminShell.tsx",
+      "summary": "Provides the protected administration layout with navigation, current-staff context, responsive structure, and sign-out controls.",
+      "tags": [
+        "component",
+        "admin",
+        "cms",
+        "layout"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/admin/AdminShell.tsx:AdminShell",
+      "type": "function",
+      "name": "AdminShell",
+      "filePath": "src/components/admin/AdminShell.tsx",
+      "lineRange": [
+        14,
+        67
+      ],
+      "summary": "Renders the admin shell UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/shopify/CreditAccountApplicationForm.tsx",
+      "type": "file",
+      "name": "CreditAccountApplicationForm.tsx",
+      "filePath": "src/components/shopify/CreditAccountApplicationForm.tsx",
+      "summary": "Implements the business credit-account application form with company, contact, trading, consent, validation, and submission states.",
+      "tags": [
+        "component",
+        "storefront",
+        "shopify",
+        "customer-experience"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/components/shopify/CreditAccountApplicationForm.tsx:CreditAccountApplicationForm",
+      "type": "function",
+      "name": "CreditAccountApplicationForm",
+      "filePath": "src/components/shopify/CreditAccountApplicationForm.tsx",
+      "lineRange": [
+        10,
+        223
+      ],
+      "summary": "Renders the credit account application form UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/components/shopify/CreditAccountApplicationForm.tsx:CreditField",
+      "type": "function",
+      "name": "CreditField",
+      "filePath": "src/components/shopify/CreditAccountApplicationForm.tsx",
+      "lineRange": [
+        245,
+        276
+      ],
+      "summary": "Renders the credit field UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/shopify/CreditAccountApplicationForm.tsx:CreditTextarea",
+      "type": "function",
+      "name": "CreditTextarea",
+      "filePath": "src/components/shopify/CreditAccountApplicationForm.tsx",
+      "lineRange": [
+        278,
+        301
+      ],
+      "summary": "Renders the credit textarea UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/hooks/use-hydrated.ts",
+      "type": "file",
+      "name": "use-hydrated.ts",
+      "filePath": "src/hooks/use-hydrated.ts",
+      "summary": "Reports when a React component has mounted in the browser so hydration-sensitive UI can avoid server/client mismatches.",
+      "tags": [
+        "application",
+        "typescript",
+        "module"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/hooks/use-hydrated.ts:useHydrated",
+      "type": "function",
+      "name": "useHydrated",
+      "filePath": "src/hooks/use-hydrated.ts",
+      "lineRange": [
+        4,
+        8
+      ],
+      "summary": "Exposes the use hydrated React hook and enforces the context or lifecycle assumptions required by consumers.",
+      "tags": [
+        "hook",
+        "react",
+        "state"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/admin/admin.functions.ts",
+      "type": "file",
+      "name": "admin.functions.ts",
+      "filePath": "src/lib/admin/admin.functions.ts",
+      "summary": "Defines the server-function boundary for staff authentication and CMS administration, including submissions, content, products, resources, settings, and audit-aware updates.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/lib/admin/auth.server.ts",
+      "type": "file",
+      "name": "auth.server.ts",
+      "filePath": "src/lib/admin/auth.server.ts",
+      "summary": "Owns staff password hashing, session authentication, authorization guards, login/logout, and initial administrator seeding.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/lib/admin/auth.server.ts:adminSessionConfig",
+      "type": "function",
+      "name": "adminSessionConfig",
+      "filePath": "src/lib/admin/auth.server.ts",
+      "lineRange": [
+        23,
+        35
+      ],
+      "summary": "Implements admin session config as a significant part of this module. Owns staff password hashing, session authentication, authorization guards, login/logout, and initial administrator seeding.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/admin/auth.server.ts:hashPassword",
+      "type": "function",
+      "name": "hashPassword",
+      "filePath": "src/lib/admin/auth.server.ts",
+      "lineRange": [
+        37,
+        41
+      ],
+      "summary": "Checks whether hash password satisfies the module's validation rule.",
+      "tags": [
+        "authentication",
+        "security",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/admin/auth.server.ts:getCurrentStaff",
+      "type": "function",
+      "name": "getCurrentStaff",
+      "filePath": "src/lib/admin/auth.server.ts",
+      "lineRange": [
+        62,
+        72
+      ],
+      "summary": "Retrieves current staff for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/admin/auth.server.ts:requireAdmin",
+      "type": "function",
+      "name": "requireAdmin",
+      "filePath": "src/lib/admin/auth.server.ts",
+      "lineRange": [
+        75,
+        81
+      ],
+      "summary": "Enforces admin and rejects unauthorized access before protected work proceeds.",
+      "tags": [
+        "authentication",
+        "security",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/admin/auth.server.ts:isUnauthorizedError",
+      "type": "function",
+      "name": "isUnauthorizedError",
+      "filePath": "src/lib/admin/auth.server.ts",
+      "lineRange": [
+        83,
+        85
+      ],
+      "summary": "Checks whether is unauthorized error satisfies the module's validation rule.",
+      "tags": [
+        "validation",
+        "security",
+        "predicate"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/admin/auth.server.ts:loginStaff",
+      "type": "function",
+      "name": "loginStaff",
+      "filePath": "src/lib/admin/auth.server.ts",
+      "lineRange": [
+        87,
+        112
+      ],
+      "summary": "Implements login staff as a significant part of this module. Owns staff password hashing, session authentication, authorization guards, login/logout, and initial administrator seeding.",
+      "tags": [
+        "authentication",
+        "security",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/admin/auth.server.ts:logoutStaff",
+      "type": "function",
+      "name": "logoutStaff",
+      "filePath": "src/lib/admin/auth.server.ts",
+      "lineRange": [
+        114,
+        122
+      ],
+      "summary": "Implements logout staff as a significant part of this module. Owns staff password hashing, session authentication, authorization guards, login/logout, and initial administrator seeding.",
+      "tags": [
+        "authentication",
+        "security",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/admin/auth.server.ts:seedInitialAdmin",
+      "type": "function",
+      "name": "seedInitialAdmin",
+      "filePath": "src/lib/admin/auth.server.ts",
+      "lineRange": [
+        128,
+        148
+      ],
+      "summary": "Implements seed initial admin as a significant part of this module. Owns staff password hashing, session authentication, authorization guards, login/logout, and initial administrator seeding.",
+      "tags": [
+        "authentication",
+        "security",
+        "admin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/api/cms.functions.ts",
+      "type": "file",
+      "name": "cms.functions.ts",
+      "filePath": "src/lib/api/cms.functions.ts",
+      "summary": "Receives public CMS-backed form submissions and serves managed site content while enforcing validation, rate limits, signed uploads, and notification behavior.",
+      "tags": [
+        "api-handler",
+        "server-function",
+        "validation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/lib/api/cms.functions.ts:recordSubmission",
+      "type": "function",
+      "name": "recordSubmission",
+      "filePath": "src/lib/api/cms.functions.ts",
+      "lineRange": [
+        56,
+        123
+      ],
+      "summary": "Implements record submission as a significant part of this module. Receives public CMS-backed form submissions and serves managed site content while enforcing validation, rate limits, signed uploads, and notification behavior.",
+      "tags": [
+        "function",
+        "application-logic",
+        "api-handler"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/lib/api/cms.functions.ts:hasValidImageSignature",
+      "type": "function",
+      "name": "hasValidImageSignature",
+      "filePath": "src/lib/api/cms.functions.ts",
+      "lineRange": [
+        409,
+        427
+      ],
+      "summary": "Checks whether has valid image signature satisfies the module's validation rule.",
+      "tags": [
+        "validation",
+        "security",
+        "predicate"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/api/cms.functions.ts:hasValidQuestionAttachmentSignature",
+      "type": "function",
+      "name": "hasValidQuestionAttachmentSignature",
+      "filePath": "src/lib/api/cms.functions.ts",
+      "lineRange": [
+        429,
+        464
+      ],
+      "summary": "Checks whether has valid question attachment signature satisfies the module's validation rule.",
+      "tags": [
+        "validation",
+        "security",
+        "predicate"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/api/example.functions.ts",
+      "type": "file",
+      "name": "example.functions.ts",
+      "filePath": "src/lib/api/example.functions.ts",
+      "summary": "Contains the small example server-function operations retained as a framework integration reference.",
+      "tags": [
+        "api-handler",
+        "server-function",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/cms/rate-limit.ts",
+      "type": "file",
+      "name": "rate-limit.ts",
+      "filePath": "src/lib/cms/rate-limit.ts",
+      "summary": "Implements an in-memory sliding-window request limiter used to protect public form and upload endpoints.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/lib/cms/rate-limit.ts:SlidingWindowRateLimiter",
+      "type": "class",
+      "name": "SlidingWindowRateLimiter",
+      "filePath": "src/lib/cms/rate-limit.ts",
+      "lineRange": [
+        1,
+        21
+      ],
+      "summary": "Tracks request timestamps per key and enforces a maximum request count within a moving time window.",
+      "tags": [
+        "rate-limiting",
+        "security",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/config.server.ts",
+      "type": "file",
+      "name": "config.server.ts",
+      "filePath": "src/lib/config.server.ts",
+      "summary": "Validates and returns the server runtime configuration for database, Shopify, administration, mail, and public URL integrations.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/lib/config.server.ts:getServerConfig",
+      "type": "function",
+      "name": "getServerConfig",
+      "filePath": "src/lib/config.server.ts",
+      "lineRange": [
+        19,
+        57
+      ],
+      "summary": "Retrieves server config for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/db/index.server.ts",
+      "type": "file",
+      "name": "index.server.ts",
+      "filePath": "src/lib/db/index.server.ts",
+      "summary": "Creates and caches the PostgreSQL/Drizzle database connection used by server-side CMS and administration code.",
+      "tags": [
+        "database",
+        "data-model",
+        "postgresql"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/db/index.server.ts:getDb",
+      "type": "function",
+      "name": "getDb",
+      "filePath": "src/lib/db/index.server.ts",
+      "lineRange": [
+        19,
+        29
+      ],
+      "summary": "Retrieves db for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "database"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/db/migrate.server.ts",
+      "type": "file",
+      "name": "migrate.server.ts",
+      "filePath": "src/lib/db/migrate.server.ts",
+      "summary": "Runs ordered database migrations safely and records applied versions before the application uses CMS storage.",
+      "tags": [
+        "database",
+        "data-model",
+        "postgresql"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/lib/db/migrate.server.ts:runMigrations",
+      "type": "function",
+      "name": "runMigrations",
+      "filePath": "src/lib/db/migrate.server.ts",
+      "lineRange": [
+        22,
+        64
+      ],
+      "summary": "Implements run migrations as a significant part of this module. Runs ordered database migrations safely and records applied versions before the application uses CMS storage.",
+      "tags": [
+        "function",
+        "application-logic",
+        "database"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/db/schema.ts",
+      "type": "file",
+      "name": "schema.ts",
+      "filePath": "src/lib/db/schema.ts",
+      "summary": "Defines the Drizzle/PostgreSQL schema for staff users, managed content, product resources, submissions, settings, and migration metadata.",
+      "tags": [
+        "database",
+        "data-model",
+        "postgresql"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/lib/error-capture.ts",
+      "type": "file",
+      "name": "error-capture.ts",
+      "filePath": "src/lib/error-capture.ts",
+      "summary": "Stores and consumes the most recently captured server-rendering error so catastrophic failures can be converted into a stable response.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/error-capture.ts:consumeLastCapturedError",
+      "type": "function",
+      "name": "consumeLastCapturedError",
+      "filePath": "src/lib/error-capture.ts",
+      "lineRange": [
+        18,
+        27
+      ],
+      "summary": "Implements consume last captured error as a significant part of this module. Stores and consumes the most recently captured server-rendering error so catastrophic failures can be converted into a stable response.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/error-page.ts",
+      "type": "file",
+      "name": "error-page.ts",
+      "filePath": "src/lib/error-page.ts",
+      "summary": "Produces the standalone HTML error page used when normal application rendering cannot complete.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/error-page.ts:renderErrorPage",
+      "type": "function",
+      "name": "renderErrorPage",
+      "filePath": "src/lib/error-page.ts",
+      "lineRange": [
+        1,
+        30
+      ],
+      "summary": "Renders the render error page route and coordinates its data, state, actions, and shared site layout.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/components/admin/AdminShell.tsx",
+      "target": "file:src/lib/admin/admin.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/admin/AdminShell.tsx",
+      "target": "function:src/components/admin/AdminShell.tsx:AdminShell",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/admin/AdminShell.tsx",
+      "target": "function:src/components/admin/AdminShell.tsx:AdminShell",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/CreditAccountApplicationForm.tsx",
+      "target": "file:src/hooks/use-hydrated.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/CreditAccountApplicationForm.tsx",
+      "target": "file:src/lib/api/cms.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/shopify/CreditAccountApplicationForm.tsx",
+      "target": "function:src/components/shopify/CreditAccountApplicationForm.tsx:CreditAccountApplicationForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/CreditAccountApplicationForm.tsx",
+      "target": "function:src/components/shopify/CreditAccountApplicationForm.tsx:CreditAccountApplicationForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/shopify/CreditAccountApplicationForm.tsx",
+      "target": "function:src/components/shopify/CreditAccountApplicationForm.tsx:CreditField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/shopify/CreditAccountApplicationForm.tsx",
+      "target": "function:src/components/shopify/CreditAccountApplicationForm.tsx:CreditTextarea",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/hooks/use-hydrated.ts",
+      "target": "function:src/hooks/use-hydrated.ts:useHydrated",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/hooks/use-hydrated.ts",
+      "target": "function:src/hooks/use-hydrated.ts:useHydrated",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/admin/admin.functions.ts",
+      "target": "file:src/lib/admin/auth.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/admin/admin.functions.ts",
+      "target": "file:src/lib/db/index.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/admin/admin.functions.ts",
+      "target": "file:src/lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/admin/admin.functions.ts",
+      "target": "file:src/lib/notify.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/admin/admin.functions.ts",
+      "target": "file:src/lib/shopify/customer-sync.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/admin/admin.functions.ts",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "file:src/lib/config.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "file:src/lib/db/index.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "file:src/lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:adminSessionConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:hashPassword",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:hashPassword",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:getCurrentStaff",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:getCurrentStaff",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:requireAdmin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:requireAdmin",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:isUnauthorizedError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:isUnauthorizedError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:loginStaff",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:loginStaff",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:logoutStaff",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:logoutStaff",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:seedInitialAdmin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/admin/auth.server.ts",
+      "target": "function:src/lib/admin/auth.server.ts:seedInitialAdmin",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/api/cms.functions.ts",
+      "target": "file:src/lib/cms/rate-limit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/api/cms.functions.ts",
+      "target": "file:src/lib/config.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/api/cms.functions.ts",
+      "target": "file:src/lib/db/index.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/api/cms.functions.ts",
+      "target": "file:src/lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/api/cms.functions.ts",
+      "target": "file:src/lib/notify.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/api/cms.functions.ts",
+      "target": "file:src/lib/shopify/customer-sync.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/api/cms.functions.ts",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/api/cms.functions.ts",
+      "target": "function:src/lib/api/cms.functions.ts:recordSubmission",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/api/cms.functions.ts",
+      "target": "function:src/lib/api/cms.functions.ts:hasValidImageSignature",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/api/cms.functions.ts",
+      "target": "function:src/lib/api/cms.functions.ts:hasValidQuestionAttachmentSignature",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/api/example.functions.ts",
+      "target": "file:src/lib/config.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/cms/rate-limit.ts",
+      "target": "class:src/lib/cms/rate-limit.ts:SlidingWindowRateLimiter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/cms/rate-limit.ts",
+      "target": "class:src/lib/cms/rate-limit.ts:SlidingWindowRateLimiter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/config.server.ts",
+      "target": "function:src/lib/config.server.ts:getServerConfig",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/config.server.ts",
+      "target": "function:src/lib/config.server.ts:getServerConfig",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/db/index.server.ts",
+      "target": "file:src/lib/config.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/db/index.server.ts",
+      "target": "file:src/lib/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/db/index.server.ts",
+      "target": "function:src/lib/db/index.server.ts:getDb",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/db/index.server.ts",
+      "target": "function:src/lib/db/index.server.ts:getDb",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/db/migrate.server.ts",
+      "target": "file:src/lib/config.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/db/migrate.server.ts",
+      "target": "function:src/lib/db/migrate.server.ts:runMigrations",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/db/migrate.server.ts",
+      "target": "function:src/lib/db/migrate.server.ts:runMigrations",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/error-capture.ts",
+      "target": "function:src/lib/error-capture.ts:consumeLastCapturedError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/error-capture.ts",
+      "target": "function:src/lib/error-capture.ts:consumeLastCapturedError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/error-page.ts",
+      "target": "function:src/lib/error-page.ts:renderErrorPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/error-page.ts",
+      "target": "function:src/lib/error-page.ts:renderErrorPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

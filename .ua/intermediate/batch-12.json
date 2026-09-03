@@ -1,0 +1,211 @@
+{
+  "nodes": [
+    {
+      "id": "file:.prettierignore",
+      "type": "file",
+      "name": ".prettierignore",
+      "filePath": ".prettierignore",
+      "summary": "Excludes dependencies, generated build output, framework caches, lockfiles, and the generated TanStack route tree from Prettier processing.",
+      "tags": ["configuration", "formatting", "prettier", "generated-files"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Credit-Account-Application.docx",
+      "type": "file",
+      "name": "Credit-Account-Application.docx",
+      "filePath": "Credit-Account-Application.docx",
+      "summary": "Branded customer credit-account application form collecting company, contact, reference, bank, and authorization details, including the 30-day invoice and purchase-order terms.",
+      "tags": ["document", "credit-account", "customer-form", "business-operations"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:client-documents/Spares Automation - Shopify Product and Collection Guide.docx",
+      "type": "file",
+      "name": "Spares Automation - Shopify Product and Collection Guide.docx",
+      "filePath": "client-documents/Spares Automation - Shopify Product and Collection Guide.docx",
+      "summary": "Client-facing Shopify operations manual covering product creation, images, variants, stock, main and subcollections, Headless publishing, PDF and video metafields, live-site verification, troubleshooting, and a final publishing checklist.",
+      "tags": ["documentation", "shopify", "product-management", "collections", "client-guide"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:drizzle.config.ts",
+      "type": "file",
+      "name": "drizzle.config.ts",
+      "filePath": "drizzle.config.ts",
+      "summary": "Configures Drizzle Kit to generate PostgreSQL migrations from the CMS schema into the drizzle directory using DATABASE_URL with a local development fallback.",
+      "tags": ["configuration", "database", "drizzle", "migration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:eslint.config.js",
+      "type": "file",
+      "name": "eslint.config.js",
+      "filePath": "eslint.config.js",
+      "summary": "Flat ESLint configuration for TypeScript and React, combining recommended JavaScript, TypeScript, hooks, refresh, and Prettier presets while preventing unsupported Next.js server-only imports.",
+      "tags": ["configuration", "eslint", "typescript", "react", "quality-assurance"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:nginx.conf",
+      "type": "file",
+      "name": "nginx.conf",
+      "filePath": "nginx.conf",
+      "summary": "Nginx server configuration listening on common container ports, serving the static site with SPA fallback routing and immutable one-year caching for versioned assets.",
+      "tags": ["configuration", "nginx", "routing", "caching", "deployment"],
+      "complexity": "simple",
+      "languageNotes": "Uses try_files for history fallback and a case-insensitive asset extension matcher for cache headers."
+    },
+    {
+      "id": "file:playwright.config.ts",
+      "type": "file",
+      "name": "playwright.config.ts",
+      "filePath": "playwright.config.ts",
+      "summary": "Runs unit and end-to-end Playwright suites in parallel across desktop Chrome and a Pixel 7 viewport, with CI retries and reporting, trace-on-retry, and a managed Bun development server.",
+      "tags": ["configuration", "playwright", "test", "e2e", "browser-automation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:public/robots.txt",
+      "type": "document",
+      "name": "robots.txt",
+      "filePath": "public/robots.txt",
+      "summary": "Allows general crawling while excluding account, authentication, cart, login, registration, and search routes, and advertises the production sitemap.",
+      "tags": ["documentation", "seo", "crawler-policy", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:public/site.webmanifest",
+      "type": "file",
+      "name": "site.webmanifest",
+      "filePath": "public/site.webmanifest",
+      "summary": "Defines the installable web application identity, standalone display mode, root start URL, and brand background and theme colors.",
+      "tags": ["configuration", "pwa", "metadata", "branding"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:public/sitemap.xml",
+      "type": "config",
+      "name": "sitemap.xml",
+      "filePath": "public/sitemap.xml",
+      "summary": "Static production sitemap listing catalogue, category, resource, company, contact, returns, delivery, privacy, terms, and cookie pages with last-modified dates and crawl priorities.",
+      "tags": ["configuration", "seo", "sitemap", "routing"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/aspect-ratio.tsx",
+      "type": "file",
+      "name": "aspect-ratio.tsx",
+      "filePath": "src/components/ui/aspect-ratio.tsx",
+      "summary": "Thin UI adapter that re-exports Radix UI's AspectRatio primitive for consistent local imports.",
+      "tags": ["component", "ui", "radix", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/collapsible.tsx",
+      "type": "file",
+      "name": "collapsible.tsx",
+      "filePath": "src/components/ui/collapsible.tsx",
+      "summary": "Local UI barrel exposing Radix Collapsible root, trigger, and content primitives under project-standard component names.",
+      "tags": ["component", "ui", "radix", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/sonner.tsx",
+      "type": "file",
+      "name": "sonner.tsx",
+      "filePath": "src/components/ui/sonner.tsx",
+      "summary": "Project-themed Sonner toast host that adapts to the active color scheme and applies the shared surface, foreground, border, and radius design tokens.",
+      "tags": ["component", "ui", "notifications", "theme"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/sonner.tsx:Toaster",
+      "type": "function",
+      "name": "Toaster",
+      "filePath": "src/components/ui/sonner.tsx",
+      "lineRange": [5, 21],
+      "summary": "Renders the Sonner toast container with the current theme, icon-friendly classes, and application design-token overrides while forwarding caller options.",
+      "tags": ["component", "notifications", "theme", "wrapper"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:src/routes/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "src/routes/README.md",
+      "summary": "Explains the file-based TanStack Router route directory and its conventions for route filenames, nested layouts, dynamic parameters, API routes, and generated route-tree handling.",
+      "tags": ["documentation", "routing", "tanstack-router", "conventions"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/styles.css",
+      "type": "file",
+      "name": "styles.css",
+      "filePath": "src/styles.css",
+      "summary": "Global Tailwind stylesheet defining source scanning, animation utilities, dark mode, brand color and typography tokens, accessibility-focused base styles, and responsive homepage hero interaction behavior.",
+      "tags": ["stylesheet", "tailwind", "design-tokens", "accessibility", "responsive-design"],
+      "complexity": "moderate",
+      "languageNotes": "Uses Tailwind v4 CSS directives, OKLCH color tokens, cascade layers, and media queries gated by pointer and hover capabilities."
+    },
+    {
+      "id": "file:tests/e2e/cms.spec.ts",
+      "type": "file",
+      "name": "cms.spec.ts",
+      "filePath": "tests/e2e/cms.spec.ts",
+      "summary": "End-to-end CMS suite covering admin authentication, credit and inquiry forms, multi-file uploads, returns, persisted public submissions, staff review and notes, workflow updates, and honeypot rejection against the database.",
+      "tags": ["test", "e2e", "cms", "authentication", "submissions"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:tests/e2e/cms.spec.ts:localEnvironment",
+      "type": "function",
+      "name": "localEnvironment",
+      "filePath": "tests/e2e/cms.spec.ts",
+      "lineRange": [7, 19],
+      "summary": "Loads simple key-value entries from the local .env file for database-aware end-to-end tests while ignoring comments and returning an empty environment when the file is absent.",
+      "tags": ["test-utility", "environment", "configuration", "parser"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/e2e/cookie-consent.spec.ts",
+      "type": "file",
+      "name": "cookie-consent.spec.ts",
+      "filePath": "tests/e2e/cookie-consent.spec.ts",
+      "summary": "End-to-end test verifying that cookie choices persist and that visitors can reopen the consent controls from the footer.",
+      "tags": ["test", "e2e", "cookies", "privacy"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/e2e/core-ux.spec.ts",
+      "type": "file",
+      "name": "core-ux.spec.ts",
+      "filePath": "tests/e2e/core-ux.spec.ts",
+      "summary": "Broad browser acceptance suite validating responsive navigation, accessibility and metadata, catalogue and category behavior, product support tabs and pricing, video privacy consent, quote building, content pages, form requirements, tracking, resources, and crawler files.",
+      "tags": ["test", "e2e", "user-experience", "accessibility", "commerce"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:vite.config.ts",
+      "type": "file",
+      "name": "vite.config.ts",
+      "filePath": "vite.config.ts",
+      "summary": "Extends the Lovable TanStack Vite preset with a Node server Nitro target and redirects TanStack Start's bundled server entry to the project's SSR error-wrapper server.",
+      "tags": ["configuration", "vite", "tanstack-start", "ssr", "build-system"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {"source": "file:src/components/ui/sonner.tsx", "target": "function:src/components/ui/sonner.tsx:Toaster", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/components/ui/sonner.tsx", "target": "function:src/components/ui/sonner.tsx:Toaster", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:tests/e2e/cms.spec.ts", "target": "function:tests/e2e/cms.spec.ts:localEnvironment", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:playwright.config.ts", "target": "file:tests/e2e/cms.spec.ts", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "file:playwright.config.ts", "target": "file:tests/e2e/cookie-consent.spec.ts", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "file:playwright.config.ts", "target": "file:tests/e2e/core-ux.spec.ts", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "file:vite.config.ts", "target": "file:src/styles.css", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "file:vite.config.ts", "target": "file:src/components/ui/sonner.tsx", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "file:eslint.config.js", "target": "file:src/components/ui/aspect-ratio.tsx", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "file:eslint.config.js", "target": "file:src/components/ui/collapsible.tsx", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "file:eslint.config.js", "target": "file:src/components/ui/sonner.tsx", "type": "configures", "direction": "forward", "weight": 0.6},
+    {"source": "document:public/robots.txt", "target": "config:public/sitemap.xml", "type": "related", "direction": "forward", "weight": 0.5}
+  ]
+}

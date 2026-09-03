@@ -1,0 +1,43 @@
+{
+    "projectRoot":  "D:\\StratonAlly\\Code\\spareautomation",
+    "batchFiles":  [
+                       {
+                           "path":  "drizzle/meta/0000_snapshot.json",
+                           "language":  "json",
+                           "sizeLines":  449,
+                           "fileCategory":  "config"
+                       },
+                       {
+                           "path":  "drizzle/meta/0001_snapshot.json",
+                           "language":  "json",
+                           "sizeLines":  468,
+                           "fileCategory":  "config"
+                       },
+                       {
+                           "path":  "drizzle/meta/0002_snapshot.json",
+                           "language":  "json",
+                           "sizeLines":  468,
+                           "fileCategory":  "config"
+                       },
+                       {
+                           "path":  "drizzle/meta/_journal.json",
+                           "language":  "json",
+                           "sizeLines":  26,
+                           "fileCategory":  "config"
+                       }
+                   ],
+    "batchImportData":  {
+                            "drizzle/meta/0000_snapshot.json":  [
+
+                                                                ],
+                            "drizzle/meta/0001_snapshot.json":  [
+
+                                                                ],
+                            "drizzle/meta/0002_snapshot.json":  [
+
+                                                                ],
+                            "drizzle/meta/_journal.json":  [
+
+                                                           ]
+                        }
+}

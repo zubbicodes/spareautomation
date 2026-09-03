@@ -2,23 +2,34 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { ProductDetail } from "@/components/shopify/ProductDetail";
 import { getProduct } from "@/lib/api/shopify.functions";
-import { SITE } from "@/lib/site";
+import { getPublishedContent } from "@/lib/content/content.functions";
 
 export const Route = createFileRoute("/products/$handle")({
   loader: async ({ params }) => {
-    const product = await getProduct({ data: { handle: params.handle } });
+    const [product, content] = await Promise.all([
+      getProduct({ data: { handle: params.handle } }),
+      getPublishedContent(),
+    ]);
     if (!product) throw notFound();
-    return { product };
+    return { product, site: content.site };
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.product.title ?? "Product"} | Spares Automation` },
+      { title: `${loaderData?.product.title ?? "Product"} | ${loaderData?.site.name ?? "Spares Automation"}` },
       { name: "description", content: loaderData?.product.description?.slice(0, 155) || "Industrial product details, pricing, availability, and quote support." },
-      { property: "og:title", content: loaderData?.product.title ?? "Product | Spares Automation" },
+      { property: "og:title", content: loaderData?.product.title ?? "Product" },
       { property: "og:type", content: "product" },
+      ...(loaderData?.site ? [{ property: "og:site_name", content: loaderData.site.name }] : []),
       ...(loaderData?.product.featuredImage ? [{ property: "og:image", content: loaderData.product.featuredImage.url }] : []),
     ],
-    links: loaderData?.product ? [{ rel: "canonical", href: `${SITE.url}/products/${loaderData.product.handle}` }] : [],
+    links: loaderData?.product
+      ? [
+          {
+            rel: "canonical",
+            href: `${(loaderData.site?.url ?? "https://spares-automation.co.uk").replace(/\/$/, "")}/products/${loaderData.product.handle}`,
+          },
+        ]
+      : [],
   }),
   component: ProductPage,
 });

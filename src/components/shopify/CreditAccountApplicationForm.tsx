@@ -42,6 +42,7 @@ export function CreditAccountApplicationForm() {
           email: String(data.get("email") ?? ""),
           purchasingContact: String(data.get("purchasingContact") ?? ""),
           accountsContact: String(data.get("accountsContact") ?? ""),
+          creditLimit: String(data.get("creditLimit") ?? ""),
           tradeCompany1: String(data.get("tradeCompany1") ?? ""),
           tradeContact1: String(data.get("tradeContact1") ?? ""),
           tradeAddress1: String(data.get("tradeAddress1") ?? ""),
@@ -121,7 +122,7 @@ export function CreditAccountApplicationForm() {
 
             <fieldset className="grid gap-4 md:grid-cols-2">
               <CreditLegend>Customer details</CreditLegend>
-              <CreditField label="Company name" name="company" autoComplete="organization" required />
+              <CreditField label="Registered company name" name="company" autoComplete="organization" required />
               <CreditField label="Postcode" name="postcode" autoComplete="postal-code" required />
               <CreditTextarea label="Address" name="address" autoComplete="street-address" required />
               <CreditTextarea label="Address continued" name="addressLine2" />
@@ -157,6 +158,12 @@ export function CreditAccountApplicationForm() {
               <CreditField label="Email" name="email" type="email" autoComplete="email" required />
               <CreditField label="Purchasing contact" name="purchasingContact" autoComplete="name" required />
               <CreditField label="Accounts contact" name="accountsContact" autoComplete="name" required />
+              <CreditField
+                label="Requested credit limit"
+                name="creditLimit"
+                inputMode="numeric"
+                placeholder="GBP amount"
+              />
             </fieldset>
 
             <fieldset className="grid gap-4 md:grid-cols-2">

@@ -1,0 +1,583 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 175,
+    "filesWithImports": 116,
+    "totalEdges": 282
+  },
+  "importMap": {
+    ".dockerignore": [],
+    ".env.example": [],
+    ".github/workflows/quality.yml": [],
+    ".prettierignore": [],
+    "AUDIT_REPORT_2026-07-15.md": [],
+    "Credit-Account-Application.docx": [],
+    "Dockerfile": [],
+    "README.md": [],
+    "SHOPIFY_CATALOGUE_GUIDE.md": [],
+    "bunfig.toml": [],
+    "client-documents/Spares Automation - Shopify Product and Collection Guide.docx": [],
+    "components.json": [],
+    "docker-compose.override.yml": [],
+    "docker-compose.yml": [],
+    "docker-entrypoint.sh": [],
+    "drizzle.config.ts": [],
+    "drizzle/0000_smiling_slyde.sql": [],
+    "drizzle/0001_curly_banshee.sql": [],
+    "drizzle/0002_add_return_request.sql": [],
+    "drizzle/meta/0000_snapshot.json": [],
+    "drizzle/meta/0001_snapshot.json": [],
+    "drizzle/meta/0002_snapshot.json": [],
+    "drizzle/meta/_journal.json": [],
+    "eslint.config.js": [],
+    "nginx.conf": [],
+    "package.json": [],
+    "playwright.config.ts": [],
+    "public/robots.txt": [],
+    "public/site.webmanifest": [],
+    "public/sitemap.xml": [],
+    "scripts/sync-shopify-collections.ts": [
+      "src/lib/catalog.ts"
+    ],
+    "shopify-dummy-products.csv": [],
+    "src/components/admin/AdminShell.tsx": [
+      "src/lib/admin/admin.functions.ts"
+    ],
+    "src/components/shopify/AddToCartButton.tsx": [
+      "src/lib/api/shopify.functions.ts",
+      "src/lib/shopify/cart.ts"
+    ],
+    "src/components/shopify/AddToQuoteButton.tsx": [
+      "src/lib/shopify/quote.ts",
+      "src/lib/shopify/types.ts"
+    ],
+    "src/components/shopify/BuildQuoteFromCartButton.tsx": [
+      "src/lib/shopify/quote.ts",
+      "src/lib/shopify/types.ts"
+    ],
+    "src/components/shopify/CollectionPage.tsx": [
+      "src/components/shopify/ProductCard.tsx",
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/shopify/types.ts"
+    ],
+    "src/components/shopify/CookieConsent.tsx": [],
+    "src/components/shopify/CreditAccountApplicationForm.tsx": [
+      "src/hooks/use-hydrated.ts",
+      "src/lib/api/cms.functions.ts"
+    ],
+    "src/components/shopify/InfoPage.tsx": [
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/site.ts"
+    ],
+    "src/components/shopify/PaymentMarks.tsx": [],
+    "src/components/shopify/ProductCard.tsx": [
+      "src/components/shopify/AddToCartButton.tsx",
+      "src/lib/shopify/format.ts",
+      "src/lib/shopify/types.ts"
+    ],
+    "src/components/shopify/ProductDetail.tsx": [
+      "src/components/shopify/AddToCartButton.tsx",
+      "src/components/shopify/AddToQuoteButton.tsx",
+      "src/components/shopify/PaymentMarks.tsx",
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/components/ui/dialog.tsx",
+      "src/lib/shopify/format.ts",
+      "src/lib/shopify/types.ts",
+      "src/lib/site.ts"
+    ],
+    "src/components/shopify/ReturnRequestForm.tsx": [
+      "src/components/shopify/SignInRequired.tsx",
+      "src/lib/api/cms.functions.ts",
+      "src/lib/api/shopify.functions.ts"
+    ],
+    "src/components/shopify/SignInRequired.tsx": [],
+    "src/components/shopify/SiteFooter.tsx": [
+      "src/components/shopify/PaymentMarks.tsx",
+      "src/lib/site.ts"
+    ],
+    "src/components/shopify/SiteHeader.tsx": [
+      "src/lib/api/shopify.functions.ts",
+      "src/lib/catalog.ts",
+      "src/lib/shopify/cart.ts",
+      "src/lib/site.ts"
+    ],
+    "src/components/shopify/SupportRequestForm.tsx": [
+      "src/hooks/use-hydrated.ts",
+      "src/lib/api/cms.functions.ts"
+    ],
+    "src/components/ui/accordion.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/alert-dialog.tsx": [
+      "src/components/ui/button.tsx",
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/alert.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/aspect-ratio.tsx": [],
+    "src/components/ui/avatar.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/badge.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/breadcrumb.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/button.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/calendar.tsx": [
+      "src/components/ui/button.tsx",
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/card.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/carousel.tsx": [
+      "src/components/ui/button.tsx",
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/chart.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/checkbox.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/collapsible.tsx": [],
+    "src/components/ui/command.tsx": [
+      "src/components/ui/dialog.tsx",
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/context-menu.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/dialog.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/drawer.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/dropdown-menu.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/form.tsx": [
+      "src/components/ui/label.tsx",
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/hover-card.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/input-otp.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/input.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/label.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/menubar.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/navigation-menu.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/pagination.tsx": [
+      "src/components/ui/button.tsx",
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/popover.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/progress.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/radio-group.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/resizable.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/scroll-area.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/select.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/separator.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/sheet.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/sidebar.tsx": [
+      "src/components/ui/button.tsx",
+      "src/components/ui/input.tsx",
+      "src/components/ui/separator.tsx",
+      "src/components/ui/sheet.tsx",
+      "src/components/ui/skeleton.tsx",
+      "src/components/ui/tooltip.tsx",
+      "src/hooks/use-mobile.tsx",
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/skeleton.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/slider.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/sonner.tsx": [],
+    "src/components/ui/switch.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/table.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/tabs.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/textarea.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/toggle-group.tsx": [
+      "src/components/ui/toggle.tsx",
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/toggle.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/components/ui/tooltip.tsx": [
+      "src/lib/utils.ts"
+    ],
+    "src/hooks/use-hydrated.ts": [],
+    "src/hooks/use-mobile.tsx": [],
+    "src/lib/admin/admin.functions.ts": [
+      "src/lib/admin/auth.server.ts",
+      "src/lib/db/index.server.ts",
+      "src/lib/db/schema.ts",
+      "src/lib/notify.server.ts",
+      "src/lib/shopify/customer-sync.server.ts",
+      "src/lib/site.ts"
+    ],
+    "src/lib/admin/auth.server.ts": [
+      "src/lib/config.server.ts",
+      "src/lib/db/index.server.ts",
+      "src/lib/db/schema.ts"
+    ],
+    "src/lib/api/cms.functions.ts": [
+      "src/lib/cms/rate-limit.ts",
+      "src/lib/config.server.ts",
+      "src/lib/db/index.server.ts",
+      "src/lib/db/schema.ts",
+      "src/lib/notify.server.ts",
+      "src/lib/shopify/customer-sync.server.ts",
+      "src/lib/site.ts"
+    ],
+    "src/lib/api/example.functions.ts": [
+      "src/lib/config.server.ts"
+    ],
+    "src/lib/api/shopify.functions.ts": [
+      "src/lib/shopify/admin.server.ts",
+      "src/lib/shopify/queries.server.ts"
+    ],
+    "src/lib/catalog.ts": [],
+    "src/lib/cms/rate-limit.ts": [],
+    "src/lib/config.server.ts": [],
+    "src/lib/db/index.server.ts": [
+      "src/lib/config.server.ts",
+      "src/lib/db/schema.ts"
+    ],
+    "src/lib/db/migrate.server.ts": [
+      "src/lib/config.server.ts"
+    ],
+    "src/lib/db/schema.ts": [],
+    "src/lib/error-capture.ts": [],
+    "src/lib/error-page.ts": [],
+    "src/lib/lovable-error-reporting.ts": [],
+    "src/lib/notify.server.ts": [
+      "src/lib/config.server.ts"
+    ],
+    "src/lib/quote.ts": [
+      "src/lib/shopify/format.ts",
+      "src/lib/shopify/types.ts",
+      "src/lib/site.ts"
+    ],
+    "src/lib/seo.ts": [
+      "src/lib/site.ts"
+    ],
+    "src/lib/shopify/admin.server.ts": [
+      "src/lib/config.server.ts"
+    ],
+    "src/lib/shopify/cart.ts": [],
+    "src/lib/shopify/customer-sync.server.ts": [
+      "src/lib/shopify/admin.server.ts"
+    ],
+    "src/lib/shopify/format.ts": [
+      "src/lib/shopify/types.ts"
+    ],
+    "src/lib/shopify/fragments.ts": [],
+    "src/lib/shopify/queries.server.ts": [
+      "src/lib/shopify/fragments.ts",
+      "src/lib/shopify/storefront.server.ts",
+      "src/lib/shopify/types.ts"
+    ],
+    "src/lib/shopify/quote.ts": [
+      "src/lib/shopify/types.ts"
+    ],
+    "src/lib/shopify/storefront.server.ts": [
+      "src/lib/config.server.ts"
+    ],
+    "src/lib/shopify/types.ts": [],
+    "src/lib/site.ts": [],
+    "src/lib/utils.ts": [],
+    "src/routeTree.gen.ts": [
+      "src/router.tsx",
+      "src/routes/__root.tsx",
+      "src/routes/about-us.tsx",
+      "src/routes/account.tsx",
+      "src/routes/admin/index.tsx",
+      "src/routes/admin/login.tsx",
+      "src/routes/admin/submissions.$id.tsx",
+      "src/routes/asphalt.tsx",
+      "src/routes/automation.tsx",
+      "src/routes/cart.tsx",
+      "src/routes/concrete.tsx",
+      "src/routes/contact-us.tsx",
+      "src/routes/control-panels-software.tsx",
+      "src/routes/cookies.tsx",
+      "src/routes/credit-account.tsx",
+      "src/routes/delivery-information.tsx",
+      "src/routes/disclaimer.tsx",
+      "src/routes/forgot-password.tsx",
+      "src/routes/got-a-question.tsx",
+      "src/routes/home-controls.tsx",
+      "src/routes/index.tsx",
+      "src/routes/login.tsx",
+      "src/routes/new-arrivals.tsx",
+      "src/routes/packing.tsx",
+      "src/routes/privacy-policy.tsx",
+      "src/routes/products/$handle.tsx",
+      "src/routes/products/index.tsx",
+      "src/routes/quote.tsx",
+      "src/routes/register.tsx",
+      "src/routes/resources.tsx",
+      "src/routes/returns-policy.tsx",
+      "src/routes/returns.tsx",
+      "src/routes/search.tsx",
+      "src/routes/terms-and-conditions.tsx",
+      "src/routes/track-order.tsx",
+      "src/routes/unsubscribe.tsx",
+      "src/start.ts"
+    ],
+    "src/router.tsx": [
+      "src/routeTree.gen.ts"
+    ],
+    "src/routes/README.md": [],
+    "src/routes/__root.tsx": [
+      "src/components/shopify/CookieConsent.tsx",
+      "src/lib/lovable-error-reporting.ts",
+      "src/lib/site.ts"
+    ],
+    "src/routes/about-us.tsx": [
+      "src/components/shopify/InfoPage.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/routes/account.tsx": [
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/api/shopify.functions.ts",
+      "src/lib/shopify/format.ts"
+    ],
+    "src/routes/admin/index.tsx": [
+      "src/components/admin/AdminShell.tsx",
+      "src/lib/admin/admin.functions.ts"
+    ],
+    "src/routes/admin/login.tsx": [
+      "src/hooks/use-hydrated.ts",
+      "src/lib/admin/admin.functions.ts"
+    ],
+    "src/routes/admin/submissions.$id.tsx": [
+      "src/components/admin/AdminShell.tsx",
+      "src/hooks/use-hydrated.ts",
+      "src/lib/admin/admin.functions.ts"
+    ],
+    "src/routes/asphalt.tsx": [
+      "src/lib/catalog.ts"
+    ],
+    "src/routes/automation.tsx": [
+      "src/lib/catalog.ts"
+    ],
+    "src/routes/cart.tsx": [
+      "src/components/shopify/BuildQuoteFromCartButton.tsx",
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/api/shopify.functions.ts",
+      "src/lib/shopify/cart.ts",
+      "src/lib/shopify/format.ts",
+      "src/lib/shopify/types.ts"
+    ],
+    "src/routes/concrete.tsx": [
+      "src/lib/catalog.ts"
+    ],
+    "src/routes/contact-us.tsx": [
+      "src/components/shopify/InfoPage.tsx",
+      "src/components/shopify/SupportRequestForm.tsx",
+      "src/lib/seo.ts",
+      "src/lib/site.ts"
+    ],
+    "src/routes/control-panels-software.tsx": [
+      "src/lib/catalog.ts"
+    ],
+    "src/routes/cookies.tsx": [
+      "src/components/shopify/InfoPage.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/routes/credit-account.tsx": [
+      "src/components/shopify/CreditAccountApplicationForm.tsx",
+      "src/components/shopify/InfoPage.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/routes/delivery-information.tsx": [
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/routes/disclaimer.tsx": [
+      "src/components/shopify/InfoPage.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/routes/forgot-password.tsx": [
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/api/shopify.functions.ts"
+    ],
+    "src/routes/got-a-question.tsx": [
+      "src/components/shopify/InfoPage.tsx",
+      "src/components/shopify/SupportRequestForm.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/routes/home-controls.tsx": [
+      "src/lib/catalog.ts"
+    ],
+    "src/routes/index.tsx": [
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/hooks/use-hydrated.ts",
+      "src/lib/api/cms.functions.ts",
+      "src/lib/catalog.ts",
+      "src/lib/site.ts"
+    ],
+    "src/routes/login.tsx": [
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/api/shopify.functions.ts"
+    ],
+    "src/routes/new-arrivals.tsx": [],
+    "src/routes/packing.tsx": [
+      "src/lib/catalog.ts"
+    ],
+    "src/routes/privacy-policy.tsx": [
+      "src/components/shopify/InfoPage.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/routes/products/$handle.tsx": [
+      "src/components/shopify/ProductDetail.tsx",
+      "src/lib/api/shopify.functions.ts",
+      "src/lib/site.ts"
+    ],
+    "src/routes/products/index.tsx": [
+      "src/components/shopify/ProductCard.tsx",
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/api/shopify.functions.ts",
+      "src/lib/catalog.ts",
+      "src/lib/shopify/types.ts",
+      "src/lib/site.ts"
+    ],
+    "src/routes/quote.tsx": [
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/api/shopify.functions.ts",
+      "src/lib/seo.ts",
+      "src/lib/shopify/format.ts",
+      "src/lib/shopify/quote.ts"
+    ],
+    "src/routes/register.tsx": [
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/api/shopify.functions.ts"
+    ],
+    "src/routes/resources.tsx": [
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/api/shopify.functions.ts",
+      "src/lib/seo.ts",
+      "src/lib/shopify/types.ts"
+    ],
+    "src/routes/returns-policy.tsx": [
+      "src/components/shopify/InfoPage.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/routes/returns.tsx": [
+      "src/components/shopify/ReturnRequestForm.tsx",
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/routes/search.tsx": [
+      "src/components/shopify/CollectionPage.tsx",
+      "src/lib/api/shopify.functions.ts"
+    ],
+    "src/routes/terms-and-conditions.tsx": [
+      "src/components/shopify/InfoPage.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/routes/track-order.tsx": [
+      "src/components/shopify/SignInRequired.tsx",
+      "src/components/shopify/SiteFooter.tsx",
+      "src/components/shopify/SiteHeader.tsx",
+      "src/lib/api/shopify.functions.ts",
+      "src/lib/seo.ts",
+      "src/lib/shopify/format.ts"
+    ],
+    "src/routes/unsubscribe.tsx": [
+      "src/components/shopify/InfoPage.tsx",
+      "src/components/shopify/SupportRequestForm.tsx",
+      "src/lib/seo.ts"
+    ],
+    "src/server.ts": [
+      "src/lib/admin/auth.server.ts",
+      "src/lib/db/index.server.ts",
+      "src/lib/db/migrate.server.ts",
+      "src/lib/error-capture.ts",
+      "src/lib/error-page.ts"
+    ],
+    "src/start.ts": [
+      "src/lib/error-page.ts"
+    ],
+    "src/styles.css": [],
+    "tests/e2e/cms.spec.ts": [],
+    "tests/e2e/cookie-consent.spec.ts": [],
+    "tests/e2e/core-ux.spec.ts": [],
+    "tests/unit/catalog.spec.ts": [
+      "src/lib/catalog.ts"
+    ],
+    "tests/unit/customer-sync.spec.ts": [
+      "src/lib/shopify/customer-sync.server.ts"
+    ],
+    "tests/unit/format.spec.ts": [
+      "src/lib/shopify/format.ts"
+    ],
+    "tests/unit/quote-prefill.spec.ts": [
+      "src/lib/shopify/quote.ts"
+    ],
+    "tests/unit/rate-limit.spec.ts": [
+      "src/lib/cms/rate-limit.ts"
+    ],
+    "tsconfig.json": [],
+    "vite.config.ts": []
+  }
+}

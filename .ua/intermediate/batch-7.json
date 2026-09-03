@@ -1,0 +1,127 @@
+{
+  "nodes": [
+    {
+      "id": "service:.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": ".dockerignore",
+      "summary": "Excludes dependencies, build outputs, repository metadata, documentation, and local Compose files from the Docker build context.",
+      "tags": [
+        "infrastructure",
+        "containerization",
+        "build-context"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "Dockerfile",
+      "summary": "Builds the TanStack application in a Node 22 Alpine stage, then produces a production runtime image containing the server output, Drizzle migrations, upload storage, and boot entrypoint.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment",
+        "multi-stage-build"
+      ],
+      "complexity": "simple",
+      "languageNotes": "A two-stage build separates dependency-heavy compilation from the runtime image and runs with owned application data."
+    },
+    {
+      "id": "service:Dockerfile:build",
+      "type": "service",
+      "name": "build",
+      "summary": "Installs locked npm dependencies and compiles the application into its production output.",
+      "tags": [
+        "containerization",
+        "build-system",
+        "nodejs"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:Dockerfile:runtime",
+      "type": "service",
+      "name": "runtime",
+      "summary": "Runs the compiled server on port 80 with migrations, persistent upload storage, and a dedicated container entrypoint.",
+      "tags": [
+        "containerization",
+        "runtime",
+        "deployment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker-compose.override.yml",
+      "type": "service",
+      "name": "docker-compose.override.yml",
+      "filePath": "docker-compose.override.yml",
+      "summary": "Adds the local-only host port mapping so Docker Compose exposes the application at APP_PORT, defaulting to port 8080.",
+      "tags": [
+        "orchestration",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "docker-compose.yml",
+      "summary": "Orchestrates the production application and PostgreSQL 16 database with health-gated startup, persistent CMS and upload volumes, environment configuration, and restart policies.",
+      "tags": [
+        "orchestration",
+        "infrastructure",
+        "database",
+        "deployment"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "service:Dockerfile",
+      "target": "service:Dockerfile:build",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "service:Dockerfile",
+      "target": "service:Dockerfile:runtime",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "service:Dockerfile:runtime",
+      "target": "service:Dockerfile:build",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:.dockerignore",
+      "target": "service:Dockerfile",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:Dockerfile",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.override.yml",
+      "target": "service:docker-compose.yml",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

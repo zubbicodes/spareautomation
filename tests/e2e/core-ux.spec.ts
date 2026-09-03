@@ -216,10 +216,13 @@ test("all products keeps one search and a compact catalogue hero", async ({ page
 });
 
 test("every product exposes tabbed support content and useful empty states", async ({ page }) => {
+  test.slow();
   await page.goto("/products");
-  const firstProduct = page.locator("article a").first();
+  const firstProduct = page.locator('article a[href^="/products/"]').first();
   await expect(firstProduct).toBeVisible();
   await firstProduct.click();
+  await page.waitForURL(/\/products\/[^/?#]+$/, { timeout: 20_000 });
+  await expect(page.getByRole("link", { name: "Catalogue", exact: true })).toBeVisible();
   await page.waitForLoadState("networkidle");
   await expect(page.getByText("PayPal accepted", { exact: true })).toBeVisible();
   await expect(page.getByRole("img", { name: "PayPal", exact: true }).first()).toBeVisible();
@@ -307,15 +310,26 @@ test("YouTube videos require disclaimer consent before loading", async ({ page }
 });
 
 test("customers can build a quote from a product", async ({ page }) => {
+  test.slow();
   await page.goto("/products");
-  await page.locator("article a").first().click();
+  const firstProduct = page.locator('article a[href^="/products/"]').first();
+  await expect(firstProduct).toBeVisible();
+  await firstProduct.click();
+  await page.waitForURL(/\/products\/[^/?#]+$/, { timeout: 20_000 });
+  await expect(page.getByRole("link", { name: "Catalogue", exact: true })).toBeVisible();
   await page.waitForLoadState("networkidle");
 
   const productTitle = (await page.getByRole("heading", { level: 1 }).textContent())?.trim();
-  await page.getByRole("button", { name: "Build a quote" }).click();
+  // The button stores the item in the browser, so it only works once React has hydrated.
+  const buildQuote = page.getByRole("button", { name: "Build a quote" });
+  await expect(buildQuote).toBeEnabled();
+  await buildQuote.click();
 
+  // Navigation is client-side, so wait for the quote page to render, not just its URL.
+  await expect(page.getByRole("heading", { level: 1, name: "My Quote" })).toBeVisible({
+    timeout: 20_000,
+  });
   await expect(page).toHaveURL(/\/quote$/);
-  await expect(page.getByRole("heading", { level: 1, name: "My Quote" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Quote summary" })).toBeVisible();
   await expect(page.getByLabel("Email address")).toBeVisible();
   await expect(page.getByRole("button", { name: "Submit quote" })).toBeVisible();

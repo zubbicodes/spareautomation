@@ -1,0 +1,97 @@
+{
+    "projectRoot":  "D:\\StratonAlly\\Code\\spareautomation",
+    "batchFiles":  [
+                       {
+                           "path":  ".env.example",
+                           "language":  "config",
+                           "sizeLines":  64,
+                           "fileCategory":  "config"
+                       },
+                       {
+                           "path":  "AUDIT_REPORT_2026-07-15.md",
+                           "language":  "markdown",
+                           "sizeLines":  74,
+                           "fileCategory":  "docs"
+                       },
+                       {
+                           "path":  "README.md",
+                           "language":  "markdown",
+                           "sizeLines":  211,
+                           "fileCategory":  "docs"
+                       },
+                       {
+                           "path":  "SHOPIFY_CATALOGUE_GUIDE.md",
+                           "language":  "markdown",
+                           "sizeLines":  41,
+                           "fileCategory":  "docs"
+                       },
+                       {
+                           "path":  "bunfig.toml",
+                           "language":  "toml",
+                           "sizeLines":  6,
+                           "fileCategory":  "config"
+                       },
+                       {
+                           "path":  "components.json",
+                           "language":  "json",
+                           "sizeLines":  22,
+                           "fileCategory":  "config"
+                       },
+                       {
+                           "path":  "docker-entrypoint.sh",
+                           "language":  "shell",
+                           "sizeLines":  8,
+                           "fileCategory":  "script"
+                       },
+                       {
+                           "path":  "package.json",
+                           "language":  "json",
+                           "sizeLines":  97,
+                           "fileCategory":  "config"
+                       },
+                       {
+                           "path":  "shopify-dummy-products.csv",
+                           "language":  "csv",
+                           "sizeLines":  19,
+                           "fileCategory":  "data"
+                       },
+                       {
+                           "path":  "tsconfig.json",
+                           "language":  "json",
+                           "sizeLines":  27,
+                           "fileCategory":  "config"
+                       }
+                   ],
+    "batchImportData":  {
+                            ".env.example":  [
+
+                                             ],
+                            "AUDIT_REPORT_2026-07-15.md":  [
+
+                                                           ],
+                            "README.md":  [
+
+                                          ],
+                            "SHOPIFY_CATALOGUE_GUIDE.md":  [
+
+                                                           ],
+                            "bunfig.toml":  [
+
+                                            ],
+                            "components.json":  [
+
+                                                ],
+                            "docker-entrypoint.sh":  [
+
+                                                     ],
+                            "package.json":  [
+
+                                             ],
+                            "shopify-dummy-products.csv":  [
+
+                                                           ],
+                            "tsconfig.json":  [
+
+                                              ]
+                        }
+}

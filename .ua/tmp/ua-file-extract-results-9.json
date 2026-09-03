@@ -1,0 +1,590 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [
+    "shopify-dummy-products.csv"
+  ],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 9,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 9
+    }
+  },
+  "results": [
+    {
+      "path": ".env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 64,
+      "nonEmptyLines": 54,
+      "definitions": [
+        {
+          "name": "NODE_ENV",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 4,
+          "endLine": 4
+        },
+        {
+          "name": "PORT",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 5,
+          "endLine": 5
+        },
+        {
+          "name": "HOST",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 6,
+          "endLine": 6
+        },
+        {
+          "name": "DATABASE_URL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 14,
+          "endLine": 14
+        },
+        {
+          "name": "POSTGRES_USER",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 17,
+          "endLine": 17
+        },
+        {
+          "name": "POSTGRES_DB",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 18,
+          "endLine": 18
+        },
+        {
+          "name": "SERVICE_PASSWORD_POSTGRES",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 19,
+          "endLine": 19
+        },
+        {
+          "name": "APP_DATABASE_URL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 21,
+          "endLine": 21
+        },
+        {
+          "name": "ADMIN_SEED_EMAIL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 24,
+          "endLine": 24
+        },
+        {
+          "name": "ADMIN_SEED_PASSWORD",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 25,
+          "endLine": 25
+        },
+        {
+          "name": "RESEND_API_KEY",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 29,
+          "endLine": 29
+        },
+        {
+          "name": "SMTP_HOST",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 31,
+          "endLine": 31
+        },
+        {
+          "name": "SMTP_PORT",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 32,
+          "endLine": 32
+        },
+        {
+          "name": "SMTP_USER",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 33,
+          "endLine": 33
+        },
+        {
+          "name": "SMTP_PASS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 34,
+          "endLine": 34
+        },
+        {
+          "name": "MAIL_FROM",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 36,
+          "endLine": 36
+        },
+        {
+          "name": "SALES_DESK_EMAIL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 37,
+          "endLine": 37
+        },
+        {
+          "name": "UPLOAD_DIR",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 41,
+          "endLine": 41
+        },
+        {
+          "name": "SHOPIFY_STORE_DOMAIN",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 44,
+          "endLine": 44
+        },
+        {
+          "name": "SHOPIFY_ADMIN_STORE_DOMAIN",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 46,
+          "endLine": 46
+        },
+        {
+          "name": "SHOPIFY_STOREFRONT_ACCESS_TOKEN",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 47,
+          "endLine": 47
+        },
+        {
+          "name": "SHOPIFY_STOREFRONT_PRIVATE_ACCESS_TOKEN",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 48,
+          "endLine": 48
+        },
+        {
+          "name": "SHOPIFY_STOREFRONT_API_VERSION",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 49,
+          "endLine": 49
+        },
+        {
+          "name": "SHOPIFY_ADMIN_ACCESS_TOKEN",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 52,
+          "endLine": 52
+        },
+        {
+          "name": "SHOPIFY_ADMIN_API_VERSION",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 53,
+          "endLine": 53
+        },
+        {
+          "name": "SHOPIFY_STOREFRONT_PUBLICATION_ID",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 56,
+          "endLine": 56
+        },
+        {
+          "name": "APP_SESSION_SECRET",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 64,
+          "endLine": 64
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 27
+      }
+    },
+    {
+      "path": "AUDIT_REPORT_2026-07-15.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 74,
+      "nonEmptyLines": 61,
+      "sections": [
+        {
+          "heading": "Spares Automation snag audit",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Remediation update",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Executive result",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "Detailed checklist",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Priority remaining work",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "Verification performed",
+          "level": 2,
+          "line": 63
+        },
+        {
+          "heading": "Sign-off recommendation",
+          "level": 2,
+          "line": 72
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 211,
+      "nonEmptyLines": 169,
+      "sections": [
+        {
+          "heading": "Spares Automation Client Feedback Changes",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "UX, Accessibility, Commerce, And Platform Hardening",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Verification",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "Required Business Inputs Before Public Launch",
+          "level": 3,
+          "line": 32
+        },
+        {
+          "heading": "CMS & Admin Panel Runbook",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "Environment variables",
+          "level": 3,
+          "line": 45
+        },
+        {
+          "heading": "Migrations",
+          "level": 3,
+          "line": 59
+        },
+        {
+          "heading": "Admin seeding & access",
+          "level": 3,
+          "line": 67
+        },
+        {
+          "heading": "Persistent storage",
+          "level": 3,
+          "line": 71
+        },
+        {
+          "heading": "Coolify deployment",
+          "level": 3,
+          "line": 77
+        },
+        {
+          "heading": "Summary",
+          "level": 2,
+          "line": 101
+        },
+        {
+          "heading": "Homepage And Header",
+          "level": 2,
+          "line": 107
+        },
+        {
+          "heading": "Category And Product Pages",
+          "level": 2,
+          "line": 125
+        },
+        {
+          "heading": "Footer, Information, And Help Pages",
+          "level": 2,
+          "line": 145
+        },
+        {
+          "heading": "Cart And Quote Flow",
+          "level": 2,
+          "line": 164
+        },
+        {
+          "heading": "Files Changed",
+          "level": 2,
+          "line": 173
+        },
+        {
+          "heading": "Verification",
+          "level": 2,
+          "line": 194
+        },
+        {
+          "heading": "Notes",
+          "level": 2,
+          "line": 207
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 18
+      }
+    },
+    {
+      "path": "SHOPIFY_CATALOGUE_GUIDE.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 41,
+      "nonEmptyLines": 26,
+      "sections": [
+        {
+          "heading": "Shopify catalogue guide",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "One-time developer setup",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Add a product (client workflow)",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "Existing products",
+          "level": 2,
+          "line": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "bunfig.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 6,
+      "nonEmptyLines": 6,
+      "sections": [
+        {
+          "heading": "install",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "components.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "$schema",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "style",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "rsc",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "tsx",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "tailwind",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "iconLibrary",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "rtl",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "aliases",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "registries",
+          "level": 1,
+          "line": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "docker-entrypoint.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 97,
+      "nonEmptyLines": 97,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "sideEffects",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "type",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 75
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 27,
+      "nonEmptyLines": 25,
+      "sections": [
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    }
+  ]
+}

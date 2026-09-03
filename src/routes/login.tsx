@@ -5,16 +5,23 @@ import { z } from "zod";
 
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { loginShopifyCustomer } from "@/lib/api/shopify.functions";
+import { useContent } from "@/lib/content/ContentContext";
+import { getPublishedContent } from "@/lib/content/content.functions";
+import { contentPageHead } from "@/lib/seo";
 
 const ALLOWED_REDIRECTS = ["/account", "/track-order", "/returns", "/quote"] as const;
 
 export const Route = createFileRoute("/login")({
-  head: () => ({
-    meta: [
-      { title: "Sign In | Spares Automation" },
-      { name: "robots", content: "noindex, follow" },
-    ],
-  }),
+  loader: async () => {
+    const { site, functional } = await getPublishedContent();
+    return { site, seo: functional.login.seo };
+  },
+  head: ({ loaderData }) =>
+    contentPageHead(loaderData?.seo, loaderData?.site, "/login", {
+      title: "Sign In",
+      description:
+        "Sign in to your Spares Automation customer account to track orders and manage credit terms.",
+    }, { noIndex: true }),
   validateSearch: z.object({
     redirect: z.enum(ALLOWED_REDIRECTS).optional(),
   }),
@@ -27,6 +34,8 @@ type LoginResult = {
 };
 
 function LoginPage() {
+  const { functional } = useContent();
+  const copy = functional.login;
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<LoginResult>({ status: "idle", message: "" });
   const navigate = useNavigate();
@@ -89,14 +98,16 @@ function LoginPage() {
               <ArrowLeft className="h-4 w-4" /> Back to home
             </Link>
             <div className="mt-12 md:mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
-              Trade Customer Access
+              {copy.eyebrow}
             </div>
             <h1 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase leading-none tracking-tight">
-              Sign In
+              {copy.title}
             </h1>
-            <p className="mt-4 md:mt-6 max-w-md text-sm leading-7 text-white/55">
-              Sign in directly to your Spares Automation account.
-            </p>
+            {copy.intro ? (
+              <p className="mt-4 md:mt-6 max-w-md text-sm leading-7 text-white/55">
+                {copy.intro}
+              </p>
+            ) : null}
           </div>
         </section>
 
@@ -105,10 +116,10 @@ function LoginPage() {
             <User className="h-5 w-5" />
           </div>
           <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
-            Secure Sign In
+            {copy.sectionEyebrow}
           </div>
           <h2 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight">
-            Existing Customer
+            {copy.sectionTitle}
           </h2>
 
           <form onSubmit={handleSubmit} className="mt-8 grid gap-5">
@@ -155,7 +166,7 @@ function LoginPage() {
               </Link>
             </p>
             <p className="text-sm text-ink-muted">
-              Don't have an account?{" "}
+              {copy.helpCopy}{" "}
               <Link
                 to="/register"
                 className="font-semibold text-ink transition-colors hover:text-accent"

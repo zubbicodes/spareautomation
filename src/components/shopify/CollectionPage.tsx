@@ -5,6 +5,8 @@ import { ProductCard } from "@/components/shopify/ProductCard";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import type { ShopifyCollection, ShopifyProduct } from "@/lib/shopify/types";
+import { useContent } from "@/lib/content/ContentContext";
+import { getCatalogCategory } from "@/lib/catalog";
 
 export type ProductLineFilter = {
   slug: string;
@@ -40,6 +42,10 @@ export function CollectionPage({
   productLines = [],
   activeLine,
 }: CollectionPageProps) {
+  const { catalogue } = useContent();
+  const presentation = catalogue.categories.find((category) => category.handle === expectedHandle);
+  const managedTitle = presentation?.label !== getCatalogCategory(expectedHandle)?.label ? (presentation?.label ?? title) : title;
+  const managedImage = presentation?.mediaId ? `/content-media/${presentation.mediaId}/image` : null;
   const selectedLine = productLines.find((line) => line.slug === activeLine);
   const products = collection?.products ?? fallbackProducts;
   const visibleProducts = selectedLine
@@ -54,8 +60,8 @@ export function CollectionPage({
       <main id="main-content">
         <section className="relative flex min-h-[150px] w-full min-w-0 items-center overflow-hidden md:min-h-[180px]">
           <img
-            src={collection?.image?.url ?? image}
-            alt={collection?.image?.altText ?? imageAlt}
+            src={managedImage ?? collection?.image?.url ?? image}
+            alt={managedImage ? (presentation?.mediaAlt || managedTitle) : (collection?.image?.altText ?? imageAlt)}
             className="absolute inset-0 h-full w-full scale-105 object-cover blur-[2px]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/65 to-transparent" />
@@ -65,7 +71,7 @@ export function CollectionPage({
               {eyebrow}
             </div>
             <h1 className="break-words font-display text-[clamp(1.45rem,5vw,2.5rem)] font-extrabold uppercase leading-none tracking-tight text-white">
-              {title}
+              {managedTitle}
             </h1>
           </div>
         </section>

@@ -42,6 +42,7 @@ export const Route = createFileRoute("/admin/submissions/$id")({
     if (!staff) {
       throw redirect({ to: "/admin/login" });
     }
+    if (staff.mustChangePassword) throw redirect({ to: "/admin/change-password" });
     const result = await getSubmissionDetail({ data: { id: Number(params.id) } });
     if (!result.ok) {
       throw redirect({ to: "/admin", search: { type: "all", status: "all", search: "", page: 1 } });

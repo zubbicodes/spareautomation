@@ -13,8 +13,9 @@ let db: Db | undefined;
  * Lazily create a shared Drizzle client. Reads DATABASE_URL at call time
  * (per the config.server.ts convention) so it works across Nitro requests.
  *
- * `prepare: false` keeps the client compatible with pooled connections
- * (e.g. PgBouncer / Coolify pooling); `max: 1` suits the low write volume.
+ * `prepare: false` keeps the client compatible with pooled connections.
+ * A short connection timeout and a small pool keep public fallback reads fast
+ * when PostgreSQL is restarting instead of queueing every storefront request.
  */
 export function getDb(): Db {
   if (!db) {
@@ -22,7 +23,7 @@ export function getDb(): Db {
     if (!databaseUrl) {
       throw new Error("DATABASE_URL is not configured.");
     }
-    client = postgres(databaseUrl, { max: 1, prepare: false });
+    client = postgres(databaseUrl, { max: 5, prepare: false, connect_timeout: 1 });
     db = drizzle(client, { schema });
   }
   return db;

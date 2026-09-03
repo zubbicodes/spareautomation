@@ -1,0 +1,1330 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 26,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 26,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 26,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "scripts/sync-shopify-collections.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 221,
+      "nonEmptyLines": 204,
+      "functions": [
+        {
+          "name": "getShopifyCliCommand",
+          "startLine": 19,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "admin",
+          "startLine": 39,
+          "endLine": 91,
+          "params": [
+            "query",
+            "variables"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getShopifyCliCommand",
+          "callee": "join",
+          "lineNumber": 22
+        },
+        {
+          "caller": "getShopifyCliCommand",
+          "callee": "existsSync",
+          "lineNumber": 31
+        },
+        {
+          "caller": "admin",
+          "callee": "getShopifyCliCommand",
+          "lineNumber": 41
+        },
+        {
+          "caller": "admin",
+          "callee": "execFileSync",
+          "lineNumber": 43
+        },
+        {
+          "caller": "admin",
+          "callee": "JSON.stringify",
+          "lineNumber": 56
+        },
+        {
+          "caller": "admin",
+          "callee": "query.trimStart().startsWith",
+          "lineNumber": 58
+        },
+        {
+          "caller": "admin",
+          "callee": "query.trimStart",
+          "lineNumber": 58
+        },
+        {
+          "caller": "admin",
+          "callee": "JSON.parse",
+          "lineNumber": 62
+        },
+        {
+          "caller": "admin",
+          "callee": "String",
+          "lineNumber": 68
+        },
+        {
+          "caller": "admin",
+          "callee": "fetch",
+          "lineNumber": 75
+        },
+        {
+          "caller": "admin",
+          "callee": "JSON.stringify",
+          "lineNumber": 81
+        },
+        {
+          "caller": "admin",
+          "callee": "response.json",
+          "lineNumber": 83
+        },
+        {
+          "caller": "admin",
+          "callee": "result.errors?.map((error) => error.message).join",
+          "lineNumber": 86
+        },
+        {
+          "caller": "admin",
+          "callee": "result.errors?.map",
+          "lineNumber": 86
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/components/shopify/InfoPage.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 124,
+      "nonEmptyLines": 116,
+      "functions": [
+        {
+          "name": "InfoPage",
+          "startLine": 25,
+          "endLine": 124,
+          "params": [
+            "{\r\n  eyebrow,\r\n  title,\r\n  intro,\r\n  sections,\r\n  ctaLabel = \"Contact sales\",\r\n  ctaTo = \"/contact-us\",\r\n  showHero = true,\r\n  compactHero = true,\r\n  showCta = true,\r\n  children,\r\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "InfoPage",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "InfoPage",
+          "callee": "sections.map",
+          "lineNumber": 79
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/components/shopify/SupportRequestForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 221,
+      "nonEmptyLines": 206,
+      "functions": [
+        {
+          "name": "SupportRequestForm",
+          "startLine": 39,
+          "endLine": 221,
+          "params": [
+            "{ kind }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SupportRequestForm",
+          "line": 39,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SupportRequestForm",
+          "callee": "useHydrated",
+          "lineNumber": 40
+        },
+        {
+          "caller": "SupportRequestForm",
+          "callee": "useState",
+          "lineNumber": 42
+        },
+        {
+          "caller": "SupportRequestForm",
+          "callee": "useState",
+          "lineNumber": 43
+        },
+        {
+          "caller": "SupportRequestForm",
+          "callee": "useState",
+          "lineNumber": 44
+        },
+        {
+          "caller": "SupportRequestForm",
+          "callee": "useState",
+          "lineNumber": 45
+        },
+        {
+          "caller": "SupportRequestForm",
+          "callee": "useState",
+          "lineNumber": 46
+        },
+        {
+          "caller": "submit",
+          "callee": "event.preventDefault",
+          "lineNumber": 49
+        },
+        {
+          "caller": "submit",
+          "callee": "data\n      .getAll(\"attachments\")\n      .filter",
+          "lineNumber": 52
+        },
+        {
+          "caller": "submit",
+          "callee": "data\n      .getAll",
+          "lineNumber": 52
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 55
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 56
+        },
+        {
+          "caller": "submit",
+          "callee": "setUploadWarning",
+          "lineNumber": 57
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 60
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 61
+        },
+        {
+          "caller": "submit",
+          "callee": "files.some",
+          "lineNumber": 64
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 65
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 66
+        },
+        {
+          "caller": "submit",
+          "callee": "files.reduce",
+          "lineNumber": 69
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 70
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 71
+        },
+        {
+          "caller": "submit",
+          "callee": "files.some",
+          "lineNumber": 74
+        },
+        {
+          "caller": "submit",
+          "callee": "QUESTION_ATTACHMENT_TYPES.has",
+          "lineNumber": 74
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 75
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 76
+        },
+        {
+          "caller": "submit",
+          "callee": "submitSupportRequest",
+          "lineNumber": 81
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 84
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 84
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 85
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 85
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 86
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 86
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 87
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 92
+        },
+        {
+          "caller": "submit",
+          "callee": "uploadData.set",
+          "lineNumber": 100
+        },
+        {
+          "caller": "submit",
+          "callee": "uploadData.set",
+          "lineNumber": 101
+        },
+        {
+          "caller": "submit",
+          "callee": "uploadSupportQuestionAttachment",
+          "lineNumber": 102
+        },
+        {
+          "caller": "submit",
+          "callee": "failedUploads.push",
+          "lineNumber": 103
+        },
+        {
+          "caller": "submit",
+          "callee": "failedUploads.push",
+          "lineNumber": 105
+        },
+        {
+          "caller": "submit",
+          "callee": "setUploadWarning",
+          "lineNumber": 109
+        },
+        {
+          "caller": "submit",
+          "callee": "failedUploads.join",
+          "lineNumber": 112
+        },
+        {
+          "caller": "submit",
+          "callee": "setReference",
+          "lineNumber": 115
+        },
+        {
+          "caller": "submit",
+          "callee": "setAttachmentNames",
+          "lineNumber": 116
+        },
+        {
+          "caller": "submit",
+          "callee": "form.reset",
+          "lineNumber": 117
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 119
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 121
+        },
+        {
+          "caller": "SupportRequestForm",
+          "callee": "setAttachmentNames",
+          "lineNumber": 181
+        },
+        {
+          "caller": "SupportRequestForm",
+          "callee": "Array.from(event.currentTarget.files ?? []).map",
+          "lineNumber": 182
+        },
+        {
+          "caller": "SupportRequestForm",
+          "callee": "Array.from",
+          "lineNumber": 182
+        },
+        {
+          "caller": "SupportRequestForm",
+          "callee": "attachmentNames.map",
+          "lineNumber": 195
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/catalog.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 257,
+      "nonEmptyLines": 250,
+      "functions": [
+        {
+          "name": "getCatalogCategory",
+          "startLine": 226,
+          "endLine": 228,
+          "params": [
+            "handle"
+          ]
+        },
+        {
+          "name": "getCatalogueSearch",
+          "startLine": 230,
+          "endLine": 236,
+          "params": [
+            "category"
+          ]
+        },
+        {
+          "name": "getCatalogFilterHandle",
+          "startLine": 238,
+          "endLine": 244,
+          "params": [
+            "categoryHandle",
+            "lineSlug"
+          ]
+        },
+        {
+          "name": "getCatalogCollections",
+          "startLine": 246,
+          "endLine": 257,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CATALOG_CATEGORIES",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "getCatalogCategory",
+          "line": 226,
+          "isDefault": false
+        },
+        {
+          "name": "getCatalogueSearch",
+          "line": 230,
+          "isDefault": false
+        },
+        {
+          "name": "getCatalogFilterHandle",
+          "line": 238,
+          "isDefault": false
+        },
+        {
+          "name": "getCatalogCollections",
+          "line": 246,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getCatalogCategory",
+          "callee": "CATALOG_CATEGORIES.find",
+          "lineNumber": 227
+        },
+        {
+          "caller": "getCatalogFilterHandle",
+          "callee": "getCatalogCategory",
+          "lineNumber": 239
+        },
+        {
+          "caller": "getCatalogFilterHandle",
+          "callee": "category?.productLines.find",
+          "lineNumber": 241
+        },
+        {
+          "caller": "getCatalogCollections",
+          "callee": "CATALOG_CATEGORIES.flatMap",
+          "lineNumber": 247
+        },
+        {
+          "caller": "getCatalogCollections",
+          "callee": "category.productLines.map",
+          "lineNumber": 249
+        },
+        {
+          "caller": "getCatalogCollections",
+          "callee": "new Map(collections.map((collection) => [collection.handle, collection])).values",
+          "lineNumber": 256
+        },
+        {
+          "caller": "getCatalogCollections",
+          "callee": "collections.map",
+          "lineNumber": 256
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/seo.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 18,
+      "functions": [
+        {
+          "name": "pageHead",
+          "startLine": 3,
+          "endLine": 19,
+          "params": [
+            "title",
+            "description",
+            "path",
+            "noIndex"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "pageHead",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "pageHead",
+          "callee": "title.includes",
+          "lineNumber": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routeTree.gen.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 766,
+      "nonEmptyLines": 757,
+      "exports": [
+        {
+          "name": "routeTree",
+          "line": 754,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 37,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/router.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 11,
+      "functions": [
+        {
+          "name": "getRouter",
+          "startLine": 4,
+          "endLine": 13,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "getRouter",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getRouter",
+          "callee": "createRouter",
+          "lineNumber": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/about-us.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "AboutUsPage",
+          "startLine": 16,
+          "endLine": 45,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/asphalt.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "exports": [
+        {
+          "name": "Route",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/automation.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "exports": [
+        {
+          "name": "Route",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/concrete.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "exports": [
+        {
+          "name": "Route",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/contact-us.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 72,
+      "nonEmptyLines": 67,
+      "functions": [
+        {
+          "name": "ContactUsPage",
+          "startLine": 19,
+          "endLine": 38,
+          "params": []
+        },
+        {
+          "name": "ContactCard",
+          "startLine": 40,
+          "endLine": 72,
+          "params": [
+            "{\n  icon: Icon,\n  title,\n  copy,\n  detail,\n  href,\n  external = false,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ContactUsPage",
+          "callee": "whatsappHref",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/control-panels-software.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "exports": [
+        {
+          "name": "Route",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/cookies.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "CookiesPage",
+          "startLine": 16,
+          "endLine": 46,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/credit-account.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "CreditAccountPage",
+          "startLine": 17,
+          "endLine": 31,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/disclaimer.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "DisclaimerPage",
+          "startLine": 11,
+          "endLine": 45,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/got-a-question.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "GotAQuestionPage",
+          "startLine": 12,
+          "endLine": 32,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/home-controls.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "exports": [
+        {
+          "name": "Route",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/index.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 507,
+      "nonEmptyLines": 490,
+      "functions": [
+        {
+          "name": "HeroTitle",
+          "startLine": 110,
+          "endLine": 118,
+          "params": [
+            "{ title, accent }"
+          ]
+        },
+        {
+          "name": "Home",
+          "startLine": 120,
+          "endLine": 507,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "HeroTitle",
+          "callee": "title.replace",
+          "lineNumber": 111
+        },
+        {
+          "caller": "Home",
+          "callee": "useHydrated",
+          "lineNumber": 121
+        },
+        {
+          "caller": "Home",
+          "callee": "useState",
+          "lineNumber": 122
+        },
+        {
+          "caller": "Home",
+          "callee": "useState",
+          "lineNumber": 123
+        },
+        {
+          "caller": "Home",
+          "callee": "useState",
+          "lineNumber": 124
+        },
+        {
+          "caller": "Home",
+          "callee": "useState",
+          "lineNumber": 125
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "event.preventDefault",
+          "lineNumber": 128
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "data.get",
+          "lineNumber": 131
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "setBusy",
+          "lineNumber": 132
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "setError",
+          "lineNumber": 133
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "setPhotoError",
+          "lineNumber": 134
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "submitPartInquiry",
+          "lineNumber": 136
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "String",
+          "lineNumber": 138
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "data.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "String",
+          "lineNumber": 139
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "data.get",
+          "lineNumber": 139
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "String",
+          "lineNumber": 140
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "data.get",
+          "lineNumber": 140
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "String",
+          "lineNumber": 141
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "data.get",
+          "lineNumber": 141
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "String",
+          "lineNumber": 142
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "data.get",
+          "lineNumber": 142
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "String",
+          "lineNumber": 143
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "data.get",
+          "lineNumber": 143
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "setError",
+          "lineNumber": 147
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "uploadData.set",
+          "lineNumber": 152
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "uploadData.set",
+          "lineNumber": 153
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "uploadPartInquiryPhoto",
+          "lineNumber": 154
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "setPhotoError",
+          "lineNumber": 156
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "setReference",
+          "lineNumber": 159
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "form.reset",
+          "lineNumber": 160
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "setError",
+          "lineNumber": 162
+        },
+        {
+          "caller": "submitPartRequest",
+          "callee": "setBusy",
+          "lineNumber": 164
+        },
+        {
+          "caller": "Home",
+          "callee": "primaryRanges.map",
+          "lineNumber": 174
+        },
+        {
+          "caller": "Home",
+          "callee": "getCatalogueSearch",
+          "lineNumber": 195
+        },
+        {
+          "caller": "Home",
+          "callee": "range.lines.map",
+          "lineNumber": 206
+        },
+        {
+          "caller": "Home",
+          "callee": "getCatalogueSearch",
+          "lineNumber": 210
+        },
+        {
+          "caller": "Home",
+          "callee": "categories.map",
+          "lineNumber": 249
+        },
+        {
+          "caller": "Home",
+          "callee": "getCatalogueSearch",
+          "lineNumber": 253
+        },
+        {
+          "caller": "Home",
+          "callee": "whatsappHref",
+          "lineNumber": 487
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/new-arrivals.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 11,
+      "exports": [
+        {
+          "name": "Route",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/packing.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "exports": [
+        {
+          "name": "Route",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/privacy-policy.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "PrivacyPage",
+          "startLine": 11,
+          "endLine": 45,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/returns-policy.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "ReturnsPolicyPage",
+          "startLine": 16,
+          "endLine": 60,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/terms-and-conditions.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "TermsPage",
+          "startLine": 11,
+          "endLine": 45,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/unsubscribe.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "UnsubscribePage",
+          "startLine": 12,
+          "endLine": 31,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/catalog.spec.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 42,
+      "nonEmptyLines": 36,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

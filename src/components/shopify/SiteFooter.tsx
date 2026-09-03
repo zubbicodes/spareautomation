@@ -1,31 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Mail, PackageSearch, Phone } from "lucide-react";
 import { PaymentMarks } from "@/components/shopify/PaymentMarks";
-import { SITE } from "@/lib/site";
-
-const informationLinks = [
-  { label: "All Products", to: "/products" },
-  { label: "Contact us", to: "/contact-us" },
-  { label: "About us", to: "/about-us" },
-  { label: "View Cart", to: "/cart" },
-  { label: "Build a Quote", to: "/quote" },
-  { label: "Track order", to: "/track-order" },
-  { label: "My order history", to: "/account" },
-  { label: "Got a question", to: "/contact-us" },
-];
-
-const helpLinks = [
-  { label: "Terms & Conditions", to: "/terms-and-conditions" },
-  { label: "Returns", to: "/returns" },
-  { label: "Returns Policy", to: "/returns-policy" },
-  { label: "Delivery Information", to: "/delivery-information" },
-  { label: "Privacy Policy", to: "/privacy-policy" },
-  { label: "Cookie Policy", to: "/cookies" },
-  { label: "Disclaimer", to: "/disclaimer" },
-  { label: "Unsubscribe", to: "/unsubscribe" },
-];
+import { useContent } from "@/lib/content/ContentContext";
+import { navTarget } from "@/lib/content/nav";
 
 export function SiteFooter() {
+  const content = useContent();
+  const informationLinks = content.navigation.information.filter((item) => item.visible);
+  const helpLinks = content.navigation.help.filter((item) => item.visible);
   return (
     <footer className="border-t border-rule bg-charcoal-deep text-white/70">
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-10 px-4 py-12 md:grid-cols-[1.2fr_1fr_1fr] md:px-6 lg:px-10">
@@ -36,7 +18,7 @@ export function SiteFooter() {
               <div className="absolute inset-[6px] rotate-45 bg-accent" />
             </div>
             <div className="font-display text-[17px] font-bold uppercase tracking-tight text-white">
-              SPARES<span className="text-accent">.</span>AUTOMATION
+              {content.site.name === "Spares Automation" ? <>SPARES<span className="text-accent">.</span>AUTOMATION</> : content.site.name}
             </div>
           </Link>
           <Link
@@ -61,18 +43,18 @@ export function SiteFooter() {
           </Link>
           <div className="mt-6 space-y-3 text-sm text-white/70">
             <a
-              href={`tel:${SITE.phoneHref}`}
+              href={`tel:${content.site.phoneHref}`}
               className="flex min-h-8 items-center gap-3 hover:text-white"
             >
               <Phone className="h-4 w-4" />
-              {SITE.phoneDisplay}
+              {content.site.phoneDisplay}
             </a>
             <a
-              href={`mailto:${SITE.email}`}
+              href={`mailto:${content.site.email}`}
               className="flex min-h-8 items-center gap-3 hover:text-white"
             >
               <Mail className="h-4 w-4" />
-              {SITE.email}
+              {content.site.email}
             </a>
           </div>
         </div>
@@ -95,7 +77,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-white/10 px-4 py-5 font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">
         <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-center gap-x-5 gap-y-3 md:justify-between">
-          <span>Spares Automation</span>
+          <span>{content.site.name}</span>
           <button
             type="button"
             onClick={() => window.dispatchEvent(new Event("open-cookie-preferences"))}
@@ -125,7 +107,7 @@ function FooterColumn({
         {links.map((link) => (
           <li key={link.label}>
             <Link
-              to={link.to}
+              {...navTarget(link.to)}
               className="inline-flex min-h-8 items-center text-sm text-white/70 transition-colors hover:text-white"
             >
               {link.label}

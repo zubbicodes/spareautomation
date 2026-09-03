@@ -1,0 +1,3823 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 27,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 27,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 27,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "src/components/admin/AdminShell.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 67,
+      "nonEmptyLines": 61,
+      "functions": [
+        {
+          "name": "AdminShell",
+          "startLine": 14,
+          "endLine": 67,
+          "params": [
+            "{ staff, title, eyebrow = \"Admin\", children }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AdminShell",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminShell",
+          "callee": "useNavigate",
+          "lineNumber": 15
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "adminLogout",
+          "lineNumber": 18
+        },
+        {
+          "caller": "handleLogout",
+          "callee": "navigate",
+          "lineNumber": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/components/shopify/CreditAccountApplicationForm.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 301,
+      "nonEmptyLines": 279,
+      "functions": [
+        {
+          "name": "CreditAccountApplicationForm",
+          "startLine": 10,
+          "endLine": 223,
+          "params": []
+        },
+        {
+          "name": "isCompanyType",
+          "startLine": 225,
+          "endLine": 227,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "CreditLegend",
+          "startLine": 229,
+          "endLine": 235,
+          "params": [
+            "{ children }"
+          ]
+        },
+        {
+          "name": "CreditSubheading",
+          "startLine": 237,
+          "endLine": 243,
+          "params": [
+            "{ children }"
+          ]
+        },
+        {
+          "name": "CreditField",
+          "startLine": 245,
+          "endLine": 276,
+          "params": [
+            "{\r\n  label,\r\n  name,\r\n  type = \"text\",\r\n  autoComplete,\r\n  required,\r\n  placeholder,\r\n  inputMode,\r\n}"
+          ]
+        },
+        {
+          "name": "CreditTextarea",
+          "startLine": 278,
+          "endLine": 301,
+          "params": [
+            "{\r\n  label,\r\n  name,\r\n  autoComplete,\r\n  required,\r\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CreditAccountApplicationForm",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CreditAccountApplicationForm",
+          "callee": "useHydrated",
+          "lineNumber": 11
+        },
+        {
+          "caller": "CreditAccountApplicationForm",
+          "callee": "useState",
+          "lineNumber": 12
+        },
+        {
+          "caller": "CreditAccountApplicationForm",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "CreditAccountApplicationForm",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "submit",
+          "callee": "event.preventDefault",
+          "lineNumber": 17
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 20
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 21
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 22
+        },
+        {
+          "caller": "submit",
+          "callee": "isCompanyType",
+          "lineNumber": 24
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 25
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 26
+        },
+        {
+          "caller": "submit",
+          "callee": "submitCreditAccount",
+          "lineNumber": 31
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 33
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 33
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 34
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 34
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 35
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 36
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 38
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 39
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 39
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 40
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 41
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 41
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 42
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 42
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 43
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 43
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 44
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 44
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 45
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 46
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 47
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 47
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 48
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 48
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 49
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 49
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 50
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 51
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 52
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 52
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 53
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 53
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 54
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 55
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 56
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 56
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 57
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 58
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 58
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 59
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 60
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 60
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 61
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 61
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 62
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 62
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 63
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 63
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 64
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 64
+        },
+        {
+          "caller": "submit",
+          "callee": "String",
+          "lineNumber": 65
+        },
+        {
+          "caller": "submit",
+          "callee": "data.get",
+          "lineNumber": 65
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 70
+        },
+        {
+          "caller": "submit",
+          "callee": "setReference",
+          "lineNumber": 74
+        },
+        {
+          "caller": "submit",
+          "callee": "form.reset",
+          "lineNumber": 75
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 77
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 79
+        },
+        {
+          "caller": "CreditAccountApplicationForm",
+          "callee": "companyTypes.map",
+          "lineNumber": 133
+        },
+        {
+          "caller": "isCompanyType",
+          "callee": "companyTypes.includes",
+          "lineNumber": 226
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/hooks/use-hydrated.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 7,
+      "functions": [
+        {
+          "name": "useHydrated",
+          "startLine": 4,
+          "endLine": 8,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "useHydrated",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "useHydrated",
+          "callee": "useState",
+          "lineNumber": 5
+        },
+        {
+          "caller": "useHydrated",
+          "callee": "useEffect",
+          "lineNumber": 6
+        },
+        {
+          "caller": "useHydrated",
+          "callee": "setHydrated",
+          "lineNumber": 6
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/admin/admin.functions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 621,
+      "nonEmptyLines": 552,
+      "functions": [
+        {
+          "name": "guard",
+          "startLine": 37,
+          "endLine": 42,
+          "params": [
+            "error"
+          ]
+        },
+        {
+          "name": "toSession",
+          "startLine": 53,
+          "endLine": 60,
+          "params": [
+            "staff"
+          ]
+        },
+        {
+          "name": "payloadString",
+          "startLine": 481,
+          "endLine": 486,
+          "params": [
+            "payload",
+            "key"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getAdminSession",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "adminLogin",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "adminLogout",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "listSubmissions",
+          "line": 137,
+          "isDefault": false
+        },
+        {
+          "name": "getSubmissionDetail",
+          "line": 258,
+          "isDefault": false
+        },
+        {
+          "name": "setSubmissionStatus",
+          "line": 348,
+          "isDefault": false
+        },
+        {
+          "name": "addSubmissionNote",
+          "line": 426,
+          "isDefault": false
+        },
+        {
+          "name": "markSubmissionReviewed",
+          "line": 450,
+          "isDefault": false
+        },
+        {
+          "name": "syncSubmissionToShopify",
+          "line": 492,
+          "isDefault": false
+        },
+        {
+          "name": "getAttachmentDownload",
+          "line": 596,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "guard",
+          "callee": "isUnauthorizedError",
+          "lineNumber": 38
+        },
+        {
+          "caller": "payloadString",
+          "callee": "String(value).trim",
+          "lineNumber": 484
+        },
+        {
+          "caller": "payloadString",
+          "callee": "String",
+          "lineNumber": 484
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 10,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/admin/auth.server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 148,
+      "nonEmptyLines": 127,
+      "functions": [
+        {
+          "name": "adminSessionConfig",
+          "startLine": 23,
+          "endLine": 35,
+          "params": [
+            "secret"
+          ]
+        },
+        {
+          "name": "hashPassword",
+          "startLine": 37,
+          "endLine": 41,
+          "params": [
+            "password"
+          ]
+        },
+        {
+          "name": "verifyPassword",
+          "startLine": 43,
+          "endLine": 49,
+          "params": [
+            "password",
+            "stored"
+          ]
+        },
+        {
+          "name": "getAdminSession",
+          "startLine": 51,
+          "endLine": 59,
+          "params": []
+        },
+        {
+          "name": "getCurrentStaff",
+          "startLine": 62,
+          "endLine": 72,
+          "params": []
+        },
+        {
+          "name": "requireAdmin",
+          "startLine": 75,
+          "endLine": 81,
+          "params": []
+        },
+        {
+          "name": "isUnauthorizedError",
+          "startLine": 83,
+          "endLine": 85,
+          "params": [
+            "error"
+          ]
+        },
+        {
+          "name": "loginStaff",
+          "startLine": 87,
+          "endLine": 112,
+          "params": [
+            "email",
+            "password"
+          ]
+        },
+        {
+          "name": "logoutStaff",
+          "startLine": 114,
+          "endLine": 122,
+          "params": []
+        },
+        {
+          "name": "seedInitialAdmin",
+          "startLine": 128,
+          "endLine": 148,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "hashPassword",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "getCurrentStaff",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "requireAdmin",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "isUnauthorizedError",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "loginStaff",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "logoutStaff",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "seedInitialAdmin",
+          "line": 128,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "hashPassword",
+          "callee": "randomBytes(16).toString",
+          "lineNumber": 38
+        },
+        {
+          "caller": "hashPassword",
+          "callee": "randomBytes",
+          "lineNumber": 38
+        },
+        {
+          "caller": "hashPassword",
+          "callee": "scryptAsync",
+          "lineNumber": 39
+        },
+        {
+          "caller": "hashPassword",
+          "callee": "derived.toString",
+          "lineNumber": 40
+        },
+        {
+          "caller": "verifyPassword",
+          "callee": "stored.split",
+          "lineNumber": 44
+        },
+        {
+          "caller": "verifyPassword",
+          "callee": "scryptAsync",
+          "lineNumber": 46
+        },
+        {
+          "caller": "verifyPassword",
+          "callee": "Buffer.from",
+          "lineNumber": 47
+        },
+        {
+          "caller": "verifyPassword",
+          "callee": "timingSafeEqual",
+          "lineNumber": 48
+        },
+        {
+          "caller": "getAdminSession",
+          "callee": "await getServerSessionManager",
+          "lineNumber": 54
+        },
+        {
+          "caller": "getAdminSession",
+          "callee": "adminSessionConfig",
+          "lineNumber": 55
+        },
+        {
+          "caller": "getCurrentStaff",
+          "callee": "getAdminSession",
+          "lineNumber": 63
+        },
+        {
+          "caller": "getCurrentStaff",
+          "callee": "getDb",
+          "lineNumber": 65
+        },
+        {
+          "caller": "getCurrentStaff",
+          "callee": "db\r\n    .select()\r\n    .from(staffUsers)\r\n    .where(eq(staffUsers.id, session.data.staffUserId))\r\n    .limit",
+          "lineNumber": 66
+        },
+        {
+          "caller": "getCurrentStaff",
+          "callee": "db\r\n    .select()\r\n    .from(staffUsers)\r\n    .where",
+          "lineNumber": 66
+        },
+        {
+          "caller": "getCurrentStaff",
+          "callee": "db\r\n    .select()\r\n    .from",
+          "lineNumber": 66
+        },
+        {
+          "caller": "getCurrentStaff",
+          "callee": "db\r\n    .select",
+          "lineNumber": 66
+        },
+        {
+          "caller": "getCurrentStaff",
+          "callee": "eq",
+          "lineNumber": 69
+        },
+        {
+          "caller": "requireAdmin",
+          "callee": "getCurrentStaff",
+          "lineNumber": 76
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "email.trim().toLowerCase",
+          "lineNumber": 91
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "email.trim",
+          "lineNumber": 91
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "getDb",
+          "lineNumber": 92
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "db\r\n    .select()\r\n    .from(staffUsers)\r\n    .where(eq(staffUsers.email, normalizedEmail))\r\n    .limit",
+          "lineNumber": 93
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "db\r\n    .select()\r\n    .from(staffUsers)\r\n    .where",
+          "lineNumber": 93
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "db\r\n    .select()\r\n    .from",
+          "lineNumber": 93
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "db\r\n    .select",
+          "lineNumber": 93
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "eq",
+          "lineNumber": 96
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "verifyPassword",
+          "lineNumber": 101
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "await getServerSessionManager",
+          "lineNumber": 107
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "adminSessionConfig",
+          "lineNumber": 108
+        },
+        {
+          "caller": "loginStaff",
+          "callee": "session.update",
+          "lineNumber": 110
+        },
+        {
+          "caller": "logoutStaff",
+          "callee": "clearSession",
+          "lineNumber": 117
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "getServerConfig",
+          "lineNumber": 129
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "getDb",
+          "lineNumber": 133
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "db.select({ id: staffUsers.id }).from(staffUsers).limit",
+          "lineNumber": 134
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "db.select({ id: staffUsers.id }).from",
+          "lineNumber": 134
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "db.select",
+          "lineNumber": 134
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "hashPassword",
+          "lineNumber": 137
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "db.insert(staffUsers).values",
+          "lineNumber": 138
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "db.insert",
+          "lineNumber": 138
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "adminSeedEmail.trim().toLowerCase",
+          "lineNumber": 139
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "adminSeedEmail.trim",
+          "lineNumber": 139
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "console.info",
+          "lineNumber": 144
+        },
+        {
+          "caller": "seedInitialAdmin",
+          "callee": "console.error",
+          "lineNumber": 146
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 7,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/api/cms.functions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 594,
+      "nonEmptyLines": 540,
+      "functions": [
+        {
+          "name": "rateLimitKey",
+          "startLine": 34,
+          "endLine": 37,
+          "params": [
+            "scope"
+          ]
+        },
+        {
+          "name": "withinRateLimit",
+          "startLine": 40,
+          "endLine": 42,
+          "params": [
+            "scope"
+          ]
+        },
+        {
+          "name": "formatPayload",
+          "startLine": 49,
+          "endLine": 54,
+          "params": [
+            "payload"
+          ]
+        },
+        {
+          "name": "recordSubmission",
+          "startLine": 56,
+          "endLine": 123,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "hasValidImageSignature",
+          "startLine": 409,
+          "endLine": 427,
+          "params": [
+            "mime",
+            "buffer"
+          ]
+        },
+        {
+          "name": "hasValidQuestionAttachmentSignature",
+          "startLine": 429,
+          "endLine": 464,
+          "params": [
+            "mime",
+            "buffer"
+          ]
+        },
+        {
+          "name": "safeOriginalFilename",
+          "startLine": 466,
+          "endLine": 470,
+          "params": [
+            "value",
+            "fallback"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "submitPartInquiry",
+          "line": 136,
+          "isDefault": false
+        },
+        {
+          "name": "submitCreditAccount",
+          "line": 196,
+          "isDefault": false
+        },
+        {
+          "name": "submitReturnRequest",
+          "line": 291,
+          "isDefault": false
+        },
+        {
+          "name": "submitSupportRequest",
+          "line": 359,
+          "isDefault": false
+        },
+        {
+          "name": "uploadPartInquiryPhoto",
+          "line": 477,
+          "isDefault": false
+        },
+        {
+          "name": "uploadSupportQuestionAttachment",
+          "line": 537,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "rateLimitKey",
+          "callee": "getRequestIP",
+          "lineNumber": 35
+        },
+        {
+          "caller": "withinRateLimit",
+          "callee": "rateLimiter.consume",
+          "lineNumber": 41
+        },
+        {
+          "caller": "withinRateLimit",
+          "callee": "rateLimitKey",
+          "lineNumber": 41
+        },
+        {
+          "caller": "formatPayload",
+          "callee": "Object.entries(payload)\r\n    .filter(([, value]) => value !== undefined && value !== null && String(value).trim() !== \"\")\r\n    .map(([key, value]) => `${key}: ${String(value)}`)\r\n    .join",
+          "lineNumber": 50
+        },
+        {
+          "caller": "formatPayload",
+          "callee": "Object.entries(payload)\r\n    .filter(([, value]) => value !== undefined && value !== null && String(value).trim() !== \"\")\r\n    .map",
+          "lineNumber": 50
+        },
+        {
+          "caller": "formatPayload",
+          "callee": "Object.entries(payload)\r\n    .filter",
+          "lineNumber": 50
+        },
+        {
+          "caller": "formatPayload",
+          "callee": "Object.entries",
+          "lineNumber": 50
+        },
+        {
+          "caller": "formatPayload",
+          "callee": "String(value).trim",
+          "lineNumber": 51
+        },
+        {
+          "caller": "formatPayload",
+          "callee": "String",
+          "lineNumber": 51
+        },
+        {
+          "caller": "formatPayload",
+          "callee": "String",
+          "lineNumber": 52
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "getDb",
+          "lineNumber": 70
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "db\r\n    .insert(submissions)\r\n    .values({\r\n      type: input.type,\r\n      payload: input.payload,\r\n      contactEmail: input.contactEmail,\r\n      contactName: input.contactName ?? null,\r\n      company: input.company ?? null,\r\n    })\r\n    .returning",
+          "lineNumber": 72
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "db\r\n    .insert(submissions)\r\n    .values",
+          "lineNumber": 72
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "db\r\n    .insert",
+          "lineNumber": 72
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "new Date().getFullYear",
+          "lineNumber": 83
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "String(row.id).padStart",
+          "lineNumber": 83
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "String",
+          "lineNumber": 83
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "db.update(submissions).set({ reference }).where",
+          "lineNumber": 84
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "db.update(submissions).set",
+          "lineNumber": 84
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "db.update",
+          "lineNumber": 84
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "eq",
+          "lineNumber": 84
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "[\r\n    input.emailHeading,\r\n    `Reference: ${reference}`,\r\n    `Contact email: ${input.contactEmail}`,\r\n    input.contactName ? `Contact name: ${input.contactName}` : \"\",\r\n    input.company ? `Company: ${input.company}` : \"\",\r\n    \"\",\r\n    formatPayload(input.payload),\r\n  ]\r\n    .filter((line) => line !== \"\")\r\n    .join",
+          "lineNumber": 86
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "[\r\n    input.emailHeading,\r\n    `Reference: ${reference}`,\r\n    `Contact email: ${input.contactEmail}`,\r\n    input.contactName ? `Contact name: ${input.contactName}` : \"\",\r\n    input.company ? `Company: ${input.company}` : \"\",\r\n    \"\",\r\n    formatPayload(input.payload),\r\n  ]\r\n    .filter",
+          "lineNumber": 86
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "formatPayload",
+          "lineNumber": 93
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "notifySalesDesk",
+          "lineNumber": 98
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "sendEmail",
+          "lineNumber": 105
+        },
+        {
+          "caller": "recordSubmission",
+          "callee": "[\r\n        input.customerConfirmation.heading,\r\n        \"\",\r\n        `Your reference: ${reference}`,\r\n        \"\",\r\n        ...input.customerConfirmation.nextSteps,\r\n        \"\",\r\n        `Keep this reference when contacting us: ${reference}`,\r\n        `${SITE.name} · ${SITE.email} · ${SITE.phoneDisplay}`,\r\n      ].join",
+          "lineNumber": 109
+        },
+        {
+          "caller": "hasValidImageSignature",
+          "callee": "buffer.subarray(0, 8).equals",
+          "lineNumber": 416
+        },
+        {
+          "caller": "hasValidImageSignature",
+          "callee": "buffer.subarray",
+          "lineNumber": 416
+        },
+        {
+          "caller": "hasValidImageSignature",
+          "callee": "Buffer.from",
+          "lineNumber": 416
+        },
+        {
+          "caller": "hasValidImageSignature",
+          "callee": "buffer.subarray(0, 4).toString",
+          "lineNumber": 422
+        },
+        {
+          "caller": "hasValidImageSignature",
+          "callee": "buffer.subarray",
+          "lineNumber": 422
+        },
+        {
+          "caller": "hasValidImageSignature",
+          "callee": "buffer.subarray(8, 12).toString",
+          "lineNumber": 423
+        },
+        {
+          "caller": "hasValidImageSignature",
+          "callee": "buffer.subarray",
+          "lineNumber": 423
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "hasValidImageSignature",
+          "lineNumber": 430
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "buffer.subarray(0, 6).toString",
+          "lineNumber": 432
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "buffer.subarray",
+          "lineNumber": 432
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "buffer.subarray(0, 5).toString",
+          "lineNumber": 436
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "buffer.subarray",
+          "lineNumber": 436
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "buffer.subarray(0, Math.min(buffer.length, 8192)).includes",
+          "lineNumber": 439
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "buffer.subarray",
+          "lineNumber": 439
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "Math.min",
+          "lineNumber": 439
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "buffer\r\n      .subarray(0, 8)\r\n      .equals",
+          "lineNumber": 446
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "buffer\r\n      .subarray",
+          "lineNumber": 446
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "Buffer.from",
+          "lineNumber": 448
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "[0x03, 0x05, 0x07].includes",
+          "lineNumber": 459
+        },
+        {
+          "caller": "hasValidQuestionAttachmentSignature",
+          "callee": "[0x04, 0x06, 0x08].includes",
+          "lineNumber": 460
+        },
+        {
+          "caller": "safeOriginalFilename",
+          "callee": "path.basename",
+          "lineNumber": 467
+        },
+        {
+          "caller": "safeOriginalFilename",
+          "callee": "basename.replace(/[^\\p{L}\\p{N}._ -]/gu, \"_\").slice",
+          "lineNumber": 468
+        },
+        {
+          "caller": "safeOriginalFilename",
+          "callee": "basename.replace",
+          "lineNumber": 468
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 6,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/api/example.functions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 19,
+      "exports": [
+        {
+          "name": "getGreeting",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/cms/rate-limit.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "classes": [
+        {
+          "name": "SlidingWindowRateLimiter",
+          "startLine": 1,
+          "endLine": 21,
+          "methods": [
+            "constructor",
+            "consume"
+          ],
+          "properties": [
+            "buckets"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SlidingWindowRateLimiter",
+          "line": 1,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "consume",
+          "callee": "Date.now",
+          "lineNumber": 9
+        },
+        {
+          "caller": "consume",
+          "callee": "(this.buckets.get(key) ?? []).filter",
+          "lineNumber": 10
+        },
+        {
+          "caller": "consume",
+          "callee": "this.buckets.get",
+          "lineNumber": 10
+        },
+        {
+          "caller": "consume",
+          "callee": "this.buckets.set",
+          "lineNumber": 14
+        },
+        {
+          "caller": "consume",
+          "callee": "stamps.push",
+          "lineNumber": 17
+        },
+        {
+          "caller": "consume",
+          "callee": "this.buckets.set",
+          "lineNumber": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/lib/config.server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "getServerConfig",
+          "startLine": 19,
+          "endLine": 57,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "getServerConfig",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/db/index.server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 25,
+      "functions": [
+        {
+          "name": "getDb",
+          "startLine": 19,
+          "endLine": 29,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "getDb",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getDb",
+          "callee": "getServerConfig",
+          "lineNumber": 21
+        },
+        {
+          "caller": "getDb",
+          "callee": "postgres",
+          "lineNumber": 25
+        },
+        {
+          "caller": "getDb",
+          "callee": "drizzle",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/db/migrate.server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 64,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "delay",
+          "startLine": 12,
+          "endLine": 14,
+          "params": [
+            "ms"
+          ]
+        },
+        {
+          "name": "runMigrations",
+          "startLine": 22,
+          "endLine": 64,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "runMigrations",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "delay",
+          "callee": "setTimeout",
+          "lineNumber": 13
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "getServerConfig",
+          "lineNumber": 26
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "console.warn",
+          "lineNumber": 28
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "(async () => {\n    const folder = process.env.DRIZZLE_MIGRATIONS_FOLDER ?? \"./drizzle\";\n    for (let attempt = 1; attempt <= MAX_MIGRATION_ATTEMPTS; attempt += 1) {\n      const client = postgres(databaseUrl, { max: 1 });\n      try {\n        await migrate(drizzle(client), { migrationsFolder: folder });\n        migrated = true;\n        console.info(\"[db] CMS migrations applied.\");\n        return true;\n      } catch (error) {\n        if (attempt === MAX_MIGRATION_ATTEMPTS) {\n          console.error(\n            `[db] CMS migration failed after ${MAX_MIGRATION_ATTEMPTS} attempts:`,\n            error,\n          );\n          return false;\n        }\n        const retryDelay = BASE_RETRY_DELAY_MS * 2 ** (attempt - 1);\n        console.warn(\n          `[db] CMS migration attempt ${attempt} failed; retrying in ${retryDelay}ms.`,\n        );\n        await delay(retryDelay);\n      } finally {\n        await client.end({ timeout: 5 });\n      }\n    }\n    return false;\n  })().finally",
+          "lineNumber": 32
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "(async () => {\n    const folder = process.env.DRIZZLE_MIGRATIONS_FOLDER ?? \"./drizzle\";\n    for (let attempt = 1; attempt <= MAX_MIGRATION_ATTEMPTS; attempt += 1) {\n      const client = postgres(databaseUrl, { max: 1 });\n      try {\n        await migrate(drizzle(client), { migrationsFolder: folder });\n        migrated = true;\n        console.info(\"[db] CMS migrations applied.\");\n        return true;\n      } catch (error) {\n        if (attempt === MAX_MIGRATION_ATTEMPTS) {\n          console.error(\n            `[db] CMS migration failed after ${MAX_MIGRATION_ATTEMPTS} attempts:`,\n            error,\n          );\n          return false;\n        }\n        const retryDelay = BASE_RETRY_DELAY_MS * 2 ** (attempt - 1);\n        console.warn(\n          `[db] CMS migration attempt ${attempt} failed; retrying in ${retryDelay}ms.`,\n        );\n        await delay(retryDelay);\n      } finally {\n        await client.end({ timeout: 5 });\n      }\n    }\n    return false;\n  })",
+          "lineNumber": 32
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "postgres",
+          "lineNumber": 35
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "migrate",
+          "lineNumber": 37
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "drizzle",
+          "lineNumber": 37
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "console.info",
+          "lineNumber": 39
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "console.error",
+          "lineNumber": 43
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "console.warn",
+          "lineNumber": 50
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "delay",
+          "lineNumber": 53
+        },
+        {
+          "caller": "runMigrations",
+          "callee": "client.end",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/db/schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 109,
+      "nonEmptyLines": 99,
+      "exports": [
+        {
+          "name": "submissionType",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "submissionStatus",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "staffRole",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "staffUsers",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "submissions",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "submissionNotes",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "attachments",
+          "line": 89,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/error-capture.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "record",
+          "startLine": 7,
+          "endLine": 9,
+          "params": [
+            "error"
+          ]
+        },
+        {
+          "name": "consumeLastCapturedError",
+          "startLine": 18,
+          "endLine": 27,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "consumeLastCapturedError",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "record",
+          "callee": "Date.now",
+          "lineNumber": 8
+        },
+        {
+          "caller": "consumeLastCapturedError",
+          "callee": "Date.now",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/error-page.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "renderErrorPage",
+          "startLine": 1,
+          "endLine": 30,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "renderErrorPage",
+          "line": 1,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/notify.server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 106,
+      "nonEmptyLines": 94,
+      "functions": [
+        {
+          "name": "getSmtpTransport",
+          "startLine": 19,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "sendWithResend",
+          "startLine": 36,
+          "endLine": 57,
+          "params": [
+            "apiKey",
+            "message",
+            "from"
+          ]
+        },
+        {
+          "name": "sendEmail",
+          "startLine": 67,
+          "endLine": 95,
+          "params": [
+            "message"
+          ]
+        },
+        {
+          "name": "notifySalesDesk",
+          "startLine": 98,
+          "endLine": 106,
+          "params": [
+            "input"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "sendEmail",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "notifySalesDesk",
+          "line": 98,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getSmtpTransport",
+          "callee": "getServerConfig",
+          "lineNumber": 20
+        },
+        {
+          "caller": "getSmtpTransport",
+          "callee": "Number",
+          "lineNumber": 23
+        },
+        {
+          "caller": "getSmtpTransport",
+          "callee": "nodemailer.createTransport",
+          "lineNumber": 24
+        },
+        {
+          "caller": "sendWithResend",
+          "callee": "fetch",
+          "lineNumber": 37
+        },
+        {
+          "caller": "sendWithResend",
+          "callee": "JSON.stringify",
+          "lineNumber": 43
+        },
+        {
+          "caller": "sendWithResend",
+          "callee": "response.text",
+          "lineNumber": 54
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "getServerConfig",
+          "lineNumber": 68
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "sendWithResend",
+          "lineNumber": 72
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "getSmtpTransport",
+          "lineNumber": 76
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "smtp.sendMail",
+          "lineNumber": 78
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "console.warn",
+          "lineNumber": 89
+        },
+        {
+          "caller": "sendEmail",
+          "callee": "console.error",
+          "lineNumber": 92
+        },
+        {
+          "caller": "notifySalesDesk",
+          "callee": "getServerConfig",
+          "lineNumber": 104
+        },
+        {
+          "caller": "notifySalesDesk",
+          "callee": "sendEmail",
+          "lineNumber": 105
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/shopify/admin.server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "shopifyAdmin",
+          "startLine": 12,
+          "endLine": 50,
+          "params": [
+            "query",
+            "variables"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "shopifyAdmin",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "shopifyAdmin",
+          "callee": "getServerConfig",
+          "lineNumber": 16
+        },
+        {
+          "caller": "shopifyAdmin",
+          "callee": "fetch",
+          "lineNumber": 24
+        },
+        {
+          "caller": "shopifyAdmin",
+          "callee": "JSON.stringify",
+          "lineNumber": 32
+        },
+        {
+          "caller": "shopifyAdmin",
+          "callee": "response.json",
+          "lineNumber": 36
+        },
+        {
+          "caller": "shopifyAdmin",
+          "callee": "payload.errors?.map((error) => error.message).join",
+          "lineNumber": 40
+        },
+        {
+          "caller": "shopifyAdmin",
+          "callee": "payload.errors?.map",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/shopify/customer-sync.server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 219,
+      "nonEmptyLines": 201,
+      "functions": [
+        {
+          "name": "customerInput",
+          "startLine": 32,
+          "endLine": 47,
+          "params": [
+            "input",
+            "tags"
+          ]
+        },
+        {
+          "name": "assertCustomerMutation",
+          "startLine": 49,
+          "endLine": 59,
+          "params": [
+            "payload",
+            "fallback"
+          ]
+        },
+        {
+          "name": "syncCustomerToShopify",
+          "startLine": 65,
+          "endLine": 132,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "syncCreditCustomer",
+          "startLine": 142,
+          "endLine": 154,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "unsubscribeCustomerEmail",
+          "startLine": 162,
+          "endLine": 219,
+          "params": [
+            "email"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "syncCustomerToShopify",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "syncCreditCustomer",
+          "line": 142,
+          "isDefault": false
+        },
+        {
+          "name": "unsubscribeCustomerEmail",
+          "line": 162,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "customerInput",
+          "callee": "input.metafields.map",
+          "lineNumber": 40
+        },
+        {
+          "caller": "assertCustomerMutation",
+          "callee": "payload.userErrors.map((error) => error.message).join",
+          "lineNumber": 55
+        },
+        {
+          "caller": "assertCustomerMutation",
+          "callee": "payload.userErrors.map",
+          "lineNumber": 55
+        },
+        {
+          "caller": "syncCustomerToShopify",
+          "callee": "input.email.replace(/\\\\/g, \"\\\\\\\\\").replace",
+          "lineNumber": 68
+        },
+        {
+          "caller": "syncCustomerToShopify",
+          "callee": "input.email.replace",
+          "lineNumber": 68
+        },
+        {
+          "caller": "syncCustomerToShopify",
+          "callee": "await shopifyAdmin",
+          "lineNumber": 69
+        },
+        {
+          "caller": "syncCustomerToShopify",
+          "callee": "Array.from",
+          "lineNumber": 86
+        },
+        {
+          "caller": "syncCustomerToShopify",
+          "callee": "customerInput",
+          "lineNumber": 87
+        },
+        {
+          "caller": "syncCustomerToShopify",
+          "callee": "await shopifyAdmin",
+          "lineNumber": 90
+        },
+        {
+          "caller": "syncCustomerToShopify",
+          "callee": "assertCustomerMutation",
+          "lineNumber": 106
+        },
+        {
+          "caller": "syncCustomerToShopify",
+          "callee": "await shopifyAdmin",
+          "lineNumber": 112
+        },
+        {
+          "caller": "syncCustomerToShopify",
+          "callee": "assertCustomerMutation",
+          "lineNumber": 128
+        },
+        {
+          "caller": "syncCreditCustomer",
+          "callee": "syncCustomerToShopify",
+          "lineNumber": 145
+        },
+        {
+          "caller": "unsubscribeCustomerEmail",
+          "callee": "await shopifyAdmin",
+          "lineNumber": 164
+        },
+        {
+          "caller": "unsubscribeCustomerEmail",
+          "callee": "await shopifyAdmin",
+          "lineNumber": 184
+        },
+        {
+          "caller": "unsubscribeCustomerEmail",
+          "callee": "new Date().toISOString",
+          "lineNumber": 209
+        },
+        {
+          "caller": "unsubscribeCustomerEmail",
+          "callee": "console.warn",
+          "lineNumber": 216
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/shopify/fragments.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 141,
+      "nonEmptyLines": 139,
+      "exports": [
+        {
+          "name": "PRODUCT_CARD_FRAGMENT",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "PRODUCT_DETAIL_FRAGMENT",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "CART_FRAGMENT",
+          "line": 81,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/shopify/queries.server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 612,
+      "nonEmptyLines": 561,
+      "functions": [
+        {
+          "name": "assertCartMutation",
+          "startLine": 55,
+          "endLine": 63,
+          "params": [
+            "cart",
+            "errors"
+          ]
+        },
+        {
+          "name": "safeExternalUrl",
+          "startLine": 65,
+          "endLine": 73,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "parseResourceLinks",
+          "startLine": 75,
+          "endLine": 106,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "parseProductResource",
+          "startLine": 108,
+          "endLine": 125,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "normalizeTechnicalDetails",
+          "startLine": 127,
+          "endLine": 143,
+          "params": [
+            "product"
+          ]
+        },
+        {
+          "name": "normalizeProduct",
+          "startLine": 145,
+          "endLine": 152,
+          "params": [
+            "product"
+          ]
+        },
+        {
+          "name": "normalizeCollection",
+          "startLine": 154,
+          "endLine": 159,
+          "params": [
+            "collection"
+          ]
+        },
+        {
+          "name": "normalizeCart",
+          "startLine": 161,
+          "endLine": 166,
+          "params": [
+            "cart"
+          ]
+        },
+        {
+          "name": "assertAndNormalizeCart",
+          "startLine": 168,
+          "endLine": 175,
+          "params": [
+            "cart",
+            "errors"
+          ]
+        },
+        {
+          "name": "getCollectionByHandle",
+          "startLine": 177,
+          "endLine": 208,
+          "params": [
+            "handle",
+            "first"
+          ]
+        },
+        {
+          "name": "getProducts",
+          "startLine": 210,
+          "endLine": 228,
+          "params": [
+            "first",
+            "query"
+          ]
+        },
+        {
+          "name": "getProductsWithResources",
+          "startLine": 230,
+          "endLine": 248,
+          "params": [
+            "first"
+          ]
+        },
+        {
+          "name": "getProductsPage",
+          "startLine": 250,
+          "endLine": 266,
+          "params": [
+            "first",
+            "query",
+            "after"
+          ]
+        },
+        {
+          "name": "getProductByHandle",
+          "startLine": 268,
+          "endLine": 284,
+          "params": [
+            "handle"
+          ]
+        },
+        {
+          "name": "getCart",
+          "startLine": 286,
+          "endLine": 300,
+          "params": [
+            "cartId"
+          ]
+        },
+        {
+          "name": "createCart",
+          "startLine": 302,
+          "endLine": 327,
+          "params": [
+            "variantId",
+            "quantity"
+          ]
+        },
+        {
+          "name": "addCartLines",
+          "startLine": 329,
+          "endLine": 354,
+          "params": [
+            "cartId",
+            "variantId",
+            "quantity"
+          ]
+        },
+        {
+          "name": "updateCartLine",
+          "startLine": 356,
+          "endLine": 381,
+          "params": [
+            "cartId",
+            "lineId",
+            "quantity"
+          ]
+        },
+        {
+          "name": "removeCartLine",
+          "startLine": 383,
+          "endLine": 408,
+          "params": [
+            "cartId",
+            "lineId"
+          ]
+        },
+        {
+          "name": "createCustomer",
+          "startLine": 410,
+          "endLine": 435,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "createCustomerAccessToken",
+          "startLine": 437,
+          "endLine": 466,
+          "params": [
+            "input"
+          ]
+        },
+        {
+          "name": "recoverCustomerPassword",
+          "startLine": 468,
+          "endLine": 482,
+          "params": [
+            "email"
+          ]
+        },
+        {
+          "name": "getCustomer",
+          "startLine": 484,
+          "endLine": 525,
+          "params": [
+            "customerAccessToken"
+          ]
+        },
+        {
+          "name": "getCollectionProductsPage",
+          "startLine": 527,
+          "endLine": 553,
+          "params": [
+            "handle",
+            "first",
+            "after"
+          ]
+        },
+        {
+          "name": "getCustomerOrders",
+          "startLine": 555,
+          "endLine": 612,
+          "params": [
+            "customerAccessToken"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getCollectionByHandle",
+          "line": 177,
+          "isDefault": false
+        },
+        {
+          "name": "getProducts",
+          "line": 210,
+          "isDefault": false
+        },
+        {
+          "name": "getProductsWithResources",
+          "line": 230,
+          "isDefault": false
+        },
+        {
+          "name": "getProductsPage",
+          "line": 250,
+          "isDefault": false
+        },
+        {
+          "name": "getProductByHandle",
+          "line": 268,
+          "isDefault": false
+        },
+        {
+          "name": "getCart",
+          "line": 286,
+          "isDefault": false
+        },
+        {
+          "name": "createCart",
+          "line": 302,
+          "isDefault": false
+        },
+        {
+          "name": "addCartLines",
+          "line": 329,
+          "isDefault": false
+        },
+        {
+          "name": "updateCartLine",
+          "line": 356,
+          "isDefault": false
+        },
+        {
+          "name": "removeCartLine",
+          "line": 383,
+          "isDefault": false
+        },
+        {
+          "name": "createCustomer",
+          "line": 410,
+          "isDefault": false
+        },
+        {
+          "name": "createCustomerAccessToken",
+          "line": 437,
+          "isDefault": false
+        },
+        {
+          "name": "recoverCustomerPassword",
+          "line": 468,
+          "isDefault": false
+        },
+        {
+          "name": "getCustomer",
+          "line": 484,
+          "isDefault": false
+        },
+        {
+          "name": "getCollectionProductsPage",
+          "line": 527,
+          "isDefault": false
+        },
+        {
+          "name": "getCustomerOrders",
+          "line": 555,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "assertCartMutation",
+          "callee": "errors.map((error) => error.message).join",
+          "lineNumber": 57
+        },
+        {
+          "caller": "assertCartMutation",
+          "callee": "errors.map",
+          "lineNumber": 57
+        },
+        {
+          "caller": "safeExternalUrl",
+          "callee": "url.toString",
+          "lineNumber": 69
+        },
+        {
+          "caller": "parseResourceLinks",
+          "callee": "JSON.parse",
+          "lineNumber": 79
+        },
+        {
+          "caller": "parseResourceLinks",
+          "callee": "Array.isArray",
+          "lineNumber": 80
+        },
+        {
+          "caller": "parseResourceLinks",
+          "callee": "values\r\n      .map((item, index) => {\r\n        if (typeof item === \"string\") {\r\n          const url = safeExternalUrl(item);\r\n          return url ? { label: `Resource ${index + 1}`, url } : null;\r\n        }\r\n        if (item && typeof item === \"object\") {\r\n          const record = item as Record<string, unknown>;\r\n          const url = typeof record.url === \"string\" ? record.url : \"\";\r\n          const label =\r\n            typeof record.label === \"string\"\r\n              ? record.label\r\n              : typeof record.name === \"string\"\r\n                ? record.name\r\n                : `Resource ${index + 1}`;\r\n          const safeUrl = safeExternalUrl(url);\r\n          return safeUrl ? { label, url: safeUrl } : null;\r\n        }\r\n        return null;\r\n      })\r\n      .filter",
+          "lineNumber": 81
+        },
+        {
+          "caller": "parseResourceLinks",
+          "callee": "values\r\n      .map",
+          "lineNumber": 81
+        },
+        {
+          "caller": "parseResourceLinks",
+          "callee": "safeExternalUrl",
+          "lineNumber": 84
+        },
+        {
+          "caller": "parseResourceLinks",
+          "callee": "safeExternalUrl",
+          "lineNumber": 96
+        },
+        {
+          "caller": "parseResourceLinks",
+          "callee": "Boolean",
+          "lineNumber": 101
+        },
+        {
+          "caller": "parseResourceLinks",
+          "callee": "safeExternalUrl",
+          "lineNumber": 103
+        },
+        {
+          "caller": "parseProductResource",
+          "callee": "JSON.parse",
+          "lineNumber": 111
+        },
+        {
+          "caller": "parseProductResource",
+          "callee": "safeExternalUrl",
+          "lineNumber": 118
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "(product.metafields ?? [])\r\n      .filter((field): field is NonNullable<typeof field> => Boolean(field))\r\n      .map",
+          "lineNumber": 129
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "(product.metafields ?? [])\r\n      .filter",
+          "lineNumber": 129
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "Boolean",
+          "lineNumber": 130
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "metafields.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "metafields.get",
+          "lineNumber": 136
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "safeExternalUrl",
+          "lineNumber": 137
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "metafields.get",
+          "lineNumber": 137
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "parseProductResource",
+          "lineNumber": 138
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "metafields.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "parseProductResource",
+          "lineNumber": 139
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "metafields.get",
+          "lineNumber": 139
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "parseResourceLinks",
+          "lineNumber": 140
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "metafields.get",
+          "lineNumber": 140
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "parseResourceLinks",
+          "lineNumber": 141
+        },
+        {
+          "caller": "normalizeTechnicalDetails",
+          "callee": "metafields.get",
+          "lineNumber": 141
+        },
+        {
+          "caller": "normalizeProduct",
+          "callee": "normalizeTechnicalDetails",
+          "lineNumber": 150
+        },
+        {
+          "caller": "normalizeCollection",
+          "callee": "collection.products.nodes.map",
+          "lineNumber": 157
+        },
+        {
+          "caller": "assertAndNormalizeCart",
+          "callee": "normalizeCart",
+          "lineNumber": 169
+        },
+        {
+          "caller": "assertAndNormalizeCart",
+          "callee": "assertCartMutation",
+          "lineNumber": 170
+        },
+        {
+          "caller": "getCollectionByHandle",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 178
+        },
+        {
+          "caller": "getCollectionByHandle",
+          "callee": "normalizeCollection",
+          "lineNumber": 207
+        },
+        {
+          "caller": "getProducts",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 211
+        },
+        {
+          "caller": "getProducts",
+          "callee": "data.products.nodes.map",
+          "lineNumber": 227
+        },
+        {
+          "caller": "getProductsWithResources",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 231
+        },
+        {
+          "caller": "getProductsWithResources",
+          "callee": "data.products.nodes.map",
+          "lineNumber": 247
+        },
+        {
+          "caller": "getProductsPage",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 251
+        },
+        {
+          "caller": "getProductsPage",
+          "callee": "data.products.nodes.map",
+          "lineNumber": 265
+        },
+        {
+          "caller": "getProductByHandle",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 269
+        },
+        {
+          "caller": "getProductByHandle",
+          "callee": "normalizeProduct",
+          "lineNumber": 283
+        },
+        {
+          "caller": "getCart",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 287
+        },
+        {
+          "caller": "getCart",
+          "callee": "normalizeCart",
+          "lineNumber": 299
+        },
+        {
+          "caller": "createCart",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 303
+        },
+        {
+          "caller": "createCart",
+          "callee": "assertAndNormalizeCart",
+          "lineNumber": 326
+        },
+        {
+          "caller": "addCartLines",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 330
+        },
+        {
+          "caller": "addCartLines",
+          "callee": "assertAndNormalizeCart",
+          "lineNumber": 353
+        },
+        {
+          "caller": "updateCartLine",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 357
+        },
+        {
+          "caller": "updateCartLine",
+          "callee": "assertAndNormalizeCart",
+          "lineNumber": 380
+        },
+        {
+          "caller": "removeCartLine",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 384
+        },
+        {
+          "caller": "removeCartLine",
+          "callee": "assertAndNormalizeCart",
+          "lineNumber": 407
+        },
+        {
+          "caller": "createCustomer",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 411
+        },
+        {
+          "caller": "createCustomerAccessToken",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 438
+        },
+        {
+          "caller": "recoverCustomerPassword",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 469
+        },
+        {
+          "caller": "getCustomer",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 485
+        },
+        {
+          "caller": "getCollectionProductsPage",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 528
+        },
+        {
+          "caller": "getCollectionProductsPage",
+          "callee": "data.collection.products.nodes.map",
+          "lineNumber": 550
+        },
+        {
+          "caller": "getCustomerOrders",
+          "callee": "await shopifyStorefront",
+          "lineNumber": 556
+        },
+        {
+          "caller": "getCustomerOrders",
+          "callee": "(data.customer?.orders.nodes ?? []).map",
+          "lineNumber": 608
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 16,
+        "functionCount": 25,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/shopify/storefront.server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 45,
+      "functions": [
+        {
+          "name": "shopifyStorefront",
+          "startLine": 12,
+          "endLine": 54,
+          "params": [
+            "query",
+            "variables"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "shopifyStorefront",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "shopifyStorefront",
+          "callee": "getServerConfig",
+          "lineNumber": 16
+        },
+        {
+          "caller": "shopifyStorefront",
+          "callee": "fetch",
+          "lineNumber": 29
+        },
+        {
+          "caller": "shopifyStorefront",
+          "callee": "JSON.stringify",
+          "lineNumber": 37
+        },
+        {
+          "caller": "shopifyStorefront",
+          "callee": "response.json",
+          "lineNumber": 40
+        },
+        {
+          "caller": "shopifyStorefront",
+          "callee": "payload.errors?.map((error) => error.message).join",
+          "lineNumber": 44
+        },
+        {
+          "caller": "shopifyStorefront",
+          "callee": "payload.errors?.map",
+          "lineNumber": 44
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/admin/index.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 257,
+      "nonEmptyLines": 244,
+      "functions": [
+        {
+          "name": "AdminDashboardPage",
+          "startLine": 65,
+          "endLine": 257,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 45,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "Route.useLoaderData",
+          "lineNumber": 66
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "Route.useSearch",
+          "lineNumber": 67
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "Route.useNavigate",
+          "lineNumber": 68
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "useState",
+          "lineNumber": 69
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "useState",
+          "lineNumber": 70
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "useState",
+          "lineNumber": 71
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "useEffect",
+          "lineNumber": 73
+        },
+        {
+          "caller": "load",
+          "callee": "setLoading",
+          "lineNumber": 76
+        },
+        {
+          "caller": "load",
+          "callee": "setLoadError",
+          "lineNumber": 77
+        },
+        {
+          "caller": "load",
+          "callee": "listSubmissions",
+          "lineNumber": 79
+        },
+        {
+          "caller": "load",
+          "callee": "setResult",
+          "lineNumber": 87
+        },
+        {
+          "caller": "load",
+          "callee": "setLoadError",
+          "lineNumber": 89
+        },
+        {
+          "caller": "load",
+          "callee": "setLoading",
+          "lineNumber": 91
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "load",
+          "lineNumber": 94
+        },
+        {
+          "caller": "applyFilters",
+          "callee": "event.preventDefault",
+          "lineNumber": 101
+        },
+        {
+          "caller": "applyFilters",
+          "callee": "navigate",
+          "lineNumber": 103
+        },
+        {
+          "caller": "applyFilters",
+          "callee": "String",
+          "lineNumber": 106
+        },
+        {
+          "caller": "applyFilters",
+          "callee": "form.get",
+          "lineNumber": 106
+        },
+        {
+          "caller": "applyFilters",
+          "callee": "String",
+          "lineNumber": 107
+        },
+        {
+          "caller": "applyFilters",
+          "callee": "form.get",
+          "lineNumber": 107
+        },
+        {
+          "caller": "applyFilters",
+          "callee": "String",
+          "lineNumber": 108
+        },
+        {
+          "caller": "applyFilters",
+          "callee": "form.get",
+          "lineNumber": 108
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "Object.entries(STATUS_LABELS).map",
+          "lineNumber": 120
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "Object.entries",
+          "lineNumber": 120
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "Object.entries(TYPE_LABELS).map",
+          "lineNumber": 152
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "Object.entries",
+          "lineNumber": 152
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "Object.entries(STATUS_LABELS).map",
+          "lineNumber": 161
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "Object.entries",
+          "lineNumber": 161
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "items.map",
+          "lineNumber": 200
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "String",
+          "lineNumber": 203
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "new Intl.DateTimeFormat(\"en-GB\", { day: \"2-digit\", month: \"short\", year: \"numeric\", hour: \"2-digit\", minute: \"2-digit\" }).format",
+          "lineNumber": 219
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "navigate",
+          "lineNumber": 238
+        },
+        {
+          "caller": "AdminDashboardPage",
+          "callee": "navigate",
+          "lineNumber": 245
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/admin/login.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 104,
+      "nonEmptyLines": 95,
+      "functions": [
+        {
+          "name": "AdminLoginPage",
+          "startLine": 22,
+          "endLine": 104,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AdminLoginPage",
+          "callee": "useHydrated",
+          "lineNumber": 23
+        },
+        {
+          "caller": "AdminLoginPage",
+          "callee": "useState",
+          "lineNumber": 24
+        },
+        {
+          "caller": "AdminLoginPage",
+          "callee": "useState",
+          "lineNumber": 25
+        },
+        {
+          "caller": "AdminLoginPage",
+          "callee": "useNavigate",
+          "lineNumber": 26
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "event.preventDefault",
+          "lineNumber": 29
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setBusy",
+          "lineNumber": 31
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 32
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "adminLogin",
+          "lineNumber": 35
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "String",
+          "lineNumber": 37
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.get",
+          "lineNumber": 37
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "String",
+          "lineNumber": 38
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 42
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "navigate",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setError",
+          "lineNumber": 47
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setBusy",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/admin/submissions.$id.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 368,
+      "nonEmptyLines": 347,
+      "functions": [
+        {
+          "name": "SubmissionDetailPage",
+          "startLine": 54,
+          "endLine": 359,
+          "params": []
+        },
+        {
+          "name": "DetailRow",
+          "startLine": 361,
+          "endLine": 368,
+          "params": [
+            "{ label, value }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 36,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "useHydrated",
+          "lineNumber": 55
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "Route.useLoaderData",
+          "lineNumber": 56
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "useState",
+          "lineNumber": 57
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "useState",
+          "lineNumber": 58
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "useState",
+          "lineNumber": 59
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "useState",
+          "lineNumber": 60
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "useState",
+          "lineNumber": 61
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "useState",
+          "lineNumber": 62
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "setStatusBusy",
+          "lineNumber": 65
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "setNotice",
+          "lineNumber": 66
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "setSubmissionStatus",
+          "lineNumber": 68
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "setSubmission",
+          "lineNumber": 70
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "setNotice",
+          "lineNumber": 71
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "status.replace",
+          "lineNumber": 71
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "setNotice",
+          "lineNumber": 74
+        },
+        {
+          "caller": "changeStatus",
+          "callee": "setStatusBusy",
+          "lineNumber": 76
+        },
+        {
+          "caller": "markReviewed",
+          "callee": "setStatusBusy",
+          "lineNumber": 81
+        },
+        {
+          "caller": "markReviewed",
+          "callee": "setNotice",
+          "lineNumber": 82
+        },
+        {
+          "caller": "markReviewed",
+          "callee": "markSubmissionReviewed",
+          "lineNumber": 84
+        },
+        {
+          "caller": "markReviewed",
+          "callee": "setSubmission",
+          "lineNumber": 86
+        },
+        {
+          "caller": "markReviewed",
+          "callee": "new Date().toISOString",
+          "lineNumber": 89
+        },
+        {
+          "caller": "markReviewed",
+          "callee": "setNotice",
+          "lineNumber": 91
+        },
+        {
+          "caller": "markReviewed",
+          "callee": "setNotice",
+          "lineNumber": 94
+        },
+        {
+          "caller": "markReviewed",
+          "callee": "setStatusBusy",
+          "lineNumber": 96
+        },
+        {
+          "caller": "addNote",
+          "callee": "event.preventDefault",
+          "lineNumber": 101
+        },
+        {
+          "caller": "addNote",
+          "callee": "String(new FormData(form).get(\"body\") ?? \"\").trim",
+          "lineNumber": 103
+        },
+        {
+          "caller": "addNote",
+          "callee": "String",
+          "lineNumber": 103
+        },
+        {
+          "caller": "addNote",
+          "callee": "new FormData(form).get",
+          "lineNumber": 103
+        },
+        {
+          "caller": "addNote",
+          "callee": "setNoteBusy",
+          "lineNumber": 105
+        },
+        {
+          "caller": "addNote",
+          "callee": "setNotice",
+          "lineNumber": 106
+        },
+        {
+          "caller": "addNote",
+          "callee": "addSubmissionNote",
+          "lineNumber": 108
+        },
+        {
+          "caller": "addNote",
+          "callee": "setSubmission",
+          "lineNumber": 110
+        },
+        {
+          "caller": "addNote",
+          "callee": "Date.now",
+          "lineNumber": 113
+        },
+        {
+          "caller": "addNote",
+          "callee": "new Date().toISOString",
+          "lineNumber": 113
+        },
+        {
+          "caller": "addNote",
+          "callee": "form.reset",
+          "lineNumber": 117
+        },
+        {
+          "caller": "addNote",
+          "callee": "setNotice",
+          "lineNumber": 120
+        },
+        {
+          "caller": "addNote",
+          "callee": "setNoteBusy",
+          "lineNumber": 122
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "Object.entries(submission.payload).filter",
+          "lineNumber": 126
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "Object.entries",
+          "lineNumber": 126
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "String(value).trim",
+          "lineNumber": 127
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "String",
+          "lineNumber": 127
+        },
+        {
+          "caller": "runSync",
+          "callee": "setSyncBusy",
+          "lineNumber": 131
+        },
+        {
+          "caller": "runSync",
+          "callee": "setSyncError",
+          "lineNumber": 132
+        },
+        {
+          "caller": "runSync",
+          "callee": "setNotice",
+          "lineNumber": 133
+        },
+        {
+          "caller": "runSync",
+          "callee": "syncSubmissionToShopify",
+          "lineNumber": 135
+        },
+        {
+          "caller": "runSync",
+          "callee": "setSyncError",
+          "lineNumber": 137
+        },
+        {
+          "caller": "runSync",
+          "callee": "setSubmission",
+          "lineNumber": 140
+        },
+        {
+          "caller": "runSync",
+          "callee": "setNotice",
+          "lineNumber": 146
+        },
+        {
+          "caller": "runSync",
+          "callee": "setSyncError",
+          "lineNumber": 148
+        },
+        {
+          "caller": "runSync",
+          "callee": "setSyncBusy",
+          "lineNumber": 150
+        },
+        {
+          "caller": "viewAttachment",
+          "callee": "getAttachmentDownload",
+          "lineNumber": 155
+        },
+        {
+          "caller": "viewAttachment",
+          "callee": "result.mime.startsWith",
+          "lineNumber": 157
+        },
+        {
+          "caller": "viewAttachment",
+          "callee": "document.createElement",
+          "lineNumber": 158
+        },
+        {
+          "caller": "viewAttachment",
+          "callee": "document.body.appendChild",
+          "lineNumber": 161
+        },
+        {
+          "caller": "viewAttachment",
+          "callee": "link.click",
+          "lineNumber": 162
+        },
+        {
+          "caller": "viewAttachment",
+          "callee": "link.remove",
+          "lineNumber": 163
+        },
+        {
+          "caller": "viewAttachment",
+          "callee": "window.open",
+          "lineNumber": 166
+        },
+        {
+          "caller": "viewAttachment",
+          "callee": "win.document.createElement",
+          "lineNumber": 169
+        },
+        {
+          "caller": "viewAttachment",
+          "callee": "win.document.body.appendChild",
+          "lineNumber": 173
+        },
+        {
+          "caller": "viewAttachment",
+          "callee": "setNotice",
+          "lineNumber": 176
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "new Intl.DateTimeFormat(\"en-GB\", { day: \"2-digit\", month: \"short\", year: \"numeric\", hour: \"2-digit\", minute: \"2-digit\" }).format",
+          "lineNumber": 201
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "payloadEntries.map",
+          "lineNumber": 213
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "String",
+          "lineNumber": 216
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "submission.attachments.map",
+          "lineNumber": 229
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "Math.max",
+          "lineNumber": 236
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "Math.round",
+          "lineNumber": 236
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "viewAttachment",
+          "lineNumber": 241
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "attachment.mime.startsWith",
+          "lineNumber": 244
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "submission.notes.map",
+          "lineNumber": 275
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "new Intl.DateTimeFormat(\"en-GB\", { day: \"2-digit\", month: \"short\", hour: \"2-digit\", minute: \"2-digit\" }).format",
+          "lineNumber": 282
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "submission.status.replace",
+          "lineNumber": 297
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "STATUS_OPTIONS.map",
+          "lineNumber": 300
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "changeStatus",
+          "lineNumber": 304
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "markReviewed",
+          "lineNumber": 318
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "new Intl.DateTimeFormat(\"en-GB\", { day: \"2-digit\", month: \"short\", year: \"numeric\" }).format",
+          "lineNumber": 333
+        },
+        {
+          "caller": "SubmissionDetailPage",
+          "callee": "runSync",
+          "lineNumber": 345
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 108,
+      "nonEmptyLines": 95,
+      "functions": [
+        {
+          "name": "getServerEntry",
+          "startLine": 25,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "normalizeCatastrophicSsrResponse",
+          "startLine": 36,
+          "endLine": 51,
+          "params": [
+            "response"
+          ]
+        },
+        {
+          "name": "withSecurityHeaders",
+          "startLine": 53,
+          "endLine": 64,
+          "params": [
+            "request",
+            "response"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getServerEntry",
+          "callee": "import(\"@tanstack/react-start/server-entry\").then",
+          "lineNumber": 27
+        },
+        {
+          "caller": "getServerEntry",
+          "callee": "import",
+          "lineNumber": 27
+        },
+        {
+          "caller": "normalizeCatastrophicSsrResponse",
+          "callee": "response.headers.get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "normalizeCatastrophicSsrResponse",
+          "callee": "contentType.includes",
+          "lineNumber": 39
+        },
+        {
+          "caller": "normalizeCatastrophicSsrResponse",
+          "callee": "response.clone().text",
+          "lineNumber": 41
+        },
+        {
+          "caller": "normalizeCatastrophicSsrResponse",
+          "callee": "response.clone",
+          "lineNumber": 41
+        },
+        {
+          "caller": "normalizeCatastrophicSsrResponse",
+          "callee": "body.includes",
+          "lineNumber": 42
+        },
+        {
+          "caller": "normalizeCatastrophicSsrResponse",
+          "callee": "body.includes",
+          "lineNumber": 42
+        },
+        {
+          "caller": "normalizeCatastrophicSsrResponse",
+          "callee": "console.error",
+          "lineNumber": 46
+        },
+        {
+          "caller": "normalizeCatastrophicSsrResponse",
+          "callee": "consumeLastCapturedError",
+          "lineNumber": 46
+        },
+        {
+          "caller": "normalizeCatastrophicSsrResponse",
+          "callee": "renderErrorPage",
+          "lineNumber": 47
+        },
+        {
+          "caller": "withSecurityHeaders",
+          "callee": "headers.set",
+          "lineNumber": 55
+        },
+        {
+          "caller": "withSecurityHeaders",
+          "callee": "headers.set",
+          "lineNumber": 56
+        },
+        {
+          "caller": "withSecurityHeaders",
+          "callee": "headers.set",
+          "lineNumber": 57
+        },
+        {
+          "caller": "withSecurityHeaders",
+          "callee": "headers.set",
+          "lineNumber": 58
+        },
+        {
+          "caller": "withSecurityHeaders",
+          "callee": "headers.set",
+          "lineNumber": 59
+        },
+        {
+          "caller": "withSecurityHeaders",
+          "callee": "new URL(request.url).pathname.startsWith",
+          "lineNumber": 60
+        },
+        {
+          "caller": "withSecurityHeaders",
+          "callee": "headers.set",
+          "lineNumber": 61
+        },
+        {
+          "caller": "fetch",
+          "callee": "getDb().execute",
+          "lineNumber": 82
+        },
+        {
+          "caller": "fetch",
+          "callee": "getDb",
+          "lineNumber": 82
+        },
+        {
+          "caller": "fetch",
+          "callee": "sql",
+          "lineNumber": 82
+        },
+        {
+          "caller": "fetch",
+          "callee": "console.error",
+          "lineNumber": 88
+        },
+        {
+          "caller": "fetch",
+          "callee": "getServerEntry",
+          "lineNumber": 97
+        },
+        {
+          "caller": "fetch",
+          "callee": "handler.fetch",
+          "lineNumber": 98
+        },
+        {
+          "caller": "fetch",
+          "callee": "withSecurityHeaders",
+          "lineNumber": 99
+        },
+        {
+          "caller": "fetch",
+          "callee": "normalizeCatastrophicSsrResponse",
+          "lineNumber": 99
+        },
+        {
+          "caller": "fetch",
+          "callee": "console.error",
+          "lineNumber": 101
+        },
+        {
+          "caller": "fetch",
+          "callee": "renderErrorPage",
+          "lineNumber": 102
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/start.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 22,
+      "exports": [
+        {
+          "name": "startInstance",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/customer-sync.spec.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 61,
+      "functions": [
+        {
+          "name": "response",
+          "startLine": 20,
+          "endLine": 25,
+          "params": [
+            "data"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "response",
+          "callee": "JSON.stringify",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/unit/rate-limit.spec.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 10,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

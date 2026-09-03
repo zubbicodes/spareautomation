@@ -1,0 +1,1323 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/components/ui/accordion.tsx",
+      "type": "file",
+      "name": "accordion.tsx",
+      "filePath": "src/components/ui/accordion.tsx",
+      "summary": "Composable accessible accordion primitives for collapsible content sections.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "accordion"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/alert-dialog.tsx",
+      "type": "file",
+      "name": "alert-dialog.tsx",
+      "filePath": "src/components/ui/alert-dialog.tsx",
+      "summary": "Accessible modal confirmation primitives with structured header, body, action, and cancellation areas.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "alert-dialog"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/alert-dialog.tsx:AlertDialogHeader",
+      "type": "function",
+      "name": "AlertDialogHeader",
+      "filePath": "src/components/ui/alert-dialog.tsx",
+      "lineRange": [
+        46,
+        48
+      ],
+      "summary": "Renders the alert dialog header UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/alert-dialog.tsx:AlertDialogFooter",
+      "type": "function",
+      "name": "AlertDialogFooter",
+      "filePath": "src/components/ui/alert-dialog.tsx",
+      "lineRange": [
+        51,
+        56
+      ],
+      "summary": "Renders the alert dialog footer UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/alert.tsx",
+      "type": "file",
+      "name": "alert.tsx",
+      "filePath": "src/components/ui/alert.tsx",
+      "summary": "Styled alert container and description primitives for status and warning messages.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "alert"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/avatar.tsx",
+      "type": "file",
+      "name": "avatar.tsx",
+      "filePath": "src/components/ui/avatar.tsx",
+      "summary": "Avatar image and fallback primitives for user identity presentation.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "avatar"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/badge.tsx",
+      "type": "file",
+      "name": "badge.tsx",
+      "filePath": "src/components/ui/badge.tsx",
+      "summary": "Variant-aware badge primitive for compact labels and statuses.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "badge"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/badge.tsx:Badge",
+      "type": "function",
+      "name": "Badge",
+      "filePath": "src/components/ui/badge.tsx",
+      "lineRange": [
+        28,
+        30
+      ],
+      "summary": "Renders the badge UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/breadcrumb.tsx",
+      "type": "file",
+      "name": "breadcrumb.tsx",
+      "filePath": "src/components/ui/breadcrumb.tsx",
+      "summary": "Accessible breadcrumb navigation primitives with separators, current-page state, and overflow indication.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "breadcrumb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/breadcrumb.tsx:BreadcrumbSeparator",
+      "type": "function",
+      "name": "BreadcrumbSeparator",
+      "filePath": "src/components/ui/breadcrumb.tsx",
+      "lineRange": [
+        68,
+        77
+      ],
+      "summary": "Renders the breadcrumb separator UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/breadcrumb.tsx:BreadcrumbEllipsis",
+      "type": "function",
+      "name": "BreadcrumbEllipsis",
+      "filePath": "src/components/ui/breadcrumb.tsx",
+      "lineRange": [
+        80,
+        90
+      ],
+      "summary": "Renders the breadcrumb ellipsis UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/button.tsx",
+      "type": "file",
+      "name": "button.tsx",
+      "filePath": "src/components/ui/button.tsx",
+      "summary": "Variant and size-aware button primitive supporting composition through Radix Slot.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "button"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/calendar.tsx",
+      "type": "file",
+      "name": "calendar.tsx",
+      "filePath": "src/components/ui/calendar.tsx",
+      "summary": "Styled calendar and day-button primitives built around react-day-picker with range and navigation support.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "calendar"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/calendar.tsx:Calendar",
+      "type": "function",
+      "name": "Calendar",
+      "filePath": "src/components/ui/calendar.tsx",
+      "lineRange": [
+        10,
+        137
+      ],
+      "summary": "Renders the calendar UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/calendar.tsx:CalendarDayButton",
+      "type": "function",
+      "name": "CalendarDayButton",
+      "filePath": "src/components/ui/calendar.tsx",
+      "lineRange": [
+        139,
+        175
+      ],
+      "summary": "Renders the calendar day button UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/card.tsx",
+      "type": "file",
+      "name": "card.tsx",
+      "filePath": "src/components/ui/card.tsx",
+      "summary": "Card container primitives for consistently structured headers, content, descriptions, and footers.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "card"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/carousel.tsx",
+      "type": "file",
+      "name": "carousel.tsx",
+      "filePath": "src/components/ui/carousel.tsx",
+      "summary": "Accessible carousel primitives backed by Embla, including orientation, keyboard navigation, controls, and context.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "carousel"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/components/ui/chart.tsx",
+      "type": "file",
+      "name": "chart.tsx",
+      "filePath": "src/components/ui/chart.tsx",
+      "summary": "Recharts composition helpers providing themed colors, responsive containers, tooltips, legends, and payload-to-series configuration.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "chart"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/components/ui/chart.tsx:ChartStyle",
+      "type": "function",
+      "name": "ChartStyle",
+      "filePath": "src/components/ui/chart.tsx",
+      "lineRange": [
+        64,
+        91
+      ],
+      "summary": "Renders the chart style UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/chart.tsx:getPayloadConfigFromPayload",
+      "type": "function",
+      "name": "getPayloadConfigFromPayload",
+      "filePath": "src/components/ui/chart.tsx",
+      "lineRange": [
+        299,
+        322
+      ],
+      "summary": "Retrieves payload config from payload for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/checkbox.tsx",
+      "type": "file",
+      "name": "checkbox.tsx",
+      "filePath": "src/components/ui/checkbox.tsx",
+      "summary": "Accessible checkbox primitive with checked-state icon and project styling.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "checkbox"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/command.tsx",
+      "type": "file",
+      "name": "command.tsx",
+      "filePath": "src/components/ui/command.tsx",
+      "summary": "Command palette primitives for searchable actions, dialogs, grouped results, empty states, and shortcuts.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "command"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/command.tsx:CommandDialog",
+      "type": "function",
+      "name": "CommandDialog",
+      "filePath": "src/components/ui/command.tsx",
+      "lineRange": [
+        26,
+        36
+      ],
+      "summary": "Renders the command dialog UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/command.tsx:CommandShortcut",
+      "type": "function",
+      "name": "CommandShortcut",
+      "filePath": "src/components/ui/command.tsx",
+      "lineRange": [
+        123,
+        130
+      ],
+      "summary": "Renders the command shortcut UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/context-menu.tsx",
+      "type": "file",
+      "name": "context-menu.tsx",
+      "filePath": "src/components/ui/context-menu.tsx",
+      "summary": "Accessible context-menu primitives for items, submenus, radio/checkbox choices, labels, separators, and shortcuts.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "context-menu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/context-menu.tsx:ContextMenuShortcut",
+      "type": "function",
+      "name": "ContextMenuShortcut",
+      "filePath": "src/components/ui/context-menu.tsx",
+      "lineRange": [
+        161,
+        168
+      ],
+      "summary": "Renders the context menu shortcut UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/dialog.tsx",
+      "type": "file",
+      "name": "dialog.tsx",
+      "filePath": "src/components/ui/dialog.tsx",
+      "summary": "Accessible dialog primitives with overlay, close control, structured header/footer, title, and description.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "dialog"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/dialog.tsx:DialogHeader",
+      "type": "function",
+      "name": "DialogHeader",
+      "filePath": "src/components/ui/dialog.tsx",
+      "lineRange": [
+        56,
+        58
+      ],
+      "summary": "Renders the dialog header UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/dialog.tsx:DialogFooter",
+      "type": "function",
+      "name": "DialogFooter",
+      "filePath": "src/components/ui/dialog.tsx",
+      "lineRange": [
+        61,
+        66
+      ],
+      "summary": "Renders the dialog footer UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/drawer.tsx",
+      "type": "file",
+      "name": "drawer.tsx",
+      "filePath": "src/components/ui/drawer.tsx",
+      "summary": "Responsive drawer primitives with optional background scaling and structured content areas.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "drawer"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/drawer.tsx:Drawer",
+      "type": "function",
+      "name": "Drawer",
+      "filePath": "src/components/ui/drawer.tsx",
+      "lineRange": [
+        6,
+        11
+      ],
+      "summary": "Renders the drawer UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/drawer.tsx:DrawerHeader",
+      "type": "function",
+      "name": "DrawerHeader",
+      "filePath": "src/components/ui/drawer.tsx",
+      "lineRange": [
+        53,
+        55
+      ],
+      "summary": "Renders the drawer header UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/drawer.tsx:DrawerFooter",
+      "type": "function",
+      "name": "DrawerFooter",
+      "filePath": "src/components/ui/drawer.tsx",
+      "lineRange": [
+        58,
+        60
+      ],
+      "summary": "Renders the drawer footer UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/dropdown-menu.tsx",
+      "type": "file",
+      "name": "dropdown-menu.tsx",
+      "filePath": "src/components/ui/dropdown-menu.tsx",
+      "summary": "Accessible dropdown-menu primitives for items, submenus, selectable choices, labels, separators, and shortcuts.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "dropdown-menu"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/dropdown-menu.tsx:DropdownMenuShortcut",
+      "type": "function",
+      "name": "DropdownMenuShortcut",
+      "filePath": "src/components/ui/dropdown-menu.tsx",
+      "lineRange": [
+        165,
+        169
+      ],
+      "summary": "Renders the dropdown menu shortcut UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/form.tsx",
+      "type": "file",
+      "name": "form.tsx",
+      "filePath": "src/components/ui/form.tsx",
+      "summary": "React Hook Form integration primitives that connect field state, labels, controls, descriptions, and accessible error messages.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/components/ui/form.tsx:FormField",
+      "type": "function",
+      "name": "FormField",
+      "filePath": "src/components/ui/form.tsx",
+      "lineRange": [
+        27,
+        38
+      ],
+      "summary": "Renders the form field UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/form.tsx:useFormField",
+      "type": "function",
+      "name": "useFormField",
+      "filePath": "src/components/ui/form.tsx",
+      "lineRange": [
+        40,
+        65
+      ],
+      "summary": "Exposes the use form field React hook and enforces the context or lifecycle assumptions required by consumers.",
+      "tags": [
+        "hook",
+        "react",
+        "state"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/hover-card.tsx",
+      "type": "file",
+      "name": "hover-card.tsx",
+      "filePath": "src/components/ui/hover-card.tsx",
+      "summary": "Accessible hover-card trigger and content primitives for contextual previews.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "hover-card"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/input-otp.tsx",
+      "type": "file",
+      "name": "input-otp.tsx",
+      "filePath": "src/components/ui/input-otp.tsx",
+      "summary": "One-time-password input primitives with grouped slots, caret rendering, and separators.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "input-otp"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/ui/input.tsx",
+      "type": "file",
+      "name": "input.tsx",
+      "filePath": "src/components/ui/input.tsx",
+      "summary": "Consistently styled native input primitive with focus, invalid, file, and disabled states.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "input"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/label.tsx",
+      "type": "file",
+      "name": "label.tsx",
+      "filePath": "src/components/ui/label.tsx",
+      "summary": "Accessible styled label primitive built on Radix Label.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "label"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/components/ui/menubar.tsx",
+      "type": "file",
+      "name": "menubar.tsx",
+      "filePath": "src/components/ui/menubar.tsx",
+      "summary": "Accessible menubar primitives supporting menus, submenus, radio/checkbox choices, shortcuts, labels, and separators.",
+      "tags": [
+        "component",
+        "ui-primitive",
+        "accessibility",
+        "menubar"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/components/ui/menubar.tsx:MenubarMenu",
+      "type": "function",
+      "name": "MenubarMenu",
+      "filePath": "src/components/ui/menubar.tsx",
+      "lineRange": [
+        7,
+        9
+      ],
+      "summary": "Renders the menubar menu UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/menubar.tsx:MenubarGroup",
+      "type": "function",
+      "name": "MenubarGroup",
+      "filePath": "src/components/ui/menubar.tsx",
+      "lineRange": [
+        11,
+        13
+      ],
+      "summary": "Renders the menubar group UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/menubar.tsx:MenubarPortal",
+      "type": "function",
+      "name": "MenubarPortal",
+      "filePath": "src/components/ui/menubar.tsx",
+      "lineRange": [
+        15,
+        17
+      ],
+      "summary": "Renders the menubar portal UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/menubar.tsx:MenubarRadioGroup",
+      "type": "function",
+      "name": "MenubarRadioGroup",
+      "filePath": "src/components/ui/menubar.tsx",
+      "lineRange": [
+        19,
+        21
+      ],
+      "summary": "Renders the menubar radio group UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/menubar.tsx:MenubarSub",
+      "type": "function",
+      "name": "MenubarSub",
+      "filePath": "src/components/ui/menubar.tsx",
+      "lineRange": [
+        23,
+        25
+      ],
+      "summary": "Renders the menubar sub UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/components/ui/menubar.tsx:MenubarShortcut",
+      "type": "function",
+      "name": "MenubarShortcut",
+      "filePath": "src/components/ui/menubar.tsx",
+      "lineRange": [
+        202,
+        209
+      ],
+      "summary": "Renders the menubar shortcut UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/components/ui/accordion.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/alert-dialog.tsx",
+      "target": "file:src/components/ui/button.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/alert-dialog.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/alert-dialog.tsx",
+      "target": "function:src/components/ui/alert-dialog.tsx:AlertDialogHeader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/alert-dialog.tsx",
+      "target": "function:src/components/ui/alert-dialog.tsx:AlertDialogHeader",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/alert-dialog.tsx",
+      "target": "function:src/components/ui/alert-dialog.tsx:AlertDialogFooter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/alert-dialog.tsx",
+      "target": "function:src/components/ui/alert-dialog.tsx:AlertDialogFooter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/alert.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/avatar.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/badge.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/badge.tsx",
+      "target": "function:src/components/ui/badge.tsx:Badge",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/badge.tsx",
+      "target": "function:src/components/ui/badge.tsx:Badge",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/breadcrumb.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/breadcrumb.tsx",
+      "target": "function:src/components/ui/breadcrumb.tsx:BreadcrumbSeparator",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/breadcrumb.tsx",
+      "target": "function:src/components/ui/breadcrumb.tsx:BreadcrumbSeparator",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/breadcrumb.tsx",
+      "target": "function:src/components/ui/breadcrumb.tsx:BreadcrumbEllipsis",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/breadcrumb.tsx",
+      "target": "function:src/components/ui/breadcrumb.tsx:BreadcrumbEllipsis",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/button.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/calendar.tsx",
+      "target": "file:src/components/ui/button.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/calendar.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/calendar.tsx",
+      "target": "function:src/components/ui/calendar.tsx:Calendar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/calendar.tsx",
+      "target": "function:src/components/ui/calendar.tsx:Calendar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/calendar.tsx",
+      "target": "function:src/components/ui/calendar.tsx:CalendarDayButton",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/calendar.tsx",
+      "target": "function:src/components/ui/calendar.tsx:CalendarDayButton",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/card.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/carousel.tsx",
+      "target": "file:src/components/ui/button.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/carousel.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/chart.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/chart.tsx",
+      "target": "function:src/components/ui/chart.tsx:ChartStyle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/chart.tsx",
+      "target": "function:src/components/ui/chart.tsx:ChartStyle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/chart.tsx",
+      "target": "function:src/components/ui/chart.tsx:getPayloadConfigFromPayload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/checkbox.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/command.tsx",
+      "target": "file:src/components/ui/dialog.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/command.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/command.tsx",
+      "target": "function:src/components/ui/command.tsx:CommandDialog",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/command.tsx",
+      "target": "function:src/components/ui/command.tsx:CommandDialog",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/command.tsx",
+      "target": "function:src/components/ui/command.tsx:CommandShortcut",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/command.tsx",
+      "target": "function:src/components/ui/command.tsx:CommandShortcut",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/context-menu.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/context-menu.tsx",
+      "target": "function:src/components/ui/context-menu.tsx:ContextMenuShortcut",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/context-menu.tsx",
+      "target": "function:src/components/ui/context-menu.tsx:ContextMenuShortcut",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/dialog.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/dialog.tsx",
+      "target": "function:src/components/ui/dialog.tsx:DialogHeader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/dialog.tsx",
+      "target": "function:src/components/ui/dialog.tsx:DialogHeader",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/dialog.tsx",
+      "target": "function:src/components/ui/dialog.tsx:DialogFooter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/dialog.tsx",
+      "target": "function:src/components/ui/dialog.tsx:DialogFooter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/drawer.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/drawer.tsx",
+      "target": "function:src/components/ui/drawer.tsx:Drawer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/drawer.tsx",
+      "target": "function:src/components/ui/drawer.tsx:Drawer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/drawer.tsx",
+      "target": "function:src/components/ui/drawer.tsx:DrawerHeader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/drawer.tsx",
+      "target": "function:src/components/ui/drawer.tsx:DrawerHeader",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/drawer.tsx",
+      "target": "function:src/components/ui/drawer.tsx:DrawerFooter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/drawer.tsx",
+      "target": "function:src/components/ui/drawer.tsx:DrawerFooter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/dropdown-menu.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/dropdown-menu.tsx",
+      "target": "function:src/components/ui/dropdown-menu.tsx:DropdownMenuShortcut",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/dropdown-menu.tsx",
+      "target": "function:src/components/ui/dropdown-menu.tsx:DropdownMenuShortcut",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/form.tsx",
+      "target": "file:src/components/ui/label.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/form.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/form.tsx",
+      "target": "function:src/components/ui/form.tsx:FormField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/form.tsx",
+      "target": "function:src/components/ui/form.tsx:FormField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/form.tsx",
+      "target": "function:src/components/ui/form.tsx:useFormField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/form.tsx",
+      "target": "function:src/components/ui/form.tsx:useFormField",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/hover-card.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/input-otp.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/input.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/label.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "file:src/lib/utils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarMenu",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarMenu",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarGroup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarGroup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarPortal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarPortal",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarRadioGroup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarRadioGroup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarSub",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarSub",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarShortcut",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/components/ui/menubar.tsx",
+      "target": "function:src/components/ui/menubar.tsx:MenubarShortcut",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

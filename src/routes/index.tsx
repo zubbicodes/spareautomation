@@ -20,22 +20,25 @@ import catPacking from "@/assets/packing machines pic.jpg";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { submitPartInquiry, uploadPartInquiryPhoto } from "@/lib/api/cms.functions";
-import { getCatalogueSearch } from "@/lib/catalog";
+import { getCatalogueSearch, getCatalogCategory } from "@/lib/catalog";
 import { useHydrated } from "@/hooks/use-hydrated";
-import { SITE, whatsappHref } from "@/lib/site";
+import { SITE } from "@/lib/site";
+import { useContent } from "@/lib/content/ContentContext";
+import { getPublishedContent } from "@/lib/content/content.functions";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
+  loader: async () => getPublishedContent(),
+  head: ({ loaderData }) => ({
     meta: [
-      { title: "Spares Automation - Industrial Parts & Automation Spares" },
+      { title: loaderData?.home.seo.title ?? "Spares Automation - Industrial Parts & Automation Spares" },
       {
         name: "description",
-        content: "Browse product ranges, request quotes, and find support from Spares Automation.",
+        content: loaderData?.home.seo.description ?? "Browse product ranges, request quotes, and find support from Spares Automation.",
       },
-      { property: "og:title", content: "Spares Automation" },
-      { property: "og:description", content: "Industrial parts and automation support." },
+      { property: "og:title", content: loaderData?.home.seo.title ?? "Spares Automation" },
+      { property: "og:description", content: loaderData?.home.seo.description ?? "Industrial parts and automation support." },
     ],
-    links: [{ rel: "canonical", href: SITE.url }],
+    links: [{ rel: "canonical", href: loaderData?.site.url ?? SITE.url }],
   }),
   component: Home,
 });
@@ -117,7 +120,13 @@ function HeroTitle({ title, accent }: { title: string; accent: "accent" | "amber
   );
 }
 
-function Home() {
+export function Home() {
+  const content = useContent();
+  const presentation = new Map(content.catalogue.categories.map((category) => [category.handle, category]));
+  const managedTitle = (handle: string, fallback: string) => { const managed = presentation.get(handle); return managed?.label !== getCatalogCategory(handle)?.label ? (managed?.label ?? fallback) : fallback; };
+  const withPresentation = <T extends { category: string; title: string; img: string }>(item: T) => { const managed = presentation.get(item.category); return { ...item, title: managedTitle(item.category, item.title), img: managed?.mediaId ? `/content-media/${managed.mediaId}/image` : item.img, managedAlt: managed?.mediaId ? (managed.mediaAlt || managed.label) : "" }; };
+  const displayedPrimaryRanges = primaryRanges.filter((range) => presentation.get(range.category)?.visible !== false).map(withPresentation);
+  const displayedCategories = categories.filter((category) => presentation.get(category.category)?.visible !== false).map(withPresentation);
   const hydrated = useHydrated();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -169,17 +178,17 @@ function Home() {
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
       <main id="main-content">
-        <h1 className="sr-only">Industrial parts and automation spares</h1>
+        <h1 className="sr-only">{content.home.title}</h1>
         <section className="grid w-full min-w-0 grid-cols-1 md:grid-cols-2">
-          {primaryRanges.map((range, index) => (
+          {displayedPrimaryRanges.map((range, index) => (
             <article
               key={range.title}
               className="hero-range group relative flex min-h-[390px] items-stretch overflow-hidden border-b border-rule md:min-h-[460px]"
             >
               <img
                 src={range.img}
-                alt=""
-                aria-hidden="true"
+                alt={range.managedAlt}
+                aria-hidden={range.managedAlt ? undefined : "true"}
                 width={1600}
                 height={1000}
                 fetchPriority={index === 0 ? "high" : "auto"}
@@ -246,7 +255,7 @@ function Home() {
         </section>
 
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          {categories.map((category) => (
+          {displayedCategories.map((category) => (
             <Link
               key={category.title}
               to="/products"
@@ -256,8 +265,8 @@ function Home() {
               <div className="relative flex-1 overflow-hidden bg-[oklch(0.96_0.005_250)]">
                 <img
                   src={category.img}
-                  alt=""
-                  aria-hidden="true"
+                  alt={category.managedAlt}
+                  aria-hidden={category.managedAlt ? undefined : "true"}
                   width={1200}
                   height={900}
                   loading="lazy"
@@ -288,10 +297,10 @@ function Home() {
                 </span>
                 <span>
                   <span className="block font-display text-lg font-bold uppercase tracking-tight">
-                    PDFs & Manuals
+                    {content.home.resourceTitle}
                   </span>
                   <span className="mt-1 block text-sm text-ink-muted">
-                    Request datasheets, guides, and technical documents.
+                    {content.home.resourceCopy}
                   </span>
                 </span>
               </span>
@@ -323,10 +332,10 @@ function Home() {
           <div className="mx-auto max-w-[1600px] px-4 md:px-6 lg:px-10">
             <div className="mb-8 text-center">
               <h2 className="font-display text-2xl font-extrabold uppercase tracking-tight text-white md:text-3xl">
-                Need help finding a part?
+                {content.home.finderTitle}
               </h2>
               <p className="mx-auto mt-2 max-w-4xl font-display text-lg font-bold uppercase tracking-tight text-white/85 md:text-2xl">
-                Send a part number or product description.
+                {content.home.finderCopy}
               </p>
             </div>
 
@@ -337,9 +346,9 @@ function Home() {
                   className="border border-accent/40 bg-accent/10 p-6 text-sm leading-6 text-white"
                 >
                   <CheckCircle2 aria-hidden="true" className="mr-2 inline h-5 w-5 text-accent" />
-                  Thank you. Your part request has been received and our reference is{" "}
-                  <strong className="font-semibold">{reference}</strong>. The sales desk will reply
-                  by email shortly.
+                  {content.messages["part.successBeforeReference"]}{" "}
+                  <strong className="font-semibold">{reference}</strong>.{" "}
+                  {content.messages["part.successAfterReference"]}
                   {photoError ? (
                     <span className="mt-2 block text-red-200">Note: {photoError}</span>
                   ) : null}
@@ -361,14 +370,14 @@ function Home() {
                           htmlFor="part-name"
                           className="font-mono text-xs uppercase tracking-[0.2em] text-white/75 block mb-2"
                         >
-                          Your name
+                          {content.messages["part.nameLabel"]}
                         </label>
                         <input
                           id="part-name"
                           name="name"
                           type="text"
                           autoComplete="name"
-                          placeholder="Full name"
+                          placeholder={content.messages["part.namePlaceholder"]}
                           className="h-12 w-full border border-white/20 bg-white/10 px-4 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                         />
                       </div>
@@ -377,7 +386,7 @@ function Home() {
                           htmlFor="part-email"
                           className="font-mono text-xs uppercase tracking-[0.2em] text-white/75 block mb-2"
                         >
-                          Email
+                          {content.messages["part.emailLabel"]}
                         </label>
                         <input
                           id="part-email"
@@ -385,7 +394,7 @@ function Home() {
                           type="email"
                           autoComplete="email"
                           required
-                          placeholder="you@company.co.uk"
+                          placeholder={content.messages["part.emailPlaceholder"]}
                           className="h-12 w-full border border-white/20 bg-white/10 px-4 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                         />
                       </div>
@@ -395,14 +404,14 @@ function Home() {
                         htmlFor="part-number"
                         className="font-mono text-xs uppercase tracking-[0.2em] text-white/75 block mb-2"
                       >
-                        Part Number
+                        {content.messages["part.numberLabel"]}
                       </label>
                       <input
                         id="part-number"
                         name="partNumber"
                         type="text"
                         required
-                        placeholder="Enter part number here..."
+                        placeholder={content.messages["part.numberPlaceholder"]}
                         className="h-12 w-full border border-white/20 bg-white/10 px-4 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                       />
                     </div>
@@ -411,13 +420,13 @@ function Home() {
                         htmlFor="part-description"
                         className="font-mono text-xs uppercase tracking-[0.2em] text-white/75 block mb-2"
                       >
-                        Description
+                        {content.messages["part.descriptionLabel"]}
                       </label>
                       <textarea
                         id="part-description"
                         name="description"
                         rows={3}
-                        placeholder="Describe the part you need..."
+                        placeholder={content.messages["part.descriptionPlaceholder"]}
                         className="w-full resize-y border border-white/20 bg-white/10 px-4 py-3 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                       />
                     </div>
@@ -426,7 +435,7 @@ function Home() {
                         htmlFor="part-photo"
                         className="font-mono text-xs uppercase tracking-[0.2em] text-white/75 block mb-2"
                       >
-                        Photo (optional)
+                        {content.messages["part.photoLabel"]}
                       </label>
                       <div className="flex items-center gap-3 border border-white/20 bg-white/10 px-4 py-3">
                         <Paperclip aria-hidden="true" className="h-4 w-4 shrink-0 text-white/50" />
@@ -438,7 +447,7 @@ function Home() {
                           className="w-full text-sm text-white/80 file:mr-3 file:border-0 file:bg-accent file:px-3 file:py-1.5 file:font-mono file:text-[10px] file:font-bold file:uppercase file:tracking-[0.14em] file:text-white"
                         />
                       </div>
-                      <p className="mt-1 text-xs text-white/45">JPG, PNG or WebP, up to 8 MB.</p>
+                      <p className="mt-1 text-xs text-white/45">{content.messages["part.photoHelp"]}</p>
                     </div>
                   </div>
                   {error ? (
@@ -456,7 +465,7 @@ function Home() {
                   >
                     <Send className="h-4 w-4" />
                     <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em]">
-                      {busy ? "Sending" : "Submit Request"}
+                      {busy ? content.messages["part.sending"] : content.home.finderSubmit}
                     </span>
                   </button>
                 </form>
@@ -464,18 +473,17 @@ function Home() {
 
               <div className="border border-white/10 bg-white/[0.035] p-4 sm:p-5 md:p-6">
                 <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
-                  Other contact options
+                  {content.home.contactTitle}
                 </div>
                 <h3 className="mt-2 font-display text-lg font-bold text-white">
                   Contact the sales desk directly
                 </h3>
                 <p className="mt-2 text-sm leading-6 text-white/65">
-                  Email for detailed enquiries or use WhatsApp when you need to send a product
-                  photo.
+                  {content.home.contactCopy}
                 </p>
                 <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                   <a
-                    href={`mailto:${SITE.email}`}
+                    href={`mailto:${content.site.email}`}
                     className="flex h-11 items-center justify-center gap-2 border border-accent bg-accent px-4 text-accent-foreground transition-colors hover:bg-accent/90"
                   >
                     <Mail className="h-4 w-4 shrink-0" />
@@ -484,7 +492,7 @@ function Home() {
                     </span>
                   </a>
                   <a
-                    href={whatsappHref("Hello Spares Automation, I need help identifying a part.")}
+                    href={`https://wa.me/${content.site.whatsapp}?text=${encodeURIComponent(`Hello ${content.site.name}, I need help identifying a part.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-11 items-center justify-center gap-2 border border-[#25D366] bg-[#25D366] px-4 text-charcoal-deep transition-colors hover:bg-[#25D366]/85"

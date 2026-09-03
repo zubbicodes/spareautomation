@@ -1,0 +1,72 @@
+{
+  "nodes": [
+    {
+      "id": "file:drizzle/0000_smiling_slyde.sql",
+      "type": "file",
+      "name": "0000_smiling_slyde.sql",
+      "filePath": "drizzle/0000_smiling_slyde.sql",
+      "summary": "Initial PostgreSQL migration defining CMS staff roles, submission statuses and types, attachments, staff users, submission notes, submissions, their foreign keys, and query indexes.",
+      "tags": ["database", "migration", "postgresql", "cms", "schema-definition"],
+      "complexity": "moderate",
+      "languageNotes": "Uses PostgreSQL enums, identity primary keys, JSONB payloads, timestamp-with-time-zone audit fields, cascading attachment cleanup, and composite indexes."
+    },
+    {
+      "id": "table:drizzle/0000_smiling_slyde.sql:attachments",
+      "type": "table",
+      "name": "attachments",
+      "summary": "Stores uploaded submission attachments with ownership, original file metadata, storage path, and creation time.",
+      "tags": ["database", "attachments", "uploads", "cms"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:drizzle/0000_smiling_slyde.sql:staff_users",
+      "type": "table",
+      "name": "staff_users",
+      "summary": "Stores CMS staff identities, unique email addresses, password hashes, display names, roles, and account creation timestamps.",
+      "tags": ["database", "authentication", "staff", "cms"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:drizzle/0000_smiling_slyde.sql:submission_notes",
+      "type": "table",
+      "name": "submission_notes",
+      "summary": "Stores staff-authored notes associated with customer submissions and optionally records the staff author.",
+      "tags": ["database", "notes", "submissions", "cms"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:drizzle/0000_smiling_slyde.sql:submissions",
+      "type": "table",
+      "name": "submissions",
+      "summary": "Central CMS work queue for customer requests, storing typed JSON payloads, workflow status, contact details, references, Shopify synchronization state, reviewer audit fields, and timestamps.",
+      "tags": ["database", "submissions", "workflow", "shopify", "cms"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:drizzle/0001_curly_banshee.sql",
+      "type": "file",
+      "name": "0001_curly_banshee.sql",
+      "filePath": "drizzle/0001_curly_banshee.sql",
+      "summary": "Adds a created_by_staff reference to submissions so staff-created records can retain their originating CMS user.",
+      "tags": ["database", "migration", "postgresql", "audit-trail"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:drizzle/0002_add_return_request.sql",
+      "type": "file",
+      "name": "0002_add_return_request.sql",
+      "filePath": "drizzle/0002_add_return_request.sql",
+      "summary": "Rebuilds the submission_type PostgreSQL enum to add return_request while removing the obsolete trade_account value, converting the submissions column through text during the change.",
+      "tags": ["database", "migration", "postgresql", "returns", "schema-evolution"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {"source": "file:drizzle/0000_smiling_slyde.sql", "target": "table:drizzle/0000_smiling_slyde.sql:attachments", "type": "migrates", "direction": "forward", "weight": 0.7},
+    {"source": "file:drizzle/0000_smiling_slyde.sql", "target": "table:drizzle/0000_smiling_slyde.sql:staff_users", "type": "migrates", "direction": "forward", "weight": 0.7},
+    {"source": "file:drizzle/0000_smiling_slyde.sql", "target": "table:drizzle/0000_smiling_slyde.sql:submission_notes", "type": "migrates", "direction": "forward", "weight": 0.7},
+    {"source": "file:drizzle/0000_smiling_slyde.sql", "target": "table:drizzle/0000_smiling_slyde.sql:submissions", "type": "migrates", "direction": "forward", "weight": 0.7},
+    {"source": "file:drizzle/0001_curly_banshee.sql", "target": "table:drizzle/0000_smiling_slyde.sql:submissions", "type": "migrates", "direction": "forward", "weight": 0.7},
+    {"source": "file:drizzle/0002_add_return_request.sql", "target": "table:drizzle/0000_smiling_slyde.sql:submissions", "type": "migrates", "direction": "forward", "weight": 0.7}
+  ]
+}

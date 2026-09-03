@@ -1,0 +1,1333 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/lib/notify.server.ts",
+      "type": "file",
+      "name": "notify.server.ts",
+      "filePath": "src/lib/notify.server.ts",
+      "summary": "Sends transactional notifications through SMTP or Resend and provides the sales-desk notification entry point.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/lib/notify.server.ts:getSmtpTransport",
+      "type": "function",
+      "name": "getSmtpTransport",
+      "filePath": "src/lib/notify.server.ts",
+      "lineRange": [
+        19,
+        34
+      ],
+      "summary": "Retrieves smtp transport for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/notify.server.ts:sendWithResend",
+      "type": "function",
+      "name": "sendWithResend",
+      "filePath": "src/lib/notify.server.ts",
+      "lineRange": [
+        36,
+        57
+      ],
+      "summary": "Sends send with resend through the configured notification provider with consistent failure handling.",
+      "tags": [
+        "service",
+        "notification",
+        "integration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/notify.server.ts:sendEmail",
+      "type": "function",
+      "name": "sendEmail",
+      "filePath": "src/lib/notify.server.ts",
+      "lineRange": [
+        67,
+        95
+      ],
+      "summary": "Sends send email through the configured notification provider with consistent failure handling.",
+      "tags": [
+        "service",
+        "notification",
+        "integration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/notify.server.ts:notifySalesDesk",
+      "type": "function",
+      "name": "notifySalesDesk",
+      "filePath": "src/lib/notify.server.ts",
+      "lineRange": [
+        98,
+        106
+      ],
+      "summary": "Sends notify sales desk through the configured notification provider with consistent failure handling.",
+      "tags": [
+        "service",
+        "notification",
+        "integration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/shopify/admin.server.ts",
+      "type": "file",
+      "name": "admin.server.ts",
+      "filePath": "src/lib/shopify/admin.server.ts",
+      "summary": "Wraps authenticated Shopify Admin GraphQL requests with endpoint, token, error, and response handling.",
+      "tags": [
+        "shopify",
+        "service",
+        "integration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/admin.server.ts:shopifyAdmin",
+      "type": "function",
+      "name": "shopifyAdmin",
+      "filePath": "src/lib/shopify/admin.server.ts",
+      "lineRange": [
+        12,
+        50
+      ],
+      "summary": "Implements shopify admin as a significant part of this module. Wraps authenticated Shopify Admin GraphQL requests with endpoint, token, error, and response handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "shopify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/lib/shopify/customer-sync.server.ts",
+      "type": "file",
+      "name": "customer-sync.server.ts",
+      "filePath": "src/lib/shopify/customer-sync.server.ts",
+      "summary": "Synchronizes registered and credit-account customers into Shopify, maps business metadata, and handles email marketing unsubscription.",
+      "tags": [
+        "shopify",
+        "service",
+        "integration"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/lib/shopify/customer-sync.server.ts:customerInput",
+      "type": "function",
+      "name": "customerInput",
+      "filePath": "src/lib/shopify/customer-sync.server.ts",
+      "lineRange": [
+        32,
+        47
+      ],
+      "summary": "Implements customer input as a significant part of this module. Synchronizes registered and credit-account customers into Shopify, maps business metadata, and handles email marketing unsubscription.",
+      "tags": [
+        "function",
+        "application-logic",
+        "shopify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/customer-sync.server.ts:assertCustomerMutation",
+      "type": "function",
+      "name": "assertCustomerMutation",
+      "filePath": "src/lib/shopify/customer-sync.server.ts",
+      "lineRange": [
+        49,
+        59
+      ],
+      "summary": "Implements assert customer mutation as a significant part of this module. Synchronizes registered and credit-account customers into Shopify, maps business metadata, and handles email marketing unsubscription.",
+      "tags": [
+        "function",
+        "application-logic",
+        "shopify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/customer-sync.server.ts:syncCustomerToShopify",
+      "type": "function",
+      "name": "syncCustomerToShopify",
+      "filePath": "src/lib/shopify/customer-sync.server.ts",
+      "lineRange": [
+        65,
+        132
+      ],
+      "summary": "Synchronizes customer to shopify with Shopify while preserving project field mappings and failure semantics.",
+      "tags": [
+        "function",
+        "application-logic",
+        "shopify"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/lib/shopify/customer-sync.server.ts:syncCreditCustomer",
+      "type": "function",
+      "name": "syncCreditCustomer",
+      "filePath": "src/lib/shopify/customer-sync.server.ts",
+      "lineRange": [
+        142,
+        154
+      ],
+      "summary": "Synchronizes credit customer with Shopify while preserving project field mappings and failure semantics.",
+      "tags": [
+        "function",
+        "application-logic",
+        "shopify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/customer-sync.server.ts:unsubscribeCustomerEmail",
+      "type": "function",
+      "name": "unsubscribeCustomerEmail",
+      "filePath": "src/lib/shopify/customer-sync.server.ts",
+      "lineRange": [
+        162,
+        219
+      ],
+      "summary": "Implements unsubscribe customer email as a significant part of this module. Synchronizes registered and credit-account customers into Shopify, maps business metadata, and handles email marketing unsubscription.",
+      "tags": [
+        "function",
+        "application-logic",
+        "shopify"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/lib/shopify/fragments.ts",
+      "type": "file",
+      "name": "fragments.ts",
+      "filePath": "src/lib/shopify/fragments.ts",
+      "summary": "Centralizes reusable Shopify Storefront GraphQL fragments for product, variant, price, image, cart, customer, order, and resource fields.",
+      "tags": [
+        "shopify",
+        "service",
+        "integration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/lib/shopify/queries.server.ts",
+      "type": "file",
+      "name": "queries.server.ts",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "summary": "Implements the Shopify Storefront API query and mutation layer for catalogue browsing, resources, carts, customer accounts, and order history.",
+      "tags": [
+        "shopify",
+        "service",
+        "integration"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:parseResourceLinks",
+      "type": "function",
+      "name": "parseResourceLinks",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        75,
+        106
+      ],
+      "summary": "Parses resource links into the project's normalized application shape.",
+      "tags": [
+        "utility",
+        "transformation",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:parseProductResource",
+      "type": "function",
+      "name": "parseProductResource",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        108,
+        125
+      ],
+      "summary": "Parses product resource into the project's normalized application shape.",
+      "tags": [
+        "utility",
+        "transformation",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:normalizeTechnicalDetails",
+      "type": "function",
+      "name": "normalizeTechnicalDetails",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        127,
+        143
+      ],
+      "summary": "Normalizes technical details into the canonical form expected by downstream code.",
+      "tags": [
+        "utility",
+        "transformation",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:getCollectionByHandle",
+      "type": "function",
+      "name": "getCollectionByHandle",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        177,
+        208
+      ],
+      "summary": "Retrieves collection by handle for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:getProducts",
+      "type": "function",
+      "name": "getProducts",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        210,
+        228
+      ],
+      "summary": "Retrieves products for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:getProductsWithResources",
+      "type": "function",
+      "name": "getProductsWithResources",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        230,
+        248
+      ],
+      "summary": "Retrieves products with resources for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:getProductsPage",
+      "type": "function",
+      "name": "getProductsPage",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        250,
+        266
+      ],
+      "summary": "Retrieves products page for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:getProductByHandle",
+      "type": "function",
+      "name": "getProductByHandle",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        268,
+        284
+      ],
+      "summary": "Retrieves product by handle for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:getCart",
+      "type": "function",
+      "name": "getCart",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        286,
+        300
+      ],
+      "summary": "Retrieves cart for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:createCart",
+      "type": "function",
+      "name": "createCart",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        302,
+        327
+      ],
+      "summary": "Creates cart through the appropriate Shopify or application service boundary.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:addCartLines",
+      "type": "function",
+      "name": "addCartLines",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        329,
+        354
+      ],
+      "summary": "Adds cart lines while preserving the module's storage and data-shape invariants.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:updateCartLine",
+      "type": "function",
+      "name": "updateCartLine",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        356,
+        381
+      ],
+      "summary": "Updates cart line and returns the normalized result to callers.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:removeCartLine",
+      "type": "function",
+      "name": "removeCartLine",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        383,
+        408
+      ],
+      "summary": "Removes cart line through the owning service boundary.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:createCustomer",
+      "type": "function",
+      "name": "createCustomer",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        410,
+        435
+      ],
+      "summary": "Creates customer through the appropriate Shopify or application service boundary.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:createCustomerAccessToken",
+      "type": "function",
+      "name": "createCustomerAccessToken",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        437,
+        466
+      ],
+      "summary": "Creates customer access token through the appropriate Shopify or application service boundary.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:recoverCustomerPassword",
+      "type": "function",
+      "name": "recoverCustomerPassword",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        468,
+        482
+      ],
+      "summary": "Implements recover customer password as a significant part of this module. Implements the Shopify Storefront API query and mutation layer for catalogue browsing, resources, carts, customer accounts, and order history.",
+      "tags": [
+        "function",
+        "application-logic",
+        "shopify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:getCustomer",
+      "type": "function",
+      "name": "getCustomer",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        484,
+        525
+      ],
+      "summary": "Retrieves customer for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:getCollectionProductsPage",
+      "type": "function",
+      "name": "getCollectionProductsPage",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        527,
+        553
+      ],
+      "summary": "Retrieves collection products page for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/queries.server.ts:getCustomerOrders",
+      "type": "function",
+      "name": "getCustomerOrders",
+      "filePath": "src/lib/shopify/queries.server.ts",
+      "lineRange": [
+        555,
+        612
+      ],
+      "summary": "Retrieves customer orders for the module's workflow, applying its required normalization and error handling.",
+      "tags": [
+        "service",
+        "shopify",
+        "api-operation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/lib/shopify/storefront.server.ts",
+      "type": "file",
+      "name": "storefront.server.ts",
+      "filePath": "src/lib/shopify/storefront.server.ts",
+      "summary": "Wraps Shopify Storefront GraphQL requests with configured credentials, consistent headers, response decoding, and error propagation.",
+      "tags": [
+        "shopify",
+        "service",
+        "integration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/shopify/storefront.server.ts:shopifyStorefront",
+      "type": "function",
+      "name": "shopifyStorefront",
+      "filePath": "src/lib/shopify/storefront.server.ts",
+      "lineRange": [
+        12,
+        54
+      ],
+      "summary": "Implements shopify storefront as a significant part of this module. Wraps Shopify Storefront GraphQL requests with configured credentials, consistent headers, response decoding, and error propagation.",
+      "tags": [
+        "function",
+        "application-logic",
+        "shopify"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/admin/index.tsx",
+      "type": "file",
+      "name": "index.tsx",
+      "filePath": "src/routes/admin/index.tsx",
+      "summary": "Renders the administration dashboard with CMS totals, submission summaries, operational shortcuts, and protected staff context.",
+      "tags": [
+        "route",
+        "admin",
+        "cms",
+        "component"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/admin/index.tsx:AdminDashboardPage",
+      "type": "function",
+      "name": "AdminDashboardPage",
+      "filePath": "src/routes/admin/index.tsx",
+      "lineRange": [
+        65,
+        257
+      ],
+      "summary": "Renders the admin dashboard page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/routes/admin/login.tsx",
+      "type": "file",
+      "name": "login.tsx",
+      "filePath": "src/routes/admin/login.tsx",
+      "summary": "Provides the staff login route, validates credentials, and redirects authenticated administrators into the CMS.",
+      "tags": [
+        "route",
+        "admin",
+        "cms",
+        "component"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/routes/admin/login.tsx:AdminLoginPage",
+      "type": "function",
+      "name": "AdminLoginPage",
+      "filePath": "src/routes/admin/login.tsx",
+      "lineRange": [
+        22,
+        104
+      ],
+      "summary": "Renders the admin login page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/routes/admin/submissions.$id.tsx",
+      "type": "file",
+      "name": "submissions.$id.tsx",
+      "filePath": "src/routes/admin/submissions.$id.tsx",
+      "summary": "Displays a full CMS submission record, attachments, status controls, internal notes, deletion, and type-specific customer details.",
+      "tags": [
+        "route",
+        "admin",
+        "cms",
+        "component"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/admin/submissions.$id.tsx:SubmissionDetailPage",
+      "type": "function",
+      "name": "SubmissionDetailPage",
+      "filePath": "src/routes/admin/submissions.$id.tsx",
+      "lineRange": [
+        54,
+        359
+      ],
+      "summary": "Renders the submission detail page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "filePath": "src/server.ts",
+      "summary": "Defines the production server entry point and hardens all responses with normalization and security headers, including catastrophic SSR fallback handling.",
+      "tags": [
+        "entry-point",
+        "server",
+        "runtime"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/server.ts:normalizeCatastrophicSsrResponse",
+      "type": "function",
+      "name": "normalizeCatastrophicSsrResponse",
+      "filePath": "src/server.ts",
+      "lineRange": [
+        36,
+        51
+      ],
+      "summary": "Normalizes catastrophic ssr response into the canonical form expected by downstream code.",
+      "tags": [
+        "utility",
+        "transformation",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/server.ts:withSecurityHeaders",
+      "type": "function",
+      "name": "withSecurityHeaders",
+      "filePath": "src/server.ts",
+      "lineRange": [
+        53,
+        64
+      ],
+      "summary": "Implements with security headers as a significant part of this module. Defines the production server entry point and hardens all responses with normalization and security headers, including catastrophic SSR fallback handling.",
+      "tags": [
+        "function",
+        "application-logic",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/start.ts",
+      "type": "file",
+      "name": "start.ts",
+      "filePath": "src/start.ts",
+      "summary": "Connects TanStack Start request handling to the project server runtime and error-capture boundary.",
+      "tags": [
+        "entry-point",
+        "server",
+        "runtime"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/unit/customer-sync.spec.ts",
+      "type": "file",
+      "name": "customer-sync.spec.ts",
+      "filePath": "tests/unit/customer-sync.spec.ts",
+      "summary": "Verifies Shopify customer synchronization input mapping and customer-mutation failure handling.",
+      "tags": [
+        "test",
+        "unit-test",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/unit/rate-limit.spec.ts",
+      "type": "file",
+      "name": "rate-limit.spec.ts",
+      "filePath": "tests/unit/rate-limit.spec.ts",
+      "summary": "Verifies the sliding-window limiter accepts requests within quota and rejects excess traffic.",
+      "tags": [
+        "test",
+        "unit-test",
+        "validation"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/lib/notify.server.ts",
+      "target": "file:src/lib/config.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/notify.server.ts",
+      "target": "function:src/lib/notify.server.ts:getSmtpTransport",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/notify.server.ts",
+      "target": "function:src/lib/notify.server.ts:sendWithResend",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/notify.server.ts",
+      "target": "function:src/lib/notify.server.ts:sendEmail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/notify.server.ts",
+      "target": "function:src/lib/notify.server.ts:sendEmail",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/notify.server.ts",
+      "target": "function:src/lib/notify.server.ts:notifySalesDesk",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/notify.server.ts",
+      "target": "function:src/lib/notify.server.ts:notifySalesDesk",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/admin.server.ts",
+      "target": "file:src/lib/config.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/shopify/admin.server.ts",
+      "target": "function:src/lib/shopify/admin.server.ts:shopifyAdmin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/admin.server.ts",
+      "target": "function:src/lib/shopify/admin.server.ts:shopifyAdmin",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/customer-sync.server.ts",
+      "target": "file:src/lib/shopify/admin.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/shopify/customer-sync.server.ts",
+      "target": "function:src/lib/shopify/customer-sync.server.ts:customerInput",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/customer-sync.server.ts",
+      "target": "function:src/lib/shopify/customer-sync.server.ts:assertCustomerMutation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/customer-sync.server.ts",
+      "target": "function:src/lib/shopify/customer-sync.server.ts:syncCustomerToShopify",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/customer-sync.server.ts",
+      "target": "function:src/lib/shopify/customer-sync.server.ts:syncCustomerToShopify",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/customer-sync.server.ts",
+      "target": "function:src/lib/shopify/customer-sync.server.ts:syncCreditCustomer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/customer-sync.server.ts",
+      "target": "function:src/lib/shopify/customer-sync.server.ts:syncCreditCustomer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/customer-sync.server.ts",
+      "target": "function:src/lib/shopify/customer-sync.server.ts:unsubscribeCustomerEmail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/customer-sync.server.ts",
+      "target": "function:src/lib/shopify/customer-sync.server.ts:unsubscribeCustomerEmail",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "file:src/lib/shopify/fragments.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "file:src/lib/shopify/storefront.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:parseResourceLinks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:parseProductResource",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:normalizeTechnicalDetails",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getCollectionByHandle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getCollectionByHandle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getProducts",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getProducts",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getProductsWithResources",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getProductsWithResources",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getProductsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getProductsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getProductByHandle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getProductByHandle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getCart",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getCart",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:createCart",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:createCart",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:addCartLines",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:addCartLines",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:updateCartLine",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:updateCartLine",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:removeCartLine",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:removeCartLine",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:createCustomer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:createCustomer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:createCustomerAccessToken",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:createCustomerAccessToken",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:recoverCustomerPassword",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:recoverCustomerPassword",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getCustomer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getCustomer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getCollectionProductsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getCollectionProductsPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getCustomerOrders",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/queries.server.ts",
+      "target": "function:src/lib/shopify/queries.server.ts:getCustomerOrders",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/shopify/storefront.server.ts",
+      "target": "file:src/lib/config.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/lib/shopify/storefront.server.ts",
+      "target": "function:src/lib/shopify/storefront.server.ts:shopifyStorefront",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/shopify/storefront.server.ts",
+      "target": "function:src/lib/shopify/storefront.server.ts:shopifyStorefront",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/routes/admin/index.tsx",
+      "target": "file:src/components/admin/AdminShell.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/admin/index.tsx",
+      "target": "file:src/lib/admin/admin.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/admin/index.tsx",
+      "target": "function:src/routes/admin/index.tsx:AdminDashboardPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/admin/login.tsx",
+      "target": "file:src/hooks/use-hydrated.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/admin/login.tsx",
+      "target": "file:src/lib/admin/admin.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/admin/login.tsx",
+      "target": "function:src/routes/admin/login.tsx:AdminLoginPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/admin/submissions.$id.tsx",
+      "target": "file:src/components/admin/AdminShell.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/admin/submissions.$id.tsx",
+      "target": "file:src/hooks/use-hydrated.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/admin/submissions.$id.tsx",
+      "target": "file:src/lib/admin/admin.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/admin/submissions.$id.tsx",
+      "target": "function:src/routes/admin/submissions.$id.tsx:SubmissionDetailPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/server.ts",
+      "target": "file:src/lib/admin/auth.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/server.ts",
+      "target": "file:src/lib/db/index.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/server.ts",
+      "target": "file:src/lib/db/migrate.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/server.ts",
+      "target": "file:src/lib/error-capture.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/server.ts",
+      "target": "file:src/lib/error-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/server.ts",
+      "target": "function:src/server.ts:normalizeCatastrophicSsrResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/server.ts",
+      "target": "function:src/server.ts:withSecurityHeaders",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/start.ts",
+      "target": "file:src/lib/error-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/unit/customer-sync.spec.ts",
+      "target": "file:src/lib/shopify/customer-sync.server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/unit/rate-limit.spec.ts",
+      "target": "file:src/lib/cms/rate-limit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

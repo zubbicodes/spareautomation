@@ -1,0 +1,192 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [
+    ".dockerignore"
+  ],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 3
+    }
+  },
+  "results": [
+    {
+      "path": "Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "infra",
+      "totalLines": 28,
+      "nonEmptyLines": 22,
+      "services": [
+        {
+          "name": "build",
+          "image": "node:22-alpine",
+          "ports": [],
+          "startLine": 1,
+          "endLine": 8
+        },
+        {
+          "name": "runtime",
+          "image": "node:22-alpine",
+          "ports": [
+            80
+          ],
+          "startLine": 9,
+          "endLine": 29
+        }
+      ],
+      "steps": [
+        {
+          "name": "FROM node:22-alpine AS build",
+          "startLine": 1,
+          "endLine": 1
+        },
+        {
+          "name": "WORKDIR /app",
+          "startLine": 2,
+          "endLine": 2
+        },
+        {
+          "name": "COPY package.json package-lock.json ./",
+          "startLine": 4,
+          "endLine": 4
+        },
+        {
+          "name": "RUN npm ci",
+          "startLine": 5,
+          "endLine": 5
+        },
+        {
+          "name": "COPY . .",
+          "startLine": 6,
+          "endLine": 6
+        },
+        {
+          "name": "RUN npm run build",
+          "startLine": 7,
+          "endLine": 7
+        },
+        {
+          "name": "FROM node:22-alpine AS runtime",
+          "startLine": 9,
+          "endLine": 9
+        },
+        {
+          "name": "WORKDIR /app",
+          "startLine": 10,
+          "endLine": 10
+        },
+        {
+          "name": "ENV NODE_ENV=production",
+          "startLine": 12,
+          "endLine": 12
+        },
+        {
+          "name": "ENV HOST=0.0.0.0",
+          "startLine": 13,
+          "endLine": 13
+        },
+        {
+          "name": "ENV PORT=80",
+          "startLine": 14,
+          "endLine": 14
+        },
+        {
+          "name": "COPY --from=build --chown=node:node /app/.output ./.output",
+          "startLine": 16,
+          "endLine": 16
+        },
+        {
+          "name": "COPY --from=build --chown=node:node /app/drizzle ./drizzle",
+          "startLine": 18,
+          "endLine": 18
+        },
+        {
+          "name": "RUN apk add --no-cache su-exec \\",
+          "startLine": 20,
+          "endLine": 20
+        },
+        {
+          "name": "COPY --chmod=755 docker-entrypoint.sh /usr/local/bin/docker-entry",
+          "startLine": 23,
+          "endLine": 23
+        },
+        {
+          "name": "ENTRYPOINT [\"docker-entrypoint.sh\"]",
+          "startLine": 25,
+          "endLine": 25
+        },
+        {
+          "name": "EXPOSE 80",
+          "startLine": 27,
+          "endLine": 27
+        },
+        {
+          "name": "CMD [\"node\", \".output/server/index.mjs\"]",
+          "startLine": 28,
+          "endLine": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "serviceCount": 2,
+        "stepCount": 18
+      }
+    },
+    {
+      "path": "docker-compose.override.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 6,
+      "nonEmptyLines": 6,
+      "sections": [
+        {
+          "heading": "services",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 76,
+      "nonEmptyLines": 74,
+      "sections": [
+        {
+          "heading": "services",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "volumes",
+          "level": 1,
+          "line": 74
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    }
+  ]
+}

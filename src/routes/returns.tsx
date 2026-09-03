@@ -4,46 +4,37 @@ import { ArrowRight, CheckCircle2, ClipboardCheck, Mail, PackageOpen } from "luc
 import { ReturnRequestForm } from "@/components/shopify/ReturnRequestForm";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
-import { pageHead } from "@/lib/seo";
+import { useContent } from "@/lib/content/ContentContext";
+import { getPublishedContent } from "@/lib/content/content.functions";
+import { contentPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/returns")({
-  head: () =>
-    pageHead(
-      "Returns",
-      "Select products and quantities, choose a return reason, and submit a tracked return request.",
-      "/returns",
-    ),
+  loader: async () => {
+    const { site, functional } = await getPublishedContent();
+    return { site, seo: functional.returns.seo };
+  },
+  head: ({ loaderData }) =>
+    contentPageHead(loaderData?.seo, loaderData?.site, "/returns", {
+      title: "Returns",
+      description: "Select products and quantities, choose a return reason, and submit a tracked return request.",
+    }),
   component: ReturnsPage,
 });
 
-const PROCESS = [
-  {
-    number: "01",
-    icon: ClipboardCheck,
-    title: "Submit the request",
-    copy: "Choose the order, items, quantities, reasons, and preferred outcome using the form below.",
-  },
-  {
-    number: "02",
-    icon: Mail,
-    title: "Receive instructions",
-    copy: "An email confirms your reference. The returns team then sends approval and the correct return route.",
-  },
-  {
-    number: "03",
-    icon: PackageOpen,
-    title: "Return the goods",
-    copy: "Pack the approved items securely and follow the supplied collection or dispatch instructions.",
-  },
-  {
-    number: "04",
-    icon: CheckCircle2,
-    title: "Resolution",
-    copy: "Once assessed, the agreed refund, replacement, repair, or advice is completed and your status is emailed.",
-  },
-];
+/** Stage icons stay code-owned; the CMS supplies the wording for each stage. */
+const PROCESS_ICONS = [ClipboardCheck, Mail, PackageOpen, CheckCircle2];
 
 function ReturnsPage() {
+  const { functional } = useContent();
+  const copy = functional.returns;
+  const stages = copy.blocks.find((block) => block.type === "steps");
+  const process = (stages?.type === "steps" ? stages.items : []).map((item, index) => ({
+    number: String(index + 1).padStart(2, "0"),
+    icon: PROCESS_ICONS[index % PROCESS_ICONS.length],
+    title: item.title,
+    copy: item.copy,
+  }));
+
   return (
     <div className="min-h-screen bg-background text-ink">
       <SiteHeader />
@@ -51,15 +42,14 @@ function ReturnsPage() {
         <section className="border-b border-rule bg-ink text-white">
           <div className="mx-auto max-w-[1200px] px-4 py-8 md:px-6 md:py-10">
             <p className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
-              Delivery & returns
+              {copy.eyebrow}
             </p>
             <h1 className="mt-3 max-w-4xl font-display text-3xl font-extrabold uppercase leading-[0.95] tracking-tight md:text-4xl">
-              Returns
+              {copy.title}
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70">
-              Request a return online, specify exactly what is coming back, and receive a traceable
-              reference and email updates at each staff-managed stage.
-            </p>
+            {copy.intro ? (
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70">{copy.intro}</p>
+            ) : null}
             <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href="#return-request"
@@ -82,22 +72,23 @@ function ReturnsPage() {
             <div className="flex items-end justify-between gap-5">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-muted">
-                  How it works
+                  {copy.sectionEyebrow}
                 </p>
                 <h2
                   id="return-process-title"
                   className="mt-2 font-display text-2xl font-extrabold uppercase tracking-tight md:text-3xl"
                 >
-                  Four simple stages
+                  {copy.sectionTitle}
                 </h2>
               </div>
-              <p className="hidden max-w-md text-right text-sm leading-6 text-ink-muted md:block">
-                Do not send an item until your return has been reviewed and instructions have been
-                issued.
-              </p>
+              {copy.helpCopy ? (
+                <p className="hidden max-w-md text-right text-sm leading-6 text-ink-muted md:block">
+                  {copy.helpCopy}
+                </p>
+              ) : null}
             </div>
             <ol className="mt-6 grid gap-px border border-rule bg-rule md:grid-cols-2 lg:grid-cols-4">
-              {PROCESS.map((step) => (
+              {process.map((step) => (
                 <li key={step.number} className="bg-surface p-5">
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-[10px] font-bold tracking-[0.2em] text-accent">

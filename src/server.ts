@@ -4,6 +4,7 @@ import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { runMigrations } from "./lib/db/migrate.server";
 import { seedInitialAdmin } from "./lib/admin/auth.server";
+import { seedContentDefaults } from "./lib/content/content.server";
 import { getDb } from "./lib/db/index.server";
 import { sql } from "drizzle-orm";
 
@@ -12,7 +13,10 @@ import { sql } from "drizzle-orm";
 // before seeding. Public pages remain available if the CMS database is absent.
 void runMigrations()
   .then(async (migrationSucceeded) => {
-    if (migrationSucceeded) await seedInitialAdmin();
+    if (migrationSucceeded) {
+      await seedInitialAdmin();
+      await seedContentDefaults();
+    }
   })
   .catch((error) => console.error("[db] CMS initialization failed:", error));
 

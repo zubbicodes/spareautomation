@@ -10,17 +10,20 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { SITE } from "../lib/site";
 import { CookieConsent } from "../components/shopify/CookieConsent";
+import { ContentProvider, useContent } from "../lib/content/ContentContext";
+import { getPublishedContent } from "../lib/content/content.functions";
+import { getDefaultContentBundle } from "../lib/content/registry";
 
 function NotFoundComponent() {
+  const { messages } = useContent();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">{messages["error.notFoundTitle"]}</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          {messages["error.notFoundCopy"]}
         </p>
         <div className="mt-6">
           <Link
@@ -36,6 +39,7 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+  const { messages } = useContent();
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -46,10 +50,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+          {messages["error.genericTitle"]}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+          {messages["error.genericCopy"]}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -81,25 +85,29 @@ const FAVICON_SVG = `
 `;
 
 export const Route = createRootRoute({
-  head: () => ({
+  loader: async () => ({ content: await getPublishedContent() }),
+  head: ({ loaderData }) => {
+    const content = loaderData?.content ?? getDefaultContentBundle();
+    return ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Spares Automation" },
+      { title: content.home.seo.title },
       {
         name: "description",
-        content: "Industrial parts, automation spares, trade quotes, and product support.",
+        content: content.home.seo.description,
       },
-      { name: "author", content: "Spares Automation" },
-      { property: "og:title", content: "Spares Automation" },
+      { name: "author", content: content.site.name },
+      { property: "og:title", content: content.home.seo.ogTitle || content.home.seo.title },
       {
         property: "og:description",
-        content: "Industrial parts, automation spares, trade quotes, and product support.",
+        content: content.home.seo.ogDescription || content.home.seo.description,
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: SITE.url },
+      { property: "og:url", content: content.site.url },
+      { property: "og:site_name", content: content.site.name },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@SparesAutomation" },
+      { name: "twitter:site", content: content.site.socialHandle },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -122,26 +130,26 @@ export const Route = createRootRoute({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: SITE.name,
-          url: SITE.url,
-          email: SITE.email,
-          telephone: SITE.phoneHref,
+          name: content.site.name,
+          url: content.site.url,
+          email: content.site.email,
+          telephone: content.site.phoneHref,
           address: {
             "@type": "PostalAddress",
-            addressLocality: "Manchester",
-            addressCountry: "GB",
+            addressLocality: content.site.addressLocality,
+            addressCountry: content.site.addressCountry,
           },
           contactPoint: {
             "@type": "ContactPoint",
-            telephone: SITE.phoneHref,
-            email: SITE.email,
+            telephone: content.site.phoneHref,
+            email: content.site.email,
             contactType: "sales",
             availableLanguage: "English",
           },
         }),
       },
     ],
-  }),
+  })},
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -163,10 +171,11 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
+  const { content } = Route.useLoaderData();
   return (
-    <>
+    <ContentProvider value={content}>
       <Outlet />
       <CookieConsent />
-    </>
+    </ContentProvider>
   );
 }

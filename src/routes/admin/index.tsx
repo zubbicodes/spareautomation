@@ -57,6 +57,7 @@ export const Route = createFileRoute("/admin/")({
     if (!staff) {
       throw redirect({ to: "/admin/login" });
     }
+    if (staff.mustChangePassword) throw redirect({ to: "/admin/change-password" });
     return { staff };
   },
   component: AdminDashboardPage,

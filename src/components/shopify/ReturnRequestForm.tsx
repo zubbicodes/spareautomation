@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { SignInRequired } from "@/components/shopify/SignInRequired";
 import { submitReturnRequest } from "@/lib/api/cms.functions";
 import { getShopifyCustomer } from "@/lib/api/shopify.functions";
+import { useContent } from "@/lib/content/ContentContext";
 
 type Customer = Awaited<ReturnType<typeof getShopifyCustomer>>;
 type Order = NonNullable<Customer>["orders"][number];
@@ -36,6 +37,7 @@ const REASONS: { value: ReturnReason; label: string }[] = [
 ];
 
 export function ReturnRequestForm() {
+  const { messages } = useContent();
   const [customer, setCustomer] = useState<Customer>(null);
   const [accountLoading, setAccountLoading] = useState(true);
   const [orderNumber, setOrderNumber] = useState("");
@@ -114,11 +116,11 @@ export function ReturnRequestForm() {
     const selectedItems = items.filter((item) => item.selected);
 
     if (!selectedOrder) {
-      setError("Select the order you want to return items from.");
+      setError(messages["return.selectOrder"]);
       return;
     }
     if (selectedItems.length === 0) {
-      setError("Select at least one item to return.");
+      setError(messages["return.selectItems"]);
       return;
     }
 
@@ -158,7 +160,7 @@ export function ReturnRequestForm() {
         behavior: "smooth",
       });
     } catch {
-      setError("We could not submit the return request. Please try again.");
+      setError(messages["return.submitFailed"]);
     } finally {
       setBusy(false);
     }
@@ -180,8 +182,8 @@ export function ReturnRequestForm() {
       <div id="return-request">
         <SignInRequired
           redirect="/returns"
-          title="Sign in to start a return"
-          description="Returns are linked to your account and orders. Sign in to pick the order and items you want to return."
+          title={messages["return.signInTitle"]}
+          description={messages["return.signInCopy"]}
         />
       </div>
     );
@@ -342,7 +344,7 @@ export function ReturnRequestForm() {
                         rows={2}
                         value={item.details}
                         onChange={(event) => updateItem(item.key, { details: event.target.value })}
-                        placeholder="Add fault symptoms, damage details, or anything that will help us assess the return."
+                        placeholder={messages["return.notesPlaceholder"]}
                         className="resize-y border border-rule bg-surface px-4 py-3 text-sm outline-none placeholder:text-ink-muted focus:border-accent"
                       />
                     </label>
@@ -460,7 +462,7 @@ export function ReturnRequestForm() {
           ) : (
             <RotateCcw aria-hidden="true" className="h-4 w-4" />
           )}
-          {busy ? "Submitting return" : "Submit return request"}
+          {busy ? messages["return.submitting"] : messages["return.submit"]}
         </button>
       </form>
     </section>

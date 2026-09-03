@@ -1,0 +1,1268 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/lib/site.ts",
+      "type": "file",
+      "name": "site.ts",
+      "filePath": "src/lib/site.ts",
+      "summary": "Defines canonical site identity and contact details and converts them into safe email and WhatsApp links.",
+      "tags": [
+        "utility",
+        "service",
+        "application-core"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/site.ts:emailHref",
+      "type": "function",
+      "name": "emailHref",
+      "filePath": "src/lib/site.ts",
+      "lineRange": [
+        12,
+        18
+      ],
+      "summary": "Implements email href as a significant part of this module. Defines canonical site identity and contact details and converts them into safe email and WhatsApp links.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/lib/site.ts:whatsappHref",
+      "type": "function",
+      "name": "whatsappHref",
+      "filePath": "src/lib/site.ts",
+      "lineRange": [
+        20,
+        22
+      ],
+      "summary": "Implements whatsapp href as a significant part of this module. Defines canonical site identity and contact details and converts them into safe email and WhatsApp links.",
+      "tags": [
+        "function",
+        "application-logic",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/account.tsx",
+      "type": "file",
+      "name": "account.tsx",
+      "filePath": "src/routes/account.tsx",
+      "summary": "Implements the authenticated customer account route with profile details, order history, status presentation, and sign-out behavior.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/account.tsx:AccountPage",
+      "type": "function",
+      "name": "AccountPage",
+      "filePath": "src/routes/account.tsx",
+      "lineRange": [
+        22,
+        273
+      ],
+      "summary": "Renders the account page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/routes/cart.tsx",
+      "type": "file",
+      "name": "cart.tsx",
+      "filePath": "src/routes/cart.tsx",
+      "summary": "Implements the shopping-cart route with quantity updates, removals, totals, VAT presentation, checkout, and conversion into a quote.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/cart.tsx:CartPage",
+      "type": "function",
+      "name": "CartPage",
+      "filePath": "src/routes/cart.tsx",
+      "lineRange": [
+        27,
+        265
+      ],
+      "summary": "Renders the cart page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/routes/delivery-information.tsx",
+      "type": "file",
+      "name": "delivery-information.tsx",
+      "filePath": "src/routes/delivery-information.tsx",
+      "summary": "Publishes the customer-facing delivery guide, coverage, timing, collection, and contact information with consistent storefront chrome.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/routes/delivery-information.tsx:DeliveryPage",
+      "type": "function",
+      "name": "DeliveryPage",
+      "filePath": "src/routes/delivery-information.tsx",
+      "lineRange": [
+        59,
+        151
+      ],
+      "summary": "Renders the delivery page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/routes/forgot-password.tsx",
+      "type": "file",
+      "name": "forgot-password.tsx",
+      "filePath": "src/routes/forgot-password.tsx",
+      "summary": "Provides the customer password-recovery route and submits recovery requests through Shopify.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/forgot-password.tsx:ForgotPasswordPage",
+      "type": "function",
+      "name": "ForgotPasswordPage",
+      "filePath": "src/routes/forgot-password.tsx",
+      "lineRange": [
+        14,
+        31
+      ],
+      "summary": "Renders the forgot password page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/login.tsx",
+      "type": "file",
+      "name": "login.tsx",
+      "filePath": "src/routes/login.tsx",
+      "summary": "Implements customer sign-in with validated credentials, password visibility controls, error handling, redirects, and recovery/registration links.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/login.tsx:LoginPage",
+      "type": "function",
+      "name": "LoginPage",
+      "filePath": "src/routes/login.tsx",
+      "lineRange": [
+        29,
+        171
+      ],
+      "summary": "Renders the login page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/routes/login.tsx:Field",
+      "type": "function",
+      "name": "Field",
+      "filePath": "src/routes/login.tsx",
+      "lineRange": [
+        173,
+        203
+      ],
+      "summary": "Renders the field UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/login.tsx:PasswordField",
+      "type": "function",
+      "name": "PasswordField",
+      "filePath": "src/routes/login.tsx",
+      "lineRange": [
+        205,
+        291
+      ],
+      "summary": "Renders the password field UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/routes/products/$handle.tsx",
+      "type": "file",
+      "name": "$handle.tsx",
+      "filePath": "src/routes/products/$handle.tsx",
+      "summary": "Loads a Shopify product by handle and renders its detailed storefront page, including route-level metadata and not-found handling.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/products/index.tsx",
+      "type": "file",
+      "name": "index.tsx",
+      "filePath": "src/routes/products/index.tsx",
+      "summary": "Implements the searchable, filterable, paginated product catalogue and synchronizes catalogue state with URL search parameters.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/products/index.tsx:ProductsCataloguePage",
+      "type": "function",
+      "name": "ProductsCataloguePage",
+      "filePath": "src/routes/products/index.tsx",
+      "lineRange": [
+        85,
+        465
+      ],
+      "summary": "Renders the products catalogue page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/routes/quote.tsx",
+      "type": "file",
+      "name": "quote.tsx",
+      "filePath": "src/routes/quote.tsx",
+      "summary": "Implements the quote-request basket and form, including item editing, customer details, validation, mail handoff, and quote persistence.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/quote.tsx:QuotePage",
+      "type": "function",
+      "name": "QuotePage",
+      "filePath": "src/routes/quote.tsx",
+      "lineRange": [
+        31,
+        366
+      ],
+      "summary": "Renders the quote page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/quote.tsx:QuoteField",
+      "type": "function",
+      "name": "QuoteField",
+      "filePath": "src/routes/quote.tsx",
+      "lineRange": [
+        368,
+        399
+      ],
+      "summary": "Renders the quote field UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/register.tsx",
+      "type": "file",
+      "name": "register.tsx",
+      "filePath": "src/routes/register.tsx",
+      "summary": "Implements customer registration with address and contact fields, consent controls, Shopify account creation, and detailed validation/error feedback.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/register.tsx:normalizePhoneForShopify",
+      "type": "function",
+      "name": "normalizePhoneForShopify",
+      "filePath": "src/routes/register.tsx",
+      "lineRange": [
+        18,
+        27
+      ],
+      "summary": "Normalizes phone for shopify into the canonical form expected by downstream code.",
+      "tags": [
+        "utility",
+        "transformation",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/register.tsx:RegisterPage",
+      "type": "function",
+      "name": "RegisterPage",
+      "filePath": "src/routes/register.tsx",
+      "lineRange": [
+        29,
+        234
+      ],
+      "summary": "Renders the register page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/register.tsx:PhoneField",
+      "type": "function",
+      "name": "PhoneField",
+      "filePath": "src/routes/register.tsx",
+      "lineRange": [
+        435,
+        468
+      ],
+      "summary": "Renders the phone field UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/register.tsx:Field",
+      "type": "function",
+      "name": "Field",
+      "filePath": "src/routes/register.tsx",
+      "lineRange": [
+        470,
+        500
+      ],
+      "summary": "Renders the field UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/register.tsx:PasswordField",
+      "type": "function",
+      "name": "PasswordField",
+      "filePath": "src/routes/register.tsx",
+      "lineRange": [
+        502,
+        590
+      ],
+      "summary": "Renders the password field UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/routes/resources.tsx",
+      "type": "file",
+      "name": "resources.tsx",
+      "filePath": "src/routes/resources.tsx",
+      "summary": "Aggregates product manuals, technical documents, and videos into a searchable resources library with consent-aware embedded media.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/routes/resources.tsx:ResourcesPage",
+      "type": "function",
+      "name": "ResourcesPage",
+      "filePath": "src/routes/resources.tsx",
+      "lineRange": [
+        49,
+        168
+      ],
+      "summary": "Renders the resources page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/routes/resources.tsx:groupProductResources",
+      "type": "function",
+      "name": "groupProductResources",
+      "filePath": "src/routes/resources.tsx",
+      "lineRange": [
+        170,
+        194
+      ],
+      "summary": "Implements group product resources as a significant part of this module. Aggregates product manuals, technical documents, and videos into a searchable resources library with consent-aware embedded media.",
+      "tags": [
+        "function",
+        "application-logic",
+        "route"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/resources.tsx:productResources",
+      "type": "function",
+      "name": "productResources",
+      "filePath": "src/routes/resources.tsx",
+      "lineRange": [
+        196,
+        234
+      ],
+      "summary": "Implements product resources as a significant part of this module. Aggregates product manuals, technical documents, and videos into a searchable resources library with consent-aware embedded media.",
+      "tags": [
+        "function",
+        "application-logic",
+        "route"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/resources.tsx:ResourceDocumentLink",
+      "type": "function",
+      "name": "ResourceDocumentLink",
+      "filePath": "src/routes/resources.tsx",
+      "lineRange": [
+        243,
+        259
+      ],
+      "summary": "Renders the resource document link UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/resources.tsx:ResourceVideoLink",
+      "type": "function",
+      "name": "ResourceVideoLink",
+      "filePath": "src/routes/resources.tsx",
+      "lineRange": [
+        261,
+        353
+      ],
+      "summary": "Renders the resource video link UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/routes/resources.tsx:ResourceIcon",
+      "type": "function",
+      "name": "ResourceIcon",
+      "filePath": "src/routes/resources.tsx",
+      "lineRange": [
+        355,
+        365
+      ],
+      "summary": "Renders the resource icon UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/resources.tsx:ResourceText",
+      "type": "function",
+      "name": "ResourceText",
+      "filePath": "src/routes/resources.tsx",
+      "lineRange": [
+        367,
+        378
+      ],
+      "summary": "Renders the resource text UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/returns.tsx",
+      "type": "file",
+      "name": "returns.tsx",
+      "filePath": "src/routes/returns.tsx",
+      "summary": "Combines returns-policy guidance with the authenticated return-request form and route metadata.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/routes/returns.tsx:ReturnsPage",
+      "type": "function",
+      "name": "ReturnsPage",
+      "filePath": "src/routes/returns.tsx",
+      "lineRange": [
+        46,
+        169
+      ],
+      "summary": "Renders the returns page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/routes/search.tsx",
+      "type": "file",
+      "name": "search.tsx",
+      "filePath": "src/routes/search.tsx",
+      "summary": "Maps a search query into the catalogue experience while preserving the shared storefront layout.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/routes/search.tsx:SearchPage",
+      "type": "function",
+      "name": "SearchPage",
+      "filePath": "src/routes/search.tsx",
+      "lineRange": [
+        25,
+        39
+      ],
+      "summary": "Renders the search page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/routes/track-order.tsx",
+      "type": "file",
+      "name": "track-order.tsx",
+      "filePath": "src/routes/track-order.tsx",
+      "summary": "Provides order-tracking guidance and an authenticated lookup path for customer orders.",
+      "tags": [
+        "route",
+        "page-component",
+        "storefront"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/routes/track-order.tsx:TrackOrderPage",
+      "type": "function",
+      "name": "TrackOrderPage",
+      "filePath": "src/routes/track-order.tsx",
+      "lineRange": [
+        19,
+        143
+      ],
+      "summary": "Renders the track order page UI and owns the interaction and presentation behavior described by its module.",
+      "tags": [
+        "component",
+        "react",
+        "ui-behavior"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/unit/format.spec.ts",
+      "type": "file",
+      "name": "format.spec.ts",
+      "filePath": "tests/unit/format.spec.ts",
+      "summary": "Verifies VAT arithmetic, product price formatting, and related Shopify monetary presentation helpers.",
+      "tags": [
+        "test",
+        "unit-test",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/unit/quote-prefill.spec.ts",
+      "type": "file",
+      "name": "quote-prefill.spec.ts",
+      "filePath": "tests/unit/quote-prefill.spec.ts",
+      "summary": "Verifies that product-question and quote-request contact links contain the expected prefilled customer and product context.",
+      "tags": [
+        "test",
+        "unit-test",
+        "validation"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/lib/site.ts",
+      "target": "function:src/lib/site.ts:emailHref",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/site.ts",
+      "target": "function:src/lib/site.ts:emailHref",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/lib/site.ts",
+      "target": "function:src/lib/site.ts:whatsappHref",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/lib/site.ts",
+      "target": "function:src/lib/site.ts:whatsappHref",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/routes/account.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/account.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/account.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/account.tsx",
+      "target": "file:src/lib/shopify/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/account.tsx",
+      "target": "function:src/routes/account.tsx:AccountPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/cart.tsx",
+      "target": "file:src/components/shopify/BuildQuoteFromCartButton.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/cart.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/cart.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/cart.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/cart.tsx",
+      "target": "file:src/lib/shopify/cart.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/cart.tsx",
+      "target": "file:src/lib/shopify/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/cart.tsx",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/cart.tsx",
+      "target": "function:src/routes/cart.tsx:CartPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/delivery-information.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/delivery-information.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/delivery-information.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/delivery-information.tsx",
+      "target": "function:src/routes/delivery-information.tsx:DeliveryPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/forgot-password.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/forgot-password.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/forgot-password.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/forgot-password.tsx",
+      "target": "function:src/routes/forgot-password.tsx:ForgotPasswordPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/login.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/login.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/login.tsx",
+      "target": "function:src/routes/login.tsx:LoginPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/login.tsx",
+      "target": "function:src/routes/login.tsx:Field",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/login.tsx",
+      "target": "function:src/routes/login.tsx:PasswordField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/products/$handle.tsx",
+      "target": "file:src/components/shopify/ProductDetail.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/products/$handle.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/products/$handle.tsx",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/products/index.tsx",
+      "target": "file:src/components/shopify/ProductCard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/products/index.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/products/index.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/products/index.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/products/index.tsx",
+      "target": "file:src/lib/catalog.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/products/index.tsx",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/products/index.tsx",
+      "target": "file:src/lib/site.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/products/index.tsx",
+      "target": "function:src/routes/products/index.tsx:ProductsCataloguePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/quote.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/quote.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/quote.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/quote.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/quote.tsx",
+      "target": "file:src/lib/shopify/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/quote.tsx",
+      "target": "file:src/lib/shopify/quote.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/quote.tsx",
+      "target": "function:src/routes/quote.tsx:QuotePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/quote.tsx",
+      "target": "function:src/routes/quote.tsx:QuoteField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/register.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/register.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/register.tsx",
+      "target": "function:src/routes/register.tsx:normalizePhoneForShopify",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/register.tsx",
+      "target": "function:src/routes/register.tsx:RegisterPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/register.tsx",
+      "target": "function:src/routes/register.tsx:PhoneField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/register.tsx",
+      "target": "function:src/routes/register.tsx:Field",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/register.tsx",
+      "target": "function:src/routes/register.tsx:PasswordField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "file:src/lib/shopify/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "function:src/routes/resources.tsx:ResourcesPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "function:src/routes/resources.tsx:groupProductResources",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "function:src/routes/resources.tsx:productResources",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "function:src/routes/resources.tsx:ResourceDocumentLink",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "function:src/routes/resources.tsx:ResourceVideoLink",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "function:src/routes/resources.tsx:ResourceIcon",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/resources.tsx",
+      "target": "function:src/routes/resources.tsx:ResourceText",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/returns.tsx",
+      "target": "file:src/components/shopify/ReturnRequestForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/returns.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/returns.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/returns.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/returns.tsx",
+      "target": "function:src/routes/returns.tsx:ReturnsPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/search.tsx",
+      "target": "file:src/components/shopify/CollectionPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/search.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/search.tsx",
+      "target": "function:src/routes/search.tsx:SearchPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/routes/track-order.tsx",
+      "target": "file:src/components/shopify/SignInRequired.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/track-order.tsx",
+      "target": "file:src/components/shopify/SiteFooter.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/track-order.tsx",
+      "target": "file:src/components/shopify/SiteHeader.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/track-order.tsx",
+      "target": "file:src/lib/api/shopify.functions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/track-order.tsx",
+      "target": "file:src/lib/seo.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/track-order.tsx",
+      "target": "file:src/lib/shopify/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/routes/track-order.tsx",
+      "target": "function:src/routes/track-order.tsx:TrackOrderPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/unit/format.spec.ts",
+      "target": "file:src/lib/shopify/format.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/unit/quote-prefill.spec.ts",
+      "target": "file:src/lib/shopify/quote.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

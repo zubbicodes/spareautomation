@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { LogOut, ShieldCheck } from "lucide-react";
+import { FileText, Images, KeyRound, LogOut, ShieldCheck, Users } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { adminLogout, type AdminSession } from "@/lib/admin/admin.functions";
@@ -52,6 +52,16 @@ export function AdminShell({ staff, title, eyebrow = "Admin", children }: AdminS
           </div>
         </div>
       </header>
+
+      <nav aria-label="CMS sections" className="border-b border-rule bg-surface">
+        <div className="mx-auto flex max-w-[1400px] flex-wrap gap-1 px-4 py-2 md:px-6">
+          <Link to="/admin" search={{ type: "all", status: "all", search: "", page: 1 }} className="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold hover:text-accent"><FileText className="h-4 w-4" /> Submissions</Link>
+          <Link to="/admin/content" className="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold hover:text-accent"><FileText className="h-4 w-4" /> Content</Link>
+          <Link to="/admin/media" className="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold hover:text-accent"><Images className="h-4 w-4" /> Media</Link>
+          {staff.role === "admin" ? <Link to="/admin/users" className="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold hover:text-accent"><Users className="h-4 w-4" /> Users</Link> : null}
+          <Link to="/admin/change-password" className="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold hover:text-accent"><KeyRound className="h-4 w-4" /> Password</Link>
+        </div>
+      </nav>
 
       <main id="main-content" className="mx-auto max-w-[1400px] px-4 py-6 md:px-6 md:py-8">
         <div className="mb-6">

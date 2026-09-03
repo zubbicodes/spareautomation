@@ -4,9 +4,21 @@ import { useState, type FormEvent } from "react";
 
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { createShopifyCustomer } from "@/lib/api/shopify.functions";
+import { useContent } from "@/lib/content/ContentContext";
+import { getPublishedContent } from "@/lib/content/content.functions";
+import { contentPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/register")({
-  head: () => ({ meta: [{ title: "Create Account | Spares Automation" }, { name: "robots", content: "noindex, follow" }] }),
+  loader: async () => {
+    const { site, functional } = await getPublishedContent();
+    return { site, seo: functional.register.seo };
+  },
+  head: ({ loaderData }) =>
+    contentPageHead(loaderData?.seo, loaderData?.site, "/register", {
+      title: "Create Account",
+      description:
+        "Create a Spares Automation trade account to track orders, build quotes, and apply for credit terms.",
+    }, { noIndex: true }),
   component: RegisterPage,
 });
 
@@ -27,6 +39,8 @@ function normalizePhoneForShopify(countryCode: string, phone: string) {
 }
 
 function RegisterPage() {
+  const { functional } = useContent();
+  const copy = functional.register;
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<RegistrationResult>({ status: "idle", message: "" });
 
@@ -114,15 +128,16 @@ function RegisterPage() {
               <ArrowLeft className="h-4 w-4" /> Back to home
             </Link>
             <div className="mt-12 md:mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
-          Customer Access
+              {copy.eyebrow}
             </div>
             <h1 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase leading-none tracking-tight">
-              Create Your Account
+              {copy.title}
             </h1>
-            <p className="mt-4 md:mt-6 max-w-md text-sm leading-7 text-white/55">
-              Create your Spares Automation account for faster checkout and access to your
-              Shopify customer details.
-            </p>
+            {copy.intro ? (
+              <p className="mt-4 md:mt-6 max-w-md text-sm leading-7 text-white/55">
+                {copy.intro}
+              </p>
+            ) : null}
           </div>
 
           <div className="grid gap-4 border-t border-white/10 pt-6 text-sm text-white/55">
@@ -136,10 +151,10 @@ function RegisterPage() {
             <UserPlus className="h-5 w-5" />
           </div>
           <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
-            Registration
+            {copy.sectionEyebrow}
           </div>
           <h2 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight">
-            New Customer
+            {copy.sectionTitle}
           </h2>
 
           <form onSubmit={handleSubmit} className="mt-8 grid min-w-0 gap-5">
@@ -221,7 +236,7 @@ function RegisterPage() {
             </button>
 
             <p className="text-sm text-ink-muted">
-              Already registered?{" "}
+              {copy.helpCopy}{" "}
               <Link to="/login" className="font-semibold text-ink transition-colors hover:text-accent">
                 Sign in
               </Link>
@@ -446,7 +461,7 @@ function PhoneField() {
           aria-label="Phone country code"
         >
           {COUNTRIES.map((country) => (
-            <option key={country.code} value={country.code}>
+            <option key={`${country.name}-${country.code}`} value={country.code}>
               {country.name} {country.code}
             </option>
           ))}

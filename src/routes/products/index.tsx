@@ -9,7 +9,9 @@ import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { getCatalogProductsPage, getCollection } from "@/lib/api/shopify.functions";
 import { CATALOG_CATEGORIES, getCatalogueSearch } from "@/lib/catalog";
 import type { ShopifyProduct } from "@/lib/shopify/types";
-import { SITE } from "@/lib/site";
+import { useContent } from "@/lib/content/ContentContext";
+import { getPublishedContent } from "@/lib/content/content.functions";
+import { contentPageHead } from "@/lib/seo";
 
 type CategoryFilter = {
   label: string;
@@ -38,23 +40,12 @@ export const Route = createFileRoute("/products/")({
       ? (search.sort as "price-asc" | "price-desc" | "title")
       : ("newest" as const),
   }),
-  head: () => ({
-    meta: [
-      { title: "All Products | Spares Automation" },
-      {
-        name: "description",
-        content:
-          "Browse all products across asphalt, concrete, packing, automation and control categories.",
-      },
-    ],
-    links: [{ rel: "canonical", href: `${SITE.url}/products` }],
-  }),
   loaderDeps: ({ search }) => ({ category: search.category }),
   loader: async ({ deps }) => {
     const collectionHandle = collectionFilters.some((category) => category.handle === deps.category)
       ? deps.category
       : undefined;
-    const [initialPage, collections] = await Promise.all([
+    const [initialPage, collections, content] = await Promise.all([
       getCatalogProductsPage({ data: { first: 48, collectionHandle } }),
       Promise.all(
         categoryGroups.map(async (category) => {
@@ -72,17 +63,32 @@ export const Route = createFileRoute("/products/")({
           }
         }),
       ),
+      getPublishedContent(),
     ]);
 
     return {
       initialPage,
       categoryDescriptions: Object.fromEntries(collections),
+      site: content.site,
+      seo: content.product.listingSeo,
     };
   },
+  head: ({ loaderData }) =>
+    contentPageHead(loaderData?.seo, loaderData?.site, "/products", {
+      title: "All Products",
+      description:
+        "Browse all products across asphalt, concrete, packing, automation and control categories.",
+    }),
   component: ProductsCataloguePage,
 });
 
 function ProductsCataloguePage() {
+  const { catalogue, messages, product: productCopy } = useContent();
+  const presentation = new Map(catalogue.categories.map((category) => [category.handle, category]));
+  const displayedCategoryGroups = categoryGroups.filter((category) => presentation.get(category.handle)?.visible !== false).map((category) => {
+    const managed = presentation.get(category.handle);
+    return { ...category, label: managed?.label ?? category.label, description: managed?.description ?? category.description, collections: category.collections.map((collection, index) => index === 0 ? { ...collection, label: managed?.label ?? collection.label, description: managed?.description ?? collection.description } : collection) };
+  });
   const { initialPage, categoryDescriptions } = Route.useLoaderData();
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
@@ -168,14 +174,17 @@ function ProductsCataloguePage() {
         <div className="relative mx-auto w-full max-w-[1600px] px-4 py-6 md:px-6 md:py-8">
           <div className="mb-2 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 md:text-[10px]">
             <span className="h-px w-8 bg-accent" />
-            Product Catalogue / Cart
+            {productCopy.listingEyebrow}
           </div>
           <h1 className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white">
-            ALL PRODUCTS <span className="text-accent">CATALOGUE</span>
+            {productCopy.listingTitle}{" "}
+            <span className="text-accent">{productCopy.listingHighlight}</span>
           </h1>
-          <p className="mt-2 max-w-2xl pr-2 text-xs leading-relaxed text-white/70 md:pr-0 md:text-sm">
-            Browse the catalogue and narrow the visible products with the filters below.
-          </p>
+          {productCopy.listingIntro ? (
+            <p className="mt-2 max-w-2xl pr-2 text-xs leading-relaxed text-white/70 md:pr-0 md:text-sm">
+              {productCopy.listingIntro}
+            </p>
+          ) : null}
         </div>
       </section>
 
@@ -219,7 +228,7 @@ function ProductsCataloguePage() {
               <ChevronRight className="h-4 w-4 text-accent" />
             </Link>
 
-            {categoryGroups.map((category) => {
+            {displayedCategoryGroups.map((category) => {
               const parent = category.collections[0];
               const children = category.collections.slice(1);
               const expanded = expandedCategory === category.handle;
@@ -250,7 +259,7 @@ function ProductsCataloguePage() {
                         {parent.label}
                       </span>
                       <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
-                        {categoryDescriptions[parent.handle] ?? parent.description}
+                        {presentation.get(parent.handle)?.description ?? categoryDescriptions[parent.handle] ?? parent.description}
                       </span>
                     </Link>
                     <button
@@ -374,14 +383,10 @@ function ProductsCataloguePage() {
           ) : (
             <div className="mt-6 border border-dashed border-rule bg-surface px-4 py-10 text-center md:px-8 md:py-16">
               <h2 className="font-display text-xl font-bold uppercase tracking-tight md:text-2xl">
-                {products.length === 0
-                  ? "Catalogue products are being updated"
-                  : "No products match these filters"}
+                {products.length === 0 ? productCopy.emptyTitle : productCopy.filteredEmptyTitle}
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-ink-muted md:mt-4">
-                {products.length === 0
-                  ? "Contact our sales desk for availability, product identification, or a quotation while the online catalogue is updated."
-                  : "Adjust the filters or browse other categories."}
+                {products.length === 0 ? productCopy.emptyCopy : productCopy.filteredEmptyCopy}
               </p>
               <button
                 type="button"
@@ -434,7 +439,7 @@ function ProductsCataloguePage() {
                 }}
                 className="inline-flex h-12 items-center justify-center border border-accent bg-surface px-7 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-accent hover:bg-accent hover:text-white disabled:opacity-60"
               >
-                {loadingMore ? "Loading products" : "Load more products"}
+                {loadingMore ? "Loading products" : messages["catalogue.loadMore"]}
               </button>
             </div>
           ) : null}

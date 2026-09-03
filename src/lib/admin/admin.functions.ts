@@ -24,7 +24,8 @@ import {
   syncCreditCustomer,
   type CustomerSyncMetafield,
 } from "../shopify/customer-sync.server";
-import { SITE } from "../site";
+import { loadPublishedContentBundle } from "../content/content.server";
+import { renderTemplateText } from "../content/registry";
 
 /**
  * Admin (staff) server functions. Every function that reads or mutates
@@ -48,6 +49,7 @@ export type AdminSession = {
   email: string;
   name: string;
   role: "admin" | "staff";
+  mustChangePassword: boolean;
 };
 
 function toSession(staff: {
@@ -55,8 +57,9 @@ function toSession(staff: {
   email: string;
   name: string;
   role: "admin" | "staff";
+  mustChangePassword: boolean;
 }): AdminSession {
-  return { id: staff.id, email: staff.email, name: staff.name, role: staff.role };
+  return { id: staff.id, email: staff.email, name: staff.name, role: staff.role, mustChangePassword: staff.mustChangePassword };
 }
 
 export const getAdminSession = createServerFn({ method: "GET" }).handler(
@@ -73,7 +76,7 @@ const loginSchema = z.object({
 
 export const adminLogin = createServerFn({ method: "POST" })
   .inputValidator(loginSchema)
-  .handler(async ({ data }): Promise<{ ok: boolean; error?: string }> => {
+  .handler(async ({ data }): Promise<{ ok: boolean; error?: string; mustChangePassword?: boolean }> => {
     return loginStaff(data.email, data.password);
   });
 
@@ -396,23 +399,13 @@ export const setSubmissionStatus = createServerFn({ method: "POST" })
           "Your return request has been completed. Any agreed refund, replacement, or repair will follow the arrangements confirmed by our team.",
       };
 
+      const content = await loadPublishedContentBundle();
+      const variables = { reference: existing.reference ?? fallbackReference, status: data.status.replaceAll("_", " "), statusMessage: statusMessage[data.status] };
       await sendEmail({
         to: existing.contactEmail,
-        replyTo: SITE.email,
-        subject: `Return update: ${existing.reference ?? fallbackReference}`,
-        text: [
-          "Your return request has been updated.",
-          "",
-          `Reference: ${existing.reference ?? `Submission ${data.id}`}`,
-          orderNumber ? `Order: ${orderNumber}` : "",
-          `Status: ${data.status.replaceAll("_", " ")}`,
-          "",
-          statusMessage[data.status],
-          "",
-          `${SITE.name} · ${SITE.email} · ${SITE.phoneDisplay}`,
-        ]
-          .filter(Boolean)
-          .join("\n"),
+        replyTo: content.site.email,
+        subject: renderTemplateText(content.emails.returnStatus.subject, variables).replace(/[\r\n]+/g, " "),
+        text: renderTemplateText(content.emails.returnStatus.body, variables),
       });
     }
     return { ok: true };

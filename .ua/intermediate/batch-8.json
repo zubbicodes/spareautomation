@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    {
+      "id": "pipeline:.github/workflows/quality.yml",
+      "type": "pipeline",
+      "name": "quality.yml",
+      "filePath": ".github/workflows/quality.yml",
+      "summary": "Runs the pull-request and main-branch quality gate with PostgreSQL, locked Bun installation, linting, type checking, Playwright browser setup, tests, and a production build.",
+      "tags": [
+        "ci-cd",
+        "quality-gate",
+        "testing",
+        "build-system",
+        "database"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

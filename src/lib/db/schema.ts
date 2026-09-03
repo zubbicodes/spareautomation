@@ -1,4 +1,5 @@
 import {
+  boolean,
   index,
   integer,
   jsonb,
@@ -6,6 +7,7 @@ import {
   pgTable,
   text,
   timestamp,
+  uniqueIndex,
   varchar,
 } from "drizzle-orm/pg-core";
 
@@ -44,8 +46,74 @@ export const staffUsers = pgTable("staff_users", {
   passwordHash: text("password_hash").notNull(),
   name: varchar("name", { length: 120 }).notNull(),
   role: staffRole("role").notNull().default("staff"),
+  isActive: boolean("is_active").notNull().default(true),
+  mustChangePassword: boolean("must_change_password").notNull().default(false),
+  sessionVersion: integer("session_version").notNull().default(1),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
+
+/**
+ * Fixed-key content documents. Their JSON shape is owned and validated by the
+ * content registry in code; Postgres stores independent draft/live snapshots.
+ */
+export const contentDocuments = pgTable("content_documents", {
+  key: varchar("key", { length: 120 }).primaryKey(),
+  draftData: jsonb("draft_data").notNull().$type<Record<string, unknown>>(),
+  publishedData: jsonb("published_data").notNull().$type<Record<string, unknown>>(),
+  draftVersion: integer("draft_version").notNull().default(1),
+  publishedVersion: integer("published_version").notNull().default(1),
+  updatedBy: integer("updated_by").references(() => staffUsers.id, { onDelete: "set null" }),
+  publishedBy: integer("published_by").references(() => staffUsers.id, { onDelete: "set null" }),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  publishedAt: timestamp("published_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const contentRevisions = pgTable(
+  "content_revisions",
+  {
+    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+    documentKey: varchar("document_key", { length: 120 })
+      .notNull()
+      .references(() => contentDocuments.key, { onDelete: "cascade" }),
+    version: integer("version").notNull(),
+    data: jsonb("data").notNull().$type<Record<string, unknown>>(),
+    publishedBy: integer("published_by").references(() => staffUsers.id, { onDelete: "set null" }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("content_revisions_document_version_idx").on(table.documentKey, table.version),
+  ],
+);
+
+export const contentMedia = pgTable("content_media", {
+  id: varchar("id", { length: 64 }).primaryKey(),
+  filename: text("filename").notNull(),
+  mime: varchar("mime", { length: 120 }).notNull(),
+  size: integer("size").notNull(),
+  path: text("path").notNull(),
+  defaultAlt: varchar("default_alt", { length: 300 }).notNull(),
+  isPublished: boolean("is_published").notNull().default(false),
+  isArchived: boolean("is_archived").notNull().default(false),
+  createdBy: integer("created_by").references(() => staffUsers.id, { onDelete: "set null" }),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const adminAuditLog = pgTable(
+  "admin_audit_log",
+  {
+    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+    staffId: integer("staff_id").references(() => staffUsers.id, { onDelete: "set null" }),
+    action: varchar("action", { length: 80 }).notNull(),
+    targetType: varchar("target_type", { length: 80 }).notNull(),
+    targetId: varchar("target_id", { length: 160 }).notNull(),
+    details: jsonb("details").$type<Record<string, unknown>>(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => [index("admin_audit_target_idx").on(table.targetType, table.targetId)],
+);
 
 export const submissions = pgTable(
   "submissions",
@@ -104,6 +172,9 @@ export type Submission = typeof submissions.$inferSelect;
 export type NewSubmission = typeof submissions.$inferInsert;
 export type SubmissionNote = typeof submissionNotes.$inferSelect;
 export type Attachment = typeof attachments.$inferSelect;
+export type ContentDocument = typeof contentDocuments.$inferSelect;
+export type ContentRevision = typeof contentRevisions.$inferSelect;
+export type ContentMedia = typeof contentMedia.$inferSelect;
 
 export type SubmissionType = (typeof submissionType.enumValues)[number];
 export type SubmissionStatus = (typeof submissionStatus.enumValues)[number];

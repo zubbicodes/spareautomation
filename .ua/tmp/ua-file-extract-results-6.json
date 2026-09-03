@@ -1,0 +1,306 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 3,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "src/components/shopify/CookieConsent.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 200,
+      "nonEmptyLines": 186,
+      "functions": [
+        {
+          "name": "CookieConsent",
+          "startLine": 19,
+          "endLine": 165,
+          "params": []
+        },
+        {
+          "name": "PreferenceCard",
+          "startLine": 167,
+          "endLine": 200,
+          "params": [
+            "{\r\n  icon,\r\n  title,\r\n  description,\r\n  checked,\r\n  disabled = false,\r\n  onChange,\r\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CookieConsent",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "CookieConsent",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "useState",
+          "lineNumber": 22
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "useEffect",
+          "lineNumber": 24
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "window.localStorage.getItem",
+          "lineNumber": 26
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "setVisible",
+          "lineNumber": 28
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "JSON.parse",
+          "lineNumber": 30
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "setPreferences",
+          "lineNumber": 31
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "setVisible",
+          "lineNumber": 38
+        },
+        {
+          "caller": "openPreferences",
+          "callee": "setShowPreferences",
+          "lineNumber": 42
+        },
+        {
+          "caller": "openPreferences",
+          "callee": "setVisible",
+          "lineNumber": 43
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "window.addEventListener",
+          "lineNumber": 46
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "window.removeEventListener",
+          "lineNumber": 47
+        },
+        {
+          "caller": "save",
+          "callee": "window.localStorage.setItem",
+          "lineNumber": 52
+        },
+        {
+          "caller": "save",
+          "callee": "JSON.stringify",
+          "lineNumber": 54
+        },
+        {
+          "caller": "save",
+          "callee": "new Date().toISOString",
+          "lineNumber": 54
+        },
+        {
+          "caller": "save",
+          "callee": "window.dispatchEvent",
+          "lineNumber": 60
+        },
+        {
+          "caller": "save",
+          "callee": "setPreferences",
+          "lineNumber": 61
+        },
+        {
+          "caller": "save",
+          "callee": "setVisible",
+          "lineNumber": 62
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "setPreferences",
+          "lineNumber": 116
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "setPreferences",
+          "lineNumber": 122
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "setShowPreferences",
+          "lineNumber": 132
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "save",
+          "lineNumber": 140
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "save",
+          "lineNumber": 148
+        },
+        {
+          "caller": "CookieConsent",
+          "callee": "save",
+          "lineNumber": 156
+        },
+        {
+          "caller": "PreferenceCard",
+          "callee": "onChange",
+          "lineNumber": 195
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/lib/lovable-error-reporting.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 36,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "reportLovableError",
+          "startLine": 21,
+          "endLine": 36,
+          "params": [
+            "error",
+            "context"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "reportLovableError",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "reportLovableError",
+          "callee": "window.__lovableEvents?.captureException",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/routes/__root.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 172,
+      "nonEmptyLines": 164,
+      "functions": [
+        {
+          "name": "NotFoundComponent",
+          "startLine": 16,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "ErrorComponent",
+          "startLine": 38,
+          "endLine": 74,
+          "params": [
+            "{ error, reset }"
+          ]
+        },
+        {
+          "name": "RootShell",
+          "startLine": 151,
+          "endLine": 163,
+          "params": [
+            "{ children }"
+          ]
+        },
+        {
+          "name": "RootComponent",
+          "startLine": 165,
+          "endLine": 172,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Route",
+          "line": 83,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ErrorComponent",
+          "callee": "console.error",
+          "lineNumber": 39
+        },
+        {
+          "caller": "ErrorComponent",
+          "callee": "useRouter",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ErrorComponent",
+          "callee": "useEffect",
+          "lineNumber": 41
+        },
+        {
+          "caller": "ErrorComponent",
+          "callee": "reportLovableError",
+          "lineNumber": 42
+        },
+        {
+          "caller": "ErrorComponent",
+          "callee": "router.invalidate",
+          "lineNumber": 57
+        },
+        {
+          "caller": "ErrorComponent",
+          "callee": "reset",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    }
+  ]
+}
