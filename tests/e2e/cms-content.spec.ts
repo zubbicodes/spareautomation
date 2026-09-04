@@ -202,6 +202,9 @@ test.describe("CMS dashboard", () => {
     await expect(page).toHaveURL(/\/admin\/activity/);
     await expect(page.getByRole("heading", { level: 1, name: "Activity log" })).toBeVisible();
 
+    // Signing out must be reachable without opening a menu.
+    await expect(sidebar.getByRole("button", { name: "Sign out" })).toBeVisible();
+
     await sidebar.getByRole("link", { name: "Settings" }).click();
     await expect(page).toHaveURL(/\/admin\/settings$/);
     await expect(page.getByRole("heading", { name: "Business details" })).toBeVisible();

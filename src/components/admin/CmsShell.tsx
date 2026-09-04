@@ -83,8 +83,12 @@ export function CmsShell({
   }, [accountOpen]);
 
   async function signOut() {
-    await adminLogout();
-    void navigate({ to: "/admin/login" });
+    // Always land on the sign-in screen, even if clearing the session failed.
+    try {
+      await adminLogout();
+    } finally {
+      void navigate({ to: "/admin/login" });
+    }
   }
 
   return (
@@ -239,6 +243,10 @@ export function CmsShell({
               <span className="cms-nav-label">View website</span>
               <ExternalLink aria-hidden="true" style={{ marginLeft: "auto", width: 13, height: 13 }} />
             </a>
+            <button type="button" onClick={signOut} className="cms-nav-item cms-nav-signout">
+              <LogOut />
+              <span className="cms-nav-label">Sign out</span>
+            </button>
           </div>
         </aside>
 

@@ -286,11 +286,15 @@
 }
 
 .cms-sidebar-foot {
+  position: sticky;
+  bottom: 0;
   margin-top: auto;
   padding-top: 12px;
   display: flex;
   flex-direction: column;
   gap: 1px;
+  /* Stays reachable when the document list makes the sidebar scroll. */
+  background: var(--cms-sidebar);
 }
 
 /* ------------------------------------------------------------ main area */
@@ -1580,4 +1584,21 @@ a.cms-stat:hover {
 .cms-brand-mark svg {
   width: 19px;
   height: 19px;
+}
+
+/* Sign out sits apart from navigation and reads as a destructive action. */
+.cms-nav-signout {
+  margin-top: 2px;
+  border-top: 1px solid var(--cms-border);
+  border-radius: 0 0 var(--cms-radius-sm) var(--cms-radius-sm);
+  padding-top: 2px;
+}
+
+.cms-nav-signout:hover {
+  background: var(--cms-danger-soft);
+  color: var(--cms-danger);
+}
+
+.cms-nav-signout:hover svg {
+  color: var(--cms-danger);
 }
