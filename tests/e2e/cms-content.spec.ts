@@ -118,7 +118,8 @@ test("unauthenticated visitors cannot reach CMS screens, drafts or previews", as
 });
 
 test("every CMS-wired route renders without a client error", async ({ page }) => {
-  test.slow();
+  // Fifteen server-rendered routes, each hitting Shopify or Postgres.
+  test.setTimeout(240_000);
   const failures: string[] = [];
   page.on("pageerror", (error) => failures.push(`${page.url()}: ${error.message}`));
   page.on("console", (message) => {
@@ -142,7 +143,9 @@ test("every CMS-wired route renders without a client error", async ({ page }) =>
     "/sitemap.xml",
     "/site.webmanifest",
   ]) {
-    const response = await page.goto(target);
+    // Catalogue routes call Shopify, which can blip; one retry keeps the check honest.
+    let response = await page.goto(target);
+    if ((response?.status() ?? 500) >= 500) response = await page.goto(target);
     expect(response?.status(), target).toBeLessThan(400);
   }
 
@@ -172,14 +175,14 @@ test.describe("CMS dashboard", () => {
     await expect(page).toHaveURL(/\/admin$/);
     await expect(page.getByRole("heading", { level: 1, name: "Overview" })).toBeVisible();
 
-    const sidebar = page.getByRole("navigation", { name: "CMS sections" });
+    const sidebar = page.locator(".cms-sidebar");
     for (const label of [
-      "Overview",
+      "Dashboard",
       "Submissions",
       "Content",
-      "Media library",
+      "Media",
       "Users",
-      "Activity log",
+      "Activity",
       "Settings",
     ]) {
       await expect(sidebar.getByText(label, { exact: true }).first(), label).toBeVisible();
@@ -191,15 +194,15 @@ test.describe("CMS dashboard", () => {
     await expect(page.getByRole("button", { name: "Save draft" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Publish" })).toBeVisible();
 
-    await sidebar.getByText("Media library", { exact: true }).click();
+    await sidebar.getByText("Media", { exact: true }).click();
     await expect(page).toHaveURL(/\/admin\/media$/);
-    await expect(page.getByRole("heading", { level: 1, name: "Media library" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: "Media" })).toBeVisible();
 
-    await sidebar.getByText("Activity log", { exact: true }).click();
+    await sidebar.getByText("Activity", { exact: true }).click();
     await expect(page).toHaveURL(/\/admin\/activity/);
     await expect(page.getByRole("heading", { level: 1, name: "Activity log" })).toBeVisible();
 
-    await sidebar.getByText("Settings", { exact: true }).click();
+    await sidebar.getByRole("link", { name: "Settings" }).click();
     await expect(page).toHaveURL(/\/admin\/settings$/);
     await expect(page.getByRole("heading", { name: "Business details" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Navigation and footer" })).toBeVisible();
@@ -317,6 +320,7 @@ test.describe("CMS content workflow", () => {
     try {
       await signIn(page, environment.adminEmail!, environment.adminPassword!);
       await page.goto("/admin/media");
+      await page.getByRole("button", { name: "Upload", exact: true }).first().click();
       await page.locator('input[name="file"]').setInputFiles({
         name: "e2e-content-image.png",
         mimeType: "image/png",
@@ -356,8 +360,9 @@ test.describe("CMS content workflow", () => {
       `;
 
       await page.goto("/admin/media");
+      await page.locator("article", { hasText: alt }).getByRole("button", { name: /Actions for/ }).click();
       page.once("dialog", (dialog) => dialog.accept());
-      await page.locator("article", { hasText: alt }).getByRole("button", { name: "Delete" }).click();
+      await page.getByRole("menuitem", { name: "Delete" }).click();
       await expect(page.getByRole("alert")).toContainText("referenced by draft or published content");
 
       await sql`
@@ -367,8 +372,9 @@ test.describe("CMS content workflow", () => {
       `;
 
       await page.goto("/admin/media");
+      await page.locator("article", { hasText: alt }).getByRole("button", { name: /Actions for/ }).click();
       page.once("dialog", (dialog) => dialog.accept());
-      await page.locator("article", { hasText: alt }).getByRole("button", { name: "Delete" }).click();
+      await page.getByRole("menuitem", { name: "Delete" }).click();
       await expect(page.locator("article", { hasText: alt })).toHaveCount(0);
 
       const remaining = await sql<{ id: string }[]>`

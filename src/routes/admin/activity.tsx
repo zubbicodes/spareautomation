@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 
 import { CmsShell } from "@/components/admin/CmsShell";
 import {
+  ChipSelect,
   EmptyState,
   formatDateTime,
   humaniseAction,
   Notice,
-  Pager,
+  FootBar,
   SkeletonRows,
 } from "@/components/admin/cms-ui";
 import { getAdminSession } from "@/lib/admin/admin.functions";
@@ -73,30 +74,22 @@ function ActivityPage() {
       title="Activity log"
       subtitle="Every draft save, publish, revision restore, media change and account update, with the person responsible."
     >
-      <div className="cms-card cms-toolbar" style={{ marginBottom: 14 }}>
-        <label className="cms-field">
-          <span className="cms-label">Action</span>
-          <select
-            value={search.action}
-            onChange={(event) =>
-              void navigate({ search: { page: 1, action: event.target.value } })
-            }
-            className="cms-select"
-          >
-            <option value="">All actions</option>
-            {actions.map((action) => (
-              <option key={action} value={action}>
-                {humaniseAction(action)}
-              </option>
-            ))}
-          </select>
-        </label>
+      <div className="cms-filters">
+        <ChipSelect
+          label="Action"
+          value={search.action}
+          options={[
+            { value: "", label: "All actions" },
+            ...actions.map((action) => ({ value: action, label: humaniseAction(action) })),
+          ]}
+          onChange={(action) => void navigate({ search: { page: 1, action } })}
+        />
         <span className="cms-badge">
           <Filter aria-hidden="true" style={{ width: 12, height: 12 }} /> {meta.total} entries
         </span>
       </div>
 
-      <section className="cms-card">
+      <section>
         {error ? (
           <div className="cms-card-pad">
             <Notice tone="danger">{error}</Notice>
@@ -139,14 +132,14 @@ function ActivityPage() {
                 </tbody>
               </table>
             </div>
-            {meta.pageCount > 1 ? (
-              <Pager
-                page={meta.page}
-                pageCount={meta.pageCount}
-                total={meta.total}
-                onChange={(page) => void navigate({ search: { ...search, page } })}
-              />
-            ) : null}
+            <FootBar
+              shown={entries.length}
+              total={meta.total}
+              page={meta.page}
+              pageCount={meta.pageCount}
+              noun="entries"
+              onChange={(page: number) => void navigate({ search: { ...search, page } })}
+            />
           </>
         )}
       </section>

@@ -1,13 +1,18 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { Filter, Inbox, RotateCcw, Search } from "lucide-react";
-import { useEffect, useState, type FormEvent } from "react";
+import { CheckCircle2, ExternalLink, Inbox, Loader2, RotateCcw } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { CmsShell } from "@/components/admin/CmsShell";
 import {
+  Avatar,
+  BulkBar,
+  ChipSelect,
   EmptyState,
-  formatDateTime,
+  FootBar,
+  formatDate,
+  KebabMenu,
   Notice,
-  Pager,
+  SearchField,
   SkeletonRows,
   StatusBadge,
   SUBMISSION_STATUS_LABELS,
@@ -16,6 +21,8 @@ import {
 import {
   getAdminSession,
   listSubmissions,
+  markSubmissionReviewed,
+  setSubmissionStatus,
   type SubmissionListResult,
 } from "@/lib/admin/admin.functions";
 import { cmsHead } from "@/lib/admin/head";
@@ -26,6 +33,8 @@ type SubmissionSearch = {
   search: string;
   page: number;
 };
+
+type Status = keyof typeof SUBMISSION_STATUS_LABELS;
 
 export const Route = createFileRoute("/admin/submissions/")({
   head: () => cmsHead("Submissions"),
@@ -44,6 +53,16 @@ export const Route = createFileRoute("/admin/submissions/")({
   component: SubmissionsPage,
 });
 
+const TYPE_OPTIONS = [
+  { value: "all", label: "All types" },
+  ...Object.entries(SUBMISSION_TYPE_LABELS).map(([value, label]) => ({ value, label })),
+];
+
+const STATUS_OPTIONS = [
+  { value: "all", label: "All statuses" },
+  ...Object.entries(SUBMISSION_STATUS_LABELS).map(([value, label]) => ({ value, label })),
+];
+
 function SubmissionsPage() {
   const { staff } = Route.useLoaderData();
   const search = Route.useSearch();
@@ -51,6 +70,24 @@ function SubmissionsPage() {
   const [result, setResult] = useState<SubmissionListResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
+  const [query, setQuery] = useState(search.search);
+  const [selected, setSelected] = useState<number[]>([]);
+  const [bulkBusy, setBulkBusy] = useState(false);
+  const [notice, setNotice] = useState("");
+  const [reload, setReload] = useState(0);
+
+  // Typing filters the list without a submit button; the URL stays shareable.
+  useEffect(() => {
+    if (query === search.search) return;
+    const timer = setTimeout(() => {
+      void navigate({ search: { ...search, search: query, page: 1 } });
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [query, search, navigate]);
+
+  useEffect(() => {
+    setQuery(search.search);
+  }, [search.search]);
 
   useEffect(() => {
     let active = true;
@@ -66,7 +103,10 @@ function SubmissionsPage() {
             page: search.page,
           },
         });
-        if (active) setResult(response);
+        if (active) {
+          setResult(response);
+          setSelected([]);
+        }
       } catch {
         if (active) setLoadError("We could not load submissions.");
       } finally {
@@ -77,23 +117,51 @@ function SubmissionsPage() {
     return () => {
       active = false;
     };
-  }, [search.type, search.status, search.search, search.page]);
-
-  function applyFilters(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    void navigate({
-      search: {
-        type: String(form.get("type") ?? "all"),
-        status: String(form.get("status") ?? "all"),
-        search: String(form.get("search") ?? ""),
-        page: 1,
-      },
-    });
-  }
+  }, [search.type, search.status, search.search, search.page, reload]);
 
   const items = result?.ok ? result.items : [];
   const filtered = search.type !== "all" || search.status !== "all" || search.search !== "";
+
+  function toggle(id: number) {
+    setSelected((current) =>
+      current.includes(id) ? current.filter((value) => value !== id) : [...current, id],
+    );
+  }
+
+  async function applyStatus(status: Status, ids: number[]) {
+    if (!ids.length) return;
+    setBulkBusy(true);
+    setNotice("");
+    try {
+      for (const id of ids) {
+        await setSubmissionStatus({ data: { id, status: status as never } });
+      }
+      setNotice(
+        `${ids.length} submission${ids.length === 1 ? "" : "s"} moved to ${SUBMISSION_STATUS_LABELS[status].toLowerCase()}.`,
+      );
+      setSelected([]);
+      setReload((value) => value + 1);
+    } catch {
+      setLoadError("Some submissions could not be updated. Refresh and try again.");
+    } finally {
+      setBulkBusy(false);
+    }
+  }
+
+  async function markReviewed(ids: number[]) {
+    setBulkBusy(true);
+    setNotice("");
+    try {
+      for (const id of ids) await markSubmissionReviewed({ data: { id } });
+      setNotice(`${ids.length} submission${ids.length === 1 ? "" : "s"} marked as reviewed.`);
+      setSelected([]);
+      setReload((value) => value + 1);
+    } catch {
+      setLoadError("Some submissions could not be updated. Refresh and try again.");
+    } finally {
+      setBulkBusy(false);
+    }
+  }
 
   return (
     <CmsShell
@@ -104,27 +172,29 @@ function SubmissionsPage() {
       inboxCount={result?.ok ? result.counts.new : undefined}
       actions={
         filtered ? (
-          <Link
-            to="/admin/submissions"
-            search={{ type: "all", status: "all", search: "", page: 1 }}
+          <button
+            type="button"
             className="cms-btn"
+            onClick={() =>
+              void navigate({ search: { type: "all", status: "all", search: "", page: 1 } })
+            }
           >
             <RotateCcw aria-hidden="true" /> Clear filters
-          </Link>
+          </button>
         ) : null
       }
     >
       {result?.ok ? (
-        <div className="cms-grid cms-grid-stats" style={{ marginBottom: 14 }}>
+        <div className="cms-grid cms-grid-stats" style={{ marginBottom: 16 }}>
           {Object.entries(SUBMISSION_STATUS_LABELS).map(([status, label]) => (
             <Link
               key={status}
               to="/admin/submissions"
-              search={{ ...search, status, page: 1 }}
+              search={{ ...search, status: search.status === status ? "all" : status, page: 1 }}
               className="cms-card cms-stat"
               style={
                 search.status === status
-                  ? { borderColor: "var(--cms-accent)", boxShadow: "0 0 0 3px rgba(43,92,255,0.12)" }
+                  ? { borderColor: "var(--cms-accent)", background: "var(--cms-accent-soft)" }
                   : undefined
               }
             >
@@ -137,53 +207,76 @@ function SubmissionsPage() {
         </div>
       ) : null}
 
-      <form onSubmit={applyFilters} className="cms-card cms-toolbar" style={{ marginBottom: 14 }}>
-        <label className="cms-field cms-field-grow">
-          <span className="cms-label">Search</span>
-          <span className="cms-search">
-            <Search aria-hidden="true" />
-            <input
-              name="search"
-              defaultValue={search.search}
-              placeholder="Reference, email, name or company"
-              aria-label="Search submissions"
-            />
-          </span>
-        </label>
-        <label className="cms-field">
-          <span className="cms-label">Type</span>
-          <select name="type" defaultValue={search.type} className="cms-select">
-            <option value="all">All types</option>
-            {Object.entries(SUBMISSION_TYPE_LABELS).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="cms-field">
-          <span className="cms-label">Status</span>
-          <select name="status" defaultValue={search.status} className="cms-select">
-            <option value="all">All statuses</option>
-            {Object.entries(SUBMISSION_STATUS_LABELS).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button type="submit" className="cms-btn cms-btn-primary">
-          <Filter aria-hidden="true" /> Apply
-        </button>
-      </form>
+      <div className="cms-filters">
+        <ChipSelect
+          label="Type"
+          value={search.type}
+          options={TYPE_OPTIONS}
+          onChange={(value) => void navigate({ search: { ...search, type: value, page: 1 } })}
+        />
+        <ChipSelect
+          label="Status"
+          value={search.status}
+          options={STATUS_OPTIONS}
+          onChange={(value) => void navigate({ search: { ...search, status: value, page: 1 } })}
+        />
+        <SearchField
+          value={query}
+          onChange={setQuery}
+          label="Search submissions"
+          placeholder="Reference, email, name or company"
+        />
+      </div>
 
-      <section className="cms-card">
-        {loadError ? (
-          <div className="cms-card-pad">
-            <Notice tone="danger">{loadError}</Notice>
-          </div>
-        ) : loading ? (
-          <SkeletonRows rows={6} />
+      {notice ? (
+        <div style={{ marginBottom: 12 }}>
+          <Notice tone="success">{notice}</Notice>
+        </div>
+      ) : null}
+      {loadError ? (
+        <div style={{ marginBottom: 12 }}>
+          <Notice tone="danger">{loadError}</Notice>
+        </div>
+      ) : null}
+
+      {selected.length ? (
+        <BulkBar count={selected.length} onClear={() => setSelected([])}>
+          <span className="cms-row-inline" style={{ gap: 6 }}>
+            <label className="cms-sr" htmlFor="bulk-status">
+              Set status for selected submissions
+            </label>
+            <select
+              id="bulk-status"
+              disabled={bulkBusy}
+              value=""
+              onChange={(event) => {
+                const value = event.target.value;
+                event.target.value = "";
+                if (value) void applyStatus(value as Status, selected);
+              }}
+            >
+              <option value="">Set status…</option>
+              {Object.entries(SUBMISSION_STATUS_LABELS).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+            <button type="button" disabled={bulkBusy} onClick={() => void markReviewed(selected)}>
+              {bulkBusy ? (
+                <Loader2 aria-hidden="true" className="cms-spin" style={{ width: 14, height: 14 }} />
+              ) : (
+                <CheckCircle2 aria-hidden="true" style={{ width: 14, height: 14 }} />
+              )}
+              Mark reviewed
+            </button>
+          </span>
+        </BulkBar>
+      ) : null}
+
+      <section>
+        {loadError && !items.length ? null : loading ? (
+          <SkeletonRows rows={7} />
         ) : items.length === 0 ? (
           <EmptyState
             icon={<Inbox aria-hidden="true" />}
@@ -192,60 +285,94 @@ function SubmissionsPage() {
           />
         ) : (
           <>
-            <div className="cms-table-wrap">
-              <table className="cms-table">
-                <thead>
-                  <tr>
-                    <th>Reference</th>
-                    <th>Type</th>
-                    <th>Contact</th>
-                    <th>Company</th>
-                    <th>Status</th>
-                    <th>Received</th>
-                    <th style={{ textAlign: "right" }}>Shopify</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {items.map((item) => (
-                    <tr key={item.id}>
-                      <td>
-                        <Link
-                          to="/admin/submissions/$id"
-                          params={{ id: String(item.id) }}
-                          className="cms-link cms-mono"
-                        >
-                          {item.reference ?? `#${item.id}`}
-                        </Link>
-                      </td>
-                      <td>{SUBMISSION_TYPE_LABELS[item.type] ?? item.type}</td>
-                      <td>
-                        <div>{item.contactName ?? "—"}</div>
-                        <div className="cms-faint" style={{ fontSize: 12 }}>
-                          {item.contactEmail}
-                        </div>
-                      </td>
-                      <td>{item.company ?? "—"}</td>
-                      <td>
-                        <StatusBadge status={item.status} />
-                      </td>
-                      <td className="cms-num">{formatDateTime(item.createdAt)}</td>
-                      <td style={{ textAlign: "right" }}>
-                        {item.shopifySyncedAt ? (
-                          <span className="cms-badge cms-badge-success">Synced</span>
-                        ) : (
-                          <span className="cms-faint">—</span>
+            <div className="cms-list">
+              {items.map((item) => {
+                const isSelected = selected.includes(item.id);
+                return (
+                  <div
+                    key={item.id}
+                    className="cms-row"
+                    data-selected={isSelected ? "true" : "false"}
+                    style={{
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      ["--cms-row-columns" as any]:
+                        "24px minmax(0, 1fr) minmax(0, 190px) 110px 96px 40px",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      className="cms-check"
+                      checked={isSelected}
+                      onChange={() => toggle(item.id)}
+                      aria-label={`Select ${item.reference ?? `submission ${item.id}`}`}
+                    />
+                    <span className="cms-row-main">
+                      <Link
+                        to="/admin/submissions/$id"
+                        params={{ id: String(item.id) }}
+                        className="cms-row-title"
+                      >
+                        {item.reference ?? `Submission #${item.id}`}
+                      </Link>
+                      <span className="cms-row-meta">
+                        {SUBMISSION_TYPE_LABELS[item.type] ?? item.type}
+                        {item.company ? ` · ${item.company}` : ""}
+                      </span>
+                    </span>
+                    <span className="cms-row-person">
+                      <Avatar name={item.contactName ?? item.contactEmail} small />
+                      <span>{item.contactName ?? item.contactEmail}</span>
+                    </span>
+                    <span className="cms-row-date">{formatDate(item.createdAt)}</span>
+                    <span>
+                      <StatusBadge status={item.status} />
+                    </span>
+                    <span className="cms-row-actions">
+                      <KebabMenu label={`Actions for ${item.reference ?? item.id}`}>
+                        {(close) => (
+                          <>
+                            <Link
+                              to="/admin/submissions/$id"
+                              params={{ id: String(item.id) }}
+                              role="menuitem"
+                              onClick={close}
+                            >
+                              <ExternalLink aria-hidden="true" /> Open submission
+                            </Link>
+                            <a href={`mailto:${item.contactEmail}`} role="menuitem" onClick={close}>
+                              <ExternalLink aria-hidden="true" /> Email {item.contactEmail}
+                            </a>
+                            <div className="cms-menu-sep" />
+                            <div className="cms-menu-label">Set status</div>
+                            {Object.entries(SUBMISSION_STATUS_LABELS).map(([value, label]) => (
+                              <button
+                                key={value}
+                                type="button"
+                                role="menuitem"
+                                disabled={item.status === value || bulkBusy}
+                                onClick={() => {
+                                  close();
+                                  void applyStatus(value as Status, [item.id]);
+                                }}
+                              >
+                                {label}
+                              </button>
+                            ))}
+                          </>
                         )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                      </KebabMenu>
+                    </span>
+                  </div>
+                );
+              })}
             </div>
-            {result?.ok && result.pageCount > 1 ? (
-              <Pager
+            {result?.ok ? (
+              <FootBar
+                shown={items.length}
+                total={result.total}
                 page={result.page}
                 pageCount={result.pageCount}
-                total={result.total}
+                noun="submissions"
                 onChange={(page) => void navigate({ search: { ...search, page } })}
               />
             ) : null}

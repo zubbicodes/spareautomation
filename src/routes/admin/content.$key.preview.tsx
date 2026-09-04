@@ -109,7 +109,7 @@ function PreviewPage() {
               </Link>
             ))}
           </span>
-          <Link to="/admin/content/$key" params={{ key }} style={{ color: "#b9c0cf" }}>
+          <Link to="/admin/content/$key" params={{ key }} className="cms-link">
             Back to editor
           </Link>
         </span>

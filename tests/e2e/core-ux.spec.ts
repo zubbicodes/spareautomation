@@ -222,7 +222,10 @@ test("every product exposes tabbed support content and useful empty states", asy
   await expect(firstProduct).toBeVisible();
   await firstProduct.click();
   await page.waitForURL(/\/products\/[^/?#]+$/, { timeout: 20_000 });
-  await expect(page.getByRole("link", { name: "Catalogue", exact: true })).toBeVisible();
+  // Product-only chrome proves the route rendered, on phone and desktop alike.
+  await expect(page.getByRole("tablist", { name: "Product support information" })).toBeVisible({
+    timeout: 20_000,
+  });
   await page.waitForLoadState("networkidle");
   await expect(page.getByText("PayPal accepted", { exact: true })).toBeVisible();
   await expect(page.getByRole("img", { name: "PayPal", exact: true }).first()).toBeVisible();
@@ -289,7 +292,11 @@ test("every product exposes tabbed support content and useful empty states", asy
 
 test("YouTube videos require disclaimer consent before loading", async ({ page }) => {
   await page.goto("/products/siemens-burners-qrb3-flame-detector");
-  await page.getByRole("tab", { name: "Video Guide" }).click();
+  // Tabs are client-side, so wait for hydration before driving them.
+  await page.waitForLoadState("networkidle");
+  const videoTab = page.getByRole("tab", { name: "Video Guide" });
+  await videoTab.click();
+  await expect(videoTab).toHaveAttribute("aria-selected", "true", { timeout: 15_000 });
 
   await expect(page.getByRole("heading", { name: "YouTube video disclaimer" })).toBeVisible();
   await expect(page.locator('iframe[src*="youtube-nocookie.com"]')).toHaveCount(0);
@@ -316,7 +323,7 @@ test("customers can build a quote from a product", async ({ page }) => {
   await expect(firstProduct).toBeVisible();
   await firstProduct.click();
   await page.waitForURL(/\/products\/[^/?#]+$/, { timeout: 20_000 });
-  await expect(page.getByRole("link", { name: "Catalogue", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Build a quote" })).toBeVisible({ timeout: 20_000 });
   await page.waitForLoadState("networkidle");
 
   const productTitle = (await page.getByRole("heading", { level: 1 }).textContent())?.trim();

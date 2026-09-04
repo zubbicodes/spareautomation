@@ -218,7 +218,6 @@ test("public submission persists and staff can review, update, and annotate it",
     await page.getByRole("link", { name: "Open inbox" }).click();
     await expect(page).toHaveURL(/\/admin\/submissions/);
     await page.getByPlaceholder("Reference, email, name or company").fill(email);
-    await page.getByRole("button", { name: "Apply" }).click();
     await page.getByRole("link", { name: reference! }).click();
 
     await page.getByRole("button", { name: "In review" }).click();
