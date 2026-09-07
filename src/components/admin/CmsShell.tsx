@@ -10,6 +10,7 @@ import {
   Inbox,
   LayoutDashboard,
   LogOut,
+  MousePointerClick,
   Menu,
   Settings,
   Users,
@@ -23,6 +24,7 @@ import { CONTENT_KEYS, CONTENT_REGISTRY } from "@/lib/content/registry";
 
 const SUBMISSION_SEARCH = { type: "all", status: "all", search: "", page: 1 } as const;
 const ACTIVITY_SEARCH = { page: 1, action: "" } as const;
+const VISUAL_SEARCH = { page: "/", width: "desktop" } as const;
 
 type Crumb = { label: string; to?: string };
 
@@ -157,6 +159,13 @@ export function CmsShell({
               icon={<LayoutDashboard />}
               label="Dashboard"
               active={path === "/admin"}
+            />
+            <NavItem
+              to="/admin/visual"
+              search={VISUAL_SEARCH}
+              icon={<MousePointerClick />}
+              label="Edit pages"
+              active={path.startsWith("/admin/visual")}
             />
             <NavItem
               to="/admin/submissions"

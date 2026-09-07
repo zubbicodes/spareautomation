@@ -14,11 +14,13 @@ import { useEffect, useState } from "react";
 
 import { getShopifyCart, getShopifyCustomer } from "@/lib/api/shopify.functions";
 import { navTarget } from "@/lib/content/nav";
+import { useEditable } from "@/lib/content/edit-mode";
 import { getStoredCartId } from "@/lib/shopify/cart";
 import { useContent } from "@/lib/content/ContentContext";
 
 export function SiteHeader() {
   const content = useContent();
+  const edit = useEditable();
   const navigation = content.navigation.header.filter((item) => item.visible);
   const [cartCount, setCartCount] = useState(0);
   const [customer, setCustomer] = useState<Awaited<ReturnType<typeof getShopifyCustomer>>>(null);
@@ -154,7 +156,9 @@ export function SiteHeader() {
               activeProps={{ "aria-current": "page", className: "text-white bg-white/10" }}
               className="inline-flex min-h-16 min-w-0 flex-col items-center justify-center px-2 text-center font-display text-[11px] font-bold uppercase leading-[1.2] tracking-[-0.01em] text-white/85 transition-colors hover:bg-white/5 hover:text-white 2xl:text-[12px]"
             >
-              {(DEFAULT_NAV_LINES[item.id]?.label === item.label ? DEFAULT_NAV_LINES[item.id].lines : [item.label]).map((line) => <span key={line} className="block">{line}</span>)}
+              <span {...edit(`navigation.header.${navigation.indexOf(item)}.label`, "Menu label")}>
+                {(DEFAULT_NAV_LINES[item.id]?.label === item.label ? DEFAULT_NAV_LINES[item.id].lines : [item.label]).map((line) => <span key={line} className="block">{line}</span>)}
+              </span>
             </Link>
           ))}
         </div>

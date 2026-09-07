@@ -255,3 +255,59 @@ export function getCatalogCollections() {
 
   return [...new Map(collections.map((collection) => [collection.handle, collection])).values()];
 }
+
+export type HeroRangeLine = {
+  /** Catalogue search handle; locked because it drives product filtering. */
+  handle: string;
+  label: string;
+  meta: string;
+};
+
+export type HeroRange = {
+  handle: string;
+  title: string;
+  accent: "accent" | "amber";
+  lines: HeroRangeLine[];
+};
+
+/**
+ * Homepage hero panels. Wording is editable through the CMS `catalogue`
+ * document; handles and accents stay in code because they drive filtering and
+ * the visual treatment.
+ */
+export const HERO_RANGES: HeroRange[] = [
+  {
+    handle: "asphalt",
+    title: "Asphalt / Blacktop Spares",
+    accent: "accent",
+    lines: [
+      { handle: "asphalt-aggregate-feeding", label: "Aggregate feeding", meta: "Hoppers / Belts / Conveyors" },
+      { handle: "burner-drying", label: "Burner / Drying", meta: "Nozzles / Fuel pumps" },
+      { handle: "bitumen", label: "Bitumen", meta: "Pumps / Valves / Hoses" },
+      { handle: "hot-storage-and-silos", label: "Hot storage / silos", meta: "Hot bins / Storage" },
+      { handle: "baghouse", label: "Baghouse", meta: "Filters / Bags / Dust" },
+      { handle: "mixing-tower", label: "Mixing Tower", meta: "Flights / Liners / Seals" },
+    ],
+  },
+  {
+    handle: "concrete",
+    title: "Ready-Mix / Concrete Spares",
+    accent: "amber",
+    lines: [
+      { handle: "concrete-aggregate-feeding", label: "Aggregate Feeding", meta: "Hoppers / Belts / Conveyors" },
+      { handle: "cement-material-silos", label: "Cement / Material Silos", meta: "Filters / Aerators / Valves" },
+      { handle: "additive-system", label: "Additive System", meta: "Admixture / Chemical / Dosing" },
+      { handle: "water-controls", label: "Water Controls", meta: "Meters / Pumps / Flow Valves" },
+      { handle: "air-controls", label: "Air Controls", meta: "Pneumatics / Compressors / Actuators" },
+      { handle: "automation-controls", label: "Automation Controls", meta: "PLCs / Sensors / Panels" },
+    ],
+  },
+];
+
+/** Homepage category tiles below the hero. Titles are editable in the CMS. */
+export const HERO_CATEGORY_TILES = [
+  { handle: "packing", title: "Packing Machinery" },
+  { handle: "automation", title: "Automation & Drives" },
+  { handle: "home-controls", title: "Home Automation and Controls" },
+  { handle: "control-panels-software", title: "Control Panels & Software" },
+] as const;

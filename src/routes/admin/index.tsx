@@ -5,6 +5,7 @@ import {
   FileText,
   Images,
   Inbox,
+  MousePointerClick,
   Send,
   Users,
 } from "lucide-react";
@@ -51,10 +52,14 @@ function OverviewPage() {
       actions={
         <>
           <Link to="/admin/content" className="cms-btn">
-            <FileText aria-hidden="true" /> Edit content
+            <FileText aria-hidden="true" /> All content
           </Link>
-          <Link to="/admin/submissions" search={SUBMISSION_SEARCH} className="cms-btn cms-btn-primary">
-            <Inbox aria-hidden="true" /> Open inbox
+          <Link
+            to="/admin/visual"
+            search={{ page: "/", width: "desktop" as const }}
+            className="cms-btn cms-btn-primary"
+          >
+            <MousePointerClick aria-hidden="true" /> Edit website text
           </Link>
         </>
       }

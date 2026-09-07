@@ -1602,3 +1602,62 @@ a.cms-stat:hover {
 .cms-nav-signout:hover svg {
   color: var(--cms-danger);
 }
+
+/* ------------------------------------------------------- visual editor */
+
+.cms-visual {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+@media (min-width: 1180px) {
+  .cms-visual {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+}
+
+.cms-visual-stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  padding: 14px;
+  border: 1px solid var(--cms-border);
+  border-radius: var(--cms-radius);
+  background: var(--cms-page);
+}
+
+.cms-visual-frame {
+  width: 100%;
+  height: calc(100vh - 260px);
+  min-height: 520px;
+  border: 1px solid var(--cms-border);
+  border-radius: var(--cms-radius-sm);
+  background: #fff;
+  box-shadow: var(--cms-shadow);
+}
+
+.cms-visual-loading {
+  position: absolute;
+  inset: 14px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--cms-radius-sm);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--cms-text-muted);
+  font-size: 13px;
+}
+
+.cms-visual-loading svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cms-visual-panel {
+  position: sticky;
+  top: 16px;
+}

@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 import type { ContentBlock } from "@/lib/content/registry";
 
 type ManagedPageKey =
@@ -38,13 +39,41 @@ type InfoPageProps = {
   children?: ReactNode;
 };
 
-/** Cards, steps, lists and text blocks all render as the same two-column grid. */
-function flattenTextBlocks(blocks: readonly ContentBlock[]) {
-  return blocks.flatMap((block) => {
-    if (block.type === "text") return [{ title: block.title, copy: block.copy }];
-    if (block.type === "cards" || block.type === "steps") return block.items;
+/**
+ * Cards, steps, lists and text blocks all render as the same two-column grid.
+ * Each entry carries the content path it came from so the visual editor can
+ * offer click-to-edit on the rendered card.
+ */
+function flattenTextBlocks(blocks: readonly ContentBlock[], documentPath: string) {
+  return blocks.flatMap((block, blockIndex) => {
+    const base = documentPath ? `${documentPath}.blocks.${blockIndex}` : "";
+    if (block.type === "text") {
+      return [
+        {
+          title: block.title,
+          copy: block.copy,
+          titlePath: base ? `${base}.title` : "",
+          copyPath: base ? `${base}.copy` : "",
+        },
+      ];
+    }
+    if (block.type === "cards" || block.type === "steps") {
+      return block.items.map((item, itemIndex) => ({
+        title: item.title,
+        copy: item.copy,
+        titlePath: base ? `${base}.items.${itemIndex}.title` : "",
+        copyPath: base ? `${base}.items.${itemIndex}.copy` : "",
+      }));
+    }
     if (block.type === "list") {
-      return [{ title: block.title, copy: block.items.map((item) => `• ${item}`).join("\n") }];
+      return [
+        {
+          title: block.title,
+          copy: block.items.map((item) => `• ${item}`).join("\n"),
+          titlePath: base ? `${base}.title` : "",
+          copyPath: "",
+        },
+      ];
     }
     return [];
   });
@@ -65,6 +94,8 @@ export function InfoPage({
   children,
 }: InfoPageProps) {
   const { site, pages, functional } = useContent();
+  const edit = useEditable();
+  const documentPath = contentKey ? `pages.${contentKey}` : functionalKey ? `functional.${functionalKey}` : "";
   const managed = contentKey ? pages[contentKey] : functionalKey ? functional[functionalKey] : null;
   const blocks = managed?.blocks ?? [];
   const renderedEyebrow = managed?.eyebrow ?? eyebrow ?? "";
@@ -72,7 +103,9 @@ export function InfoPage({
   const renderedIntro = managed?.intro ?? intro ?? "";
   const renderedCtaLabel = (managed?.ctaLabel || ctaLabel || "Contact sales").trim();
   const renderedCtaTo = managed?.ctaTo || ctaTo || "/contact-us";
-  const renderedSections = managed ? flattenTextBlocks(blocks) : (sections ?? []);
+  const renderedSections = managed
+    ? flattenTextBlocks(blocks, documentPath)
+    : (sections ?? []).map((section) => ({ ...section, titlePath: "", copyPath: "" }));
   const heroBlock = blocks.find((block) => block.type === "hero");
   const heroMedia = heroBlock?.type === "hero" && heroBlock.mediaId ? heroBlock : null;
   const mediaBlocks = blocks.filter((block) => block.type === "media");
@@ -94,13 +127,17 @@ export function InfoPage({
                 compactHero ? "py-8 md:py-10" : "py-12 md:py-16"
               }`}
             >
-              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/45">
+              <div
+                className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/45"
+                {...(documentPath ? edit(`${documentPath}.eyebrow`, "Page eyebrow") : {})}
+              >
                 {renderedEyebrow}
               </div>
               <h1
                 className={`max-w-4xl font-display font-extrabold uppercase leading-tight tracking-tight ${
                   compactHero ? "mt-3 text-3xl md:text-4xl" : "mt-4 text-3xl md:text-5xl"
                 }`}
+                {...(documentPath ? edit(`${documentPath}.title`, "Page heading") : {})}
               >
                 {renderedTitle}
               </h1>
@@ -109,6 +146,7 @@ export function InfoPage({
                   className={`max-w-3xl text-sm leading-7 text-white/60 md:text-base ${
                     compactHero ? "mt-3" : "mt-5"
                   }`}
+                  {...(documentPath ? edit(`${documentPath}.intro`, "Page introduction") : {})}
                 >
                   {renderedIntro}
                 </p>
@@ -129,10 +167,16 @@ export function InfoPage({
             <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-4 px-4 md:grid-cols-2 md:px-6">
               {renderedSections.map((section) => (
                 <article key={section.title} className="border border-rule bg-background p-6">
-                  <h2 className="font-display text-lg font-bold uppercase tracking-tight">
+                  <h2
+                    className="font-display text-lg font-bold uppercase tracking-tight"
+                    {...(section.titlePath ? edit(section.titlePath, "Card heading") : {})}
+                  >
                     {section.title}
                   </h2>
-                  <p className="mt-4 whitespace-pre-line text-sm leading-7 text-ink-muted">
+                  <p
+                    className="mt-4 whitespace-pre-line text-sm leading-7 text-ink-muted"
+                    {...(section.copyPath ? edit(section.copyPath, "Card text") : {})}
+                  >
                     {section.copy}
                   </p>
                 </article>

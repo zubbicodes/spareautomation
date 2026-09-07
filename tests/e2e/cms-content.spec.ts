@@ -216,6 +216,75 @@ test.describe("CMS dashboard", () => {
   });
 });
 
+
+test("editing markers never reach anonymous visitors", async ({ page }) => {
+  await page.goto("/?cmsEdit=1");
+  await expect(page.getByRole("heading", { level: 2, name: /Asphalt/i }).first()).toBeVisible();
+  expect(await page.locator("[data-cms-field]").count()).toBe(0);
+});
+
+test.describe("Visual page editor", () => {
+  test.describe.configure({ mode: "serial" });
+
+  test("click-to-edit changes wording on the page", async ({ page }, testInfo) => {
+    test.skip(!(await databaseReachable()), "CMS database is not reachable");
+    test.skip(testInfo.project.name !== "desktop-chromium", "Content mutations run once per suite");
+    test.setTimeout(180_000);
+
+    const sql = database();
+    const [original] = await sql<
+      { draft_data: Record<string, never>; published_data: Record<string, never>; draft_version: number; published_version: number }[]
+    >`
+      select draft_data, published_data, draft_version, published_version
+      from content_documents where key = 'catalogue'
+    `;
+
+    try {
+      await signIn(page, environment.adminEmail!, environment.adminPassword!);
+      await page.goto("/admin/visual?page=%2F&width=desktop");
+      await expect(page.getByRole("heading", { level: 1, name: "Edit pages" })).toBeVisible();
+
+      // The rendered page carries editing markers for staff.
+      const frame = page.frameLocator('iframe[title="Page being edited"]');
+      const target = frame.locator('[data-cms-field="catalogue.ranges.0.lines.0.label"]');
+      await expect(target).toBeVisible({ timeout: 30_000 });
+      await expect(target).toHaveText("Aggregate feeding");
+
+      await target.click();
+      await expect(page.getByRole("heading", { name: "Product line name" })).toBeVisible();
+
+      const field = page.getByLabel("Text shown on the website");
+      await field.fill("Aggregate feeding systems");
+      await page.getByRole("button", { name: "Save change" }).click();
+      await expect(page.getByRole("status")).toContainText("Saved");
+
+      // The preview reflects the saved draft.
+      await expect(
+        page
+          .frameLocator('iframe[title="Page being edited"]')
+          .locator('[data-cms-field="catalogue.ranges.0.lines.0.label"]'),
+      ).toHaveText("Aggregate feeding systems", { timeout: 30_000 });
+
+      // Visitors still see the published wording until it is published.
+      const anonymous = await page.context().browser()!.newContext();
+      const visitor = await anonymous.newPage();
+      await visitor.goto("/");
+      await expect(visitor.getByText("Aggregate feeding", { exact: true }).first()).toBeVisible();
+      await anonymous.close();
+    } finally {
+      await sql`
+        update content_documents
+        set draft_data = ${sql.json(original.draft_data)},
+            published_data = ${sql.json(original.published_data)},
+            draft_version = ${original.draft_version},
+            published_version = ${original.published_version}
+        where key = 'catalogue'
+      `.catch(() => undefined);
+      await sql.end({ timeout: 2 });
+    }
+  });
+});
+
 test.describe("CMS content workflow", () => {
   test.describe.configure({ mode: "serial" });
 

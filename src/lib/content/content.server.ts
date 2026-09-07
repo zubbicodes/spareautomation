@@ -259,3 +259,54 @@ export async function isMediaReferenced(id: string) {
   }).from(contentDocuments);
   return rows.some((row) => collectMediaIds(row.draft).has(id) || collectMediaIds(row.published).has(id));
 }
+
+export type DraftBundleEntry = { data: unknown; version: number };
+
+/**
+ * Draft data for every document in one query. The visual editor needs the whole
+ * set because a single public page mixes navigation, page and catalogue copy.
+ */
+export async function loadDraftBundle(): Promise<Record<string, DraftBundleEntry>> {
+  const db = getDb();
+  const rows = await db
+    .select({
+      key: contentDocuments.key,
+      draftData: contentDocuments.draftData,
+      draftVersion: contentDocuments.draftVersion,
+    })
+    .from(contentDocuments);
+  const result: Record<string, DraftBundleEntry> = {};
+  for (const key of CONTENT_KEYS) {
+    const row = rows.find((entry) => entry.key === key);
+    result[key] = row
+      ? { data: row.draftData, version: row.draftVersion }
+      : { data: getDefaultContent(key), version: 1 };
+  }
+  return result;
+}
+
+/**
+ * Draft view of every document, validated the same way published content is.
+ * A document whose draft is invalid falls back to its published copy so the
+ * visual editor still renders.
+ */
+export async function loadDraftContentBundle(): Promise<ContentBundle> {
+  const published = await loadPublishedContentBundle();
+  try {
+    const rows = await getDb()
+      .select({ key: contentDocuments.key, data: contentDocuments.draftData })
+      .from(contentDocuments);
+    for (const row of rows) {
+      if (!CONTENT_KEYS.includes(row.key as ContentKey)) continue;
+      const key = row.key as ContentKey;
+      try {
+        published[key] = validateContent(key, row.data) as never;
+      } catch {
+        // Keep the published copy for this document.
+      }
+    }
+  } catch (error) {
+    console.error("[content] Draft content unavailable; using published copy:", error);
+  }
+  return published;
+}

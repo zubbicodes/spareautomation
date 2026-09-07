@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { CATALOG_CATEGORIES } from "../catalog";
+import { CATALOG_CATEGORIES, HERO_CATEGORY_TILES, HERO_RANGES } from "../catalog";
 import { SITE } from "../site";
 
 /**
@@ -170,7 +170,24 @@ const homeSchema = z.object({
   contactCopy: text(2000),
 });
 
+/** Homepage hero panel wording. Handles stay locked to the catalogue contract. */
+const heroLineSchema = z.object({
+  handle: text(100),
+  label: text(120),
+  meta: optionalText(160),
+});
+
+const heroRangeSchema = z.object({
+  handle: text(100),
+  title: text(160),
+  lines: z.array(heroLineSchema).max(12),
+});
+
+const heroTileSchema = z.object({ handle: text(100), title: text(160) });
+
 const catalogueSchema = z.object({
+  ranges: z.array(heroRangeSchema).length(HERO_RANGES.length),
+  tiles: z.array(heroTileSchema).length(HERO_CATEGORY_TILES.length),
   categories: z.array(z.object({
     handle: text(100),
     label: text(160),
@@ -185,6 +202,21 @@ const catalogueSchema = z.object({
   const expected = new Set(CATALOG_CATEGORIES.map((category) => String(category.handle)));
   const actual = value.categories.map((category) => category.handle);
   if (new Set(actual).size !== expected.size || actual.some((handle) => !expected.has(handle))) context.addIssue({ code: z.ZodIssueCode.custom, path: ["categories"], message: "Shopify category handles are locked" });
+
+  const rangeHandles = HERO_RANGES.map((range) => range.handle).join("|");
+  if (value.ranges.map((range) => range.handle).join("|") !== rangeHandles) {
+    context.addIssue({ code: z.ZodIssueCode.custom, path: ["ranges"], message: "Hero panel handles are locked" });
+  }
+  value.ranges.forEach((range, index) => {
+    const compiled = HERO_RANGES[index];
+    if (!compiled) return;
+    if (range.lines.map((line) => line.handle).join("|") !== compiled.lines.map((line) => line.handle).join("|")) {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["ranges", index, "lines"], message: "Product-line links are locked; edit the wording only" });
+    }
+  });
+  if (value.tiles.map((tile) => tile.handle).join("|") !== HERO_CATEGORY_TILES.map((tile) => tile.handle).join("|")) {
+    context.addIssue({ code: z.ZodIssueCode.custom, path: ["tiles"], message: "Category tile links are locked" });
+  }
 });
 
 const message = text(5000);
@@ -956,10 +988,18 @@ export const CONTENT_REGISTRY = {
     },
   },
   catalogue: {
-    label: "Catalogue presentation",
+    label: "Homepage panels and categories",
     group: "Catalogue presentation",
     schema: catalogueSchema,
-    defaults: { categories: CATALOG_CATEGORIES.map(({ handle, label, description }) => ({ handle, label, description, visible: true, mediaId: "", mediaAlt: "" })) },
+    defaults: {
+      ranges: HERO_RANGES.map(({ handle, title, lines }) => ({
+        handle,
+        title,
+        lines: lines.map(({ handle: lineHandle, label, meta }) => ({ handle: lineHandle, label, meta })),
+      })),
+      tiles: HERO_CATEGORY_TILES.map(({ handle, title }) => ({ handle, title })),
+      categories: CATALOG_CATEGORIES.map(({ handle, label, description }) => ({ handle, label, description, visible: true, mediaId: "", mediaAlt: "" })),
+    },
   },
   pages: { label: "Information and legal pages", group: "Information / legal pages", schema: z.record(z.string(), pageSchema).superRefine((value, context) => {
     if (Object.keys(DEFAULT_PAGES).sort().join("|") !== Object.keys(value).sort().join("|")) context.addIssue({ code: z.ZodIssueCode.custom, message: "Page routes are fixed and cannot be added or removed" });

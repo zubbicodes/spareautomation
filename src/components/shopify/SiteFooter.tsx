@@ -3,9 +3,11 @@ import { ChevronRight, Mail, PackageSearch, Phone } from "lucide-react";
 import { PaymentMarks } from "@/components/shopify/PaymentMarks";
 import { useContent } from "@/lib/content/ContentContext";
 import { navTarget } from "@/lib/content/nav";
+import { useEditable } from "@/lib/content/edit-mode";
 
 export function SiteFooter() {
   const content = useContent();
+  const edit = useEditable();
   const informationLinks = content.navigation.information.filter((item) => item.visible);
   const helpLinks = content.navigation.help.filter((item) => item.visible);
   return (

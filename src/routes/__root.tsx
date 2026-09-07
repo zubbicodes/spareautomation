@@ -12,7 +12,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieConsent } from "../components/shopify/CookieConsent";
 import { ContentProvider, useContent } from "../lib/content/ContentContext";
-import { getPublishedContent } from "../lib/content/content.functions";
+import { EditModeProvider } from "../lib/content/edit-mode";
+import { getEditorContent, getPublishedContent } from "../lib/content/content.functions";
 import { getDefaultContentBundle } from "../lib/content/registry";
 
 function NotFoundComponent() {
@@ -85,7 +86,16 @@ const FAVICON_SVG = `
 `;
 
 export const Route = createRootRoute({
-  loader: async () => ({ content: await getPublishedContent() }),
+  loader: async ({ location }) => {
+    // `cmsEdit=1` is set only by the CMS visual editor, and it still needs a
+    // signed-in staff session, so visitors can never turn editing on.
+    const wantsEditing = new URLSearchParams(location.searchStr ?? "").get("cmsEdit") === "1";
+    if (wantsEditing) {
+      const draft = await getEditorContent();
+      if (draft) return { content: draft, editMode: true };
+    }
+    return { content: await getPublishedContent(), editMode: false };
+  },
   head: ({ loaderData }) => {
     const content = loaderData?.content ?? getDefaultContentBundle();
     return ({
@@ -171,11 +181,13 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { content } = Route.useLoaderData();
+  const { content, editMode } = Route.useLoaderData();
   return (
-    <ContentProvider value={content}>
-      <Outlet />
-      <CookieConsent />
-    </ContentProvider>
+    <EditModeProvider enabled={editMode}>
+      <ContentProvider value={content}>
+        <Outlet />
+        <CookieConsent />
+      </ContentProvider>
+    </EditModeProvider>
   );
 }

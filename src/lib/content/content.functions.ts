@@ -1,12 +1,14 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-import { requireAdminRole, requireStaff } from "../admin/auth.server";
+import { getCurrentStaff, requireAdminRole, requireStaff } from "../admin/auth.server";
 import {
   ContentConflictError,
   listContentDocuments,
   listContentRevisions,
   loadContentDocument,
+  loadDraftBundle,
+  loadDraftContentBundle,
   loadPublishedContentBundle,
   publishContentDraft,
   restoreContentRevision,
@@ -91,3 +93,20 @@ export const restoreRevision = createServerFn({ method: "POST" })
     const version = await restoreContentRevision(data.key as ContentKey, data.revisionId, staff.id);
     return { ok: true as const, version };
   });
+
+/** Draft bundle for the visual editor: every document plus its draft version. */
+export const getDraftBundle = createServerFn({ method: "GET" }).handler(async () => {
+  await requireStaff();
+  const bundle = await loadDraftBundle();
+  return JSON.stringify(bundle);
+});
+
+/**
+ * Draft content for the visual editor. Returns null for anonymous visitors so a
+ * query string alone can never expose unpublished wording.
+ */
+export const getEditorContent = createServerFn({ method: "GET" }).handler(async () => {
+  const staff = await getCurrentStaff();
+  if (!staff) return null;
+  return loadDraftContentBundle();
+});

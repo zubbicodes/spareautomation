@@ -25,6 +25,7 @@ import { useHydrated } from "@/hooks/use-hydrated";
 import { SITE } from "@/lib/site";
 import { useContent } from "@/lib/content/ContentContext";
 import { getPublishedContent } from "@/lib/content/content.functions";
+import { useEditable } from "@/lib/content/edit-mode";
 
 export const Route = createFileRoute("/")({
   loader: async () => getPublishedContent(),
@@ -43,7 +44,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const primaryRanges = [
+const legacyPrimaryRanges = [
   {
     title: "Asphalt / Blacktop Spares",
     img: asphalt,
@@ -102,7 +103,7 @@ const primaryRanges = [
   },
 ];
 
-const categories = [
+const legacyCategories = [
   // Replacement photos should be landscape, 4:3 or 16:10, minimum 1200px wide.
   { title: "Packing Machinery", img: catPacking, category: "packing" },
   { title: "Automation & Drives", img: catAutomation, category: "automation" },
@@ -122,6 +123,30 @@ function HeroTitle({ title, accent }: { title: string; accent: "accent" | "amber
 
 export function Home() {
   const content = useContent();
+  const edit = useEditable();
+  const managedRanges = content.catalogue.ranges ?? [];
+  const primaryRanges = legacyPrimaryRanges.map((range, index) => {
+    const managed = managedRanges[index];
+    if (!managed) return range;
+    return {
+      ...range,
+      title: managed.title,
+      lines: range.lines.map((line, lineIndex) => ({
+        ...line,
+        label: managed.lines[lineIndex]?.label ?? line.label,
+        meta: managed.lines[lineIndex]?.meta ?? line.meta,
+        rangeIndex: index,
+        lineIndex,
+      })),
+      rangeIndex: index,
+    };
+  });
+  const managedTiles = content.catalogue.tiles ?? [];
+  const categories = legacyCategories.map((tile, index) => ({
+    ...tile,
+    title: managedTiles[index]?.title ?? tile.title,
+    tileIndex: index,
+  }));
   const presentation = new Map(content.catalogue.categories.map((category) => [category.handle, category]));
   const managedTitle = (handle: string, fallback: string) => { const managed = presentation.get(handle); return managed?.label !== getCatalogCategory(handle)?.label ? (managed?.label ?? fallback) : fallback; };
   const withPresentation = <T extends { category: string; title: string; img: string }>(item: T) => { const managed = presentation.get(item.category); return { ...item, title: managedTitle(item.category, item.title), img: managed?.mediaId ? `/content-media/${managed.mediaId}/image` : item.img, managedAlt: managed?.mediaId ? (managed.mediaAlt || managed.label) : "" }; };
@@ -204,7 +229,10 @@ export function Home() {
                     search={getCatalogueSearch(range.category)}
                     className="block max-w-xl focus-visible:outline-white"
                   >
-                    <h2 className="break-words font-display text-[clamp(2rem,4.2vw,3.4rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white">
+                    <h2
+                      className="break-words font-display text-[clamp(2rem,4.2vw,3.4rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white"
+                      {...edit(`catalogue.ranges.${index}.title`, "Hero panel title")}
+                    >
                       <HeroTitle title={range.title} accent={range.accent as "accent" | "amber"} />
                     </h2>
                   </Link>
@@ -212,7 +240,7 @@ export function Home() {
 
                 <div className="hero-range-panel z-20 overflow-hidden border border-white/25 bg-charcoal-deep/92 shadow-2xl shadow-black/40 backdrop-blur-md transition-all duration-500 md:absolute md:inset-x-8 md:inset-y-8 md:flex md:flex-col md:bg-charcoal-deep/70 md:shadow-none md:backdrop-blur-sm lg:inset-x-10">
                   <div className="grid min-h-0 grid-cols-2 gap-1 p-2 md:grid-rows-3 md:gap-1.5 md:p-2.5">
-                    {range.lines.map((line) => (
+                    {range.lines.map((line, lineIndex) => (
                       <Link
                         key={line.label}
                         to="/products"
@@ -224,10 +252,22 @@ export function Home() {
                         }`}
                       >
                         <span className="min-w-0">
-                          <span className="block break-words text-sm font-bold leading-tight text-white">
+                          <span
+                            className="block break-words text-sm font-bold leading-tight text-white"
+                            {...edit(
+                              `catalogue.ranges.${index}.lines.${lineIndex}.label`,
+                              "Product line name",
+                            )}
+                          >
                             {line.label}
                           </span>
-                          <span className="mt-1 block truncate font-mono text-[9px] uppercase tracking-[0.12em] text-white/50">
+                          <span
+                            className="mt-1 block truncate font-mono text-[9px] uppercase tracking-[0.12em] text-white/50"
+                            {...edit(
+                              `catalogue.ranges.${index}.lines.${lineIndex}.meta`,
+                              "Product line description",
+                            )}
+                          >
                             {line.meta}
                           </span>
                         </span>
@@ -275,7 +315,10 @@ export function Home() {
               </div>
               <div className="flex items-center justify-between border-t border-rule px-5 py-5 transition-colors group-hover:bg-charcoal-deep group-hover:text-white">
                 <div>
-                  <h2 className="font-display text-[15px] font-bold uppercase tracking-tight">
+                  <h2
+                    className="font-display text-[15px] font-bold uppercase tracking-tight"
+                    {...edit(`catalogue.tiles.${category.tileIndex}.title`, "Category tile title")}
+                  >
                     {category.title}
                   </h2>
                 </div>
@@ -296,10 +339,16 @@ export function Home() {
                   <FileText className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block font-display text-lg font-bold uppercase tracking-tight">
+                  <span
+                    className="block font-display text-lg font-bold uppercase tracking-tight"
+                    {...edit("home.resourceTitle", "Resources heading")}
+                  >
                     {content.home.resourceTitle}
                   </span>
-                  <span className="mt-1 block text-sm text-ink-muted">
+                  <span
+                    className="mt-1 block text-sm text-ink-muted"
+                    {...edit("home.resourceCopy", "Resources description")}
+                  >
                     {content.home.resourceCopy}
                   </span>
                 </span>
@@ -331,10 +380,16 @@ export function Home() {
         <section className="border-b border-rule bg-charcoal-deep py-10 md:py-14">
           <div className="mx-auto max-w-[1600px] px-4 md:px-6 lg:px-10">
             <div className="mb-8 text-center">
-              <h2 className="font-display text-2xl font-extrabold uppercase tracking-tight text-white md:text-3xl">
+              <h2
+                className="font-display text-2xl font-extrabold uppercase tracking-tight text-white md:text-3xl"
+                {...edit("home.finderTitle", "Part finder heading")}
+              >
                 {content.home.finderTitle}
               </h2>
-              <p className="mx-auto mt-2 max-w-4xl font-display text-lg font-bold uppercase tracking-tight text-white/85 md:text-2xl">
+              <p
+                className="mx-auto mt-2 max-w-4xl font-display text-lg font-bold uppercase tracking-tight text-white/85 md:text-2xl"
+                {...edit("home.finderCopy", "Part finder description")}
+              >
                 {content.home.finderCopy}
               </p>
             </div>
@@ -472,13 +527,19 @@ export function Home() {
               )}
 
               <div className="border border-white/10 bg-white/[0.035] p-4 sm:p-5 md:p-6">
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
+                <div
+                  className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55"
+                  {...edit("home.contactTitle", "Contact block heading")}
+                >
                   {content.home.contactTitle}
                 </div>
                 <h3 className="mt-2 font-display text-lg font-bold text-white">
                   Contact the sales desk directly
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-white/65">
+                <p
+                  className="mt-2 text-sm leading-6 text-white/65"
+                  {...edit("home.contactCopy", "Contact block description")}
+                >
                   {content.home.contactCopy}
                 </p>
                 <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
