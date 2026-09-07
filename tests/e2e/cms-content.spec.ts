@@ -232,6 +232,8 @@ test.describe("Visual page editor", () => {
     test.setTimeout(180_000);
 
     const sql = database();
+    // The frame must become interactive: the loading overlay has to clear and
+    // the page inside has to carry editing markers.
     const [original] = await sql<
       { draft_data: Record<string, never>; published_data: Record<string, never>; draft_version: number; published_version: number }[]
     >`
@@ -243,6 +245,7 @@ test.describe("Visual page editor", () => {
       await signIn(page, environment.adminEmail!, environment.adminPassword!);
       await page.goto("/admin/visual?page=%2F&width=desktop");
       await expect(page.getByRole("heading", { level: 1, name: "Edit pages" })).toBeVisible();
+      await expect(page.getByText("Loading page…")).toBeHidden({ timeout: 30_000 });
 
       // The rendered page carries editing markers for staff.
       const frame = page.frameLocator('iframe[title="Page being edited"]');

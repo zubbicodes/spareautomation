@@ -1640,6 +1640,8 @@ a.cms-stat:hover {
 
 .cms-visual-loading {
   position: absolute;
+  /* Never block the page underneath, even if it lingers. */
+  pointer-events: none;
   inset: 14px;
   z-index: 2;
   display: flex;

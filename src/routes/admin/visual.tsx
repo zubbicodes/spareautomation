@@ -87,6 +87,8 @@ function VisualEditorPage() {
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
   const [ready, setReady] = useState(false);
+  const [fields, setFields] = useState<number | null>(null);
+  const [reloadKey, setReloadKey] = useState(0);
 
   const source = `${search.page}${search.page.includes("?") ? "&" : "?"}cmsEdit=1`;
 
@@ -103,11 +105,18 @@ function VisualEditorPage() {
     setDirty(false);
   }, [currentValue, selection]);
 
-  /** Wire click-to-edit inside the rendered page. */
-  const connectFrame = useCallback(() => {
-    const document_ = frame.current?.contentDocument;
-    if (!document_) return;
+  /**
+   * Wire click-to-edit inside the rendered page.
+   *
+   * The load event is unreliable (cached documents and dev-time remounts can
+   * fire it before React attaches a handler), so readiness is polled instead
+   * and the connection is idempotent.
+   */
+  const connectFrame = useCallback((document_: Document) => {
+    if (document_.body?.dataset.cmsConnected === "true") return;
+    document_.body.dataset.cmsConnected = "true";
     setReady(true);
+    setFields(document_.querySelectorAll("[data-cms-field]").length);
 
     const style = document_.createElement("style");
     style.textContent = `
@@ -144,6 +153,33 @@ function VisualEditorPage() {
       true,
     );
   }, []);
+
+  // Poll the frame until its document is usable, then connect. Also gives up
+  // gracefully so the overlay can never sit on the page forever.
+  useEffect(() => {
+    setReady(false);
+    setFields(null);
+    let cancelled = false;
+    const started = Date.now();
+    const timer = setInterval(() => {
+      if (cancelled) return;
+      const document_ = frame.current?.contentDocument;
+      if (document_ && document_.readyState !== "loading" && document_.body) {
+        clearInterval(timer);
+        connectFrame(document_);
+        return;
+      }
+      if (Date.now() - started > 15_000) {
+        clearInterval(timer);
+        setReady(true);
+        setFields(0);
+      }
+    }, 200);
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, [connectFrame, source, reloadKey]);
 
   async function save() {
     if (!selection) return;
@@ -202,8 +238,8 @@ function VisualEditorPage() {
   }
 
   function reloadFrame() {
-    setReady(false);
-    if (frame.current) frame.current.src = source;
+    setSelection(null);
+    setReloadKey((value) => value + 1);
   }
 
   const documentKey = selection ? documentKeyOf(selection.path) : null;
@@ -279,16 +315,23 @@ function VisualEditorPage() {
           ) : null}
           <iframe
             ref={frame}
-            key={source}
+            key={`${source}-${reloadKey}`}
             title="Page being edited"
             src={source}
-            onLoad={connectFrame}
             className="cms-visual-frame"
             style={{ width: WIDTHS[search.width].width }}
           />
         </div>
 
         <aside className="cms-card cms-visual-panel">
+          {ready && fields === 0 && !selection ? (
+            <div className="cms-card-pad">
+              <Notice tone="warning">
+                No editable text was found on this page. Reload it, and if that does not help open
+                the section from Content in the sidebar.
+              </Notice>
+            </div>
+          ) : null}
           {selection ? (
             <>
               <header className="cms-card-head">

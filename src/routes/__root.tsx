@@ -91,8 +91,13 @@ export const Route = createRootRoute({
     // signed-in staff session, so visitors can never turn editing on.
     const wantsEditing = new URLSearchParams(location.searchStr ?? "").get("cmsEdit") === "1";
     if (wantsEditing) {
-      const draft = await getEditorContent();
-      if (draft) return { content: draft, editMode: true };
+      try {
+        const draft = await getEditorContent();
+        if (draft) return { content: draft, editMode: true };
+      } catch (error) {
+        // Never let the editor preview fail to render; fall back to published.
+        console.error("[content] Editor preview unavailable:", error);
+      }
     }
     return { content: await getPublishedContent(), editMode: false };
   },
