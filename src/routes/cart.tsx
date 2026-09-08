@@ -19,6 +19,7 @@ import {
 } from "@/lib/shopify/format";
 import type { ShopifyCart } from "@/lib/shopify/types";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 import { getPublishedContent } from "@/lib/content/content.functions";
 import { contentPageHead } from "@/lib/seo";
 
@@ -38,6 +39,7 @@ export const Route = createFileRoute("/cart")({
 function CartPage() {
   const { functional, messages } = useContent();
   const copy = functional.cart;
+  const edit = useEditable();
   const [cart, setCart] = useState<ShopifyCart | null>(null);
   const [loading, setLoading] = useState(true);
   const [busyLineId, setBusyLineId] = useState<string | null>(null);
@@ -107,10 +109,10 @@ function CartPage() {
       <main id="main-content" className="mx-auto max-w-[1600px] px-4 py-8 md:px-6 md:py-12">
         <div className="mb-6 md:mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
+            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted" {...edit(`functional.cart.eyebrow`, "Page eyebrow")}>
               {copy.eyebrow}
             </div>
-            <h1 className="mt-2 font-display text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight">
+            <h1 className="mt-2 font-display text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight" {...edit(`functional.cart.title`, "Page heading")}>
               {copy.title}
             </h1>
           </div>
@@ -124,7 +126,7 @@ function CartPage() {
 
         {error ? <div role="alert" className="mb-5 border border-red-300 bg-red-50 p-4 text-sm text-red-800">{error}</div> : null}
         {loading ? (
-          <div className="border border-rule bg-surface px-4 py-12 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted md:px-8 md:py-16">
+          <div className="border border-rule bg-surface px-4 py-12 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted md:px-8 md:py-16" {...edit(`functional.cart.loadingLabel`, "Loading label")}>
             {copy.loadingLabel}
           </div>
         ) : isEmpty ? (
@@ -132,10 +134,10 @@ function CartPage() {
             <div className="mx-auto mb-6 flex h-12 w-12 items-center justify-center bg-accent text-accent-foreground">
               <ShoppingCart className="h-5 w-5" />
             </div>
-            <h2 className="font-display text-xl md:text-2xl font-bold uppercase tracking-tight">
+            <h2 className="font-display text-xl md:text-2xl font-bold uppercase tracking-tight" {...edit(`functional.cart.emptyTitle`, "Empty state heading")}>
               {copy.emptyTitle}
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-muted">
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-muted" {...edit(`functional.cart.emptyCopy`, "Empty state copy")}>
               {copy.emptyCopy}
             </p>
           </div>

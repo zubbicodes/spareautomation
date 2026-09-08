@@ -35,6 +35,7 @@ import {
 } from "@/lib/shopify/format";
 import type { ShopifyProduct, ShopifyVariant } from "@/lib/shopify/types";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 
 type ProductDetailProps = {
   product: ShopifyProduct;
@@ -42,6 +43,7 @@ type ProductDetailProps = {
 
 export function ProductDetail({ product }: ProductDetailProps) {
   const { site, product: copy } = useContent();
+  const edit = useEditable();
   const [selectedVariantId, setSelectedVariantId] = useState(
     product.variants.find((variant) => variant.availableForSale)?.id ?? product.variants[0]?.id,
   );
@@ -471,6 +473,7 @@ function ProductGallery({
 
 function StockBadge({ variant, product }: { variant?: ShopifyVariant; product: ShopifyProduct }) {
   const copy = useContent().product;
+  const edit = useEditable();
   const quantity = variant?.quantityAvailable;
   const hasExactStock = typeof quantity === "number" && quantity > 0;
   const isAvailable = variant?.availableForSale || product.availableForSale;
@@ -491,7 +494,7 @@ function StockBadge({ variant, product }: { variant?: ShopifyVariant; product: S
         {hasExactStock ? `${quantity} in stock` : "Available to order"}
       </span>
       <span aria-hidden="true" className="hidden h-4 w-px bg-rule sm:block" />
-      <span className="text-xs text-ink-muted">{copy.leadTimeNote}</span>
+      <span className="text-xs text-ink-muted" {...edit(`product.leadTimeNote`, "Lead time note")}>{copy.leadTimeNote}</span>
     </div>
   );
 }
@@ -532,6 +535,7 @@ function extractYouTubeVideoId(url: string) {
 
 function ProductResources({ product }: { product: ShopifyProduct }) {
   const copy = useContent().product;
+  const edit = useEditable();
   type SupportTab = "video" | "pdf" | "description";
   const [activeTab, setActiveTab] = useState<SupportTab>("description");
   const [videoDisclaimerAccepted, setVideoDisclaimerAccepted] = useState(false);
@@ -562,10 +566,10 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
     <section aria-labelledby="product-support-title" className="px-4 py-8 md:px-6 md:py-10 lg:px-8">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-5 md:mb-6">
-          <div className="font-mono text-[9px] font-bold uppercase tracking-[0.24em] text-accent">
+          <div className="font-mono text-[9px] font-bold uppercase tracking-[0.24em] text-accent" {...edit(`product.supportEyebrow`, "Eyebrow")}>
             {copy.supportEyebrow}
           </div>
-          <h2 id="product-support-title" className="mt-2 font-display text-xl font-bold uppercase tracking-tight md:text-2xl">
+          <h2 id="product-support-title" className="mt-2 font-display text-xl font-bold uppercase tracking-tight md:text-2xl" {...edit(`product.supportTitle`, "Panel heading")}>
             {copy.supportTitle}
           </h2>
         </div>
@@ -651,7 +655,7 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
                       />
                     )}
                     <div className="space-y-3">
-                      <div className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-ink-muted">{copy.videosLabel}</div>
+                      <div className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-ink-muted" {...edit(`product.videosLabel`, "Videos heading")}>{copy.videosLabel}</div>
                       {videoLinks.map((video) => (
                         <SupportLink key={video.url} href={video.url} icon={PlayCircle} label={video.label} />
                       ))}
@@ -676,7 +680,7 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
                     className="h-[55vh] min-h-[420px] w-full border border-rule bg-white"
                   />
                   <div className="space-y-3">
-                    <div className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-ink-muted">{copy.documentsLabel}</div>
+                    <div className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-ink-muted" {...edit(`product.documentsLabel`, "Documents heading")}>{copy.documentsLabel}</div>
                     {documents.map((document) => (
                       <SupportLink
                         key={`${document.type}-${document.url}`}
@@ -712,10 +716,10 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
 
         <div className="mt-5 border border-rule bg-surface p-5 md:mt-6 md:flex md:items-center md:justify-between md:gap-8 md:p-6">
           <div>
-            <h3 className="font-display text-lg font-bold uppercase tracking-tight">
+            <h3 className="font-display text-lg font-bold uppercase tracking-tight" {...edit(`product.questionLabel`, "Question heading")}>
               {copy.questionLabel}
             </h3>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-muted">{copy.questionCopy}</p>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-muted" {...edit(`product.questionCopy`, "Question copy")}>{copy.questionCopy}</p>
           </div>
           <Link
             to="/contact-us"

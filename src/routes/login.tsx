@@ -6,6 +6,7 @@ import { z } from "zod";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { loginShopifyCustomer } from "@/lib/api/shopify.functions";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 import { getPublishedContent } from "@/lib/content/content.functions";
 import { contentPageHead } from "@/lib/seo";
 
@@ -36,6 +37,7 @@ type LoginResult = {
 function LoginPage() {
   const { functional } = useContent();
   const copy = functional.login;
+  const edit = useEditable();
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<LoginResult>({ status: "idle", message: "" });
   const navigate = useNavigate();
@@ -97,14 +99,14 @@ function LoginPage() {
             >
               <ArrowLeft className="h-4 w-4" /> Back to home
             </Link>
-            <div className="mt-12 md:mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
+            <div className="mt-12 md:mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40" {...edit(`functional.login.eyebrow`, "Page eyebrow")}>
               {copy.eyebrow}
             </div>
-            <h1 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase leading-none tracking-tight">
+            <h1 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase leading-none tracking-tight" {...edit(`functional.login.title`, "Page heading")}>
               {copy.title}
             </h1>
             {copy.intro ? (
-              <p className="mt-4 md:mt-6 max-w-md text-sm leading-7 text-white/55">
+              <p className="mt-4 md:mt-6 max-w-md text-sm leading-7 text-white/55" {...edit(`functional.login.intro`, "Introduction")}>
                 {copy.intro}
               </p>
             ) : null}
@@ -115,10 +117,10 @@ function LoginPage() {
           <div className="mb-8 flex h-12 w-12 items-center justify-center bg-accent text-accent-foreground">
             <User className="h-5 w-5" />
           </div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
+          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted" {...edit(`functional.login.sectionEyebrow`, "Section eyebrow")}>
             {copy.sectionEyebrow}
           </div>
-          <h2 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight">
+          <h2 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight" {...edit(`functional.login.sectionTitle`, "Section heading")}>
             {copy.sectionTitle}
           </h2>
 

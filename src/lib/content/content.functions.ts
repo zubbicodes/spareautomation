@@ -8,6 +8,7 @@ import {
   listContentRevisions,
   loadContentDocument,
   loadDraftBundle,
+  loadContentRevision,
   loadDraftContentBundle,
   loadPublishedContentBundle,
   publishContentDraft,
@@ -84,6 +85,24 @@ export const publishDraft = createServerFn({ method: "POST" })
       }
       throw error;
     }
+  });
+
+/** Snapshot of one revision, used to preview what restoring it would change. */
+export const getRevision = createServerFn({ method: "GET" })
+  .inputValidator(z.object({ key: keySchema, revisionId: z.number().int().positive() }))
+  .handler(async ({ data }) => {
+    await requireStaff();
+    const revision = await loadContentRevision(data.key as ContentKey, data.revisionId);
+    if (!revision) return { ok: false as const, error: "Revision not found." };
+    // Serialised as JSON for the client diff; the shape is the document's own.
+    return {
+      ok: true as const,
+      revision: {
+        id: revision.id,
+        version: revision.version,
+        data: JSON.stringify(revision.data),
+      },
+    };
   });
 
 export const restoreRevision = createServerFn({ method: "POST" })

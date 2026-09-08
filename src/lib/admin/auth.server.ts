@@ -64,11 +64,20 @@ export async function getCurrentStaff(): Promise<StaffUser | null> {
   const session = await getAdminSession();
   if (!session?.data.staffUserId) return null;
   const db = getDb();
-  const rows = await db
-    .select()
-    .from(staffUsers)
-    .where(eq(staffUsers.id, session.data.staffUserId))
-    .limit(1);
+  let rows;
+  try {
+    rows = await db
+      .select()
+      .from(staffUsers)
+      .where(eq(staffUsers.id, session.data.staffUserId))
+      .limit(1);
+  } catch (error) {
+    // A session that cannot be verified is not a session: fail closed rather
+    // than throwing, so the sign-in screen still renders during an outage. The
+    // cookie is left alone, because a transient blip must not sign staff out.
+    console.error("[auth] Staff session could not be verified:", error);
+    return null;
+  }
   const staff = rows[0];
   if (!staff || !staff.isActive || session.data.sessionVersion !== staff.sessionVersion) {
     await logoutStaff();
@@ -120,11 +129,19 @@ export async function loginStaff(
 ): Promise<{ ok: boolean; error?: string; mustChangePassword?: boolean }> {
   const normalizedEmail = email.trim().toLowerCase();
   const db = getDb();
-  const rows = await db
-    .select()
-    .from(staffUsers)
-    .where(eq(staffUsers.email, normalizedEmail))
-    .limit(1);
+  let rows;
+  try {
+    rows = await db
+      .select()
+      .from(staffUsers)
+      .where(eq(staffUsers.email, normalizedEmail))
+      .limit(1);
+  } catch (error) {
+    // Say plainly that the CMS is unavailable rather than crashing the sign-in
+    // screen; the reason never distinguishes a real account from a missing one.
+    console.error("[auth] Sign-in could not reach the database:", error);
+    return { ok: false, error: "The CMS is temporarily unavailable. Try again shortly." };
+  }
   const user = rows[0];
   if (!user || !user.isActive) return { ok: false, error: "Invalid email or password." };
 

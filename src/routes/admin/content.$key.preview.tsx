@@ -1,4 +1,16 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { ArrowLeft, Monitor, Smartphone, Tablet } from "lucide-react";
+
+import { Pill } from "@/components/admin/ui";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 import { CookieConsent } from "@/components/shopify/CookieConsent";
 import { InfoPage } from "@/components/shopify/InfoPage";
@@ -12,9 +24,9 @@ import { isContentKey, renderTemplateText, type ContentBundle } from "@/lib/cont
 import { Home } from "@/routes/index";
 
 const VIEWPORTS = {
-  desktop: { label: "Desktop", width: "100%" },
-  tablet: { label: "Tablet", width: "768px" },
-  mobile: { label: "Mobile", width: "390px" },
+  desktop: { label: "Desktop", width: "100%", icon: Monitor },
+  tablet: { label: "Tablet", width: "768px", icon: Tablet },
+  mobile: { label: "Mobile", width: "390px", icon: Smartphone },
 } as const;
 
 type Viewport = keyof typeof VIEWPORTS;
@@ -71,55 +83,78 @@ function PreviewPage() {
   }`;
 
   return (
-    <div className="cms">
-      <div className="cms-preview-bar">
-        <span className="cms-badge cms-badge-warning">Draft preview</span>
-        <strong style={{ fontWeight: 600 }}>{editor.document.label}</strong>
+    <div className="flex h-screen flex-col bg-background text-foreground">
+      <div className="flex flex-wrap items-center gap-3 border-b px-4 py-2.5">
+        <Pill tone="warning" dot>
+          Draft preview
+        </Pill>
+        <strong className="truncate text-[13px] font-semibold">{editor.document.label}</strong>
+
         {pageKeys.length ? (
-          <label style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <span className="cms-sr">Page to preview</span>
-            <select
-              value={selectedPage}
-              onChange={(event) => {
-                location.search = new URLSearchParams({
-                  page: event.target.value,
-                  width: search.width,
-                }).toString();
-              }}
-            >
+          <Select
+            value={selectedPage}
+            onValueChange={(value) => {
+              location.search = new URLSearchParams({
+                page: value,
+                width: search.width,
+              }).toString();
+            }}
+          >
+            <SelectTrigger className="h-8 w-52" aria-label="Page to preview">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
               {pageKeys.map((pageKey) => (
-                <option key={pageKey} value={pageKey}>
+                <SelectItem key={pageKey} value={pageKey}>
                   {pageKey}
-                </option>
+                </SelectItem>
               ))}
-            </select>
-          </label>
+            </SelectContent>
+          </Select>
         ) : null}
-        <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 10 }}>
-          <span className="cms-seg">
-            {(Object.keys(VIEWPORTS) as Viewport[]).map((viewport) => (
-              <Link
-                key={viewport}
-                to="/admin/content/$key/preview"
-                params={{ key }}
-                search={{ raw: false, page: selectedPage, width: viewport }}
-                data-active={search.width === viewport ? "true" : "false"}
-              >
-                {VIEWPORTS[viewport].label}
-              </Link>
-            ))}
-          </span>
-          <Link to="/admin/content/$key" params={{ key }} className="cms-link">
-            Back to editor
-          </Link>
-        </span>
+
+        <div className="ml-auto flex items-center gap-2">
+          <div
+            role="group"
+            aria-label="Preview width"
+            className="flex items-center rounded-lg border p-0.5"
+          >
+            {(Object.keys(VIEWPORTS) as Viewport[]).map((viewport) => {
+              const Icon = VIEWPORTS[viewport].icon;
+              return (
+                <Link
+                  key={viewport}
+                  to="/admin/content/$key/preview"
+                  params={{ key }}
+                  search={{ raw: false, page: selectedPage, width: viewport }}
+                  aria-label={VIEWPORTS[viewport].label}
+                  aria-current={search.width === viewport ? "true" : undefined}
+                  className={cn(
+                    "flex size-7 items-center justify-center rounded-md transition-colors",
+                    search.width === viewport
+                      ? "bg-accent text-accent-foreground"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  <Icon className="size-3.5" aria-hidden="true" />
+                </Link>
+              );
+            })}
+          </div>
+          <Button variant="outline" size="sm" className="h-8" asChild>
+            <Link to="/admin/content/$key" params={{ key }}>
+              <ArrowLeft /> Back to editor
+            </Link>
+          </Button>
+        </div>
       </div>
-      <div className="cms-preview-stage">
+
+      <div className="flex min-h-0 flex-1 justify-center overflow-hidden bg-muted/40 p-3">
         <iframe
           key={frameSource}
           title="Draft preview"
           src={frameSource}
-          className="cms-preview-frame"
+          className="h-full w-full rounded-lg border bg-white shadow-sm"
           style={{ width: VIEWPORTS[search.width].width, maxWidth: "100%" }}
         />
       </div>

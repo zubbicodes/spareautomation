@@ -1,88 +1,96 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import {
   Activity,
-  ChevronDown,
-  ChevronsUpDown,
+  ChevronRight,
   ExternalLink,
-  FileText,
-  HelpCircle,
   Images,
   Inbox,
+  KeyRound,
   LayoutDashboard,
   LogOut,
-  MousePointerClick,
   Menu,
+  MousePointerClick,
+  Search,
   Settings,
   Users,
-  X,
 } from "lucide-react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useMemo, useState, type ReactNode } from "react";
 
-import { Avatar } from "@/components/admin/cms-ui";
+import { CommandPalette, useCommandPalette } from "@/components/admin/CommandPalette";
+import { ThemeToggle } from "@/components/admin/theme";
+import { InitialsAvatar } from "@/components/admin/ui";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
+import { Toaster } from "@/components/ui/sonner";
 import { adminLogout, type AdminSession } from "@/lib/admin/admin.functions";
-import { CONTENT_KEYS, CONTENT_REGISTRY } from "@/lib/content/registry";
+import { CONTENT_KEYS, CONTENT_REGISTRY, type ContentKey } from "@/lib/content/registry";
+import { cn } from "@/lib/utils";
 
 const SUBMISSION_SEARCH = { type: "all", status: "all", search: "", page: 1 } as const;
 const ACTIVITY_SEARCH = { page: 1, action: "" } as const;
 const VISUAL_SEARCH = { page: "/", width: "desktop" } as const;
 
-type Crumb = { label: string; to?: string };
+type Crumb = { label: string; to?: string; params?: Record<string, string> };
 
 type CmsShellProps = {
   staff: AdminSession;
   title: string;
-  eyebrow?: string;
   subtitle?: string;
-  /** Buttons or links rendered at the right of the page header. */
+  /** Buttons rendered at the right of the page header. */
   actions?: ReactNode;
-  /** Trail shown above the page title. */
+  /** Trail shown in the top bar, before the current page. */
   breadcrumbs?: Crumb[];
-  /** Optional count badge for the submissions inbox. */
+  /** Count badge on the submissions link. */
   inboxCount?: number;
+  /** Suppresses the page header block for screens that own their full width. */
+  bare?: boolean;
+  /** Removes the content max-width, for the visual editor. */
+  wide?: boolean;
   children: ReactNode;
 };
 
-/** Content documents listed under the Content group, driven by the registry. */
-const CONTENT_LINKS = CONTENT_KEYS.map((key) => ({ key, label: CONTENT_REGISTRY[key].label }));
+/**
+ * Content documents grouped the way the registry groups them, so the sidebar
+ * mirrors the document index instead of flattening nine unrelated entries.
+ */
+const CONTENT_GROUPS = (() => {
+  const groups = new Map<string, Array<{ key: ContentKey; label: string }>>();
+  for (const key of CONTENT_KEYS) {
+    const { group, label } = CONTENT_REGISTRY[key];
+    if (!groups.has(group)) groups.set(group, []);
+    groups.get(group)!.push({ key, label });
+  }
+  return [...groups.entries()].map(([group, items]) => ({ group, items }));
+})();
 
 export function CmsShell({
   staff,
   title,
-  eyebrow,
   subtitle,
   actions,
   breadcrumbs = [],
   inboxCount,
+  bare,
+  wide,
   children,
 }: CmsShellProps) {
   const navigate = useNavigate();
-  const location = useLocation();
-  const path = location.pathname;
+  const path = useLocation().pathname;
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [contentOpen, setContentOpen] = useState(path.startsWith("/admin/content"));
-  const [accountOpen, setAccountOpen] = useState(false);
-  const accountRef = useRef<HTMLDivElement>(null);
+  const palette = useCommandPalette();
 
   useEffect(() => {
     setDrawerOpen(false);
-    setAccountOpen(false);
   }, [path]);
-
-  useEffect(() => {
-    if (!accountOpen) return;
-    function onPointerDown(event: MouseEvent) {
-      if (!accountRef.current?.contains(event.target as Node)) setAccountOpen(false);
-    }
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setAccountOpen(false);
-    }
-    document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [accountOpen]);
 
   async function signOut() {
     // Always land on the sign-in screen, even if clearing the session failed.
@@ -93,209 +101,114 @@ export function CmsShell({
     }
   }
 
+  const nav = (
+    <Nav
+      staff={staff}
+      path={path}
+      inboxCount={inboxCount}
+      onSearch={() => {
+        setDrawerOpen(false);
+        palette.setOpen(true);
+      }}
+      onSignOut={signOut}
+    />
+  );
+
   return (
-    <div className="cms">
-      <div className="cms-layout">
-        {drawerOpen ? (
-          <button
-            type="button"
-            aria-label="Close navigation"
-            className="cms-scrim"
-            onClick={() => setDrawerOpen(false)}
-          />
-        ) : null}
+    <div className="min-h-screen bg-background text-foreground">
+      <Toaster position="bottom-right" closeButton richColors />
+      <CommandPalette
+        staff={staff}
+        open={palette.open}
+        onOpenChange={palette.setOpen}
+        onSignOut={signOut}
+      />
 
-        <aside className="cms-sidebar" data-open={drawerOpen ? "true" : "false"}>
-          <button
-            type="button"
-            onClick={() => setDrawerOpen(false)}
-            className="cms-btn cms-btn-ghost cms-btn-icon"
-            aria-label="Close navigation"
-            data-cms-drawer-toggle
-            style={{ alignSelf: "flex-end" }}
-          >
-            <X />
-          </button>
-          <div className="cms-menu-wrap" ref={accountRef}>
-            <button
-              type="button"
-              className="cms-account"
-              onClick={() => setAccountOpen((open) => !open)}
-              aria-expanded={accountOpen}
-              aria-haspopup="menu"
-            >
-              <Avatar name={staff.name} />
-              <span style={{ minWidth: 0 }}>
-                <span className="cms-account-name">{staff.name}</span>
-                <span className="cms-account-role">
-                  {staff.role === "admin" ? "Administrator" : "Staff"}
-                </span>
-              </span>
-              <ChevronsUpDown aria-hidden="true" />
-            </button>
-            {accountOpen ? (
-              <div className="cms-menu" role="menu" style={{ left: 4, right: 4 }}>
-                <div className="cms-menu-label">{staff.email}</div>
-                <Link to="/admin/settings" role="menuitem">
-                  <Settings aria-hidden="true" /> Settings
-                </Link>
-                <Link to="/admin/change-password" role="menuitem">
-                  <Users aria-hidden="true" /> Change password
-                </Link>
-                <a href="/" target="_blank" rel="noreferrer" role="menuitem">
-                  <ExternalLink aria-hidden="true" /> View website
-                </a>
-                <div className="cms-menu-sep" />
-                <button type="button" role="menuitem" onClick={signOut} className="cms-menu-danger">
-                  <LogOut aria-hidden="true" /> Sign out
-                </button>
-              </div>
-            ) : null}
-          </div>
+      <Sheet open={drawerOpen} onOpenChange={setDrawerOpen}>
+        <SheetContent side="left" className="w-[17rem] bg-sidebar p-0">
+          <SheetTitle className="sr-only">CMS navigation</SheetTitle>
+          <SheetDescription className="sr-only">
+            Jump to a section of the content management system.
+          </SheetDescription>
+          {nav}
+        </SheetContent>
+      </Sheet>
 
-          <nav className="cms-nav" aria-label="CMS sections">
-            <NavItem
-              to="/admin"
-              icon={<LayoutDashboard />}
-              label="Dashboard"
-              active={path === "/admin"}
-            />
-            <NavItem
-              to="/admin/visual"
-              search={VISUAL_SEARCH}
-              icon={<MousePointerClick />}
-              label="Edit pages"
-              active={path.startsWith("/admin/visual")}
-            />
-            <NavItem
-              to="/admin/submissions"
-              search={SUBMISSION_SEARCH}
-              icon={<Inbox />}
-              label="Submissions"
-              active={path.startsWith("/admin/submissions")}
-              count={inboxCount}
-            />
-
-            <button
-              type="button"
-              className="cms-nav-item"
-              data-active={path.startsWith("/admin/content") ? "true" : "false"}
-              aria-expanded={contentOpen}
-              onClick={() => setContentOpen((open) => !open)}
-            >
-              <FileText />
-              <span className="cms-nav-label">Content</span>
-              <ChevronDown
-                aria-hidden="true"
-                style={{
-                  marginLeft: "auto",
-                  width: 15,
-                  height: 15,
-                  transform: contentOpen ? "rotate(0deg)" : "rotate(-90deg)",
-                  transition: "transform 120ms ease",
-                }}
-              />
-            </button>
-            {contentOpen ? (
-              <div className="cms-subnav">
-                <NavItem
-                  to="/admin/content"
-                  label="All documents"
-                  active={path === "/admin/content"}
-                />
-                {CONTENT_LINKS.map((item) => (
-                  <NavItem
-                    key={item.key}
-                    to="/admin/content/$key"
-                    params={{ key: item.key }}
-                    label={item.label}
-                    active={path === `/admin/content/${item.key}`}
-                  />
-                ))}
-              </div>
-            ) : null}
-
-            <NavItem
-              to="/admin/media"
-              icon={<Images />}
-              label="Media"
-              active={path.startsWith("/admin/media")}
-            />
-            {staff.role === "admin" ? (
-              <NavItem
-                to="/admin/users"
-                icon={<Users />}
-                label="Users"
-                active={path.startsWith("/admin/users")}
-              />
-            ) : null}
-            {staff.role === "admin" ? (
-              <NavItem
-                to="/admin/activity"
-                search={ACTIVITY_SEARCH}
-                icon={<Activity />}
-                label="Activity"
-                active={path.startsWith("/admin/activity")}
-              />
-            ) : null}
-          </nav>
-
-          <div className="cms-sidebar-foot">
-            <NavItem
-              to="/admin/settings"
-              icon={<Settings />}
-              label="Settings"
-              active={path.startsWith("/admin/settings")}
-            />
-            <a href="/" target="_blank" rel="noreferrer" className="cms-nav-item">
-              <HelpCircle />
-              <span className="cms-nav-label">View website</span>
-              <ExternalLink aria-hidden="true" style={{ marginLeft: "auto", width: 13, height: 13 }} />
-            </a>
-            <button type="button" onClick={signOut} className="cms-nav-item cms-nav-signout">
-              <LogOut />
-              <span className="cms-nav-label">Sign out</span>
-            </button>
-          </div>
+      <div className="lg:grid lg:grid-cols-[15rem_minmax(0,1fr)]">
+        <aside
+          data-testid="cms-sidebar"
+          className="sticky top-0 hidden h-screen border-r bg-sidebar lg:block"
+        >
+          {nav}
         </aside>
 
-        <div className="cms-main">
-          <main id="main-content" className="cms-content">
-            <div className="cms-page-head">
-              <div style={{ minWidth: 0 }}>
-                <div className="cms-row-inline" style={{ gap: 10 }}>
-                  <button
-                    type="button"
-                    onClick={() => setDrawerOpen(true)}
-                    className="cms-btn cms-btn-ghost cms-btn-icon"
-                    aria-label="Open navigation"
-                    data-cms-drawer-toggle
-                  >
-                    <Menu />
-                  </button>
-                  {breadcrumbs.length ? (
-                    <nav aria-label="Breadcrumb" className="cms-crumbs" style={{ margin: 0 }}>
-                      {breadcrumbs.map((crumb) => (
-                        <span key={crumb.label} style={{ display: "flex", gap: 6 }}>
-                          {crumb.to ? <Link to={crumb.to}>{crumb.label}</Link> : <span>{crumb.label}</span>}
-                          <span aria-hidden="true">/</span>
-                        </span>
-                      ))}
-                      <span>{title}</span>
-                    </nav>
-                  ) : eyebrow ? (
-                    <span className="cms-eyebrow" style={{ margin: 0 }}>
-                      {eyebrow}
-                    </span>
+        <div className="flex min-w-0 flex-col">
+          <header className="sticky top-0 z-30 flex h-13 items-center gap-2 border-b bg-background/85 px-4 backdrop-blur">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-8 lg:hidden"
+              aria-label="Open navigation"
+              onClick={() => setDrawerOpen(true)}
+            >
+              <Menu />
+            </Button>
+
+            <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-1.5 text-[13px]">
+              {breadcrumbs.map((crumb) => (
+                <Fragment key={crumb.label}>
+                  {crumb.to ? (
+                    <Link
+                      to={crumb.to}
+                      params={crumb.params as never}
+                      className="shrink-0 text-muted-foreground hover:text-foreground"
+                    >
+                      {crumb.label}
+                    </Link>
+                  ) : (
+                    <span className="shrink-0 text-muted-foreground">{crumb.label}</span>
+                  )}
+                  <ChevronRight className="size-3.5 shrink-0 text-muted-foreground/60" aria-hidden="true" />
+                </Fragment>
+              ))}
+              <span className="truncate font-medium">{title}</span>
+            </nav>
+
+            <div className="ml-auto flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="size-8 lg:hidden"
+                aria-label="Search"
+                onClick={() => palette.setOpen(true)}
+              >
+                <Search />
+              </Button>
+              <Button variant="ghost" size="sm" className="hidden h-8 gap-2 sm:flex" asChild>
+                <a href="/" target="_blank" rel="noreferrer">
+                  <ExternalLink /> View site
+                </a>
+              </Button>
+              <ThemeToggle />
+              <AccountMenu staff={staff} onSignOut={signOut} />
+            </div>
+          </header>
+
+          <main
+            id="main-content"
+            className={cn("min-w-0 flex-1 px-4 py-6 sm:px-6", wide ? "" : "mx-auto w-full max-w-6xl")}
+          >
+            {bare ? null : (
+              <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <h1 className="text-xl font-semibold tracking-tight">{title}</h1>
+                  {subtitle ? (
+                    <p className="mt-1 max-w-2xl text-[13px] text-muted-foreground">{subtitle}</p>
                   ) : null}
                 </div>
-                <h1 className="cms-title" style={{ marginTop: 6 }}>
-                  {title}
-                </h1>
-                {subtitle ? <p className="cms-subtitle">{subtitle}</p> : null}
+                {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
               </div>
-              {actions ? <div className="cms-page-actions">{actions}</div> : null}
-            </div>
+            )}
             {children}
           </main>
         </div>
@@ -304,7 +217,239 @@ export function CmsShell({
   );
 }
 
-function NavItem({
+/* -------------------------------------------------------------- navigation */
+
+function Nav({
+  staff,
+  path,
+  inboxCount,
+  onSearch,
+  onSignOut,
+}: {
+  staff: AdminSession;
+  path: string;
+  inboxCount?: number;
+  onSearch: () => void;
+  onSignOut: () => void;
+}) {
+  // Keep the group holding the open document expanded across navigations.
+  const activeGroup = useMemo(() => {
+    const match = /^\/admin\/content\/([^/]+)/.exec(path);
+    const key = match?.[1];
+    if (!key || !(key in CONTENT_REGISTRY)) return null;
+    return CONTENT_REGISTRY[key as ContentKey].group;
+  }, [path]);
+
+  return (
+    <div className="flex h-full flex-col">
+      <div className="flex h-13 shrink-0 items-center gap-2.5 border-b px-4">
+        <span
+          className="flex size-6.5 items-center justify-center rounded-md bg-primary text-[11px] font-bold text-primary-foreground"
+          aria-hidden="true"
+        >
+          SA
+        </span>
+        <span className="min-w-0">
+          <span className="block truncate text-[13px] leading-tight font-semibold">
+            Spares Automation
+          </span>
+          <span className="block text-[11px] leading-tight text-muted-foreground">
+            Content management
+          </span>
+        </span>
+      </div>
+
+      <div className="px-3 pt-3">
+        <button
+          type="button"
+          onClick={onSearch}
+          className="flex w-full items-center gap-2 rounded-lg border bg-background px-2.5 py-1.5 text-[13px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+        >
+          <Search className="size-3.5" aria-hidden="true" />
+          Search…
+          <kbd className="ml-auto rounded border bg-muted px-1.5 py-0.5 font-sans text-[10px] font-medium">
+            ⌘K
+          </kbd>
+        </button>
+      </div>
+
+      <ScrollArea className="min-h-0 flex-1">
+        <nav aria-label="CMS sections" className="space-y-5 px-3 py-3">
+          <Section>
+            <NavLink
+              to="/admin"
+              icon={<LayoutDashboard />}
+              label="Dashboard"
+              active={path === "/admin"}
+            />
+            <NavLink
+              to="/admin/visual"
+              search={VISUAL_SEARCH}
+              icon={<MousePointerClick />}
+              label="Edit pages"
+              active={path.startsWith("/admin/visual")}
+            />
+            <NavLink
+              to="/admin/submissions"
+              search={SUBMISSION_SEARCH}
+              icon={<Inbox />}
+              label="Submissions"
+              active={path.startsWith("/admin/submissions")}
+              count={inboxCount}
+            />
+          </Section>
+
+          <Section
+            heading="Content"
+            headingAction={
+              <Link
+                to="/admin/content"
+                className={cn(
+                  "rounded px-1.5 py-0.5 text-[11px] font-medium transition-colors hover:text-foreground",
+                  path === "/admin/content" ? "text-foreground" : "text-muted-foreground",
+                )}
+              >
+                All
+              </Link>
+            }
+          >
+            {CONTENT_GROUPS.map(({ group, items }) => (
+              <NavGroup
+                key={group}
+                label={group}
+                forceOpen={activeGroup === group}
+                active={items.some((item) => path === `/admin/content/${item.key}`)}
+              >
+                {items.map((item) => (
+                  <NavLink
+                    key={item.key}
+                    to="/admin/content/$key"
+                    params={{ key: item.key }}
+                    label={item.label}
+                    active={path === `/admin/content/${item.key}`}
+                    nested
+                  />
+                ))}
+              </NavGroup>
+            ))}
+          </Section>
+
+          <Section heading="Library">
+            <NavLink
+              to="/admin/media"
+              icon={<Images />}
+              label="Media"
+              active={path.startsWith("/admin/media")}
+            />
+          </Section>
+
+          {staff.role === "admin" ? (
+            <Section heading="Administration">
+              <NavLink
+                to="/admin/users"
+                icon={<Users />}
+                label="Users"
+                active={path.startsWith("/admin/users")}
+              />
+              <NavLink
+                to="/admin/activity"
+                search={ACTIVITY_SEARCH}
+                icon={<Activity />}
+                label="Activity"
+                active={path.startsWith("/admin/activity")}
+              />
+            </Section>
+          ) : null}
+        </nav>
+      </ScrollArea>
+
+      <div className="shrink-0 space-y-0.5 border-t p-3">
+        <NavLink
+          to="/admin/settings"
+          icon={<Settings />}
+          label="Settings"
+          active={path.startsWith("/admin/settings")}
+        />
+        <button
+          type="button"
+          onClick={onSignOut}
+          className="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-[13px] text-sidebar-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+        >
+          <LogOut className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+          <span>Sign out</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function Section({
+  heading,
+  headingAction,
+  children,
+}: {
+  heading?: string;
+  headingAction?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <div className="space-y-0.5">
+      {heading ? (
+        <div className="flex items-center gap-2 px-2 pb-1">
+          <span className="text-[10.5px] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
+            {heading}
+          </span>
+          {headingAction ? <span className="ml-auto">{headingAction}</span> : null}
+        </div>
+      ) : null}
+      {children}
+    </div>
+  );
+}
+
+function NavGroup({
+  label,
+  active,
+  forceOpen,
+  children,
+}: {
+  label: string;
+  active: boolean;
+  /** Reopens the group holding the document that was just navigated to. */
+  forceOpen: boolean;
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    if (forceOpen) setOpen(true);
+  }, [forceOpen]);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
+        className={cn(
+          "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-[13px] transition-colors",
+          active
+            ? "font-medium text-sidebar-accent-foreground"
+            : "text-sidebar-foreground hover:bg-sidebar-accent",
+        )}
+      >
+        <ChevronRight
+          className={cn("size-3.5 shrink-0 text-muted-foreground transition-transform", open && "rotate-90")}
+          aria-hidden="true"
+        />
+        <span className="truncate">{label}</span>
+      </button>
+      {open ? <div className="mt-0.5 space-y-0.5">{children}</div> : null}
+    </div>
+  );
+}
+
+function NavLink({
   to,
   params,
   search,
@@ -312,6 +457,7 @@ function NavItem({
   label,
   active,
   count,
+  nested,
 }: {
   to: string;
   params?: Record<string, string>;
@@ -320,19 +466,90 @@ function NavItem({
   label: string;
   active: boolean;
   count?: number;
+  nested?: boolean;
 }) {
   return (
     <Link
       to={to}
       params={params as never}
       search={search as never}
-      className="cms-nav-item"
-      data-active={active ? "true" : "false"}
-      title={label}
+      aria-current={active ? "page" : undefined}
+      className={cn(
+        "flex items-center gap-2.5 rounded-md py-1.5 text-[13px] transition-colors",
+        nested ? "ml-3.5 border-l pr-2 pl-4" : "px-2",
+        active
+          ? nested
+            ? "border-primary font-medium text-foreground"
+            : "bg-sidebar-accent font-medium text-sidebar-accent-foreground"
+          : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+      )}
     >
-      {icon}
-      <span className="cms-nav-label">{label}</span>
-      {count ? <span className="cms-nav-count">{count}</span> : null}
+      {icon ? (
+        <span
+          className={cn(
+            "[&>svg]:size-4 [&>svg]:shrink-0",
+            active ? "text-primary" : "text-muted-foreground",
+          )}
+        >
+          {icon}
+        </span>
+      ) : null}
+      <span className="truncate">{label}</span>
+      {count ? (
+        <span className="ml-auto rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground tabular-nums">
+          {count}
+        </span>
+      ) : null}
     </Link>
   );
 }
+
+function AccountMenu({ staff, onSignOut }: { staff: AdminSession; onSignOut: () => void }) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          className="ml-1 rounded-full ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+          aria-label="Account menu"
+        >
+          <InitialsAvatar name={staff.name} />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuLabel className="font-normal">
+          <span className="block truncate text-[13px] font-medium">{staff.name}</span>
+          <span className="block truncate text-xs text-muted-foreground">{staff.email}</span>
+          <span className="mt-1 block text-[11px] text-muted-foreground">
+            {staff.role === "admin" ? "Administrator" : "Staff"}
+          </span>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild className="gap-2 text-[13px]">
+          <Link to="/admin/settings">
+            <Settings className="size-4" aria-hidden="true" /> Settings
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="gap-2 text-[13px]">
+          <Link to="/admin/change-password">
+            <KeyRound className="size-4" aria-hidden="true" /> Change password
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="gap-2 text-[13px]">
+          <a href="/" target="_blank" rel="noreferrer">
+            <ExternalLink className="size-4" aria-hidden="true" /> View website
+          </a>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onSelect={onSignOut}
+          className="gap-2 text-[13px] text-destructive focus:text-destructive"
+        >
+          <LogOut className="size-4" aria-hidden="true" /> Sign out
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+

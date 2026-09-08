@@ -1,18 +1,64 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { Archive, Check, Copy, Images, Loader2, Trash2, Upload } from "lucide-react";
-import { useMemo, useRef, useState, type DragEvent, type FormEvent } from "react";
+import {
+  Archive,
+  ExternalLink,
+  ImageOff,
+  Images,
+  MoreHorizontal,
+  Search,
+  Trash2,
+  Upload,
+} from "lucide-react";
+import { useMemo, useState, type DragEvent } from "react";
+import { toast } from "sonner";
 
 import { CmsShell } from "@/components/admin/CmsShell";
 import {
   BulkBar,
-  ChipSelect,
+  CopyButton,
   EmptyState,
-  FootBar,
+  formatBytes,
   formatDate,
-  KebabMenu,
-  Notice,
-  SearchField,
-} from "@/components/admin/cms-ui";
+  Pill,
+  Spinner,
+} from "@/components/admin/ui";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { getAdminSession } from "@/lib/admin/admin.functions";
 import { cmsHead } from "@/lib/admin/head";
 import {
@@ -22,6 +68,10 @@ import {
   updateMediaAlt,
   uploadMedia,
 } from "@/lib/content/media.functions";
+import { cn } from "@/lib/utils";
+
+type MediaItem = Awaited<ReturnType<typeof listMedia>>[number];
+type Filter = "all" | "published" | "draft" | "archived";
 
 export const Route = createFileRoute("/admin/media")({
   head: () => cmsHead("Media"),
@@ -34,146 +84,112 @@ export const Route = createFileRoute("/admin/media")({
   component: MediaPage,
 });
 
-type Filter = "all" | "published" | "draft" | "archived";
-
 function MediaPage() {
   const loaded = Route.useLoaderData();
+  const isAdmin = loaded.staff.role === "admin";
+
   const [items, setItems] = useState(loaded.media);
   const [busy, setBusy] = useState(false);
-  const [notice, setNotice] = useState("");
-  const [error, setError] = useState("");
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
-  const [dragging, setDragging] = useState(false);
-  const [copied, setCopied] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
-  const [altDraft, setAltDraft] = useState<Record<string, string>>({});
-  const [showUpload, setShowUpload] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null);
+  const [dragging, setDragging] = useState(false);
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const [uploadAlt, setUploadAlt] = useState("");
+  const [uploadOpen, setUploadOpen] = useState(false);
+  const [detail, setDetail] = useState<MediaItem | null>(null);
+  const [confirm, setConfirm] = useState<{ ids: string[]; action: "archive" | "delete" } | null>(
+    null,
+  );
 
   async function refresh() {
     setItems(await listMedia());
   }
 
-  async function send(formData: FormData) {
+  async function upload() {
+    if (!uploadFile) return;
+    if (!uploadAlt.trim()) {
+      toast.error("Add a description so the image stays accessible.");
+      return;
+    }
     setBusy(true);
-    setError("");
-    setNotice("");
     try {
+      const formData = new FormData();
+      formData.set("file", uploadFile);
+      formData.set("defaultAlt", uploadAlt.trim());
       const result = await uploadMedia({ data: formData });
       if (!result.ok) {
-        setError(result.error);
-        return false;
+        toast.error("Upload failed", { description: result.error });
+        return;
       }
       await refresh();
-      setNotice("Image uploaded. It stays private until published content references it.");
-      return true;
+      setUploadOpen(false);
+      setUploadFile(null);
+      setUploadAlt("");
+      toast.success("Image uploaded", {
+        description: "It stays private until published content references it.",
+      });
     } catch {
-      setError("The image could not be uploaded.");
-      return false;
+      toast.error("The image could not be uploaded.");
     } finally {
       setBusy(false);
     }
   }
 
-  async function upload(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (await send(new FormData(form))) form.reset();
-  }
-
-  async function onDrop(event: DragEvent<HTMLElement>) {
+  function onDrop(event: DragEvent<HTMLElement>) {
     event.preventDefault();
     setDragging(false);
     const file = event.dataTransfer.files?.[0];
     if (!file) return;
-    setShowUpload(true);
-    const alt = prompt(`Alt text for ${file.name}`)?.trim();
-    if (!alt) {
-      setError("Provide alt text so the image stays accessible.");
-      return;
-    }
-    const formData = new FormData();
-    formData.set("file", file);
-    formData.set("defaultAlt", alt);
-    await send(formData);
+    setUploadFile(file);
+    setUploadAlt("");
+    setUploadOpen(true);
   }
 
-  async function saveAlt(id: string) {
-    const defaultAlt = (altDraft[id] ?? "").trim();
-    if (!defaultAlt) return;
+  async function saveAlt(id: string, defaultAlt: string) {
+    if (!defaultAlt.trim()) return;
     setBusy(true);
-    setError("");
     try {
-      const result = await updateMediaAlt({ data: { id, defaultAlt } });
+      const result = await updateMediaAlt({ data: { id, defaultAlt: defaultAlt.trim() } });
       if (!result.ok) {
-        setError(result.error);
+        toast.error(result.error);
         return;
       }
-      setAltDraft((draft) => {
-        const next = { ...draft };
-        delete next[id];
-        return next;
-      });
       await refresh();
-      setNotice("Alt text updated.");
+      setDetail((current) =>
+        current && current.id === id ? { ...current, defaultAlt: defaultAlt.trim() } : current,
+      );
+      toast.success("Description updated");
     } finally {
       setBusy(false);
     }
   }
 
-  async function runOnSelection(action: "archive" | "delete") {
+  async function runConfirmed() {
+    if (!confirm) return;
     setBusy(true);
-    setError("");
-    setNotice("");
     const failures: string[] = [];
     try {
-      for (const id of selected) {
+      for (const id of confirm.ids) {
         const result =
-          action === "archive"
+          confirm.action === "archive"
             ? await archiveMedia({ data: { id } })
             : await deleteMedia({ data: { id } });
         if (!result.ok) failures.push(result.error);
       }
       await refresh();
       setSelected([]);
-      if (failures.length) setError([...new Set(failures)].join("\n"));
-      else setNotice(action === "archive" ? "Images archived." : "Images deleted.");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function archiveOne(id: string) {
-    setBusy(true);
-    setError("");
-    setNotice("");
-    try {
-      const result = await archiveMedia({ data: { id } });
-      if (!result.ok) setError(result.error);
-      else {
-        await refresh();
-        setNotice("Image archived.");
+      setDetail(null);
+      if (failures.length) {
+        toast.error("Some images were left alone", {
+          description: [...new Set(failures)][0],
+        });
+      } else {
+        toast.success(confirm.action === "archive" ? "Images archived" : "Images deleted");
       }
     } finally {
       setBusy(false);
-    }
-  }
-
-  async function deleteOne(id: string) {
-    if (!confirm("Permanently delete this unreferenced image?")) return;
-    setBusy(true);
-    setError("");
-    setNotice("");
-    try {
-      const result = await deleteMedia({ data: { id } });
-      if (!result.ok) setError(result.error);
-      else {
-        await refresh();
-        setNotice("Image deleted.");
-      }
-    } finally {
-      setBusy(false);
+      setConfirm(null);
     }
   }
 
@@ -195,272 +211,423 @@ function MediaPage() {
   return (
     <CmsShell
       staff={loaded.staff}
-      eyebrow="Public images"
       title="Media"
-      subtitle="Images available to page content. Uploads stay private until the content that references them is published, and referenced images cannot be deleted."
+      subtitle="Images available to page content. Uploads stay private until the content referencing them is published, and a referenced image can never be deleted."
       actions={
-        <button
-          type="button"
-          className="cms-btn cms-btn-primary"
-          onClick={() => {
-            setShowUpload((open) => !open);
-            setTimeout(() => formRef.current?.scrollIntoView({ block: "nearest" }), 0);
-          }}
-        >
-          <Upload aria-hidden="true" /> Upload
-        </button>
+        <Button size="sm" onClick={() => setUploadOpen(true)}>
+          <Upload /> Upload image
+        </Button>
       }
     >
-      {showUpload ? (
-        <form
-          ref={formRef}
-          onSubmit={upload}
-          className="cms-dropzone"
-          data-dragging={dragging ? "true" : "false"}
-          onDragOver={(event) => {
-            event.preventDefault();
-            setDragging(true);
-          }}
-          onDragLeave={() => setDragging(false)}
-          onDrop={(event) => void onDrop(event)}
-          style={{ marginBottom: 14 }}
-        >
-          <div className="cms-row-inline" style={{ gap: 14 }}>
-            <label className="cms-field" style={{ flex: "1 1 250px" }}>
-              <span className="cms-label">Image file · JPEG, PNG or WebP · max 10 MB</span>
-              <input
-                name="file"
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                required
-                className="cms-input"
-              />
-            </label>
-            <label className="cms-field" style={{ flex: "1 1 250px" }}>
-              <span className="cms-label">Default alt text</span>
-              <input name="defaultAlt" required maxLength={300} className="cms-input" />
-            </label>
-            <button disabled={busy} className="cms-btn cms-btn-primary">
-              {busy ? (
-                <Loader2 aria-hidden="true" className="cms-spin" />
-              ) : (
-                <Upload aria-hidden="true" />
-              )}{" "}
-              Upload
-            </button>
+      <div
+        onDragOver={(event) => {
+          event.preventDefault();
+          setDragging(true);
+        }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={onDrop}
+        className={cn(
+          "rounded-xl transition-colors",
+          dragging && "outline-2 outline-offset-4 outline-dashed outline-primary",
+        )}
+      >
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <div className="relative min-w-56 flex-1">
+            <Search
+              className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground"
+              aria-hidden="true"
+            />
+            <Input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Filename, description or id…"
+              aria-label="Search media"
+              className="h-9 pl-8"
+            />
           </div>
-          <p className="cms-hint">
-            Drag an image onto this panel to upload it. Alt text describes the image for screen
-            readers and search engines.
-          </p>
-        </form>
-      ) : null}
-
-      {notice ? (
-        <div style={{ marginBottom: 12 }}>
-          <Notice tone="success">{notice}</Notice>
+          <Select value={filter} onValueChange={(value) => setFilter(value as Filter)}>
+            <SelectTrigger className="h-9 w-44" aria-label="Filter images">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All images</SelectItem>
+              <SelectItem value="published">Published</SelectItem>
+              <SelectItem value="draft">Draft only</SelectItem>
+              <SelectItem value="archived">Archived</SelectItem>
+            </SelectContent>
+          </Select>
+          <span className="text-xs text-muted-foreground tabular-nums">
+            {visible.length} of {items.length}
+          </span>
         </div>
-      ) : null}
-      {error ? (
-        <div style={{ marginBottom: 12 }}>
-          <Notice tone="danger">{error}</Notice>
-        </div>
-      ) : null}
 
-      <div className="cms-filters">
-        <ChipSelect
-          label="Show"
-          value={filter}
-          options={[
-            { value: "all", label: "All images" },
-            { value: "published", label: "Published" },
-            { value: "draft", label: "Draft only" },
-            { value: "archived", label: "Archived" },
-          ]}
-          onChange={(value) => setFilter(value as Filter)}
-        />
-        <SearchField
-          value={query}
-          onChange={setQuery}
-          label="Search media"
-          placeholder="Filename, alt text or id"
-        />
-      </div>
-
-      {selected.length && loaded.staff.role === "admin" ? (
-        <BulkBar
-          count={selected.length}
-          onClear={() => setSelected([])}
-          destructive={
-            <button
-              type="button"
-              className="cms-bulk-danger"
-              disabled={busy}
-              onClick={() => {
-                if (confirm(`Permanently delete ${selected.length} unreferenced image(s)?`)) {
-                  void runOnSelection("delete");
-                }
-              }}
-            >
-              <Trash2 aria-hidden="true" style={{ width: 14, height: 14 }} /> Delete
-            </button>
-          }
-        >
-          <button type="button" disabled={busy} onClick={() => void runOnSelection("archive")}>
-            <Archive aria-hidden="true" style={{ width: 14, height: 14 }} /> Archive
-          </button>
-        </BulkBar>
-      ) : null}
-
-      {visible.length === 0 ? (
-        <EmptyState
-          icon={<Images aria-hidden="true" />}
-          title="No images to show"
-          copy="Upload a JPEG, PNG or WebP image, then select it from any content document."
-        />
-      ) : (
-        <>
-          <div className="cms-grid cms-grid-media">
+        {visible.length === 0 ? (
+          <EmptyState
+            icon={<ImageOff />}
+            title={items.length ? "No images match these filters" : "The media library is empty"}
+            copy={
+              items.length
+                ? "Try a different search, or show all images."
+                : "Drop a JPEG, PNG or WebP here — or use Upload image — then pick it from any content document."
+            }
+            action={
+              <Button variant="outline" size="sm" onClick={() => setUploadOpen(true)}>
+                <Upload /> Upload image
+              </Button>
+            }
+          />
+        ) : (
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {visible.map((item) => {
               const isSelected = selected.includes(item.id);
               return (
-                <article
+                <li
                   key={item.id}
-                  className="cms-media-card"
-                  data-archived={item.isArchived ? "true" : "false"}
-                  data-selected={isSelected ? "true" : "false"}
+                  className={cn(
+                    "group overflow-hidden rounded-xl border bg-card transition-colors",
+                    isSelected ? "border-primary ring-2 ring-primary/25" : "hover:border-primary/40",
+                    item.isArchived && "opacity-70",
+                  )}
                 >
-                  <div className="cms-media-frame">
-                    <img src={item.url} alt={item.defaultAlt} loading="lazy" />
-                    {loaded.staff.role === "admin" ? (
-                      <input
-                        type="checkbox"
-                        className="cms-check cms-media-check"
-                        checked={isSelected}
-                        aria-label={`Select ${item.filename}`}
-                        onChange={() =>
-                          setSelected((current) =>
-                            current.includes(item.id)
-                              ? current.filter((value) => value !== item.id)
-                              : [...current, item.id],
-                          )
-                        }
+                  <div className="cms-checkerboard relative aspect-4/3">
+                    <button
+                      type="button"
+                      onClick={() => setDetail(item)}
+                      className="block size-full"
+                      aria-label={`Details for ${item.filename}`}
+                    >
+                      <img
+                        src={item.url}
+                        alt={item.defaultAlt}
+                        loading="lazy"
+                        decoding="async"
+                        className="size-full object-cover"
                       />
+                    </button>
+                    {isAdmin ? (
+                      <span
+                        className={cn(
+                          "absolute top-2 left-2 rounded bg-background/85 p-0.5 backdrop-blur transition-opacity",
+                          isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100",
+                        )}
+                      >
+                        <Checkbox
+                          checked={isSelected}
+                          aria-label={`Select ${item.filename}`}
+                          onCheckedChange={() =>
+                            setSelected((current) =>
+                              current.includes(item.id)
+                                ? current.filter((value) => value !== item.id)
+                                : [...current, item.id],
+                            )
+                          }
+                        />
+                      </span>
                     ) : null}
-                  </div>
-                  <div className="cms-media-body">
-                    <div className="cms-row-inline" style={{ gap: 8, flexWrap: "nowrap" }}>
-                      <h2 className="cms-media-name" title={item.filename}>
-                        {item.filename}
-                      </h2>
-                      <span style={{ marginLeft: "auto" }}>
-                        <KebabMenu label={`Actions for ${item.filename}`}>
-                          {(close) => (
+                    <span className="absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="secondary"
+                            size="icon"
+                            className="size-7 bg-background/85 backdrop-blur"
+                            aria-label={`Actions for ${item.filename}`}
+                          >
+                            <MoreHorizontal />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48">
+                          <DropdownMenuItem
+                            onSelect={() => setDetail(item)}
+                            className="gap-2 text-[13px]"
+                          >
+                            <Images className="size-4" aria-hidden="true" /> Details
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild className="gap-2 text-[13px]">
+                            <a href={item.url} target="_blank" rel="noreferrer">
+                              <ExternalLink className="size-4" aria-hidden="true" /> Open full size
+                            </a>
+                          </DropdownMenuItem>
+                          {isAdmin ? (
                             <>
-                              <button
-                                type="button"
-                                role="menuitem"
-                                onClick={async () => {
-                                  close();
-                                  try {
-                                    await navigator.clipboard.writeText(item.id);
-                                    setCopied(item.id);
-                                    setTimeout(() => setCopied(""), 1600);
-                                  } catch {
-                                    setError("Copying is blocked in this browser.");
+                              <DropdownMenuSeparator />
+                              {item.isArchived ? null : (
+                                <DropdownMenuItem
+                                  onSelect={() =>
+                                    setConfirm({ ids: [item.id], action: "archive" })
                                   }
-                                }}
+                                  className="gap-2 text-[13px]"
+                                >
+                                  <Archive className="size-4" aria-hidden="true" /> Archive
+                                </DropdownMenuItem>
+                              )}
+                              <DropdownMenuItem
+                                onSelect={() => setConfirm({ ids: [item.id], action: "delete" })}
+                                className="gap-2 text-[13px] text-destructive focus:text-destructive"
                               >
-                                <Copy aria-hidden="true" /> Copy image id
-                              </button>
-                              <a href={item.url} target="_blank" rel="noreferrer" role="menuitem">
-                                <Images aria-hidden="true" /> Open image
-                              </a>
-                              {loaded.staff.role === "admin" ? (
-                                <>
-                                  <div className="cms-menu-sep" />
-                                  {!item.isArchived ? (
-                                    <button
-                                      type="button"
-                                      role="menuitem"
-                                      onClick={() => {
-                                        close();
-                                        void archiveOne(item.id);
-                                      }}
-                                    >
-                                      <Archive aria-hidden="true" /> Archive
-                                    </button>
-                                  ) : null}
-                                  <button
-                                    type="button"
-                                    role="menuitem"
-                                    className="cms-menu-danger"
-                                    onClick={() => {
-                                      close();
-                                      void deleteOne(item.id);
-                                    }}
-                                  >
-                                    <Trash2 aria-hidden="true" /> Delete
-                                  </button>
-                                </>
-                              ) : null}
+                                <Trash2 className="size-4" aria-hidden="true" /> Delete
+                              </DropdownMenuItem>
                             </>
-                          )}
-                        </KebabMenu>
+                          ) : null}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5 p-2.5">
+                    <p className="truncate text-xs font-medium" title={item.filename}>
+                      {item.filename}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-1">
+                      {item.isPublished ? (
+                        <Pill tone="success">Published</Pill>
+                      ) : (
+                        <Pill tone="warning">Draft only</Pill>
+                      )}
+                      {item.isArchived ? <Pill tone="neutral">Archived</Pill> : null}
+                      <span className="text-[11px] text-muted-foreground">
+                        {formatBytes(item.size)}
                       </span>
                     </div>
-                    <div className="cms-row-inline" style={{ gap: 6 }}>
-                      {item.isPublished ? (
-                        <span className="cms-badge cms-badge-success">Published</span>
-                      ) : (
-                        <span className="cms-badge cms-badge-warning">Draft only</span>
-                      )}
-                      {item.isArchived ? <span className="cms-badge">Archived</span> : null}
-                      <span className="cms-badge">{(item.size / 1024).toFixed(0)} KB</span>
-                      {copied === item.id ? (
-                        <span className="cms-badge cms-badge-accent">
-                          <Check aria-hidden="true" style={{ width: 12, height: 12 }} /> Id copied
-                        </span>
-                      ) : null}
-                    </div>
-                    <label className="cms-field">
-                      <span className="cms-label">Alt text</span>
-                      <input
-                        className="cms-input"
-                        value={altDraft[item.id] ?? item.defaultAlt}
-                        maxLength={300}
-                        onChange={(event) =>
-                          setAltDraft((draft) => ({ ...draft, [item.id]: event.target.value }))
-                        }
-                      />
-                    </label>
-                    {altDraft[item.id] !== undefined && altDraft[item.id] !== item.defaultAlt ? (
-                      <button
-                        type="button"
-                        onClick={() => void saveAlt(item.id)}
-                        className="cms-btn cms-btn-sm cms-btn-primary"
-                      >
-                        <Check aria-hidden="true" /> Save alt text
-                      </button>
-                    ) : null}
-                    <p className="cms-faint" style={{ fontSize: 12 }}>
-                      Added {formatDate(item.createdAt)}
-                    </p>
                   </div>
-                </article>
+                </li>
               );
             })}
+          </ul>
+        )}
+      </div>
+
+      {isAdmin ? (
+        <BulkBar count={selected.length} onClear={() => setSelected([])}>
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={busy}
+            onClick={() => setConfirm({ ids: selected, action: "archive" })}
+          >
+            <Archive /> Archive
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-destructive hover:text-destructive"
+            disabled={busy}
+            onClick={() => setConfirm({ ids: selected, action: "delete" })}
+          >
+            <Trash2 /> Delete
+          </Button>
+        </BulkBar>
+      ) : null}
+
+      {/* ------------------------------------------------------------ upload */}
+      <Dialog open={uploadOpen} onOpenChange={setUploadOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Upload an image</DialogTitle>
+            <DialogDescription>
+              JPEG, PNG or WebP, up to 10 MB. You can also drag a file onto the library.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="media-file" className="text-[12.5px] font-medium">
+                Image file
+              </Label>
+              <Input
+                id="media-file"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={(event) => setUploadFile(event.target.files?.[0] ?? null)}
+              />
+              {uploadFile ? (
+                <p className="text-xs text-muted-foreground">
+                  {uploadFile.name} · {formatBytes(uploadFile.size)}
+                </p>
+              ) : null}
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="media-alt" className="text-[12.5px] font-medium">
+                Description
+                <span className="ml-0.5 text-destructive">*</span>
+              </Label>
+              <Input
+                id="media-alt"
+                value={uploadAlt}
+                maxLength={300}
+                onChange={(event) => setUploadAlt(event.target.value)}
+                placeholder="Conveyor belt motor mounted on a packing line"
+              />
+              <p className="text-xs text-muted-foreground">
+                Read aloud by screen readers and used by search engines. Describe what the image
+                shows, not that it is an image.
+              </p>
+            </div>
           </div>
-          <FootBar
-            shown={visible.length}
-            total={items.length}
-            page={1}
-            pageCount={1}
-            noun="images"
-            onChange={() => undefined}
-          />
-        </>
-      )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setUploadOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={upload} disabled={busy || !uploadFile || !uploadAlt.trim()}>
+              {busy ? <Spinner /> : <Upload />} Upload
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* ------------------------------------------------------------ detail */}
+      <Sheet open={detail !== null} onOpenChange={(open) => !open && setDetail(null)}>
+        <SheetContent side="right" className="w-full overflow-y-auto sm:max-w-md">
+          {detail ? (
+            <>
+              <SheetHeader>
+                <SheetTitle className="truncate">{detail.filename}</SheetTitle>
+                <SheetDescription>Added {formatDate(detail.createdAt)}</SheetDescription>
+              </SheetHeader>
+
+              <div className="mt-4 space-y-4">
+                <div className="cms-checkerboard overflow-hidden rounded-lg border">
+                  <img
+                    src={detail.url}
+                    alt={detail.defaultAlt}
+                    className="max-h-72 w-full object-contain"
+                  />
+                </div>
+
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {detail.isPublished ? (
+                    <Pill tone="success" dot>
+                      Published
+                    </Pill>
+                  ) : (
+                    <Pill tone="warning" dot>
+                      Draft only
+                    </Pill>
+                  )}
+                  {detail.isArchived ? <Pill tone="neutral">Archived</Pill> : null}
+                  <Pill tone="neutral">{formatBytes(detail.size)}</Pill>
+                  <Pill tone="neutral">{detail.mime.replace("image/", "").toUpperCase()}</Pill>
+                </div>
+
+                <AltEditor detail={detail} busy={busy} onSave={saveAlt} />
+
+                <div className="space-y-1.5">
+                  <Label className="text-[12.5px] font-medium">Image id</Label>
+                  <div className="flex items-center gap-1">
+                    <code className="min-w-0 flex-1 truncate rounded border bg-muted px-2 py-1.5 font-mono text-[11px]">
+                      {detail.id}
+                    </code>
+                    <CopyButton value={detail.id} label="Copy image id" />
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2 border-t pt-4">
+                  <Button variant="outline" size="sm" asChild>
+                    <a href={detail.url} target="_blank" rel="noreferrer">
+                      <ExternalLink /> Open full size
+                    </a>
+                  </Button>
+                  {isAdmin ? (
+                    <>
+                      {detail.isArchived ? null : (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setConfirm({ ids: [detail.id], action: "archive" })}
+                        >
+                          <Archive /> Archive
+                        </Button>
+                      )}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-destructive hover:text-destructive"
+                        onClick={() => setConfirm({ ids: [detail.id], action: "delete" })}
+                      >
+                        <Trash2 /> Delete
+                      </Button>
+                    </>
+                  ) : null}
+                </div>
+              </div>
+            </>
+          ) : null}
+        </SheetContent>
+      </Sheet>
+
+      {/* ----------------------------------------------------------- confirm */}
+      <AlertDialog open={confirm !== null} onOpenChange={(open) => !open && setConfirm(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              {confirm?.action === "delete" ? "Delete" : "Archive"}{" "}
+              {confirm?.ids.length === 1 ? "this image" : `${confirm?.ids.length} images`}?
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              {confirm?.action === "delete"
+                ? "Deleting removes the file permanently and cannot be undone. Images referenced by draft or published content are skipped."
+                : "Archiving hides the image from pickers. Content already using it keeps working."}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={runConfirmed}
+              disabled={busy}
+              className={
+                confirm?.action === "delete"
+                  ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  : undefined
+              }
+            >
+              {busy ? <Spinner /> : null}
+              {confirm?.action === "delete" ? "Delete permanently" : "Archive"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </CmsShell>
+  );
+}
+
+/** Alt-text editor with its own draft, so typing does not refetch the list. */
+function AltEditor({
+  detail,
+  busy,
+  onSave,
+}: {
+  detail: MediaItem;
+  busy: boolean;
+  onSave: (id: string, alt: string) => void;
+}) {
+  const [value, setValue] = useState(detail.defaultAlt);
+  const changed = value.trim() !== detail.defaultAlt;
+
+  return (
+    <div className="space-y-1.5">
+      <Label htmlFor="media-detail-alt" className="text-[12.5px] font-medium">
+        Default description
+      </Label>
+      <Input
+        id="media-detail-alt"
+        value={value}
+        maxLength={300}
+        onChange={(event) => setValue(event.target.value)}
+      />
+      <p className="text-xs text-muted-foreground">
+        Offered whenever this image is placed into content. Each placement can override it.
+      </p>
+      {changed ? (
+        <div className="flex gap-2 pt-1">
+          <Button size="sm" onClick={() => onSave(detail.id, value)} disabled={busy || !value.trim()}>
+            Save description
+          </Button>
+          <Button variant="ghost" size="sm" onClick={() => setValue(detail.defaultAlt)}>
+            Reset
+          </Button>
+        </div>
+      ) : null}
+    </div>
   );
 }

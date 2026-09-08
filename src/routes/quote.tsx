@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { getShopifyCustomer, submitShopifyQuote } from "@/lib/api/shopify.functions";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 import { getPublishedContent } from "@/lib/content/content.functions";
 import { contentPageHead } from "@/lib/seo";
 import { formatMoney } from "@/lib/shopify/format";
@@ -35,6 +36,7 @@ export const Route = createFileRoute("/quote")({
 function QuotePage() {
   const { functional } = useContent();
   const copy = functional.quote;
+  const edit = useEditable();
   const [items, setItems] = useState<StoredQuoteItem[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -146,14 +148,14 @@ function QuotePage() {
       <main id="main-content" className="mx-auto max-w-[1500px] px-4 py-8 md:px-6 md:py-12">
         <header className="mb-7 flex flex-col gap-4 border-b border-rule pb-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
+            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted" {...edit(`functional.quote.eyebrow`, "Page eyebrow")}>
               {copy.eyebrow}
             </div>
-            <h1 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight md:text-4xl">
+            <h1 className="mt-2 font-display text-3xl font-extrabold uppercase tracking-tight md:text-4xl" {...edit(`functional.quote.title`, "Page heading")}>
               {copy.title}
             </h1>
             {copy.intro ? (
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted">{copy.intro}</p>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted" {...edit(`functional.quote.intro`, "Introduction")}>{copy.intro}</p>
             ) : null}
           </div>
           <Link
@@ -168,7 +170,7 @@ function QuotePage() {
         {reference ? (
           <section className="border border-rule bg-surface px-5 py-12 text-center md:px-8 md:py-16">
             <CheckCircle2 className="mx-auto h-12 w-12 text-accent" aria-hidden="true" />
-            <h2 className="mt-5 font-display text-2xl font-bold uppercase tracking-tight">
+            <h2 className="mt-5 font-display text-2xl font-bold uppercase tracking-tight" {...edit(`functional.quote.sectionTitle`, "Section heading")}>
               {copy.sectionTitle}
             </h2>
             <p className="mt-3 text-sm leading-6 text-ink-muted">
@@ -183,16 +185,16 @@ function QuotePage() {
             </Link>
           </section>
         ) : !loaded ? (
-          <div className="border border-rule bg-surface py-16 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted">
+          <div className="border border-rule bg-surface py-16 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted" {...edit(`functional.quote.loadingLabel`, "Loading label")}>
             {copy.loadingLabel}
           </div>
         ) : items.length === 0 ? (
           <section className="border border-dashed border-rule bg-surface px-5 py-12 text-center md:py-16">
             <FileText className="mx-auto h-10 w-10 text-accent" aria-hidden="true" />
-            <h2 className="mt-5 font-display text-2xl font-bold uppercase tracking-tight">
+            <h2 className="mt-5 font-display text-2xl font-bold uppercase tracking-tight" {...edit(`functional.quote.emptyTitle`, "Empty state heading")}>
               {copy.emptyTitle}
             </h2>
-            <p className="mt-3 text-sm text-ink-muted">{copy.emptyCopy}</p>
+            <p className="mt-3 text-sm text-ink-muted" {...edit(`functional.quote.emptyCopy`, "Empty state copy")}>{copy.emptyCopy}</p>
           </section>
         ) : (
           <form onSubmit={submit} className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">

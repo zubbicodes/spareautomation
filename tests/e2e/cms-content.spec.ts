@@ -156,12 +156,13 @@ test("every CMS-wired route renders without a client error", async ({ page }) =>
 
 test("the CMS sign-in screen uses the admin design system", async ({ page }) => {
   await page.goto("/admin/login");
-  await expect(page.getByRole("heading", { level: 1, name: "Admin sign in" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Sign in to the CMS" })).toBeVisible();
   await expect(page.getByLabel("Email address")).toBeVisible();
   await expect(page.getByLabel("Password")).toBeVisible();
   await expect(page.getByRole("button", { name: "Sign in" })).toBeVisible();
-  // The storefront stylesheet must never drive the CMS chrome.
-  await expect(page.locator(".cms-auth-card")).toBeVisible();
+  // The admin theme is applied before paint; its absence means the CMS
+  // stylesheet did not load and the storefront theme is showing through.
+  await expect(page.locator("html")).toHaveAttribute("data-cms-theme", /^(light|dark)$/);
 });
 
 test.describe("CMS dashboard", () => {
@@ -175,7 +176,7 @@ test.describe("CMS dashboard", () => {
     await expect(page).toHaveURL(/\/admin$/);
     await expect(page.getByRole("heading", { level: 1, name: "Overview" })).toBeVisible();
 
-    const sidebar = page.locator(".cms-sidebar");
+    const sidebar = page.getByTestId("cms-sidebar");
     for (const label of [
       "Dashboard",
       "Submissions",
@@ -208,6 +209,7 @@ test.describe("CMS dashboard", () => {
     await sidebar.getByRole("link", { name: "Settings" }).click();
     await expect(page).toHaveURL(/\/admin\/settings$/);
     await expect(page.getByRole("heading", { name: "Business details" })).toBeVisible();
+    await page.getByRole("tab", { name: "Navigation" }).click();
     await expect(page.getByRole("heading", { name: "Navigation and footer" })).toBeVisible();
 
     await sidebar.getByText("Submissions", { exact: true }).click();
@@ -256,10 +258,10 @@ test.describe("Visual page editor", () => {
       await target.click();
       await expect(page.getByRole("heading", { name: "Product line name" })).toBeVisible();
 
-      const field = page.getByLabel("Text shown on the website");
+      const field = page.getByLabel("Line label");
       await field.fill("Aggregate feeding systems");
-      await page.getByRole("button", { name: "Save change" }).click();
-      await expect(page.getByRole("status")).toContainText("Saved");
+      await page.getByRole("button", { name: /^Save/ }).first().click();
+      await expect(page.getByText("Changes saved to the draft")).toBeVisible({ timeout: 15_000 });
 
       // The preview reflects the saved draft.
       await expect(

@@ -53,6 +53,7 @@ function SearchPage() {
       collection={null}
       fallbackProducts={products}
       expectedHandle="search"
+      editPath="functional.search"
     />
   );
 }

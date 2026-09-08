@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { getShopifyCustomer, logoutShopifyCustomer } from "@/lib/api/shopify.functions";
 import { formatMoney } from "@/lib/shopify/format";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 import { getPublishedContent } from "@/lib/content/content.functions";
 import { contentPageHead } from "@/lib/seo";
 
@@ -28,6 +29,7 @@ export const Route = createFileRoute("/account")({
 function AccountPage() {
   const { functional, messages } = useContent();
   const copy = functional.account;
+  const edit = useEditable();
   const [storefrontCustomer, setStorefrontCustomer] = useState<StorefrontCustomer>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -68,10 +70,10 @@ function AccountPage() {
       <SiteHeader />
       <main id="main-content" className="mx-auto max-w-[1200px] px-4 py-8 md:px-6 md:py-12">
         <div className="mb-6 md:mb-8">
-          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted">
+          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-muted" {...edit(`functional.account.eyebrow`, "Page eyebrow")}>
             {copy.eyebrow}
           </div>
-          <h1 className="mt-2 font-display text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight">
+          <h1 className="mt-2 font-display text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight" {...edit(`functional.account.title`, "Page heading")}>
             {copy.title}
           </h1>
         </div>
@@ -85,7 +87,7 @@ function AccountPage() {
           </div>
         ) : null}
         {loading ? (
-          <div className="border border-rule bg-surface px-4 py-12 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted md:px-8 md:py-16">
+          <div className="border border-rule bg-surface px-4 py-12 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-ink-muted md:px-8 md:py-16" {...edit(`functional.account.loadingLabel`, "Loading label")}>
             {copy.loadingLabel}
           </div>
         ) : !isLoggedIn ? (
@@ -94,7 +96,7 @@ function AccountPage() {
             <h2 className="font-display text-xl md:text-2xl font-bold uppercase tracking-tight">
               {copy.emptyTitle || messages["account.signIn"]}
             </h2>
-            <p className="mt-3 md:mt-4 max-w-2xl text-sm leading-relaxed text-ink-muted">
+            <p className="mt-3 md:mt-4 max-w-2xl text-sm leading-relaxed text-ink-muted" {...edit(`functional.account.emptyCopy`, "Empty state copy")}>
               {copy.emptyCopy}
             </p>
             <Link

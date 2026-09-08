@@ -8,8 +8,13 @@ import { useEditable } from "@/lib/content/edit-mode";
 export function SiteFooter() {
   const content = useContent();
   const edit = useEditable();
-  const informationLinks = content.navigation.information.filter((item) => item.visible);
-  const helpLinks = content.navigation.help.filter((item) => item.visible);
+  // Carry the registry index so a hidden entry cannot shift the edit paths.
+  const informationLinks = content.navigation.information
+    .map((item, index) => ({ ...item, path: `navigation.information.${index}.label` }))
+    .filter((item) => item.visible);
+  const helpLinks = content.navigation.help
+    .map((item, index) => ({ ...item, path: `navigation.help.${index}.label` }))
+    .filter((item) => item.visible);
   return (
     <footer className="border-t border-rule bg-charcoal-deep text-white/70">
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-10 px-4 py-12 md:grid-cols-[1.2fr_1fr_1fr] md:px-6 lg:px-10">
@@ -61,8 +66,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <FooterColumn title="Information" links={informationLinks} />
-        <FooterColumn title="Help" links={helpLinks} />
+        <FooterColumn title="Information" links={informationLinks} edit={edit} />
+        <FooterColumn title="Help" links={helpLinks} edit={edit} />
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-[1600px] flex-col gap-4 px-4 py-6 md:flex-row md:items-center md:justify-between md:px-6 lg:px-10">
@@ -79,7 +84,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-white/10 px-4 py-5 font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">
         <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-center gap-x-5 gap-y-3 md:justify-between">
-          <span>{content.site.name}</span>
+          <span {...edit("site.name", "Business name")}>{content.site.name}</span>
           <button
             type="button"
             onClick={() => window.dispatchEvent(new Event("open-cookie-preferences"))}
@@ -96,9 +101,11 @@ export function SiteFooter() {
 function FooterColumn({
   title,
   links,
+  edit,
 }: {
   title: string;
-  links: Array<{ label: string; to: string }>;
+  links: Array<{ label: string; to: string; path: string }>;
+  edit: ReturnType<typeof useEditable>;
 }) {
   return (
     <div>
@@ -112,7 +119,7 @@ function FooterColumn({
               {...navTarget(link.to)}
               className="inline-flex min-h-8 items-center text-sm text-white/70 transition-colors hover:text-white"
             >
-              {link.label}
+              <span {...edit(link.path, "Link label")}>{link.label}</span>
             </Link>
           </li>
         ))}

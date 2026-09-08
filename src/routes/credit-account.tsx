@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CreditAccountApplicationForm } from "@/components/shopify/CreditAccountApplicationForm";
 import { InfoPage } from "@/components/shopify/InfoPage";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 import { getPublishedContent } from "@/lib/content/content.functions";
 import { contentPageHead } from "@/lib/seo";
 
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/credit-account")({
 function CreditAccountPage() {
   const { functional } = useContent();
   const copy = functional["credit-account"];
+  const edit = useEditable();
 
   return (
     <InfoPage

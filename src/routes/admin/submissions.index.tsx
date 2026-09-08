@@ -1,23 +1,43 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { CheckCircle2, ExternalLink, Inbox, Loader2, RotateCcw } from "lucide-react";
+import { CheckCircle2, Inbox, Mail, MoreHorizontal, RotateCcw, Search } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 import { CmsShell } from "@/components/admin/CmsShell";
 import {
-  Avatar,
   BulkBar,
-  ChipSelect,
   EmptyState,
-  FootBar,
   formatDate,
-  KebabMenu,
+  formatRelative,
+  InitialsAvatar,
   Notice,
-  SearchField,
-  SkeletonRows,
-  StatusBadge,
+  ResultsFooter,
+  SectionCard,
+  Spinner,
+  StatusPill,
   SUBMISSION_STATUS_LABELS,
   SUBMISSION_TYPE_LABELS,
-} from "@/components/admin/cms-ui";
+  TableSkeleton,
+  type SubmissionStatus,
+} from "@/components/admin/ui";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   getAdminSession,
   listSubmissions,
@@ -26,15 +46,10 @@ import {
   type SubmissionListResult,
 } from "@/lib/admin/admin.functions";
 import { cmsHead } from "@/lib/admin/head";
+import { cn } from "@/lib/utils";
 
-type SubmissionSearch = {
-  type: string;
-  status: string;
-  search: string;
-  page: number;
-};
-
-type Status = keyof typeof SUBMISSION_STATUS_LABELS;
+type SubmissionSearch = { type: string; status: string; search: string; page: number };
+type Status = SubmissionStatus;
 
 export const Route = createFileRoute("/admin/submissions/")({
   head: () => cmsHead("Submissions"),
@@ -53,16 +68,6 @@ export const Route = createFileRoute("/admin/submissions/")({
   component: SubmissionsPage,
 });
 
-const TYPE_OPTIONS = [
-  { value: "all", label: "All types" },
-  ...Object.entries(SUBMISSION_TYPE_LABELS).map(([value, label]) => ({ value, label })),
-];
-
-const STATUS_OPTIONS = [
-  { value: "all", label: "All statuses" },
-  ...Object.entries(SUBMISSION_STATUS_LABELS).map(([value, label]) => ({ value, label })),
-];
-
 function SubmissionsPage() {
   const { staff } = Route.useLoaderData();
   const search = Route.useSearch();
@@ -73,7 +78,6 @@ function SubmissionsPage() {
   const [query, setQuery] = useState(search.search);
   const [selected, setSelected] = useState<number[]>([]);
   const [bulkBusy, setBulkBusy] = useState(false);
-  const [notice, setNotice] = useState("");
   const [reload, setReload] = useState(0);
 
   // Typing filters the list without a submit button; the URL stays shareable.
@@ -121,28 +125,20 @@ function SubmissionsPage() {
 
   const items = result?.ok ? result.items : [];
   const filtered = search.type !== "all" || search.status !== "all" || search.search !== "";
-
-  function toggle(id: number) {
-    setSelected((current) =>
-      current.includes(id) ? current.filter((value) => value !== id) : [...current, id],
-    );
-  }
+  const allSelected = items.length > 0 && selected.length === items.length;
 
   async function applyStatus(status: Status, ids: number[]) {
     if (!ids.length) return;
     setBulkBusy(true);
-    setNotice("");
     try {
-      for (const id of ids) {
-        await setSubmissionStatus({ data: { id, status: status as never } });
-      }
-      setNotice(
-        `${ids.length} submission${ids.length === 1 ? "" : "s"} moved to ${SUBMISSION_STATUS_LABELS[status].toLowerCase()}.`,
+      for (const id of ids) await setSubmissionStatus({ data: { id, status: status as never } });
+      toast.success(
+        `${ids.length} submission${ids.length === 1 ? "" : "s"} moved to ${SUBMISSION_STATUS_LABELS[status].toLowerCase()}`,
       );
       setSelected([]);
       setReload((value) => value + 1);
     } catch {
-      setLoadError("Some submissions could not be updated. Refresh and try again.");
+      toast.error("Some submissions could not be updated. Refresh and try again.");
     } finally {
       setBulkBusy(false);
     }
@@ -150,14 +146,13 @@ function SubmissionsPage() {
 
   async function markReviewed(ids: number[]) {
     setBulkBusy(true);
-    setNotice("");
     try {
       for (const id of ids) await markSubmissionReviewed({ data: { id } });
-      setNotice(`${ids.length} submission${ids.length === 1 ? "" : "s"} marked as reviewed.`);
+      toast.success(`${ids.length} submission${ids.length === 1 ? "" : "s"} marked as reviewed`);
       setSelected([]);
       setReload((value) => value + 1);
     } catch {
-      setLoadError("Some submissions could not be updated. Refresh and try again.");
+      toast.error("Some submissions could not be updated. Refresh and try again.");
     } finally {
       setBulkBusy(false);
     }
@@ -166,219 +161,251 @@ function SubmissionsPage() {
   return (
     <CmsShell
       staff={staff}
-      eyebrow="Enquiries"
       title="Submissions"
       subtitle="Part enquiries, credit applications, return requests and support messages captured from the website."
       inboxCount={result?.ok ? result.counts.new : undefined}
       actions={
         filtered ? (
-          <button
-            type="button"
-            className="cms-btn"
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() =>
               void navigate({ search: { type: "all", status: "all", search: "", page: 1 } })
             }
           >
-            <RotateCcw aria-hidden="true" /> Clear filters
-          </button>
+            <RotateCcw /> Clear filters
+          </Button>
         ) : null
       }
     >
       {result?.ok ? (
-        <div className="cms-grid cms-grid-stats" style={{ marginBottom: 16 }}>
-          {Object.entries(SUBMISSION_STATUS_LABELS).map(([status, label]) => (
-            <Link
-              key={status}
-              to="/admin/submissions"
-              search={{ ...search, status: search.status === status ? "all" : status, page: 1 }}
-              className="cms-card cms-stat"
-              style={
-                search.status === status
-                  ? { borderColor: "var(--cms-accent)", background: "var(--cms-accent-soft)" }
-                  : undefined
-              }
-            >
-              <span className="cms-stat-label">{label}</span>
-              <span className="cms-stat-value">
-                {result.counts[status as keyof typeof result.counts]}
-              </span>
-            </Link>
-          ))}
+        <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+          {Object.entries(SUBMISSION_STATUS_LABELS).map(([status, label]) => {
+            const active = search.status === status;
+            return (
+              <Link
+                key={status}
+                to="/admin/submissions"
+                search={{ ...search, status: active ? "all" : status, page: 1 }}
+                aria-pressed={active}
+                className={cn(
+                  "rounded-xl border bg-card px-3 py-2.5 transition-colors",
+                  active ? "border-primary bg-primary/8" : "hover:border-primary/40",
+                )}
+              >
+                <span className="block text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
+                  {label}
+                </span>
+                <span className="mt-1 block text-xl font-semibold tabular-nums">
+                  {result.counts[status as keyof typeof result.counts]}
+                </span>
+              </Link>
+            );
+          })}
         </div>
       ) : null}
 
-      <div className="cms-filters">
-        <ChipSelect
-          label="Type"
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <div className="relative min-w-56 flex-1">
+          <Search
+            className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground"
+            aria-hidden="true"
+          />
+          <Input
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Reference, email, name or company…"
+            aria-label="Search submissions"
+            className="h-9 pl-8"
+          />
+        </div>
+        <Select
           value={search.type}
-          options={TYPE_OPTIONS}
-          onChange={(value) => void navigate({ search: { ...search, type: value, page: 1 } })}
-        />
-        <ChipSelect
-          label="Status"
-          value={search.status}
-          options={STATUS_OPTIONS}
-          onChange={(value) => void navigate({ search: { ...search, status: value, page: 1 } })}
-        />
-        <SearchField
-          value={query}
-          onChange={setQuery}
-          label="Search submissions"
-          placeholder="Reference, email, name or company"
-        />
+          onValueChange={(value) => void navigate({ search: { ...search, type: value, page: 1 } })}
+        >
+          <SelectTrigger className="h-9 w-48" aria-label="Filter by type">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All types</SelectItem>
+            {Object.entries(SUBMISSION_TYPE_LABELS).map(([value, label]) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
-      {notice ? (
-        <div style={{ marginBottom: 12 }}>
-          <Notice tone="success">{notice}</Notice>
-        </div>
-      ) : null}
       {loadError ? (
-        <div style={{ marginBottom: 12 }}>
+        <div className="mb-4">
           <Notice tone="danger">{loadError}</Notice>
         </div>
       ) : null}
 
-      {selected.length ? (
-        <BulkBar count={selected.length} onClear={() => setSelected([])}>
-          <span className="cms-row-inline" style={{ gap: 6 }}>
-            <label className="cms-sr" htmlFor="bulk-status">
-              Set status for selected submissions
-            </label>
-            <select
-              id="bulk-status"
-              disabled={bulkBusy}
-              value=""
-              onChange={(event) => {
-                const value = event.target.value;
-                event.target.value = "";
-                if (value) void applyStatus(value as Status, selected);
-              }}
-            >
-              <option value="">Set status…</option>
-              {Object.entries(SUBMISSION_STATUS_LABELS).map(([value, label]) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
-            <button type="button" disabled={bulkBusy} onClick={() => void markReviewed(selected)}>
-              {bulkBusy ? (
-                <Loader2 aria-hidden="true" className="cms-spin" style={{ width: 14, height: 14 }} />
-              ) : (
-                <CheckCircle2 aria-hidden="true" style={{ width: 14, height: 14 }} />
-              )}
-              Mark reviewed
-            </button>
-          </span>
-        </BulkBar>
-      ) : null}
-
-      <section>
-        {loadError && !items.length ? null : loading ? (
-          <SkeletonRows rows={7} />
+      <SectionCard>
+        {loading ? (
+          <TableSkeleton rows={7} />
         ) : items.length === 0 ? (
           <EmptyState
-            icon={<Inbox aria-hidden="true" />}
-            title="No submissions match these filters"
-            copy="Try a different status, type, or search term."
+            icon={<Inbox />}
+            title={filtered ? "No submissions match these filters" : "No submissions yet"}
+            copy={
+              filtered
+                ? "Try a different status, type or search term."
+                : "Website forms appear here the moment a customer submits one."
+            }
+            className="m-4 border-0"
           />
         ) : (
           <>
-            <div className="cms-list">
+            <div className="flex items-center gap-3 border-b px-4 py-2">
+              <Checkbox
+                checked={allSelected}
+                aria-label="Select all on this page"
+                onCheckedChange={(checked) =>
+                  setSelected(checked ? items.map((item) => item.id) : [])
+                }
+              />
+              <span className="text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
+                {items.length} on this page
+              </span>
+            </div>
+            <ul className="divide-y">
               {items.map((item) => {
                 const isSelected = selected.includes(item.id);
                 return (
-                  <div
+                  <li
                     key={item.id}
-                    className="cms-row"
-                    data-selected={isSelected ? "true" : "false"}
-                    style={{
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      ["--cms-row-columns" as any]:
-                        "24px minmax(0, 1fr) minmax(0, 190px) 110px 96px 40px",
-                    }}
+                    className={cn(
+                      "flex flex-wrap items-center gap-3 px-4 py-2.5 transition-colors",
+                      isSelected ? "bg-primary/5" : "hover:bg-accent/40",
+                    )}
                   >
-                    <input
-                      type="checkbox"
-                      className="cms-check"
+                    <Checkbox
                       checked={isSelected}
-                      onChange={() => toggle(item.id)}
                       aria-label={`Select ${item.reference ?? `submission ${item.id}`}`}
+                      onCheckedChange={() =>
+                        setSelected((current) =>
+                          current.includes(item.id)
+                            ? current.filter((value) => value !== item.id)
+                            : [...current, item.id],
+                        )
+                      }
                     />
-                    <span className="cms-row-main">
+
+                    <div className="min-w-0 flex-1">
                       <Link
                         to="/admin/submissions/$id"
                         params={{ id: String(item.id) }}
-                        className="cms-row-title"
+                        className="text-[13px] font-medium hover:underline"
                       >
                         {item.reference ?? `Submission #${item.id}`}
                       </Link>
-                      <span className="cms-row-meta">
+                      <p className="mt-0.5 truncate text-xs text-muted-foreground">
                         {SUBMISSION_TYPE_LABELS[item.type] ?? item.type}
                         {item.company ? ` · ${item.company}` : ""}
-                      </span>
+                      </p>
+                    </div>
+
+                    <span className="hidden min-w-0 items-center gap-2 text-xs md:flex md:w-48">
+                      <InitialsAvatar
+                        name={item.contactName ?? item.contactEmail}
+                        className="size-5 text-[9px]"
+                      />
+                      <span className="truncate">{item.contactName ?? item.contactEmail}</span>
                     </span>
-                    <span className="cms-row-person">
-                      <Avatar name={item.contactName ?? item.contactEmail} small />
-                      <span>{item.contactName ?? item.contactEmail}</span>
-                    </span>
-                    <span className="cms-row-date">{formatDate(item.createdAt)}</span>
-                    <span>
-                      <StatusBadge status={item.status} />
-                    </span>
-                    <span className="cms-row-actions">
-                      <KebabMenu label={`Actions for ${item.reference ?? item.id}`}>
-                        {(close) => (
-                          <>
-                            <Link
-                              to="/admin/submissions/$id"
-                              params={{ id: String(item.id) }}
-                              role="menuitem"
-                              onClick={close}
-                            >
-                              <ExternalLink aria-hidden="true" /> Open submission
-                            </Link>
-                            <a href={`mailto:${item.contactEmail}`} role="menuitem" onClick={close}>
-                              <ExternalLink aria-hidden="true" /> Email {item.contactEmail}
-                            </a>
-                            <div className="cms-menu-sep" />
-                            <div className="cms-menu-label">Set status</div>
-                            {Object.entries(SUBMISSION_STATUS_LABELS).map(([value, label]) => (
-                              <button
-                                key={value}
-                                type="button"
-                                role="menuitem"
-                                disabled={item.status === value || bulkBusy}
-                                onClick={() => {
-                                  close();
-                                  void applyStatus(value as Status, [item.id]);
-                                }}
-                              >
-                                {label}
-                              </button>
-                            ))}
-                          </>
-                        )}
-                      </KebabMenu>
-                    </span>
-                  </div>
+
+                    <time
+                      className="hidden w-24 shrink-0 text-right text-xs text-muted-foreground sm:block"
+                      dateTime={item.createdAt}
+                      title={formatDate(item.createdAt)}
+                    >
+                      {formatRelative(item.createdAt)}
+                    </time>
+
+                    <StatusPill status={item.status} />
+
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="size-8"
+                          aria-label={`Actions for ${item.reference ?? item.id}`}
+                        >
+                          <MoreHorizontal />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-52">
+                        <DropdownMenuItem asChild className="gap-2 text-[13px]">
+                          <Link to="/admin/submissions/$id" params={{ id: String(item.id) }}>
+                            <Inbox className="size-4" aria-hidden="true" /> Open submission
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className="gap-2 text-[13px]">
+                          <a href={`mailto:${item.contactEmail}`}>
+                            <Mail className="size-4" aria-hidden="true" /> Email sender
+                          </a>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuLabel className="text-xs">Set status</DropdownMenuLabel>
+                        {Object.entries(SUBMISSION_STATUS_LABELS).map(([value, label]) => (
+                          <DropdownMenuItem
+                            key={value}
+                            disabled={item.status === value || bulkBusy}
+                            onSelect={() => void applyStatus(value as Status, [item.id])}
+                            className="text-[13px]"
+                          >
+                            {label}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
             {result?.ok ? (
-              <FootBar
+              <ResultsFooter
                 shown={items.length}
                 total={result.total}
+                noun="submissions"
                 page={result.page}
                 pageCount={result.pageCount}
-                noun="submissions"
                 onChange={(page) => void navigate({ search: { ...search, page } })}
               />
             ) : null}
           </>
         )}
-      </section>
+      </SectionCard>
+
+      <BulkBar count={selected.length} onClear={() => setSelected([])}>
+        <Select
+          value=""
+          onValueChange={(value) => void applyStatus(value as Status, selected)}
+          disabled={bulkBusy}
+        >
+          <SelectTrigger className="h-8 w-36" aria-label="Set status for selected submissions">
+            <SelectValue placeholder="Set status…" />
+          </SelectTrigger>
+          <SelectContent>
+            {Object.entries(SUBMISSION_STATUS_LABELS).map(([value, label]) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Button
+          variant="ghost"
+          size="sm"
+          disabled={bulkBusy}
+          onClick={() => void markReviewed(selected)}
+        >
+          {bulkBusy ? <Spinner /> : <CheckCircle2 />} Mark reviewed
+        </Button>
+      </BulkBar>
     </CmsShell>
   );
 }

@@ -2,6 +2,7 @@ import {
   Outlet,
   Link,
   createRootRoute,
+  useLocation,
   useRouter,
   HeadContent,
   Scripts,
@@ -173,7 +174,9 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    // The CMS stamps `data-cms-theme` here from an inline script before paint,
+    // so the server HTML legitimately differs from the client on this element.
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
@@ -187,11 +190,14 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { content, editMode } = Route.useLoaderData();
+  // The consent banner is for public visitors; it would sit over CMS screens
+  // and it is meaningless to signed-in staff working in the admin.
+  const isAdmin = useLocation().pathname.startsWith("/admin");
   return (
     <EditModeProvider enabled={editMode}>
       <ContentProvider value={content}>
         <Outlet />
-        <CookieConsent />
+        {isAdmin ? null : <CookieConsent />}
       </ContentProvider>
     </EditModeProvider>
   );

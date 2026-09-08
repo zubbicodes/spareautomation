@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import type { ShopifyCollection, ShopifyProduct } from "@/lib/shopify/types";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 import { getCatalogCategory } from "@/lib/catalog";
 
 export type ProductLineFilter = {
@@ -27,6 +28,8 @@ type CollectionPageProps = {
   expectedHandle: string;
   productLines?: readonly ProductLineFilter[];
   activeLine?: string;
+  /** Content path behind the eyebrow and title when no Shopify category owns them. */
+  editPath?: string;
 };
 
 export function CollectionPage({
@@ -41,9 +44,14 @@ export function CollectionPage({
   expectedHandle,
   productLines = [],
   activeLine,
+  editPath,
 }: CollectionPageProps) {
   const { catalogue } = useContent();
-  const presentation = catalogue.categories.find((category) => category.handle === expectedHandle);
+  const edit = useEditable();
+  const presentationIndex = catalogue.categories.findIndex(
+    (category) => category.handle === expectedHandle,
+  );
+  const presentation = catalogue.categories[presentationIndex];
   const managedTitle = presentation?.label !== getCatalogCategory(expectedHandle)?.label ? (presentation?.label ?? title) : title;
   const managedImage = presentation?.mediaId ? `/content-media/${presentation.mediaId}/image` : null;
   const selectedLine = productLines.find((line) => line.slug === activeLine);
@@ -66,11 +74,21 @@ export function CollectionPage({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/65 to-transparent" />
           <div className="relative mx-auto w-full max-w-[1600px] px-4 py-6 md:px-6 md:py-8 lg:px-10">
-            <div className="mb-2 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 md:text-[10px]">
+            <div
+              className="mb-2 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 md:text-[10px]"
+              {...(editPath ? edit(`${editPath}.eyebrow`, "Page eyebrow") : {})}
+            >
               <span className={`h-px w-6 md:w-8 ${bgAccentClass}`} />
               {eyebrow}
             </div>
-            <h1 className="break-words font-display text-[clamp(1.45rem,5vw,2.5rem)] font-extrabold uppercase leading-none tracking-tight text-white">
+            <h1
+              className="break-words font-display text-[clamp(1.45rem,5vw,2.5rem)] font-extrabold uppercase leading-none tracking-tight text-white"
+              {...(presentationIndex >= 0
+                ? edit(`catalogue.categories.${presentationIndex}.label`, "Category name")
+                : editPath
+                  ? edit(`${editPath}.title`, "Page heading")
+                  : {})}
+            >
               {managedTitle}
             </h1>
           </div>

@@ -10,6 +10,7 @@ import { getCatalogProductsPage, getCollection } from "@/lib/api/shopify.functio
 import { CATALOG_CATEGORIES, getCatalogueSearch } from "@/lib/catalog";
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 import { getPublishedContent } from "@/lib/content/content.functions";
 import { contentPageHead } from "@/lib/seo";
 
@@ -84,6 +85,7 @@ export const Route = createFileRoute("/products/")({
 
 function ProductsCataloguePage() {
   const { catalogue, messages, product: productCopy } = useContent();
+  const edit = useEditable();
   const presentation = new Map(catalogue.categories.map((category) => [category.handle, category]));
   const displayedCategoryGroups = categoryGroups.filter((category) => presentation.get(category.handle)?.visible !== false).map((category) => {
     const managed = presentation.get(category.handle);
@@ -172,16 +174,22 @@ function ProductsCataloguePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/70 to-charcoal-deep/10" />
         <div className="relative mx-auto w-full max-w-[1600px] px-4 py-6 md:px-6 md:py-8">
-          <div className="mb-2 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 md:text-[10px]">
+          <div
+            className="mb-2 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 md:text-[10px]"
+            {...edit(`product.listingEyebrow`, "Eyebrow")}
+          >
             <span className="h-px w-8 bg-accent" />
             {productCopy.listingEyebrow}
           </div>
-          <h1 className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white">
+          <h1
+            className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white"
+            {...edit(`product.listingTitle`, "Listing heading")}
+          >
             {productCopy.listingTitle}{" "}
-            <span className="text-accent">{productCopy.listingHighlight}</span>
+            <span className="text-accent" {...edit(`product.listingHighlight`, "Highlighted word")}>{productCopy.listingHighlight}</span>
           </h1>
           {productCopy.listingIntro ? (
-            <p className="mt-2 max-w-2xl pr-2 text-xs leading-relaxed text-white/70 md:pr-0 md:text-sm">
+            <p className="mt-2 max-w-2xl pr-2 text-xs leading-relaxed text-white/70 md:pr-0 md:text-sm" {...edit(`product.listingIntro`, "Introduction")}>
               {productCopy.listingIntro}
             </p>
           ) : null}

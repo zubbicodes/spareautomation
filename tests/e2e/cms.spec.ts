@@ -50,7 +50,7 @@ function databaseReachable() {
 test("unauthenticated staff are redirected from /admin to the login page", async ({ page }) => {
   await page.goto("/admin");
   await expect(page).toHaveURL(/\/admin\/login$/);
-  await expect(page.getByRole("heading", { name: "Admin sign in" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Sign in to the CMS" })).toBeVisible();
   await expect(page.getByLabel("Email address")).toBeVisible();
   await expect(page.getByLabel("Password")).toBeVisible();
   await expect(page.getByRole("button", { name: "Sign in" })).toBeVisible();
@@ -59,7 +59,7 @@ test("unauthenticated staff are redirected from /admin to the login page", async
 test("admin login rejects an empty submission and stays on the page", async ({ page }) => {
   await page.goto("/admin/login");
   await expect(page).toHaveURL(/\/admin\/login$/);
-  await expect(page.getByRole("heading", { name: "Admin sign in" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Sign in to the CMS" })).toBeVisible();
 });
 
 test("credit account page exposes the credit application form", async ({ page }) => {

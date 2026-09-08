@@ -9,6 +9,7 @@ import { SupportRequestForm } from "@/components/shopify/SupportRequestForm";
 import { getShopifyCustomer } from "@/lib/api/shopify.functions";
 import { formatMoney } from "@/lib/shopify/format";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 import { getPublishedContent } from "@/lib/content/content.functions";
 import { contentPageHead } from "@/lib/seo";
 
@@ -30,6 +31,7 @@ export const Route = createFileRoute("/track-order")({
 function TrackOrderPage() {
   const { functional, messages } = useContent();
   const copy = functional["track-order"];
+  const edit = useEditable();
   const [customer, setCustomer] = useState<Customer>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -61,14 +63,14 @@ function TrackOrderPage() {
       <main id="main-content">
         <section className="border-b border-rule bg-charcoal-deep text-white">
           <div className="mx-auto max-w-[1200px] px-4 py-8 md:px-6 md:py-10">
-            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/45">
+            <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/45" {...edit(`functional.track-order.eyebrow`, "Page eyebrow")}>
               {copy.eyebrow}
             </div>
-            <h1 className="mt-3 max-w-4xl font-display text-3xl font-extrabold uppercase leading-tight tracking-tight md:text-4xl">
+            <h1 className="mt-3 max-w-4xl font-display text-3xl font-extrabold uppercase leading-tight tracking-tight md:text-4xl" {...edit(`functional.track-order.title`, "Page heading")}>
               {copy.title}
             </h1>
             {copy.intro ? (
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-white/60 md:text-base">
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-white/60 md:text-base" {...edit(`functional.track-order.intro`, "Introduction")}>
                 {copy.intro}
               </p>
             ) : null}
@@ -92,14 +94,14 @@ function TrackOrderPage() {
             />
           ) : !orderHistoryAvailable ? (
             <section className="border border-rule bg-surface p-5 md:p-8">
-              <h2 className="font-display text-xl font-bold uppercase tracking-tight md:text-2xl">{copy.noticeTitle}</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted">{copy.helpCopy}</p>
+              <h2 className="font-display text-xl font-bold uppercase tracking-tight md:text-2xl" {...edit(`functional.track-order.noticeTitle`, "Notice heading")}>{copy.noticeTitle}</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted" {...edit(`functional.track-order.helpCopy`, "Help copy")}>{copy.helpCopy}</p>
             </section>
           ) : orders.length === 0 ? (
             <section className="border border-rule bg-surface p-5 md:p-8">
               <PackageSearch aria-hidden="true" className="mb-4 h-8 w-8 text-accent" />
-              <h2 className="font-display text-xl font-bold uppercase tracking-tight md:text-2xl">{copy.emptyTitle}</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted">{copy.emptyCopy}</p>
+              <h2 className="font-display text-xl font-bold uppercase tracking-tight md:text-2xl" {...edit(`functional.track-order.emptyTitle`, "Empty state heading")}>{copy.emptyTitle}</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted" {...edit(`functional.track-order.emptyCopy`, "Empty state copy")}>{copy.emptyCopy}</p>
               <Link
                 to="/products"
                 search={{ category: "all", availability: "all", sort: "newest" }}
@@ -112,8 +114,8 @@ function TrackOrderPage() {
             <section aria-labelledby="track-orders-title" className="border border-rule bg-surface p-5 md:p-8">
               <div className="flex flex-col gap-2 border-b border-rule pb-5 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-muted">{copy.sectionEyebrow}</div>
-                  <h2 id="track-orders-title" className="mt-2 font-display text-xl font-bold uppercase tracking-tight md:text-2xl">{copy.sectionTitle}</h2>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-muted" {...edit(`functional.track-order.sectionEyebrow`, "Section eyebrow")}>{copy.sectionEyebrow}</div>
+                  <h2 id="track-orders-title" className="mt-2 font-display text-xl font-bold uppercase tracking-tight md:text-2xl" {...edit(`functional.track-order.sectionTitle`, "Section heading")}>{copy.sectionTitle}</h2>
                 </div>
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
                   {orders.length} recent {orders.length === 1 ? "order" : "orders"}

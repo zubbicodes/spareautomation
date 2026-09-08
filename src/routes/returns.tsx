@@ -5,6 +5,7 @@ import { ReturnRequestForm } from "@/components/shopify/ReturnRequestForm";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { useContent } from "@/lib/content/ContentContext";
+import { useEditable } from "@/lib/content/edit-mode";
 import { getPublishedContent } from "@/lib/content/content.functions";
 import { contentPageHead } from "@/lib/seo";
 
@@ -27,6 +28,7 @@ const PROCESS_ICONS = [ClipboardCheck, Mail, PackageOpen, CheckCircle2];
 function ReturnsPage() {
   const { functional } = useContent();
   const copy = functional.returns;
+  const edit = useEditable();
   const stages = copy.blocks.find((block) => block.type === "steps");
   const process = (stages?.type === "steps" ? stages.items : []).map((item, index) => ({
     number: String(index + 1).padStart(2, "0"),
@@ -41,14 +43,14 @@ function ReturnsPage() {
       <main id="main-content">
         <section className="border-b border-rule bg-ink text-white">
           <div className="mx-auto max-w-[1200px] px-4 py-8 md:px-6 md:py-10">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-accent" {...edit(`functional.returns.eyebrow`, "Page eyebrow")}>
               {copy.eyebrow}
             </p>
-            <h1 className="mt-3 max-w-4xl font-display text-3xl font-extrabold uppercase leading-[0.95] tracking-tight md:text-4xl">
+            <h1 className="mt-3 max-w-4xl font-display text-3xl font-extrabold uppercase leading-[0.95] tracking-tight md:text-4xl" {...edit(`functional.returns.title`, "Page heading")}>
               {copy.title}
             </h1>
             {copy.intro ? (
-              <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70">{copy.intro}</p>
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70" {...edit(`functional.returns.intro`, "Introduction")}>{copy.intro}</p>
             ) : null}
             <div className="mt-6 flex flex-wrap gap-3">
               <a
@@ -71,18 +73,18 @@ function ReturnsPage() {
           <section aria-labelledby="return-process-title">
             <div className="flex items-end justify-between gap-5">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-muted">
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-muted" {...edit(`functional.returns.sectionEyebrow`, "Section eyebrow")}>
                   {copy.sectionEyebrow}
                 </p>
                 <h2
                   id="return-process-title"
                   className="mt-2 font-display text-2xl font-extrabold uppercase tracking-tight md:text-3xl"
-                >
+                 {...edit(`functional.returns.sectionTitle`, "Section heading")}>
                   {copy.sectionTitle}
                 </h2>
               </div>
               {copy.helpCopy ? (
-                <p className="hidden max-w-md text-right text-sm leading-6 text-ink-muted md:block">
+                <p className="hidden max-w-md text-right text-sm leading-6 text-ink-muted md:block" {...edit(`functional.returns.helpCopy`, "Help copy")}>
                   {copy.helpCopy}
                 </p>
               ) : null}

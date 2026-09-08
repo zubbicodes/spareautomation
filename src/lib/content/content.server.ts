@@ -229,6 +229,17 @@ export async function listContentRevisions(key: ContentKey) {
     .orderBy(desc(contentRevisions.version));
 }
 
+/** One revision's stored snapshot, so the CMS can diff it against the draft. */
+export async function loadContentRevision(key: ContentKey, revisionId: number) {
+  const [revision] = await getDb()
+    .select()
+    .from(contentRevisions)
+    .where(and(eq(contentRevisions.id, revisionId), eq(contentRevisions.documentKey, key)))
+    .limit(1);
+  if (!revision) return null;
+  return { id: revision.id, version: revision.version, data: revision.data };
+}
+
 export async function restoreContentRevision(key: ContentKey, revisionId: number, staffId: number) {
   const db = getDb();
   return db.transaction(async (tx) => {
