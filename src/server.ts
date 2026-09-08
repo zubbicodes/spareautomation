@@ -57,7 +57,14 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 function withSecurityHeaders(request: Request, response: Response) {
   const headers = new Headers(response.headers);
   headers.set("x-content-type-options", "nosniff");
-  headers.set("x-frame-options", "DENY");
+  // Clickjacking protection is about *cross-origin* framing, and both of these
+  // still block every third-party site. Same-origin framing has to be allowed
+  // because the CMS renders the real storefront inside an iframe for its visual
+  // editor and its draft previews; with DENY those panes stay permanently blank.
+  // `frame-ancestors` is authoritative in modern browsers and x-frame-options
+  // covers the rest.
+  headers.set("x-frame-options", "SAMEORIGIN");
+  headers.set("content-security-policy", "frame-ancestors 'self'");
   headers.set("referrer-policy", "strict-origin-when-cross-origin");
   headers.set("permissions-policy", "camera=(), microphone=(), geolocation=()");
   headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");

@@ -87,6 +87,8 @@ function VisualEditorPage() {
   const [busy, setBusy] = useState<"" | "save" | "publish">("");
   const [ready, setReady] = useState(false);
   const [fieldCount, setFieldCount] = useState<number | null>(null);
+  /** False when the frame never produced a document, e.g. framing was refused. */
+  const [frameLoaded, setFrameLoaded] = useState(true);
   const [outline, setOutline] = useState(true);
   const [panelOpen, setPanelOpen] = useState(true);
   const [reloadKey, setReloadKey] = useState(0);
@@ -160,6 +162,7 @@ function VisualEditorPage() {
     if (document_.body?.dataset.cmsConnected === "true") return;
     document_.body.dataset.cmsConnected = "true";
     setReady(true);
+    setFrameLoaded(true);
     setFieldCount(document_.querySelectorAll("[data-cms-field]").length);
 
     const style = document_.createElement("style");
@@ -206,12 +209,22 @@ function VisualEditorPage() {
   useEffect(() => {
     setReady(false);
     setFieldCount(null);
+    setFrameLoaded(true);
     let cancelled = false;
     const started = Date.now();
     const timer = setInterval(() => {
       if (cancelled) return;
       const document_ = frame.current?.contentDocument;
-      if (document_ && document_.readyState !== "loading" && document_.body) {
+      // A fresh iframe already exposes an `about:blank` document that is
+      // "complete" and has a body. Connecting to it would wire the click
+      // handlers to a document the real navigation is about to throw away,
+      // leaving the editor reporting zero editable fields for ever.
+      if (
+        document_ &&
+        document_.URL !== "about:blank" &&
+        document_.readyState !== "loading" &&
+        document_.body
+      ) {
         clearInterval(timer);
         connectFrame(document_);
         return;
@@ -220,6 +233,7 @@ function VisualEditorPage() {
         clearInterval(timer);
         setReady(true);
         setFieldCount(0);
+        setFrameLoaded(false);
       }
     }, 200);
     return () => {
@@ -494,10 +508,17 @@ function VisualEditorPage() {
           {panelOpen ? (
             <aside className="min-w-0 space-y-3 xl:sticky xl:top-18 xl:self-start">
               {ready && fieldCount === 0 ? (
-                <Notice tone="warning" title="No editable text found here">
-                  This page has not been wired for click-to-edit yet. Use the Content section in the
-                  sidebar to change its wording.
-                </Notice>
+                frameLoaded ? (
+                  <Notice tone="warning" title="No editable text found here">
+                    This page has not been wired for click-to-edit yet. Use the Content section in
+                    the sidebar to change its wording.
+                  </Notice>
+                ) : (
+                  <Notice tone="danger" title="The page could not be loaded">
+                    The preview did not open. Reload it, and if it stays blank the server may be
+                    refusing to display the site inside the editor.
+                  </Notice>
+                )
               ) : null}
 
               {selected ? (
