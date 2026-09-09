@@ -11,12 +11,28 @@ type PageInfo = { hasNextPage: boolean; endCursor: string | null };
 type ProductConnectionShape = Omit<ShopifyProduct, "variants" | "images" | "technicalDetails"> & {
   variants: Connection<ShopifyProduct["variants"][number]>;
   images?: Connection<ShopifyProduct["images"][number]>;
-  metafields?: Array<{
-    namespace: string;
-    key: string;
-    value: string;
-    type: string;
-  } | null>;
+  metafields?: Array<ProductMetafieldShape | null>;
+};
+
+type MetafieldReferenceShape = {
+  __typename?: string;
+  id?: string;
+  url?: string | null;
+  alt?: string | null;
+  mimeType?: string | null;
+  title?: string | null;
+  onlineStoreUrl?: string | null;
+  image?: { url: string } | null;
+  sources?: Array<{ url: string; mimeType?: string | null }> | null;
+};
+
+type ProductMetafieldShape = {
+  namespace: string;
+  key: string;
+  value: string;
+  type: string;
+  reference?: MetafieldReferenceShape | null;
+  references?: { nodes: Array<MetafieldReferenceShape | null> } | null;
 };
 
 type CollectionConnectionShape = Omit<ShopifyCollection, "products"> & {
@@ -72,7 +88,60 @@ function safeExternalUrl(value?: string | null) {
   }
 }
 
-function parseResourceLinks(value?: string | null) {
+function fileNameFromUrl(value?: string | null) {
+  if (!value) return "";
+  try {
+    const { pathname } = new URL(value);
+    return decodeURIComponent(pathname.split("/").pop() ?? "");
+  } catch {
+    return "";
+  }
+}
+
+function referenceUrl(reference?: MetafieldReferenceShape | null) {
+  if (!reference) return null;
+  return (
+    reference.url ??
+    reference.image?.url ??
+    reference.sources?.[0]?.url ??
+    reference.onlineStoreUrl ??
+    null
+  );
+}
+
+function referenceLabel(reference: MetafieldReferenceShape, url: string) {
+  return reference.alt || reference.title || fileNameFromUrl(url);
+}
+
+function referenceLink(reference?: MetafieldReferenceShape | null) {
+  const url = safeExternalUrl(referenceUrl(reference));
+  if (!url || !reference) return null;
+  return { label: referenceLabel(reference, url), url };
+}
+
+/** Reference-backed metafields (file_reference, list.file_reference, …) carry a GID in
+ * `value`; the resolved file lives on `reference` / `references` instead. */
+function metafieldReferences(field?: ProductMetafieldShape | null) {
+  if (!field) return [];
+  const list = (field.references?.nodes ?? []).filter(
+    (node): node is MetafieldReferenceShape => Boolean(node),
+  );
+  if (list.length) return list;
+  return field.reference ? [field.reference] : [];
+}
+
+function parseResourceLinks(field?: ProductMetafieldShape | null) {
+  const references = metafieldReferences(field);
+  if (references.length) {
+    return references
+      .map((reference, index) => {
+        const link = referenceLink(reference);
+        return link ? { label: link.label || `Resource ${index + 1}`, url: link.url } : null;
+      })
+      .filter((link): link is { label: string; url: string } => Boolean(link));
+  }
+
+  const value = field?.value;
   if (!value) return [];
 
   try {
@@ -105,8 +174,16 @@ function parseResourceLinks(value?: string | null) {
   }
 }
 
-function parseProductResource(value: string | null | undefined) {
+function parseProductResource(field?: ProductMetafieldShape | null) {
+  const [reference] = metafieldReferences(field);
+  const referenced = referenceLink(reference);
+  if (referenced) {
+    return { text: referenced.label, url: referenced.url };
+  }
+
+  const value = field?.value;
   if (!value) return null;
+
   try {
     const parsed = JSON.parse(value);
     if (
@@ -118,23 +195,25 @@ function parseProductResource(value: string | null | undefined) {
       const url = safeExternalUrl(parsed.url);
       return url ? { text: parsed.text, url } : null;
     }
-    return null;
   } catch {
-    return null;
+    // Not JSON: fall through to the plain-URL metafield types (url, single_line_text_field).
   }
+
+  const url = safeExternalUrl(value);
+  return url ? { text: fileNameFromUrl(url), url } : null;
 }
 
 function normalizeTechnicalDetails(product: ProductConnectionShape) {
   const metafields = new Map(
     (product.metafields ?? [])
-      .filter((field): field is NonNullable<typeof field> => Boolean(field))
-      .map((field) => [field.key, field.value]),
+      .filter((field): field is ProductMetafieldShape => Boolean(field))
+      .map((field) => [field.key, field] as const),
   );
 
   return {
-    brand: metafields.get("brand") ?? product.vendor ?? null,
-    mpnRange: metafields.get("mpn_range") ?? product.variants.nodes[0]?.sku ?? null,
-    setupVideoUrl: safeExternalUrl(metafields.get("setup_video_url")),
+    brand: metafields.get("brand")?.value ?? product.vendor ?? null,
+    mpnRange: metafields.get("mpn_range")?.value ?? product.variants.nodes[0]?.sku ?? null,
+    setupVideoUrl: safeExternalUrl(metafields.get("setup_video_url")?.value),
     videoGuide: parseProductResource(metafields.get("video_guide")),
     pdfGuide: parseProductResource(metafields.get("pdf_guide")),
     datasheets: parseResourceLinks(metafields.get("datasheets")),

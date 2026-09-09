@@ -48,8 +48,40 @@ export const PRODUCT_CARD_FRAGMENT = `#graphql
   }
 `;
 
+export const METAFIELD_REFERENCE_FRAGMENT = `#graphql
+  fragment MetafileReferenceFields on MetafieldReference {
+    __typename
+    ... on GenericFile {
+      id
+      url
+      alt
+      mimeType
+    }
+    ... on MediaImage {
+      id
+      alt
+      image {
+        url
+      }
+    }
+    ... on Video {
+      id
+      sources {
+        url
+        mimeType
+      }
+    }
+    ... on Page {
+      id
+      title
+      onlineStoreUrl
+    }
+  }
+`;
+
 export const PRODUCT_DETAIL_FRAGMENT = `#graphql
   ${PRODUCT_CARD_FRAGMENT}
+  ${METAFIELD_REFERENCE_FRAGMENT}
   fragment ProductDetailFields on Product {
     ...ProductCardFields
     descriptionHtml
@@ -74,6 +106,14 @@ export const PRODUCT_DETAIL_FRAGMENT = `#graphql
       key
       value
       type
+      reference {
+        ...MetafileReferenceFields
+      }
+      references(first: 20) {
+        nodes {
+          ...MetafileReferenceFields
+        }
+      }
     }
   }
 `;
