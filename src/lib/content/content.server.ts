@@ -141,12 +141,26 @@ export async function loadContentDocument<K extends ContentKey>(key: K): Promise
   const [publisher] = row.document.publishedBy
     ? await db.select({ name: staffUsers.name }).from(staffUsers).where(eq(staffUsers.id, row.document.publishedBy)).limit(1)
     : [];
+  /**
+   * A stored document that no longer matches its schema must not lock the
+   * editor out — that is the one screen able to repair it. Fall back to the
+   * compiled defaults so the fields render and the next save fixes the row.
+   */
+  const validated = (value: unknown, label: string) => {
+    try {
+      return validateContent(key, value);
+    } catch (error) {
+      console.error(`[content] ${label} for "${key}" is invalid; editing defaults:`, error);
+      return getDefaultContent(key);
+    }
+  };
+
   return {
     key,
     label: CONTENT_REGISTRY[key].label,
     group: CONTENT_REGISTRY[key].group,
-    draftData: validateContent(key, row.document.draftData),
-    publishedData: validateContent(key, row.document.publishedData),
+    draftData: validated(row.document.draftData, "Draft"),
+    publishedData: validated(row.document.publishedData, "Published copy"),
     draftVersion: row.document.draftVersion,
     publishedVersion: row.document.publishedVersion,
     updatedBy: row.updatedBy,
@@ -271,13 +285,25 @@ export async function isMediaReferenced(id: string) {
   return rows.some((row) => collectMediaIds(row.draft).has(id) || collectMediaIds(row.published).has(id));
 }
 
-export type DraftBundleEntry = { data: unknown; version: number };
+export type DraftBundleEntry = {
+  data: unknown;
+  version: number;
+  /** True when the stored draft failed validation and was swapped for a valid copy. */
+  repaired?: boolean;
+};
 
 /**
  * Draft data for every document in one query. The visual editor needs the whole
  * set because a single public page mixes navigation, page and catalogue copy.
+ *
+ * Every document is validated on the way out, exactly as `loadDraftContentBundle`
+ * does for rendering. Handing back a raw row would let a draft that no longer
+ * matches its schema — an older shape, a hand-edited row — reach the editor,
+ * which then posts it back untouched and fails on a field nobody edited. Falling
+ * back to the published copy means the next save repairs the stored document.
  */
 export async function loadDraftBundle(): Promise<Record<string, DraftBundleEntry>> {
+  const published = await loadPublishedContentBundle();
   const db = getDb();
   const rows = await db
     .select({
@@ -286,12 +312,21 @@ export async function loadDraftBundle(): Promise<Record<string, DraftBundleEntry
       draftVersion: contentDocuments.draftVersion,
     })
     .from(contentDocuments);
+
   const result: Record<string, DraftBundleEntry> = {};
   for (const key of CONTENT_KEYS) {
     const row = rows.find((entry) => entry.key === key);
-    result[key] = row
-      ? { data: row.draftData, version: row.draftVersion }
-      : { data: getDefaultContent(key), version: 1 };
+    if (!row) {
+      result[key] = { data: published[key], version: 1 };
+      continue;
+    }
+    try {
+      result[key] = { data: validateContent(key, row.draftData), version: row.draftVersion };
+    } catch (error) {
+      console.error(`[content] Draft for "${key}" is invalid; editing the published copy:`, error);
+      // The version is kept so optimistic concurrency still guards the save.
+      result[key] = { data: published[key], version: row.draftVersion, repaired: true };
+    }
   }
   return result;
 }

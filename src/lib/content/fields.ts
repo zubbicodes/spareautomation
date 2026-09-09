@@ -919,6 +919,30 @@ export function resolveField(key: ContentKey, path: string[], value: unknown): F
   return field;
 }
 
+/**
+ * Turn a dotted content path into the trail an editor recognises, e.g.
+ * "ranges.0.lines.5.label" → "Hero panels › #1 › Product lines › #6 › Line label".
+ * Falls back to humanised segments wherever no field is declared, so it is safe
+ * to call on a validation issue for a document whose shape has drifted.
+ */
+export function describePath(key: ContentKey, path: string, value?: unknown): string {
+  const segments = path.split(".").filter(Boolean);
+  if (segments.length === 0) return labelForDocument(key);
+
+  const parts: string[] = [];
+  for (let index = 0; index < segments.length; index += 1) {
+    const segment = segments[index];
+    // Array indices read better as positions than as labels of their own.
+    if (/^\d+$/.test(segment)) {
+      parts.push(`#${Number(segment) + 1}`);
+      continue;
+    }
+    const field = resolveField(key, segments.slice(0, index + 1), value);
+    parts.push(field?.label ?? humanise(segment));
+  }
+  return parts.join(" › ");
+}
+
 /** Section heading for a dotted message key such as "cookie.title". */
 export function messageSectionOf(entryKey: string) {
   const prefix = entryKey.split(".")[0];

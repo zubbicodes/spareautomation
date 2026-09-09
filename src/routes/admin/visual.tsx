@@ -39,7 +39,7 @@ import {
   editablePageFor,
   isEditablePage,
 } from "@/lib/content/editable-pages";
-import { humanise, resolveField, type FieldDef } from "@/lib/content/fields";
+import { describePath, humanise, resolveField, type FieldDef } from "@/lib/content/fields";
 import { listMedia } from "@/lib/content/media.functions";
 import { breadcrumbOfPath, documentKeyOf, readPath, writePath } from "@/lib/content/paths";
 import type { ContentKey } from "@/lib/content/registry";
@@ -52,7 +52,7 @@ const WIDTHS = {
 } as const;
 
 type Width = keyof typeof WIDTHS;
-type DraftEntry = { data: JsonValue; version: number };
+type DraftEntry = { data: JsonValue; version: number; repaired?: boolean };
 type Selection = { path: string; label: string };
 
 export const Route = createFileRoute("/admin/visual")({
@@ -276,11 +276,11 @@ function VisualEditorPage() {
           data: { key, data: entry.data, version: drafts[key].version },
         });
         if (!result.ok) {
+          const issue = "issues" in result ? result.issues?.[0] : undefined;
           toast.error("Could not save every change", {
-            description:
-              "issues" in result && result.issues?.length
-                ? `${result.issues[0].path}: ${result.issues[0].message}`
-                : result.error,
+            description: issue
+              ? `${describePath(key, issue.path, entry.data)} — ${issue.message}`
+              : result.error,
           });
           return false;
         }
@@ -337,6 +337,8 @@ function VisualEditorPage() {
   }
 
   const editCount = Object.keys(edits).length;
+  /** Documents whose stored draft was invalid and had to be swapped out. */
+  const repaired = page.documents.filter((key) => drafts[key]?.repaired);
   const ctx: FieldContext = { media: loaded.media, issues: {} };
 
   return (
@@ -507,6 +509,14 @@ function VisualEditorPage() {
 
           {panelOpen ? (
             <aside className="min-w-0 space-y-3 xl:sticky xl:top-18 xl:self-start">
+              {repaired.length ? (
+                <Notice tone="warning" title="A saved draft could not be read">
+                  {repaired.length === 1 ? "One content document" : `${repaired.length} content documents`}{" "}
+                  on this page had a draft that no longer matches the content rules, so you are
+                  editing the published wording instead. Saving replaces the unreadable draft.
+                </Notice>
+              ) : null}
+
               {ready && fieldCount === 0 ? (
                 frameLoaded ? (
                   <Notice tone="warning" title="No editable text found here">

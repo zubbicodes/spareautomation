@@ -3,7 +3,7 @@ import { Minus, Plus, PencilLine } from "lucide-react";
 import { EmptyState, Pill, type Tone } from "@/components/admin/ui";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ContentChange } from "@/lib/content/diff";
-import { humanise, resolveField } from "@/lib/content/fields";
+import { describePath } from "@/lib/content/fields";
 import type { ContentKey } from "@/lib/content/registry";
 
 const KIND_META: Record<ContentChange["kind"], { label: string; tone: Tone; icon: typeof Plus }> = {
@@ -53,7 +53,7 @@ export function ChangeList({
                   aria-hidden="true"
                 />
                 <span className="text-[13px] font-medium">
-                  {describe(contentKey, change.path, value)}
+                  {describePath(contentKey, change.path, value)}
                 </span>
                 <Pill tone={meta.tone}>{meta.label}</Pill>
               </div>
@@ -82,28 +82,6 @@ export function ChangeList({
       </ul>
     </ScrollArea>
   );
-}
-
-/**
- * "pages.about-us.blocks.2.title" → "About us › Page sections › Heading",
- * falling back to humanised path segments where no field is declared.
- */
-function describe(contentKey: ContentKey, path: string, value: unknown) {
-  const segments = path.split(".").filter(Boolean);
-  const parts: string[] = [];
-
-  for (let index = 0; index < segments.length; index += 1) {
-    const segment = segments[index];
-    // Array indices read better as positions than as labels of their own.
-    if (/^\d+$/.test(segment)) {
-      parts.push(`#${Number(segment) + 1}`);
-      continue;
-    }
-    const field = resolveField(contentKey, segments.slice(0, index + 1), value);
-    parts.push(field?.label ?? humanise(segment));
-  }
-
-  return parts.join(" › ") || humanise(contentKey);
 }
 
 function truncate(value: string, limit = 220) {
