@@ -3,11 +3,25 @@ import { ArrowUpDown, ChevronRight, Filter, SlidersHorizontal } from "lucide-rea
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import automation from "@/assets/Automation pic.jpg";
+import asphalt from "@/assets/asphalt-plant.jpg";
+import concrete from "@/assets/concrete-plant.jpg";
+import catControls from "@/assets/Control panels and software pic.jpg";
+import catHome from "@/assets/Home automation pic.jpg";
+import catPacking from "@/assets/packing machines pic.jpg";
 import { ProductCard } from "@/components/shopify/ProductCard";
 import { SiteFooter } from "@/components/shopify/SiteFooter";
 import { SiteHeader } from "@/components/shopify/SiteHeader";
 import { getCatalogProductsPage, getCollection } from "@/lib/api/shopify.functions";
 import { CATALOG_CATEGORIES, getCatalogueSearch } from "@/lib/catalog";
+
+const CATEGORY_IMAGES: Record<string, string> = {
+  asphalt,
+  concrete,
+  packing: catPacking,
+  automation,
+  "home-controls": catHome,
+  "control-panels-software": catControls,
+};
 import type { ShopifyProduct } from "@/lib/shopify/types";
 import { useContent } from "@/lib/content/ContentContext";
 import { useEditable } from "@/lib/content/edit-mode";
@@ -67,19 +81,39 @@ export const Route = createFileRoute("/products/")({
       getPublishedContent(),
     ]);
 
+    const activeCollectionItem =
+      deps.category && deps.category !== "all"
+        ? collectionFilters.find((category) => category.handle === deps.category)
+        : undefined;
+
     return {
       initialPage,
       categoryDescriptions: Object.fromEntries(collections),
       site: content.site,
       seo: content.product.listingSeo,
+      categoryTitle: activeCollectionItem?.label,
+      categoryDescription: activeCollectionItem?.description,
     };
   },
-  head: ({ loaderData }) =>
-    contentPageHead(loaderData?.seo, loaderData?.site, "/products", {
+  head: ({ loaderData }) => {
+    const seo = loaderData?.categoryTitle
+      ? {
+          title: loaderData.categoryTitle,
+          description:
+            loaderData.categoryDescription ??
+            loaderData.seo?.description ??
+            "Browse products across asphalt, concrete, packing, automation and control categories.",
+          ogTitle: loaderData.categoryTitle,
+          ogDescription: loaderData.categoryDescription ?? "",
+        }
+      : loaderData?.seo;
+
+    return contentPageHead(seo, loaderData?.site, "/products", {
       title: "All Products",
       description:
         "Browse all products across asphalt, concrete, packing, automation and control categories.",
-    }),
+    });
+  },
   component: ProductsCataloguePage,
 });
 
@@ -99,9 +133,53 @@ function ProductsCataloguePage() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [loadError, setLoadError] = useState("");
   const activeCategory = search.category;
-  const activeGroup = categoryGroups.find((category) =>
+  const isAll = !activeCategory || activeCategory === "all";
+  const activeGroup = displayedCategoryGroups.find((category) =>
     category.collections.some((collection) => collection.handle === activeCategory),
   );
+  const activeCollection = activeGroup?.collections.find(
+    (collection) => collection.handle === activeCategory,
+  );
+  const isSubcategory = Boolean(
+    activeGroup && activeCollection && activeCollection.handle !== activeGroup.handle,
+  );
+
+  const presentationIndex = activeGroup
+    ? catalogue.categories.findIndex((category) => category.handle === activeGroup.handle)
+    : -1;
+  const presentationCategory =
+    presentationIndex >= 0 ? catalogue.categories[presentationIndex] : null;
+
+  const managedImage = presentationCategory?.mediaId
+    ? `/content-media/${presentationCategory.mediaId}/image`
+    : null;
+  const heroImage =
+    !isAll && activeGroup
+      ? (managedImage ?? CATEGORY_IMAGES[activeGroup.handle] ?? automation)
+      : automation;
+  const heroImageAlt =
+    !isAll && activeGroup
+      ? managedImage
+        ? presentationCategory?.mediaAlt || activeCollection?.label || activeGroup.label
+        : `${activeCollection?.label || activeGroup.label} catalogue`
+      : "Industrial automation catalogue";
+
+  const heroEyebrow =
+    isAll || !activeGroup
+      ? productCopy.listingEyebrow
+      : isSubcategory
+        ? activeGroup.label
+        : productCopy.listingEyebrow;
+
+  const heroTitle = isAll || !activeCollection ? null : activeCollection.label;
+
+  const heroIntro = isAll
+    ? productCopy.listingIntro
+    : activeCollection?.description ||
+      (activeGroup && categoryDescriptions[activeGroup.handle]) ||
+      activeGroup?.description ||
+      productCopy.listingIntro;
+
   const [expandedCategory, setExpandedCategory] = useState<string | null>(
     activeGroup?.handle ?? null,
   );
@@ -168,29 +246,55 @@ function ProductsCataloguePage() {
 
       <section className="relative flex min-h-[150px] min-w-0 items-center overflow-hidden md:min-h-[180px]">
         <img
-          src={automation}
-          alt="Industrial automation catalogue"
+          src={heroImage}
+          alt={heroImageAlt}
           className="absolute inset-0 h-full w-full scale-105 object-cover blur-[2px]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/70 to-charcoal-deep/10" />
         <div className="relative mx-auto w-full max-w-[1600px] px-4 py-6 md:px-6 md:py-8">
           <div
             className="mb-2 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-white/60 md:text-[10px]"
-            {...edit(`product.listingEyebrow`, "Eyebrow")}
+            {...(isAll ? edit(`product.listingEyebrow`, "Eyebrow") : {})}
           >
             <span className="h-px w-8 bg-accent" />
-            {productCopy.listingEyebrow}
+            {heroEyebrow}
           </div>
-          <h1
-            className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white"
-            {...edit(`product.listingTitle`, "Listing heading")}
-          >
-            {productCopy.listingTitle}{" "}
-            <span className="text-accent" {...edit(`product.listingHighlight`, "Highlighted word")}>{productCopy.listingHighlight}</span>
-          </h1>
-          {productCopy.listingIntro ? (
-            <p className="mt-2 max-w-2xl pr-2 text-xs leading-relaxed text-white/70 md:pr-0 md:text-sm" {...edit(`product.listingIntro`, "Introduction")}>
-              {productCopy.listingIntro}
+          {isAll || !heroTitle ? (
+            <h1
+              className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white"
+              {...edit(`product.listingTitle`, "Listing heading")}
+            >
+              {productCopy.listingTitle}{" "}
+              <span
+                className="text-accent"
+                {...edit(`product.listingHighlight`, "Highlighted word")}
+              >
+                {productCopy.listingHighlight}
+              </span>
+            </h1>
+          ) : (
+            <h1
+              className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white"
+              {...(presentationIndex >= 0 && !isSubcategory
+                ? edit(`catalogue.categories.${presentationIndex}.label`, "Category name")
+                : {})}
+            >
+              {heroTitle}
+            </h1>
+          )}
+          {heroIntro ? (
+            <p
+              className="mt-2 max-w-2xl pr-2 text-xs leading-relaxed text-white/70 md:pr-0 md:text-sm"
+              {...(isAll
+                ? edit(`product.listingIntro`, "Introduction")
+                : presentationIndex >= 0 && !isSubcategory
+                  ? edit(
+                      `catalogue.categories.${presentationIndex}.description`,
+                      "Category description",
+                    )
+                  : {})}
+            >
+              {heroIntro}
             </p>
           ) : null}
         </div>
@@ -328,10 +432,10 @@ function ProductsCataloguePage() {
                     <strong className="font-bold text-ink">{products.length}</strong> loaded
                   </span>
                   <span className="border border-accent/30 bg-accent/10 px-2.5 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-accent">
-                    {activeCategory === "all"
+                    {isAll
                       ? "All Products"
-                      : collectionFilters.find((category) => category.handle === activeCategory)
-                          ?.label}
+                      : activeCollection?.label ??
+                        collectionFilters.find((category) => category.handle === activeCategory)?.label}
                   </span>
                 </div>
               </div>

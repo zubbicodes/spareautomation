@@ -215,6 +215,14 @@ test("all products keeps one search and a compact catalogue hero", async ({ page
   await expect(page.getByText("New Arrivals", { exact: true })).toHaveCount(0);
 });
 
+test("selecting a category updates the catalogue hero heading and metadata", async ({ page }) => {
+  await page.goto("/products?category=asphalt");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(/asphalt/i);
+
+  await page.goto("/products?category=concrete");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(/concrete/i);
+});
+
 test("every product exposes tabbed support content and useful empty states", async ({ page }) => {
   test.slow();
   await page.goto("/products");
