@@ -105,7 +105,7 @@ function TrackOrderPage() {
               <Link
                 to="/products"
                 search={{ category: "all", availability: "all", sort: "newest" }}
-                className="mt-6 inline-flex h-11 items-center justify-center gap-2 bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:brightness-110"
+                className="mt-6 inline-flex h-11 w-full sm:w-auto items-center justify-center gap-2 bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:brightness-110"
               >
                 Browse products <PackageSearch aria-hidden="true" className="h-4 w-4" />
               </Link>
@@ -139,7 +139,7 @@ function TrackOrderPage() {
                     </div>
                     <div className="grid gap-2 lg:justify-items-end">
                       <strong className="font-display text-lg text-ink">{formatMoney(order.totalPrice)}</strong>
-                      <a href={order.statusUrl} target="_blank" rel="noreferrer" className="inline-flex h-10 items-center justify-center gap-2 bg-accent px-4 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-white hover:brightness-110">
+                      <a href={order.statusUrl} target="_blank" rel="noreferrer" className="inline-flex h-10 w-full sm:w-auto items-center justify-center gap-2 bg-accent px-4 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-white hover:brightness-110">
                         Track order <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
                       </a>
                     </div>
@@ -158,7 +158,7 @@ function TrackOrderPage() {
             {copy.ctaLabel ? (
               <Link
                 to={copy.ctaTo}
-                className="inline-flex h-11 shrink-0 items-center justify-center gap-2 border border-rule px-5 font-mono text-[10px] font-bold uppercase tracking-[0.16em] hover:border-accent hover:text-accent"
+                className="inline-flex h-11 w-full sm:w-auto shrink-0 items-center justify-center gap-2 border border-rule px-5 font-mono text-[10px] font-bold uppercase tracking-[0.16em] hover:border-accent hover:text-accent"
               >
                 {copy.ctaLabel}
               </Link>

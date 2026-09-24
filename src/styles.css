@@ -1,7 +1,6 @@
 @import "tailwindcss" source(none);
 @source "../src/routes";
-@source "../src/components/shopify";
-@source "../src/components/ui/dialog.tsx";
+@source "../src/components";
 @source "../src/lib";
 @import "tw-animate-css";
 

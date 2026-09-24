@@ -119,12 +119,12 @@ export function InfoPage({
         {showHero ? (
           <section
             className={`border-b border-rule bg-charcoal-deep text-white ${
-              compactHero ? "flex min-h-[150px] items-center md:min-h-[180px]" : ""
+              compactHero ? "flex min-h-[140px] items-center md:min-h-[170px]" : ""
             }`}
           >
             <div
               className={`mx-auto max-w-[1200px] px-4 md:px-6 ${
-                compactHero ? "py-8 md:py-10" : "py-12 md:py-16"
+                compactHero ? "py-5 md:py-6" : "py-12 md:py-16"
               }`}
             >
               <div
@@ -135,7 +135,7 @@ export function InfoPage({
               </div>
               <h1
                 className={`max-w-4xl font-display font-extrabold uppercase leading-tight tracking-tight ${
-                  compactHero ? "mt-3 text-3xl md:text-4xl" : "mt-4 text-3xl md:text-5xl"
+                  compactHero ? "mt-2 text-2xl sm:text-3xl md:text-4xl" : "mt-4 text-3xl md:text-5xl"
                 }`}
                 {...(documentPath ? edit(`${documentPath}.title`, "Page heading") : {})}
               >
@@ -257,7 +257,7 @@ export function InfoPage({
             {showCta && renderedCtaLabel ? (
               <Link
                 to={renderedCtaTo}
-                className="inline-flex h-11 items-center justify-center gap-2 bg-accent px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-accent-foreground transition-colors hover:bg-accent/90"
+                className="inline-flex h-11 w-full sm:w-auto items-center justify-center gap-2 bg-accent px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-accent-foreground transition-colors hover:bg-accent/90"
               >
                 {renderedCtaLabel}
                 <ArrowRight className="h-4 w-4" />

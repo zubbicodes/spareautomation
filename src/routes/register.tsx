@@ -121,7 +121,7 @@ function RegisterPage() {
       <SiteHeader />
 
       <main id="main-content" className="mx-auto grid min-w-0 max-w-[1180px] gap-6 px-3 py-6 sm:px-4 sm:py-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:px-6 lg:py-12">
-        <section className="flex min-h-[400px] min-w-0 flex-col justify-between border border-rule bg-charcoal p-5 text-white sm:p-6 md:min-h-[520px] md:p-8 lg:p-10">
+        <section className="flex min-h-0 lg:min-h-[520px] min-w-0 flex-col justify-between border border-rule bg-charcoal p-5 text-white sm:p-6 md:p-8 lg:p-10">
           <div>
             <Link
               to="/"
@@ -129,7 +129,7 @@ function RegisterPage() {
             >
               <ArrowLeft className="h-4 w-4" /> Back to home
             </Link>
-            <div className="mt-12 md:mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40" {...edit(`functional.register.eyebrow`, "Page eyebrow")}>
+            <div className="mt-6 md:mt-12 lg:mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40" {...edit(`functional.register.eyebrow`, "Page eyebrow")}>
               {copy.eyebrow}
             </div>
             <h1 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase leading-none tracking-tight" {...edit(`functional.register.title`, "Page heading")}>
@@ -459,7 +459,7 @@ function PhoneField() {
         <select
           name="countryCode"
           defaultValue="+44"
-          className="h-12 min-w-0 border-r border-rule bg-background px-2 text-xs text-ink outline-none sm:px-3 md:text-sm"
+          className="h-12 min-w-0 border-r border-rule bg-background px-2 text-base sm:text-xs md:text-sm text-ink outline-none sm:px-3"
           aria-label="Phone country code"
         >
           {COUNTRIES.map((country) => (
@@ -474,7 +474,7 @@ function PhoneField() {
           autoComplete="tel-national"
           inputMode="tel"
           placeholder="07911 123456"
-          className="h-12 min-w-0 bg-transparent px-3 text-sm text-ink outline-none placeholder:text-ink-muted md:px-4"
+          className="h-12 min-w-0 bg-transparent px-3 text-base sm:text-sm text-ink outline-none placeholder:text-ink-muted md:px-4"
         />
       </div>
       <span className="text-xs leading-5 text-ink-muted">
@@ -510,7 +510,7 @@ function Field({
         autoComplete={autoComplete}
         minLength={minLength}
         required={required}
-        className="h-12 min-w-0 border border-rule bg-background px-4 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent"
+        className="h-12 min-w-0 border border-rule bg-background px-4 text-base sm:text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent"
       />
     </label>
   );
@@ -575,7 +575,7 @@ function PasswordField({
           required={required}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="h-12 w-full bg-transparent px-4 pr-12 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted"
+          className="h-12 w-full bg-transparent px-4 pr-12 text-base sm:text-sm text-ink outline-none transition-colors placeholder:text-ink-muted"
         />
         <button
           type="button"

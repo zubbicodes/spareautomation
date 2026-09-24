@@ -324,7 +324,7 @@ function QuotePage() {
                 <legend className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-ink-muted">
                   Your details
                 </legend>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <QuoteField label="First name" name="firstName" value={contactDetails.firstName} onChange={(value) => updateContactDetail("firstName", value)} autoComplete="given-name" required />
                   <QuoteField label="Last name" name="lastName" value={contactDetails.lastName} onChange={(value) => updateContactDetail("lastName", value)} autoComplete="family-name" required />
                 </div>
@@ -337,7 +337,7 @@ function QuotePage() {
                     name="additionalInformation"
                     rows={5}
                     maxLength={3000}
-                    className="min-w-0 resize-y border border-rule bg-background px-3 py-3 text-sm font-normal focus:border-accent focus:outline-none"
+                    className="min-w-0 resize-y border border-rule bg-background px-3 py-3 text-base sm:text-sm font-normal focus:border-accent focus:outline-none"
                   />
                 </label>
                 <label className="absolute -left-[9999px]" aria-hidden="true">
@@ -396,7 +396,7 @@ function QuoteField({
         type={type}
         autoComplete={autoComplete}
         required={required}
-        className="h-11 min-w-0 border border-rule bg-background px-3 text-sm font-normal focus:border-accent focus:outline-none"
+        className="h-11 min-w-0 border border-rule bg-background px-3 text-base sm:text-sm font-normal focus:border-accent focus:outline-none"
       />
     </label>
   );

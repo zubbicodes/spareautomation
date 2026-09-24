@@ -259,29 +259,23 @@ function ProductsCataloguePage() {
             <span className="h-px w-8 bg-accent" />
             {heroEyebrow}
           </div>
-          {isAll || !heroTitle ? (
-            <h1
-              className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white"
-              {...edit(`product.listingTitle`, "Listing heading")}
+          <h1
+            className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white"
+            {...edit(`product.listingTitle`, "Listing heading")}
+          >
+            {productCopy.listingTitle}{" "}
+            <span
+              className="text-accent"
+              {...edit(`product.listingHighlight`, "Highlighted word")}
             >
-              {productCopy.listingTitle}{" "}
-              <span
-                className="text-accent"
-                {...edit(`product.listingHighlight`, "Highlighted word")}
-              >
-                {productCopy.listingHighlight}
+              {productCopy.listingHighlight}
+            </span>
+            {heroTitle ? (
+              <span className="mt-1 block font-sans text-xs md:text-sm font-semibold normal-case tracking-normal text-white/85">
+                {heroTitle}
               </span>
-            </h1>
-          ) : (
-            <h1
-              className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white"
-              {...(presentationIndex >= 0 && !isSubcategory
-                ? edit(`catalogue.categories.${presentationIndex}.label`, "Category name")
-                : {})}
-            >
-              {heroTitle}
-            </h1>
-          )}
+            ) : null}
+          </h1>
           {heroIntro ? (
             <p
               className="mt-2 max-w-2xl pr-2 text-xs leading-relaxed text-white/70 md:pr-0 md:text-sm"

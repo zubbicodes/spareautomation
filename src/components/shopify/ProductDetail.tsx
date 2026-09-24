@@ -578,7 +578,7 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
           <div
             role="tablist"
             aria-label="Product support information"
-            className="grid grid-cols-1 border-b border-rule bg-surface sm:grid-cols-3"
+            className="grid grid-cols-3 border-b border-rule bg-surface"
           >
             {tabs.map((tab, tabIndex) => {
               const Icon = tab.icon;
@@ -605,14 +605,14 @@ function ProductResources({ product }: { product: ShopifyProduct }) {
                     setActiveTab(nextTab.id);
                     requestAnimationFrame(() => document.getElementById(`support-tab-${nextTab.id}`)?.focus());
                   }}
-                  className={`relative flex min-h-14 items-center justify-center gap-2 border-rule px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] transition-colors sm:border-r sm:last:border-r-0 ${
+                  className={`relative flex min-h-12 sm:min-h-14 items-center justify-center gap-1.5 sm:gap-2 border-r last:border-r-0 border-rule px-1.5 sm:px-4 font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.08em] sm:tracking-[0.16em] transition-colors ${
                     isActive
                       ? "bg-charcoal-deep text-white after:absolute after:inset-x-0 after:bottom-0 after:h-1 after:bg-accent"
                       : "text-ink-muted hover:bg-background hover:text-accent"
                   }`}
                 >
-                  <Icon className="h-4 w-4" aria-hidden="true" />
-                  {tab.label}
+                  <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" aria-hidden="true" />
+                  <span className="truncate">{tab.label}</span>
                 </button>
               );
             })}

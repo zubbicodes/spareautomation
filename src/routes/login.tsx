@@ -91,7 +91,7 @@ function LoginPage() {
         id="main-content"
         className="mx-auto grid max-w-[1180px] gap-6 px-4 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8 lg:px-6 lg:py-12"
       >
-        <section className="flex min-h-[400px] md:min-h-[520px] flex-col justify-between border border-rule bg-charcoal p-6 text-white md:p-8 lg:p-10">
+        <section className="flex min-h-0 lg:min-h-[520px] flex-col justify-between border border-rule bg-charcoal p-6 text-white md:p-8 lg:p-10">
           <div>
             <Link
               to="/"
@@ -99,7 +99,7 @@ function LoginPage() {
             >
               <ArrowLeft className="h-4 w-4" /> Back to home
             </Link>
-            <div className="mt-12 md:mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40" {...edit(`functional.login.eyebrow`, "Page eyebrow")}>
+            <div className="mt-6 md:mt-12 lg:mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40" {...edit(`functional.login.eyebrow`, "Page eyebrow")}>
               {copy.eyebrow}
             </div>
             <h1 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase leading-none tracking-tight" {...edit(`functional.login.title`, "Page heading")}>
@@ -209,7 +209,7 @@ function Field({
         autoComplete={autoComplete}
         minLength={minLength}
         required={required}
-        className="h-12 border border-rule bg-background px-4 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent"
+        className="h-12 border border-rule bg-background px-4 text-base sm:text-sm text-ink outline-none transition-colors placeholder:text-ink-muted focus:border-accent"
       />
     </label>
   );
@@ -274,7 +274,7 @@ function PasswordField({
           required={required}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="h-12 w-full bg-transparent px-4 pr-12 text-sm text-ink outline-none transition-colors placeholder:text-ink-muted"
+          className="h-12 w-full bg-transparent px-4 pr-12 text-base sm:text-sm text-ink outline-none transition-colors placeholder:text-ink-muted"
         />
         <button
           type="button"

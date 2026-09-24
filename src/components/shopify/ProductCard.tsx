@@ -45,11 +45,11 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="font-mono text-[8px] md:text-[9px] uppercase tracking-[0.24em] text-ink-muted">
             {product.vendor || "Spares Automation"}
           </div>
-          <h3 className="mt-1 md:mt-2 font-display text-[14px] md:text-[16px] font-bold uppercase leading-tight tracking-tight text-ink transition-colors group-hover:text-accent">
+          <h3 className="mt-1 md:mt-2 line-clamp-2 font-display text-[14px] md:text-[16px] font-bold uppercase leading-tight tracking-tight text-ink transition-colors group-hover:text-accent">
             {product.title}
           </h3>
         </Link>
-        <p className="mt-2 md:mt-3 line-clamp-3 text-[12px] md:text-[13px] leading-relaxed text-ink-muted">
+        <p className="mt-2 md:mt-3 line-clamp-2 sm:line-clamp-3 text-[12px] md:text-[13px] leading-relaxed text-ink-muted">
           {product.description || "OEM-grade industrial spare available for online ordering."}
         </p>
         <div className="mt-auto flex items-end justify-between gap-3 md:gap-4 pt-4 md:pt-6">
@@ -64,7 +64,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <AddToCartButton
             variantId={firstAvailableVariant?.id ?? ""}
             disabled={!firstAvailableVariant || !product.availableForSale}
-            className="inline-flex h-9 md:h-10 shrink-0 items-center justify-center gap-2 bg-charcoal px-3 md:px-4 font-mono text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex h-10 shrink-0 items-center justify-center gap-2 bg-charcoal px-3.5 sm:px-4 font-mono text-[9px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
           >
             {product.availableForSale ? "Add" : "Sold Out"}
           </AddToCartButton>

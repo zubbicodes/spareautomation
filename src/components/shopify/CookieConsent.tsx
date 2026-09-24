@@ -69,7 +69,7 @@ export function CookieConsent() {
   return (
     <section
       aria-label="Cookie preferences"
-      className="fixed inset-x-3 bottom-3 z-[100] mx-auto max-w-5xl border border-white/15 bg-charcoal-deep text-white shadow-2xl shadow-black/30 md:inset-x-6 md:bottom-6"
+      className="fixed inset-x-3 bottom-3 z-[100] mx-auto max-h-[calc(100dvh-1.5rem)] max-w-5xl overflow-y-auto border border-white/15 bg-charcoal-deep text-white shadow-2xl shadow-black/30 md:inset-x-6 md:bottom-6"
     >
       <div className="p-5 md:p-6">
         <div className="flex items-start gap-4">
@@ -130,7 +130,7 @@ export function CookieConsent() {
             aria-expanded={showPreferences}
             aria-controls="cookie-preferences"
             onClick={() => setShowPreferences((current) => !current)}
-            className="inline-flex h-11 items-center justify-center gap-2 border border-white/25 px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:border-white"
+            className="inline-flex h-11 w-full sm:w-auto items-center justify-center gap-2 border border-white/25 px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:border-white"
           >
             <Settings2 aria-hidden="true" className="h-4 w-4" />
             {showPreferences ? messages["cookie.hide"] : messages["cookie.manage"]}
@@ -138,7 +138,7 @@ export function CookieConsent() {
           <button
             type="button"
             onClick={() => save(DEFAULT_PREFERENCES)}
-            className="inline-flex h-11 items-center justify-center border border-white/25 px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:border-white"
+            className="inline-flex h-11 w-full sm:w-auto items-center justify-center border border-white/25 px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:border-white"
           >
             {messages["cookie.reject"]}
           </button>
@@ -146,7 +146,7 @@ export function CookieConsent() {
             <button
               type="button"
               onClick={() => save(preferences)}
-              className="inline-flex h-11 items-center justify-center bg-white px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-ink hover:bg-white/90"
+              className="inline-flex h-11 w-full sm:w-auto items-center justify-center bg-white px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-ink hover:bg-white/90"
             >
               {messages["cookie.save"]}
             </button>
@@ -154,7 +154,7 @@ export function CookieConsent() {
           <button
             type="button"
             onClick={() => save({ necessary: true, analytics: true, marketing: true })}
-            className="inline-flex h-11 items-center justify-center bg-accent px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:brightness-110"
+            className="inline-flex h-11 w-full sm:w-auto items-center justify-center bg-accent px-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white hover:brightness-110"
           >
             {messages["cookie.accept"]}
           </button>

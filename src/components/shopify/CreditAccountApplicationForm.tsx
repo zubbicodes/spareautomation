@@ -217,7 +217,7 @@ export function CreditAccountApplicationForm() {
               <button
                 type="submit"
                 disabled={busy || !hydrated}
-                className="inline-flex h-12 items-center justify-center gap-2 bg-accent px-6 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-2 bg-accent px-6 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-white hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Send aria-hidden="true" className="h-4 w-4" /> {busy ? "Submitting" : "Submit application"}
               </button>
@@ -276,7 +276,7 @@ function CreditField({
         required={required}
         placeholder={placeholder}
         inputMode={inputMode}
-        className="h-12 min-w-0 border border-white/25 bg-white/10 px-4 font-sans text-sm normal-case tracking-normal text-white placeholder:text-white/40 focus:border-accent focus:outline-none"
+        className="h-12 min-w-0 border border-white/25 bg-white/10 px-4 font-sans text-base sm:text-sm normal-case tracking-normal text-white placeholder:text-white/40 focus:border-accent focus:outline-none"
       />
     </label>
   );
@@ -301,7 +301,7 @@ function CreditTextarea({
         rows={3}
         autoComplete={autoComplete}
         required={required}
-        className="min-w-0 resize-y border border-white/25 bg-white/10 px-4 py-3 font-sans text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none"
+        className="min-w-0 resize-y border border-white/25 bg-white/10 px-4 py-3 font-sans text-base sm:text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none"
       />
     </label>
   );

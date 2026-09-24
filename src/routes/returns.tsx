@@ -55,13 +55,13 @@ function ReturnsPage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href="#return-request"
-                className="inline-flex h-12 items-center gap-2 bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:brightness-110"
+                className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-2 bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:brightness-110"
               >
                 Start a return <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>
               <Link
                 to="/account"
-                className="inline-flex h-12 items-center border border-white/30 px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:border-white"
+                className="inline-flex h-12 w-full sm:w-auto items-center justify-center border border-white/30 px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white hover:border-white"
               >
                 View order history
               </Link>
