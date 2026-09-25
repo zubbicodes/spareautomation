@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import {
+  ChevronRight,
   CreditCard,
   Globe,
   Menu,
@@ -131,7 +132,7 @@ export function SiteHeader() {
                 name="q"
                 type="search"
                 placeholder="Search products or part number"
-                className="min-w-0 flex-1 bg-transparent px-3 font-mono text-[12px] tracking-wide text-white placeholder:text-white/70 focus:outline-none md:text-[13px]"
+                className="min-w-0 flex-1 bg-transparent px-3 font-mono text-base tracking-wide text-white placeholder:text-white/70 focus:outline-none sm:text-[12px] md:text-[13px]"
               />
               <button
                 type="submit"
@@ -171,24 +172,34 @@ export function SiteHeader() {
         <nav
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="border-b border-white/10 bg-charcoal-deep px-4 py-4 xl:hidden"
+          className="border-b border-white/10 bg-charcoal-deep px-4 py-4 xl:hidden animate-in fade-in duration-150"
         >
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {navigation.map((item) => (
               <Link
                 key={item.id}
                 {...navTarget(item.to)}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex min-h-12 items-center border border-white/20 px-3 font-display text-sm font-bold uppercase leading-tight text-white/85 hover:border-accent hover:text-white"
+                className="flex min-h-12 items-center justify-between border border-white/20 bg-white/[0.03] px-3.5 py-2 font-display text-xs sm:text-sm font-bold uppercase leading-snug text-white/90 hover:border-accent hover:bg-white/[0.08] hover:text-white transition-colors"
               >
                 <span {...edit(`navigation.header.${item.index}.label`, "Menu label")}>
                   {item.label}
                 </span>
+                <ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0 text-accent" />
               </Link>
             ))}
           </div>
-          <div className="mt-3 grid gap-3 border-t border-white/10 pt-3">
-            <AccountApplicationLinks mobile />
+          <div className="mt-4 grid gap-3 border-t border-white/10 pt-4">
+            <div className="flex flex-col sm:flex-row gap-2">
+              <a
+                href={`tel:${content.site.phoneHref}`}
+                className="flex min-h-11 flex-1 items-center justify-center gap-2 border border-white/15 bg-white/[0.03] px-3 font-mono text-xs uppercase tracking-[0.14em] text-white/80 hover:border-accent hover:text-white"
+              >
+                <Phone aria-hidden="true" className="h-3.5 w-3.5 text-accent" />
+                {content.site.phoneDisplay}
+              </a>
+              <AccountApplicationLinks mobile />
+            </div>
             <AccountLinks customer={customer} accountLabel={accountLabel} mobile />
           </div>
         </nav>
@@ -234,13 +245,13 @@ function CartLink({ count }: { count: number }) {
 
 function AccountApplicationLinks({ mobile = false }: { mobile?: boolean }) {
   const className = mobile
-    ? "flex min-h-11 items-center border border-white/10 px-3 text-sm text-white/75 hover:border-accent hover:text-white"
+    ? "flex min-h-11 flex-1 items-center justify-center border border-white/15 bg-white/[0.03] px-3 font-mono text-xs uppercase tracking-[0.12em] text-white/80 hover:border-accent hover:text-white"
     : "flex min-h-7 items-center text-white/75 hover:text-white";
 
   return (
-    <div className={mobile ? "grid grid-cols-1 gap-2" : "flex items-center gap-5"}>
+    <div className={mobile ? "flex flex-1" : "flex items-center gap-5"}>
       <Link to="/credit-account" className={`${className} gap-1.5`}>
-        <CreditCard aria-hidden="true" className="h-4 w-4 shrink-0" />
+        <CreditCard aria-hidden="true" className="h-4 w-4 shrink-0 text-accent" />
         Open Credit Account
       </Link>
     </div>
@@ -257,23 +268,23 @@ function AccountLinks({
   mobile?: boolean;
 }) {
   const className = mobile
-    ? "flex min-h-11 items-center gap-2 text-sm text-white/75 hover:text-white"
+    ? "flex min-h-11 items-center justify-center border border-white/15 bg-white/[0.03] px-3 font-mono text-xs uppercase tracking-[0.14em] text-white/80 hover:border-accent hover:text-white"
     : "flex min-h-7 items-center gap-1.5 text-white/75 hover:text-white";
   if (customer)
     return (
       <Link to="/account" className={className}>
-        <User aria-hidden="true" className="h-4 w-4" />
+        <User aria-hidden="true" className="h-4 w-4 text-accent" />
         {accountLabel}
       </Link>
     );
   return (
     <div className={mobile ? "grid grid-cols-2 gap-2" : "flex items-center gap-5"}>
       <Link to="/login" className={className}>
-        <User aria-hidden="true" className="h-4 w-4" />
+        <User aria-hidden="true" className="h-4 w-4 text-accent" />
         Sign in
       </Link>
       <Link to="/register" className={className}>
-        <UserPlus aria-hidden="true" className="h-4 w-4" />
+        <UserPlus aria-hidden="true" className="h-4 w-4 text-accent" />
         Register
       </Link>
     </div>

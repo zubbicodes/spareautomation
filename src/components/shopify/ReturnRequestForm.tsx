@@ -367,7 +367,7 @@ export function ReturnRequestForm() {
               name="contactName"
               required
               defaultValue={customer.displayName ?? ""}
-              className="h-12 border border-rule bg-background px-4 text-sm outline-none focus:border-accent"
+              className="h-12 border border-rule bg-background px-4 text-base sm:text-sm outline-none focus:border-accent"
             />
           </label>
           <label className="grid gap-2">
@@ -379,7 +379,7 @@ export function ReturnRequestForm() {
               type="email"
               required
               defaultValue={customer.email ?? ""}
-              className="h-12 border border-rule bg-background px-4 text-sm outline-none focus:border-accent"
+              className="h-12 border border-rule bg-background px-4 text-base sm:text-sm outline-none focus:border-accent"
             />
           </label>
           <label className="grid gap-2">
@@ -390,7 +390,7 @@ export function ReturnRequestForm() {
               name="phone"
               type="tel"
               defaultValue={customer.phone ?? ""}
-              className="h-12 border border-rule bg-background px-4 text-sm outline-none focus:border-accent"
+              className="h-12 border border-rule bg-background px-4 text-base sm:text-sm outline-none focus:border-accent"
             />
           </label>
           <label className="grid gap-2">
@@ -399,7 +399,7 @@ export function ReturnRequestForm() {
             </span>
             <input
               name="company"
-              className="h-12 border border-rule bg-background px-4 text-sm outline-none focus:border-accent"
+              className="h-12 border border-rule bg-background px-4 text-base sm:text-sm outline-none focus:border-accent"
             />
           </label>
           <label className="grid gap-2 md:col-span-2">
@@ -409,7 +409,7 @@ export function ReturnRequestForm() {
             <select
               name="resolution"
               required
-              className="h-12 border border-rule bg-background px-4 text-sm outline-none focus:border-accent"
+              className="h-12 border border-rule bg-background px-4 text-base sm:text-sm outline-none focus:border-accent"
             >
               <option value="refund">Refund</option>
               <option value="replacement">Replacement</option>
@@ -424,7 +424,7 @@ export function ReturnRequestForm() {
             <textarea
               name="collectionAddress"
               rows={3}
-              className="resize-y border border-rule bg-background px-4 py-3 text-sm outline-none focus:border-accent"
+              className="resize-y border border-rule bg-background px-4 py-3 text-base sm:text-sm outline-none focus:border-accent"
             />
           </label>
           <label className="grid gap-2 md:col-span-2">
@@ -434,7 +434,7 @@ export function ReturnRequestForm() {
             <textarea
               name="notes"
               rows={3}
-              className="resize-y border border-rule bg-background px-4 py-3 text-sm outline-none focus:border-accent"
+              className="resize-y border border-rule bg-background px-4 py-3 text-base sm:text-sm outline-none focus:border-accent"
             />
           </label>
           <label className="hidden" aria-hidden="true">
@@ -455,7 +455,7 @@ export function ReturnRequestForm() {
         ) : null}
         <button
           disabled={busy}
-          className="inline-flex h-13 items-center justify-center gap-2 bg-accent px-6 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white hover:brightness-110 disabled:opacity-60"
+          className="inline-flex h-13 w-full sm:w-auto items-center justify-center gap-2 bg-accent px-6 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white hover:brightness-110 disabled:opacity-60"
         >
           {busy ? (
             <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" />

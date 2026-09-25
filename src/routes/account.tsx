@@ -101,7 +101,7 @@ function AccountPage() {
             </p>
             <Link
               to="/login"
-              className="mt-6 md:mt-8 inline-flex h-11 items-center justify-center bg-accent px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-accent-foreground transition-colors hover:bg-accent/90"
+              className="mt-6 md:mt-8 inline-flex h-11 w-full sm:w-auto items-center justify-center bg-accent px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-accent-foreground transition-colors hover:bg-accent/90"
             >
               Sign in
             </Link>
@@ -157,7 +157,7 @@ function AccountPage() {
                 </p>
                 <Link
                   to="/quote"
-                  className="mt-4 inline-flex h-11 items-center justify-center bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white"
+                  className="mt-4 inline-flex h-11 w-full sm:w-auto items-center justify-center bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white"
                 >
                   Build a quote for invoicing
                 </Link>
@@ -195,7 +195,7 @@ function AccountPage() {
                   </p>
                   <Link
                     to="/track-order"
-                    className="mt-5 inline-flex h-11 items-center justify-center bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white"
+                    className="mt-5 inline-flex h-11 w-full sm:w-auto items-center justify-center bg-accent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white"
                   >
                     Request an order update
                   </Link>
@@ -208,7 +208,7 @@ function AccountPage() {
                   <Link
                     to="/products"
                     search={{ category: "all", availability: "all", sort: "newest" }}
-                    className="mt-5 inline-flex h-11 items-center justify-center border border-rule px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-ink hover:border-accent hover:text-accent"
+                    className="mt-5 inline-flex h-11 w-full sm:w-auto items-center justify-center border border-rule px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-ink hover:border-accent hover:text-accent"
                   >
                     Browse products
                   </Link>
@@ -255,7 +255,7 @@ function AccountPage() {
                         <div className="flex flex-wrap gap-2 lg:justify-end">
                           <a
                             href={`/returns?order=${encodeURIComponent(order.name)}#return-request`}
-                            className="inline-flex h-10 items-center justify-center gap-2 bg-accent px-4 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-white hover:brightness-110"
+                            className="inline-flex h-10 w-full sm:w-auto items-center justify-center gap-2 bg-accent px-4 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-white hover:brightness-110"
                           >
                             Return items <RotateCcw aria-hidden="true" className="h-3.5 w-3.5" />
                           </a>
@@ -263,7 +263,7 @@ function AccountPage() {
                             href={order.statusUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex h-10 items-center justify-center gap-2 border border-accent px-4 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-accent hover:bg-accent hover:text-white"
+                            className="inline-flex h-10 w-full sm:w-auto items-center justify-center gap-2 border border-accent px-4 font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-accent hover:bg-accent hover:text-white"
                           >
                             Order status <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
                           </a>

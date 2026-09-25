@@ -151,15 +151,15 @@ export function SupportRequestForm({ kind }: { kind: RequestKind }) {
             </label>
             <label className="grid gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/80">
               {messages[`support.${kind}.referenceLabel`]}
-              <input name="reference" required className="h-12 min-w-0 border border-white/25 bg-white/10 px-4 font-sans text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none" />
+              <input name="reference" required className="h-12 min-w-0 border border-white/25 bg-white/10 px-4 font-sans text-base sm:text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none" />
             </label>
             <label className="grid gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/80">
               {messages["support.emailLabel"]}
-              <input name="email" type="email" required className="h-12 min-w-0 border border-white/25 bg-white/10 px-4 font-sans text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none" />
+              <input name="email" type="email" required className="h-12 min-w-0 border border-white/25 bg-white/10 px-4 font-sans text-base sm:text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none" />
             </label>
             <label className="grid gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/80 md:col-span-2">
               {messages[`support.${kind}.detailsLabel`]}
-              <textarea name="details" rows={4} required={kind !== "unsubscribe"} className="min-w-0 resize-y border border-white/25 bg-white/10 px-4 py-3 font-sans text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none" />
+              <textarea name="details" rows={4} required={kind !== "unsubscribe"} className="min-w-0 resize-y border border-white/25 bg-white/10 px-4 py-3 font-sans text-base sm:text-sm normal-case tracking-normal text-white focus:border-accent focus:outline-none" />
             </label>
 
             {kind === "question" ? (
@@ -211,7 +211,7 @@ export function SupportRequestForm({ kind }: { kind: RequestKind }) {
               </div>
             ) : null}
 
-            <button type="submit" disabled={busy || !hydrated} className="inline-flex h-12 items-center justify-center gap-2 bg-accent px-6 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60 md:w-fit">
+            <button type="submit" disabled={busy || !hydrated} className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-2 bg-accent px-6 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60 md:w-fit">
               <Send aria-hidden="true" className="h-4 w-4" />{" "}
               {busy ? messages["support.sending"] : messages["support.submit"]}
             </button>

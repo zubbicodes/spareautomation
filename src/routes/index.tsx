@@ -208,7 +208,7 @@ export function Home() {
           {displayedPrimaryRanges.map((range, index) => (
             <article
               key={range.title}
-              className="hero-range group relative flex min-h-[390px] items-stretch overflow-hidden border-b border-rule md:min-h-[460px]"
+              className="hero-range group relative flex min-h-[440px] sm:min-h-[470px] md:min-h-[480px] items-stretch overflow-hidden border-b border-rule"
             >
               <img
                 src={range.img}
@@ -222,7 +222,7 @@ export function Home() {
               <div className="absolute inset-0 bg-charcoal-deep/45" />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/55 to-charcoal-deep/10" />
 
-              <div className="relative z-10 flex min-h-[390px] min-w-0 w-full flex-col justify-end gap-4 p-4 md:min-h-[460px] md:gap-6 md:p-8 lg:p-10">
+              <div className="relative z-10 flex min-h-[440px] sm:min-h-[470px] min-w-0 w-full flex-col justify-end gap-3 p-3.5 sm:p-5 md:min-h-[480px] md:gap-6 md:p-8 lg:p-10">
                 <div className="hero-range-title flex min-w-0 flex-col justify-end transition-all duration-500">
                   <Link
                     to="/products"
@@ -230,7 +230,7 @@ export function Home() {
                     className="block max-w-xl focus-visible:outline-white"
                   >
                     <h2
-                      className="break-words font-display text-[clamp(2rem,4.2vw,3.4rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white"
+                      className="break-words font-display text-[clamp(1.65rem,4.2vw,3.4rem)] font-extrabold uppercase leading-[0.95] tracking-tight text-white"
                       {...edit(`catalogue.ranges.${index}.title`, "Hero panel title")}
                     >
                       <HeroTitle title={range.title} accent={range.accent as "accent" | "amber"} />
@@ -238,22 +238,22 @@ export function Home() {
                   </Link>
                 </div>
 
-                <div className="hero-range-panel z-20 overflow-hidden border border-white/25 bg-charcoal-deep/92 shadow-2xl shadow-black/40 backdrop-blur-md transition-all duration-500 md:absolute md:inset-x-8 md:inset-y-8 md:flex md:flex-col md:bg-charcoal-deep/70 md:shadow-none md:backdrop-blur-sm lg:inset-x-10">
-                  <div className="grid min-h-0 grid-cols-2 gap-1 p-2 md:grid-rows-3 md:gap-1.5 md:p-2.5">
+                <div className="hero-range-panel z-20 overflow-hidden border border-white/25 bg-charcoal-deep/95 shadow-2xl shadow-black/40 backdrop-blur-md transition-all duration-500 md:absolute md:inset-x-8 md:inset-y-8 md:flex md:flex-col md:bg-charcoal-deep/70 md:shadow-none md:backdrop-blur-sm lg:inset-x-10">
+                  <div className="grid min-h-0 grid-cols-2 gap-1 p-1.5 sm:gap-1.5 sm:p-2.5 md:grid-rows-3">
                     {range.lines.map((line, lineIndex) => (
                       <Link
                         key={line.label}
                         to="/products"
                         search={getCatalogueSearch(line.category)}
-                        className={`group/item grid min-h-[62px] grid-cols-[1fr_auto] items-center border border-white/12 bg-charcoal-deep/72 px-3 py-2.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-sm transition-colors md:min-h-[64px] md:px-4 ${
+                        className={`group/item grid min-h-[54px] sm:min-h-[64px] grid-cols-[1fr_auto] items-center border border-white/12 bg-charcoal-deep/80 px-2 py-1.5 sm:px-3 sm:py-2.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-sm transition-colors ${
                           range.accent === "amber"
                             ? "hover:border-amber hover:bg-amber/10 focus-visible:border-amber"
                             : "hover:border-accent hover:bg-accent/15 focus-visible:border-accent"
                         }`}
                       >
-                        <span className="min-w-0">
+                        <span className="min-w-0 pr-1">
                           <span
-                            className="block break-words text-sm font-bold leading-tight text-white"
+                            className="block break-words text-xs sm:text-sm font-bold leading-tight text-white"
                             {...edit(
                               `catalogue.ranges.${index}.lines.${lineIndex}.label`,
                               "Product line name",
@@ -262,7 +262,7 @@ export function Home() {
                             {line.label}
                           </span>
                           <span
-                            className="mt-1 block truncate font-mono text-[9px] uppercase tracking-[0.12em] text-white/50"
+                            className="mt-0.5 block truncate font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.1em] text-white/50"
                             {...edit(
                               `catalogue.ranges.${index}.lines.${lineIndex}.meta`,
                               "Product line description",
@@ -272,7 +272,7 @@ export function Home() {
                           </span>
                         </span>
                         <ChevronRight
-                          className={`ml-3 h-3 w-3 shrink-0 transition-transform group-hover/item:translate-x-0.5 ${
+                          className={`ml-1.5 sm:ml-3 h-3 w-3 shrink-0 transition-transform group-hover/item:translate-x-0.5 ${
                             range.accent === "amber" ? "text-amber" : "text-accent"
                           }`}
                         />
@@ -294,13 +294,13 @@ export function Home() {
           ))}
         </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {displayedCategories.map((category) => (
             <Link
               key={category.title}
               to="/products"
               search={getCatalogueSearch(category.category)}
-              className="group flex min-h-[360px] flex-col border-b border-rule bg-surface lg:border-l"
+              className="group flex min-h-[280px] sm:min-h-[320px] md:min-h-[360px] flex-col border-b border-rule bg-surface lg:border-l"
             >
               <div className="relative flex-1 overflow-hidden bg-[oklch(0.96_0.005_250)]">
                 <img
@@ -313,10 +313,10 @@ export function Home() {
                   className="h-full w-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
-              <div className="flex items-center justify-between border-t border-rule px-5 py-5 transition-colors group-hover:bg-charcoal-deep group-hover:text-white">
+              <div className="flex items-center justify-between border-t border-rule px-4 py-4 sm:px-5 sm:py-5 transition-colors group-hover:bg-charcoal-deep group-hover:text-white">
                 <div>
                   <h2
-                    className="font-display text-[15px] font-bold uppercase tracking-tight"
+                    className="font-display text-[14px] sm:text-[15px] font-bold uppercase tracking-tight"
                     {...edit(`catalogue.tiles.${category.tileIndex}.title`, "Category tile title")}
                   >
                     {category.title}
@@ -433,7 +433,7 @@ export function Home() {
                           type="text"
                           autoComplete="name"
                           placeholder={content.messages["part.namePlaceholder"]}
-                          className="h-12 w-full border border-white/20 bg-white/10 px-4 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
+                          className="h-12 w-full border border-white/20 bg-white/10 px-4 text-base sm:text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                         />
                       </div>
                       <div>
@@ -450,7 +450,7 @@ export function Home() {
                           autoComplete="email"
                           required
                           placeholder={content.messages["part.emailPlaceholder"]}
-                          className="h-12 w-full border border-white/20 bg-white/10 px-4 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
+                          className="h-12 w-full border border-white/20 bg-white/10 px-4 text-base sm:text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                         />
                       </div>
                     </div>
@@ -467,7 +467,7 @@ export function Home() {
                         type="text"
                         required
                         placeholder={content.messages["part.numberPlaceholder"]}
-                        className="h-12 w-full border border-white/20 bg-white/10 px-4 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
+                        className="h-12 w-full border border-white/20 bg-white/10 px-4 text-base sm:text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                       />
                     </div>
                     <div>
@@ -482,7 +482,7 @@ export function Home() {
                         name="description"
                         rows={3}
                         placeholder={content.messages["part.descriptionPlaceholder"]}
-                        className="w-full resize-y border border-white/20 bg-white/10 px-4 py-3 text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
+                        className="w-full resize-y border border-white/20 bg-white/10 px-4 py-3 text-base sm:text-sm text-white transition-colors placeholder:text-white/40 focus:border-accent focus:outline-none"
                       />
                     </div>
                     <div>
@@ -492,14 +492,14 @@ export function Home() {
                       >
                         {content.messages["part.photoLabel"]}
                       </label>
-                      <div className="flex items-center gap-3 border border-white/20 bg-white/10 px-4 py-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-3 border border-white/20 bg-white/10 p-3 sm:px-4 sm:py-3">
                         <Paperclip aria-hidden="true" className="h-4 w-4 shrink-0 text-white/50" />
                         <input
                           id="part-photo"
                           name="photo"
                           type="file"
                           accept="image/jpeg,image/png,image/webp"
-                          className="w-full text-sm text-white/80 file:mr-3 file:border-0 file:bg-accent file:px-3 file:py-1.5 file:font-mono file:text-[10px] file:font-bold file:uppercase file:tracking-[0.14em] file:text-white"
+                          className="w-full text-xs sm:text-sm text-white/80 file:mr-3 file:border-0 file:bg-accent file:px-3 file:py-1.5 file:font-mono file:text-[10px] file:font-bold file:uppercase file:tracking-[0.14em] file:text-white"
                         />
                       </div>
                       <p className="mt-1 text-xs text-white/45">{content.messages["part.photoHelp"]}</p>

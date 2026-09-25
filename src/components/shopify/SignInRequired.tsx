@@ -21,13 +21,13 @@ export function SignInRequired({
         <Link
           to="/login"
           search={{ redirect }}
-          className="inline-flex h-11 items-center justify-center bg-accent px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-accent-foreground transition-colors hover:bg-accent/90"
+          className="inline-flex h-11 w-full sm:w-auto items-center justify-center bg-accent px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-accent-foreground transition-colors hover:bg-accent/90"
         >
           Sign in
         </Link>
         <Link
           to="/register"
-          className="inline-flex h-11 items-center justify-center border border-rule px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-ink transition-colors hover:border-accent hover:text-accent"
+          className="inline-flex h-11 w-full sm:w-auto items-center justify-center border border-rule px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-ink transition-colors hover:border-accent hover:text-accent"
         >
           Register
         </Link>

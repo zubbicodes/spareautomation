@@ -118,7 +118,7 @@ function CartPage() {
           </div>
           <Link
             to="/"
-            className="inline-flex h-11 items-center justify-center border border-rule px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-ink transition-colors hover:border-accent hover:text-accent"
+            className="inline-flex h-11 w-full sm:w-auto items-center justify-center border border-rule px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-ink transition-colors hover:border-accent hover:text-accent"
           >
             Continue browsing
           </Link>
@@ -183,11 +183,11 @@ function CartPage() {
                         disabled={busyLineId === line.id || line.quantity <= 1}
                         onClick={() => updateLine(line.id, line.quantity - 1)}
                         aria-label={`Decrease quantity of ${line.merchandise.product.title}`}
-                        className="flex h-8 w-8 md:h-9 md:w-9 items-center justify-center border border-rule text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
+                        className="flex h-9 w-9 items-center justify-center border border-rule text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
                       >
-                        <Minus className="h-3 w-3 md:h-4 md:w-4" />
+                        <Minus className="h-3.5 w-3.5" />
                       </button>
-                      <span className="flex h-8 min-w-10 md:h-9 md:min-w-12 items-center justify-center border border-rule px-2 md:px-3 font-mono text-sm">
+                      <span className="flex h-9 min-w-11 items-center justify-center border border-rule px-2 font-mono text-sm">
                         {line.quantity}
                       </span>
                       <button
@@ -195,22 +195,22 @@ function CartPage() {
                         disabled={busyLineId === line.id || line.quantity >= 99}
                         onClick={() => updateLine(line.id, line.quantity + 1)}
                         aria-label={`Increase quantity of ${line.merchandise.product.title}`}
-                        className="flex h-8 w-8 md:h-9 md:w-9 items-center justify-center border border-rule text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
+                        className="flex h-9 w-9 items-center justify-center border border-rule text-ink transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
                       >
-                        <Plus className="h-3 w-3 md:h-4 md:w-4" />
+                        <Plus className="h-3.5 w-3.5" />
                       </button>
                       <button
                         type="button"
                         disabled={busyLineId === line.id}
                         onClick={() => removeLine(line.id)}
                         aria-label={`Remove ${line.merchandise.product.title} from cart`}
-                        className="ml-2 flex h-8 w-8 md:h-9 md:w-9 items-center justify-center border border-rule text-ink-muted transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
+                        className="ml-auto sm:ml-2 flex h-9 w-9 items-center justify-center border border-rule text-ink-muted transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
                       >
-                        <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
+                        <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
                   </div>
-                  <div className="col-span-2 mt-3 flex justify-between md:col-span-1 md:mt-0 md:text-right">
+                  <div className="col-span-2 mt-3 flex items-center justify-between border-t border-rule/60 pt-3 md:pt-4 lg:col-span-1 lg:mt-0 lg:flex-col lg:items-end lg:justify-start lg:border-t-0 lg:pt-0 lg:text-right">
                     <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
                       Line total
                     </div>
