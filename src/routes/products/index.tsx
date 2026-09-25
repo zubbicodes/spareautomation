@@ -259,23 +259,38 @@ function ProductsCataloguePage() {
             <span className="h-px w-8 bg-accent" />
             {heroEyebrow}
           </div>
-          <h1
-            className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white"
-            {...edit(`product.listingTitle`, "Listing heading")}
-          >
-            {productCopy.listingTitle}{" "}
-            <span
-              className="text-accent"
-              {...edit(`product.listingHighlight`, "Highlighted word")}
+          {isAll || !heroTitle ? (
+            <h1
+              className="break-words font-display text-[clamp(1.45rem,5vw,2.25rem)] font-extrabold uppercase leading-none tracking-tight text-white"
+              {...edit(`product.listingTitle`, "Listing heading")}
             >
-              {productCopy.listingHighlight}
-            </span>
-            {heroTitle ? (
-              <span className="mt-1 block font-sans text-xs md:text-sm font-semibold normal-case tracking-normal text-white/85">
+              {productCopy.listingTitle}{" "}
+              <span
+                className="text-accent"
+                {...edit(`product.listingHighlight`, "Highlighted word")}
+              >
+                {productCopy.listingHighlight}
+              </span>
+            </h1>
+          ) : (
+            <h1
+              className="break-words font-display leading-tight tracking-tight text-white"
+              {...(presentationIndex >= 0 && !isSubcategory
+                ? edit(`catalogue.categories.${presentationIndex}.label`, "Category name")
+                : {})}
+            >
+              <span className="block font-display text-[clamp(1.55rem,5.2vw,2.4rem)] font-extrabold uppercase text-white">
                 {heroTitle}
               </span>
-            ) : null}
-          </h1>
+              <span className="mt-1.5 flex items-center gap-2 font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-white/70">
+                <span className="h-px w-4 bg-accent" />
+                <span>
+                  {productCopy.listingTitle}{" "}
+                  <span className="text-accent">{productCopy.listingHighlight}</span>
+                </span>
+              </span>
+            </h1>
+          )}
           {heroIntro ? (
             <p
               className="mt-2 max-w-2xl pr-2 text-xs leading-relaxed text-white/70 md:pr-0 md:text-sm"
